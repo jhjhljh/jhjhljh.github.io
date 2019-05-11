@@ -116,7 +116,7 @@
 <meta property="og:description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://jhjhljh.github.io/DataStructure/2019/05/10/DataStructure-02/faded.jpg">
-<meta property="og:updated_time" content="2019-05-10T12:07:27.560Z">
+<meta property="og:updated_time" content="2019-05-11T07:05:24.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-栈与队列">
 <meta name="twitter:description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点">
@@ -547,7 +547,7 @@ $(function() {
 <a id="more"></a>
 <hr>
 
-<ul>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><ul>
 <li>前言：<blockquote>
 <p>栈(stack)是限定仅在表尾进行插入和删除操作的线性表</p>
 <blockquote>
@@ -638,7 +638,8 @@ $(function() {
 <p>链栈的进栈push和出栈pop操作都很简单，没有任何循环操作，时间复杂度均为O(1)</p>
 </blockquote>
 <hr>
-<h3 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h3><ul>
+<p>栈的应用</p>
+<ul>
 <li>递归之斐波那契数列(Fibonacci)<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*迭代法实现*/</span></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    int a[<span class="number">40</span>];</span><br><span class="line">    a[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    a[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    printf(<span class="string">"%d"</span>,a[<span class="number">0</span>]);</span><br><span class="line">    printf(<span class="string">"%d"</span>,a[<span class="number">1</span>]);</span><br><span class="line">    for(i=<span class="number">2</span>;i&lt;<span class="number">40</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        a[i]=a[i<span class="number">-1</span>]+a[i<span class="number">-2</span>];</span><br><span class="line">        printf(<span class="string">"%d"</span>,a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -728,7 +729,7 @@ $(function() {
 </blockquote>
 </blockquote>
 <hr>
-<h2 id="总结回顾"><a href="#总结回顾" class="headerlink" title="总结回顾"></a>总结回顾</h2><p>stack跟queue均可以用线性表的顺序存储结构来实现，但是都存在着顺序存储的一些弊端,由此它们各自有各自的技巧解决问题</p>
+<h4 id="总结回顾"><a href="#总结回顾" class="headerlink" title="总结回顾"></a>总结回顾</h4><p>stack跟queue均可以用线性表的顺序存储结构来实现，但是都存在着顺序存储的一些弊端,由此它们各自有各自的技巧解决问题</p>
 <ul>
 <li>对于栈来说，如果是两个相同数据类型的栈，则可以用数组的两端作栈底的方法来让两个栈共享数据，这就可以最大化利用数组的空间。</li>
 <li>对于队列来说，未来避免数组插入和删除时需要移动数据，则引入了循环队列，使得本来插入和删除是O(n)的时间复杂度变成了O(1)<br>它们也可以通过链式存储结构来实现，实现原则跟线性表差不多。</li>
@@ -754,7 +755,7 @@ $(function() {
 
     <div>
       
-        
+        ﻿
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
     <div>🐶 您的支持将鼓励我继续创作 🐶</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
@@ -807,7 +808,7 @@ $(function() {
 
         <li class="post-copyright-license">
           <strong>版权声明： </strong>
-          本文由 林加鸿 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+          本文由 林加鸿 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> 
         </li>
       </ul>
     
@@ -825,6 +826,10 @@ $(function() {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/git/2019/05/11/git.html" rel="prev" title="git">
+                git <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -885,7 +890,9 @@ $(function() {
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
           <img class="site-author-image" itemprop="image" src="/images/Abo.gif" alt="林加鸿">
+</a>
           <p class="site-author-name" itemprop="name">林加鸿</p>
           <p class="site-description motion-element" itemprop="description">阿波的个人博客，主要涉及到编程（Java，Python，Linux等），个人提升学习，图文算法分享，记书写读书笔记为主</p>
         </div>
@@ -894,7 +901,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -903,7 +910,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -912,7 +919,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -1017,7 +1024,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的抽象数据类型"><span class="nav-number">1.</span> <span class="nav-text">栈的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的顺序存储结构及实现"><span class="nav-number">2.</span> <span class="nav-text">栈的顺序存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两栈共享空间"><span class="nav-number">3.</span> <span class="nav-text">两栈共享空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的链式存储结构及实现"><span class="nav-number">4.</span> <span class="nav-text">栈的链式存储结构及实现</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的应用"><span class="nav-number"></span> <span class="nav-text">栈的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的定义"><span class="nav-number">1.</span> <span class="nav-text">队列的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的抽象数据类型"><span class="nav-number">2.</span> <span class="nav-text">队列的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列"><span class="nav-number">3.</span> <span class="nav-text">循环队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的链式存储结构及实现"><span class="nav-number">4.</span> <span class="nav-text">队列的链式存储结构及实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结回顾"><span class="nav-number"></span> <span class="nav-text">总结回顾</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的抽象数据类型"><span class="nav-number">2.</span> <span class="nav-text">栈的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的顺序存储结构及实现"><span class="nav-number">3.</span> <span class="nav-text">栈的顺序存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两栈共享空间"><span class="nav-number">4.</span> <span class="nav-text">两栈共享空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的链式存储结构及实现"><span class="nav-number">5.</span> <span class="nav-text">栈的链式存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的定义"><span class="nav-number">6.</span> <span class="nav-text">队列的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的抽象数据类型"><span class="nav-number">7.</span> <span class="nav-text">队列的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列"><span class="nav-number">8.</span> <span class="nav-text">循环队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的链式存储结构及实现"><span class="nav-number">9.</span> <span class="nav-text">队列的链式存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结回顾"><span class="nav-number">10.</span> <span class="nav-text">总结回顾</span></a></li></ol></div>
             
 
           </div>
@@ -1038,7 +1045,7 @@ $(function() {
         <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div class="copyright">
   
-  &copy;  2014 - 
+  &copy;  2018 - 
   <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="heart">
     <i class="fa fa-heart"></i>
@@ -1047,17 +1054,6 @@ $(function() {
 </div>
 
 
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
-    NexT.Mist
-  </a>| Hosted by <a href="https://github.com" style="font-weight: bold">Github</a>
-</div>
 
 
 
