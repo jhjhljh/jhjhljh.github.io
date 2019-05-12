@@ -1897,7 +1897,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #676544;
+  background: #1dffe8;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2757,7 +2757,7 @@ hr {
   float: right;
 }
 .menu {
-  float: right;
+  text-align: center;
   margin: 8px 0 0 0;
 }
 @media (max-width: 767px) {
@@ -2962,6 +2962,10 @@ hr {
 }
 .header {
   line-height: 1.5;
+  -webkit-box-shadow: 0 0 30px rgba(202,203,203,0.5);
+}
+.menu .menu-item a {
+  font-size: 15px;
 }
 .description {
   margin-top: 20px;
