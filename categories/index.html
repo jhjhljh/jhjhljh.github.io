@@ -10,6 +10,20 @@
   ﻿<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
 
 
 
@@ -93,8 +107,6 @@
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
@@ -404,10 +416,10 @@ $(function() {
     
       <div class="category-all-page">
         <div class="category-all-title">
-            目前共计 8 个分类
+            目前共计 9 个分类
         </div>
         <div class="category-all">
-          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DataStructure/">DataStructure</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue-js/">Vue.js</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/canvas/">canvas</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web开发/">web开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/吹水/">吹水</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/练习/">练习</a><span class="category-list-count">1</span></li></ul>
+          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DataStructure/">DataStructure</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue-js/">Vue.js</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/canvas/">canvas</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web开发/">web开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/吹水/">吹水</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/练习/">练习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/观影有感/">观影有感</a><span class="category-list-count">1</span></li></ul>
         </div>
       </div>
     
@@ -452,7 +464,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -461,7 +473,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -470,7 +482,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
