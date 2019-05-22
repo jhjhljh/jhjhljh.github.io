@@ -1,1 +1,1877 @@
-<!doctype html><html class="theme-next muse use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"> ﻿<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><script></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css"><link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css"><meta name="keywords" content="树,课设,"><link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="http://prc4nro7n.bkt.clouddn.com/favicon.ico?v=5.1.3"><meta name="description" content="当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ"><meta name="keywords" content="树,课设"><meta property="og:type" content="article"><meta property="og:title" content="数据结构课程设计-平衡二叉树"><meta property="og:url" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign.html"><meta property="og:site_name" content="Abo"><meta property="og:description" content="当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign/write-593333_1280.jpg"><meta property="og:updated_time" content="2019-05-11T15:44:28.958Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="数据结构课程设计-平衡二叉树"><meta name="twitter:description" content="当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ"><meta name="twitter:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign/write-593333_1280.jpg"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",sidebar:"",fancybox:!0,motion:!0,duoshuo:{userId:"undefined",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:"",labels:""}}</script><link rel="canonical" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign.html"><script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script><link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"><style>.pace .pace-progress{background:#1e92fb;height:3px}.pace .pace-progress-inner{box-shadow:0 0 10px #1e92fb,0 0 5px #1e92fb}.pace .pace-activity{border-top-color:#1e92fb;border-left-color:#1e92fb}</style><title> 数据结构课程设计-平衡二叉树 | Abo</title><link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker"><script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script></head><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz","zQfRdGCiWzVvsSpXKOJsbvHe")</script><script>function showTime(e){var t=new AV.Query(e);$(".leancloud_visitors").each(function(){var r=$(this).attr("id").trim();t.equalTo("url",r),t.find({success:function(e){if(0!=e.length)for(var t=0;t<e.length;t++){var n=e[t];o=$(document.getElementById(r)).text()+": "+n.get("time");$(document.getElementById(r)).text(o)}else{var o=$(document.getElementById(r)).text()+": 0";$(document.getElementById(r)).text(o)}},error:function(e,t){console.log("Error: "+t.code+" "+t.message)}})})}function addCount(o){o=AV.Object.extend("Counter");url=$(".leancloud_visitors").attr("id").trim(),title=$(".leancloud_visitors").attr("data-flag-title").trim();var e=new AV.Query(o);e.equalTo("url",url),e.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){var t=$(document.getElementById(url)).text()+": "+e.get("time");$(document.getElementById(url)).text(t)},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new o;n.set("title",title),n.set("url",url),n.set("time",1),n.save(null,{success:function(e){console.log("newcounter.get('time')="+e.get("time"));var t=$(document.getElementById(url)).text()+": "+e.get("time");$(document.getElementById(url)).text(t)},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><script type="text/javascript">var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><div class="container one-collumn page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Abo</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description">阿波同学</h1></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br> 首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br> 分类</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br> 归档</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br> 标签</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-futbol-o"></i><br> 关于</a></li><li class="menu-item menu-item-top"><a href="/top" rel="section"><i class="menu-item-icon fa fa-fw fa-signal"></i><br> 排行</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br> 搜索</a></li></ul><div class="site-search"><div class="popup"><span class="search-icon fa fa-search"></span> <input type="text" id="local-search-input"><div id="local-search-result"></div> <span class="popup-btn-close">close</span></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign.html"><span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="林加鸿"><meta itemprop="description" content><meta itemprop="image" content="/images/avatar.jpg"></span><span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Abo"> <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject"><img style="display:none" itemprop="url image" alt="Abo" src></span></span><header class="post-header"><h2 class="post-title" itemprop="name headline"> 数据结构课程设计-平衡二叉树</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T21:09:56+08:00">2019-05-11</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataStructure/" itemprop="url" rel="index"><span itemprop="name">DataStructure</span></a></span></span> <span id="/DataStructure/2019/05/11/DataStructureAssign.html" class="leancloud_visitors" data-flag-title="数据结构课程设计-平衡二叉树"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">热度</span><span class="leancloud-visitors-count"></span> <span>℃</span></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">字数统计</span> <span title="字数统计">4.2k</span> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span> <span class="post-meta-item-text">阅读时长</span> <span title="阅读时长">19</span></div></div></header><div class="post-body" itemprop="articleBody"><p class="description">当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ</p><p><img src="/DataStructure/2019/05/11/DataStructureAssign/write-593333_1280.jpg" alt="write-593333_1280"></p><a id="more"></a><blockquote class="question">“那片笑声让我想起我的那些花儿，在我生命每个角落静静为我开着~”</blockquote><div id="aplayer-kLKzadMC" class="aplayer aplayer-tag-marker" style="margin-bottom:20px"><pre class="aplayer-lrc-content"></pre></div><script>var ap=new APlayer({element:document.getElementById("aplayer-kLKzadMC"),narrow:!1,autoplay:!1,showlrc:!1,music:{title:"那些花儿",author:"吴青峰",url:"http://prc4nro7n.bkt.clouddn.com/%E9%82%A3%E4%BA%9B%E8%8A%B1%E5%84%BF+%E6%9C%9B%E6%98%A5%E9%A3%8E.mp3",pic:"",lrc:""}});window.aplayers||(window.aplayers=[]),window.aplayers.push(ap)</script><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>“平衡二叉树操作演示”系统是利用平衡二叉树实现一个动态查找表的三种基本功能：查找、插入和删除，同时，还能拓展实现新的功能：初始化、求深度、求最大最小结点、先中后序及层序遍历、打印平衡二叉树、判空、合并和分裂平衡二叉树等功能，并通过括号表示方法和凹入表表示方法将动态查找表和平衡二叉树的详细信息展示给用户知晓；同时，还要求系统界面设计简洁明了、用户操作简单方便，提高系统实用性与运行效率。</p><p>说明：使用anyview或者codeblock运行；输入值形式是数字，无论对功能的选则还是对数据的录入，都是以数字的形式进行输入，如若超过规定范围程序将直接结束。</p><h2 id="概要设计"><a href="#概要设计" class="headerlink" title="概要设计"></a>概要设计</h2><h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><p>Status InitBBST(BBSTree &amp;T)</p><p> 初始化平衡二叉树</p><p> void DestroyBBSTree(BBSTree &amp;T)</p><p> 销毁平衡二叉树</p><p>Status BBSTreeEmpty(BBSTree T)</p><p> 判空平衡二叉树</p><p>void PrintTree(BBSTree &amp;T)</p><p>打印平衡二叉树</p><p>void CreateBBST(BBSTree &amp;T)</p><p>输入结点数目，动态创建一棵平衡二叉树</p><p>Status InsertAVL(BBSTree &amp;T, RcdType e, Status &amp;taller)</p><p>平衡二叉树的插入操作，将e插入到T中</p><p>插入成功返回TRUE，失败返回FALSE</p><p>Status DeleteAVL(BBSTree &amp;t, RcdType e, Status &amp;shorter)</p><p>平衡二叉树的删除操作，将e从T中删除</p><p>删除成功返回TRUE，失败返回FALSE</p><p>void L_Rotate(BBSTree &amp;p)</p><p>对p左旋操作</p><p>void R_Rotate(BBSTree &amp;p)</p><p>对p右旋操作</p><p>void LeftBalance(BBSTree &amp;T)</p><p>对T左平衡操作</p><p>void RightBalance(BBSTree &amp;T)</p><p>对T右平衡操作</p><p>Status PreOrder(BBSTree T)</p><p>递归先序遍历输出</p><p>Status InOrder(BBSTree T)</p><p>递归中序遍历输出</p><p>Status PostOrder(BBSTree T)</p><p>递归后序遍历输出</p><p>void PreOrderTravese_I(BBSTree T)</p><p>非递归先序遍历输出</p><p>void InOrderTraverse_I(BBSTree T)</p><p>非递归中序遍历输出</p><p>void LastOrderTravese_I(BBSTree T)</p><p>非递归后序遍历输出</p><p>void LevelOrederTraverse_Print(BBSTree T)</p><p>层次遍历输出</p><p>BBSTree SearchBBST(BBSTree T,RcdType key)</p><p>二叉平衡树查找的递归实现</p><p>BBSTree SearchBBST_I(BBSTree T,RcdType e)</p><p>二叉平衡树查找的非递归实现</p><p>BBSTree FindMin(BBSTree T)</p><p>寻找平衡二叉树最小元素所在结点地址</p><p>BBSTree FindMax(BBSTree T)</p><p>寻找平衡二叉树最大元素所在结点地址</p><p>int BBSTreeDepth(BBSTree T)</p><p>求平衡二叉树的深度</p><p>void MergeBBST(BBSTree &amp;T1, BBSTree T2)</p><p>合并两棵平衡二叉树</p><p>void SpiltBBST(BBSTree T, RcdType key, BBSTree &amp;T1, BBSTree &amp;T2)</p><p>按关键值key分裂T成两棵二叉树</p><h4 id="主程序与各接口函数的调用"><a href="#主程序与各接口函数的调用" class="headerlink" title="主程序与各接口函数的调用"></a>主程序与各接口函数的调用</h4><p>int main(){</p><p>​ BBSTree T = NULL;</p><p>​ int choice;</p><p>​ printf(“================================================\n”);</p><p>​ printf(“<strong><strong><strong><strong>*</strong></strong></strong></strong>平衡二叉树<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong>\n”);</p><p>​ printf(“================================================\n”);</p><p>​ printf(“ 1：创建一棵平衡二叉树\n”);</p><p>​ printf(“ 2：平衡二叉树的插入\n”);</p><p>​ printf(“ 3：平衡二叉树的删除\n”);</p><p>​ printf(“ 4：平衡二叉树的查找\n”);</p><p>​ printf(“ 5：平衡二叉树的遍历\n”);</p><p>​ printf(“ 6：求平衡二叉树的深度\n”);</p><p>​ printf(“ 7：合并平衡二叉树\n”);</p><p>​ printf(“ 8：分裂平衡二叉树\n”);</p><p>​ printf(“ 请根据上述说明选择所需操作1-8: “);</p><p>​ scanf(“%d”,&amp;choice);</p><p>​ while(choice &gt; 0 &amp;&amp; choice &lt;= 3)</p><p>​ {</p><p>​ if(choice == 1)</p><p>​ {</p><p>​ if(OK == InitBBST(T));</p><p>​ CreateBBST(T);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T,0);</p><p>​ printf(“\n”);</p><p>​ PrintTree1(T);</p><p>​ printf(“\n请重新输入你的选择: “);</p><p>​ scanf(“%d”,&amp;choice);</p><p>​ }</p><p>​ if(choice == 2)</p><p>​ {</p><p>​ int num;</p><p>​ RcdType s;</p><p>​ Status taller = TRUE;</p><p>​ printf(“请输入要插入的元素：”);</p><p>​ scanf(“%d”,&amp;num);</p><p>​ s = num;</p><p>​ InsertAVL(T,s,taller);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T,0);</p><p>​ PrintTree1(T);</p><p>​ printf(“\n请重新输入你的选择: “);</p><p>​ scanf(“%d”,&amp;choice);</p><p>​ }</p><p>​ if(choice == 3){</p><p>​ RcdType e;</p><p>​ Status shorter = TRUE;</p><p>​ printf(“请输入要删除的元素：”);</p><p>​ scanf(“%d”,&amp;e);</p><p>​ DeleteAVL(T, e, shorter);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T,0);</p><p>​ PrintTree1(T);</p><p>​ printf(“\n请重新输入你的选择: “);</p><p>​ scanf(“%d”,&amp;choice);</p><p>​ }</p><p>​ }</p><p>​ if(choice == 4){</p><p>​ int choice2;</p><p>​ printf(“40:递归查找\n41:非递归查找\n”);</p><p>​ printf(“42:查找最小元素\n43:查找最大元素\n”);</p><p>​ printf(“请选择一种查找方式：”);</p><p>​ scanf(“%d”,&amp;choice2);</p><p>​ switch(choice2){</p><p>​ case 40:</p><p>​ int key1;</p><p>​ printf(“\n请输入欲查找元素：”);</p><p>​ scanf(“%d”,&amp;key1);</p><p>​ if(NULL != SearchBBST(T,key1))</p><p>​ printf(“\n查找成功”);</p><p>​ else</p><p>​ printf(“\n查找失败”);</p><p>​ break;</p><p>​ case 41:</p><p>​ int key2;</p><p>​ printf(“\n请输入欲查找元素：”);</p><p>​ scanf(“%d”,&amp;key2);</p><p>​ if(NULL != SearchBBST_I(T,key2))</p><p>​ printf(“\n查找成功”);</p><p>​ else</p><p>​ printf(“\n查找失败”);</p><p>​ break;</p><p>​ case 42:</p><p>​ BBSTree T1 = FindMin(T);</p><p>​ if(T1)</p><p>​ printf(“\n查找成功，且为%d”,T1-&gt;data);</p><p>​ break;</p><p>​ // case 43:</p><p>​ BBSTree T2 = FindMax(T);</p><p>​ if(T2)</p><p>​ printf(“\n查找成功，且为%d”,T2-&gt;data);</p><p>​ break;</p><p>​ }</p><p>​ }</p><p>​ if(choice == 5){</p><p>​ int choice2;</p><p>​ printf(“50:递归先序\n51:递归中序\n52:递归后序\n”);</p><p>​ printf(“53:非递归先序\n54:非递归中序\n55:非递归后序\n56:层次遍历\n”);</p><p>​ printf(“请选择一种遍历方式：”);</p><p>​ scanf(“%d”,&amp;choice2);</p><p>​ switch(choice2){</p><p>​ case 50:</p><p>​ printf(“\n递归先序遍历输出：”);</p><p>​ PreOrder(T); break;</p><p>​ case 51:</p><p>​ printf(“\n递归中序遍历输出：”);</p><p>​ InOrder(T); break;</p><p>​ case 52:</p><p>​ printf(“\n递归后序遍历输出：”);</p><p>​ PostOrder(T);break;</p><p>​ case 53:</p><p>​ printf(“\n非递归先序遍历输出：”);</p><p>​ PreOrderTravese_I(T);break;</p><p>​ case 54:</p><p>​ printf(“\n非递归中序遍历输出：”);</p><p>​ InOrderTraverse_I(T); break;</p><p>​ case 55:</p><p>​ printf(“\n非递归后序遍历输出：”);</p><p>​ LastOrderTravese_I(T);</p><p>​ printf(“\n”); break;</p><p>​ case 56:</p><p>​ printf(“\n层次遍历输出：”);</p><p>​ LevelOrederTraverse_Print(T);</p><p>​ printf(“\n”); break;</p><p>​ }</p><p>​ }</p><p>​ if(choice == 6)</p><p>​ {</p><p>​ printf(“深度为：%d\n”,BBSTreeDepth(T));</p><p>​ }</p><p>​ if(choice == 7)</p><p>​ {</p><p>​ BBSTree T1,T2,T3;</p><p>​ if(OK == (InitBBST(T1))&amp;&amp;(InitBBST(T2))&amp;&amp;(InitBBST(T)))</p><p>​ {</p><p>​ printf(“请构造第一棵子树\n”);</p><p>​ CreateBBST(T1);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T1,0);</p><p>​ PrintTree1(T1);</p><p>​ printf(“\n”);</p><p>​ printf(“请构造第二棵子树\n”);</p><p>​ CreateBBST(T2);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T2,0);</p><p>​ PrintTree1(T2);</p><p>​ printf(“\n”);</p><p>​ printf(“合并后为：”);</p><p>​ MergeBBST(T,T1);</p><p>​ MergeBBST(T,T2);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T,0);</p><p>​ PrintTree1(T);</p><p>​ }</p><p>​ }</p><p>​ if(choice == 8)</p><p>​ {</p><p>​ BBSTree T1,T2;</p><p>​ if(OK == (InitBBST(T1))&amp;&amp;(InitBBST(T2)))</p><p>​ {</p><p>​ int x;</p><p>​ printf(“请输入要分裂时作为参照的关键字：”);</p><p>​ scanf(“%d”,&amp;x);</p><p>​ SpiltBBST(T,x,T1,T2);</p><p>​ printf(“分裂后的第一棵树为：”);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T1,0);</p><p>​ PrintTree1(T1);</p><p>​ printf(“\n”);</p><p>​ printf(“分裂后的第二棵树为：”);</p><p>​ printf(“平衡二叉树表示为：\n”);</p><p>​ PrintTree(T2,0);</p><p>​ PrintTree1(T2);</p><p>​ }</p><p>​ }</p><p>}</p><h2 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h2><blockquote class="question">以下高能代码段，慎看吧(╯‵□′)╯炸弹！•••*～●</blockquote><h3 id="重要变量和存储结构定义"><a href="#重要变量和存储结构定义" class="headerlink" title="重要变量和存储结构定义"></a>重要变量和存储结构定义</h3><p>#include &lt;stdio.h&gt;</p><p>#include &lt;stdlib.h&gt;</p><p>#define LH +1 //左高</p><p>#define EH 0 //等高</p><p>#define RH -1 //右高</p><p>#define FALSE 0</p><p>#define TRUE 1</p><p>#define OK 1</p><p>#define ERROR 0</p><p>#define OVERFLOW -1</p><p>typedef int Status;</p><p>typedef int RcdType;</p><p>/<em>平衡二叉树结构体</em>/</p><p>typedef struct BBSTNode {</p><p>​ RcdType data;</p><p>​ int bf;</p><p>​ struct BBSTNode <em>lchild,</em> rchild;</p><p>}*BBSTree;</p><h3 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a><strong>算法设计</strong></h3><h4 id="初始化平衡二叉树"><a href="#初始化平衡二叉树" class="headerlink" title="/初始化平衡二叉树/"></a>/<em>初始化平衡二叉树</em>/</h4><p>Status InitBBST(BBSTree &amp;T){</p><p>​ T = NULL;</p><p>​ return OK;</p><p>}</p><h4 id="销毁平衡二叉树"><a href="#销毁平衡二叉树" class="headerlink" title="/销毁平衡二叉树/"></a>/<em>销毁平衡二叉树</em>/</h4><p>void DestroyBBSTree(BBSTree &amp;T){</p><p>​ if(T != NULL){</p><p>​ DestroyBBSTree(T -&gt; lchild);</p><p>​ DestroyBBSTree(T -&gt; rchild);</p><p>​ free(T);</p><p>​ T = NULL;</p><p>​ }</p><p>}</p><h4 id="判空平衡二叉树"><a href="#判空平衡二叉树" class="headerlink" title="/判空平衡二叉树/"></a>/<em>判空平衡二叉树</em>/</h4><p>Status BBSTreeEmpty(BBSTree T){</p><p>​ if(!T){</p><p>​ return TRUE;</p><p>​ }</p><p>​ else{</p><p>​ return FALSE;</p><p>​ }</p><p>}</p><h4 id="创建一棵平衡二叉树"><a href="#创建一棵平衡二叉树" class="headerlink" title="/创建一棵平衡二叉树/"></a>/<em>创建一棵平衡二叉树</em>/</h4><p>void CreateBBST(BBSTree &amp;T)</p><p>{</p><p>​ RcdType e;</p><p>​ int num;</p><p>​ Status taller = TRUE;</p><p>​ printf(“\n请输入平衡二叉树的结点个数:”);</p><p>​ scanf(“%d”, &amp;num);</p><p>​ getchar();</p><p>​ printf(“请顺序输入元素(按’回车键’结束):”);</p><p>​ for (int i = 0; i &lt; num; i++) {</p><p>​ scanf(“%d”, &amp;e);</p><p>​ InsertAVL(T, e, taller);</p><p>​ }</p><p>}</p><h4 id="输出平衡二叉树"><a href="#输出平衡二叉树" class="headerlink" title="/输出平衡二叉树/"></a>/<em>输出平衡二叉树</em>/</h4><p>void PrintTree(BBSTree T, int nLayer){</p><p>​ if(T == NULL) {</p><p>​ return;</p><p>​ }</p><p>​ PrintTree(T-&gt;rchild, nLayer + 4);</p><p>​ for(int i = 0; i &lt; nLayer; i++) {</p><p>​ printf(“ “);</p><p>​ }</p><p>​ printf(“%d\n”, T-&gt;data);</p><p>​ PrintTree(T-&gt;lchild, nLayer + 4);</p><p>}</p><h4 id="输出平衡二叉树-1"><a href="#输出平衡二叉树-1" class="headerlink" title="/输出平衡二叉树/"></a>/<em>输出平衡二叉树</em>/</h4><p>void PrintTree1(BBSTree &amp;T)</p><p>{</p><p>​ if(T)</p><p>​ {</p><p>​ printf(“%d”,T-&gt;data);</p><p>​ if(T-&gt;lchild || T-&gt;rchild)</p><p>​ {</p><p>​ printf(“(“);</p><p>​ PrintTree1(T-&gt;lchild);</p><p>​ if(T-&gt;rchild)</p><p>​ printf(“,”);</p><p>​ PrintTree1(T-&gt;rchild);</p><p>​ printf(“)”);</p><p>​ }</p><p>​ }</p><p>}</p><h4 id="平衡二叉树的插入操作"><a href="#平衡二叉树的插入操作" class="headerlink" title="/平衡二叉树的插入操作/"></a>/<em>平衡二叉树的插入操作</em>/</h4><p>/若平衡二叉树中不存在值为e的结点，则插入到T/</p><p>Status InsertAVL(BBSTree &amp;T, RcdType e, Status &amp;taller){</p><p>​ if(NULL==T){</p><p>​ T = (BBSTree)malloc(sizeof(BBSTNode));</p><p>​ T-&gt;data = e;</p><p>​ T-&gt;bf = EH;</p><p>​ T-&gt;lchild = NULL;</p><p>​ T-&gt;rchild = NULL;</p><p>​ }else if(e==T-&gt;data){ //书中已存在和e相等的结点</p><p>​ taller = FALSE; return FALSE;</p><p>​ }else if(e<t->data){</t-></p><p>​ if(FALSE==InsertAVL(T-&gt;lchild, e, taller)) return FALSE;</p><p>​ if(TRUE==taller){</p><p>​ switch(T-&gt;bf){</p><p>​ case LH: LeftBalance(T); taller = FALSE; break;</p><p>​ case EH: T-&gt;bf = LH; taller = TRUE; break;</p><p>​ case RH: T-&gt;bf = EH; taller = FALSE; break;</p><p>​ }</p><p>​ }</p><p>​ }else{</p><p>​ if(FALSE==InsertAVL(T-&gt;rchild, e, taller)) return FALSE;</p><p>​ if(TRUE==taller){</p><p>​ switch(T-&gt;bf){</p><p>​ case LH: T-&gt;bf = EH; taller = FALSE; break;</p><p>​ case EH: T-&gt;bf = RH; taller = TRUE; break;</p><p>​ case RH: RightBalance(T); taller = FALSE; break;</p><p>​ }</p><p>​ }</p><p>​ }</p><p>​ return TRUE;</p><p>}</p><h4 id="左旋调整（右旋与之类似，不再列出）"><a href="#左旋调整（右旋与之类似，不再列出）" class="headerlink" title="/左旋调整（右旋与之类似，不再列出）/"></a>/<em>左旋调整（右旋与之类似，不再列出）</em>/</h4><p>void L_Rotate(BBSTree &amp;p) {</p><p>​ BBSTree rc = p -&gt; rchild;</p><p>​ p -&gt; rchild = rc -&gt; lchild;</p><p>​ rc -&gt; lchild = p;</p><p>​ p = rc;</p><p>}</p><h4 id="左平衡处理操作（右平衡与之类似，不再列出）"><a href="#左平衡处理操作（右平衡与之类似，不再列出）" class="headerlink" title="/左平衡处理操作（右平衡与之类似，不再列出）/"></a>/<em>左平衡处理操作（右平衡与之类似，不再列出）</em>/</h4><p>void LeftBalance(BBSTree &amp;T){</p><p>​ BBSTree lc, rd;</p><p>​ lc = T-&gt;lchild;</p><p>​ switch(lc-&gt;bf){</p><p>​ case LH:</p><p>​ T-&gt;bf = lc-&gt;bf = EH; R_Rotate(T); break;</p><p>​ case RH:</p><p>​ rd = lc-&gt;rchild;</p><p>​ switch(rd-&gt;bf){</p><p>​ case LH: T-&gt;bf = RH; lc-&gt;bf = EH; break;</p><p>​ case EH: T-&gt;bf = lc-&gt;bf = EH; break;</p><p>​ case RH: T-&gt;bf = EH; lc-&gt;bf = LH; break;</p><p>​ }</p><p>​ rd-&gt;bf = EH;</p><p>​ L_Rotate(T-&gt;lchild);</p><p>​ R_Rotate(T);</p><p>​ break;</p><p>​ }</p><p>}</p><h4 id="平衡二叉树的删除操作"><a href="#平衡二叉树的删除操作" class="headerlink" title="/平衡二叉树的删除操作/"></a>/<em>平衡二叉树的删除操作/</em></h4><h4 id="平衡二叉树中存在值为key的结点，则删除"><a href="#平衡二叉树中存在值为key的结点，则删除" class="headerlink" title="/平衡二叉树中存在值为key的结点，则删除/"></a>/<em>平衡二叉树中存在值为key的结点，则删除</em>/</h4><p>Status DeleteAVL(BBSTree &amp;T, RcdType e, Status &amp;shorter){</p><p> //当被删结点是有两个孩子，且其前驱结点是左孩子时，tag=1</p><p>​ int tag = 0;</p><p>​ if(T == NULL){</p><p>​ return FALSE; //如果不存在元素，返回失败</p><p>​ }else if(e==T-&gt;data){</p><p>​ BBSTNode *q = NULL;</p><p>​ //如果该结点只有一个孩子，则将自子树取代该结点</p><p>​ if(T-&gt;lchild == NULL){</p><p>​ q = T;</p><p>​ T = T-&gt;rchild;</p><p>​ free(q);</p><p>​ shorter = TRUE;</p><p>​ }</p><p>​ else if(T-&gt;rchild == NULL){</p><p>​ q = T;</p><p>​ T = T-&gt;lchild;</p><p>​ free(q);</p><p>​ shorter = TRUE;</p><p>​ }</p><p>​ //如果被删结点有两个孩子，则找到结点的前驱结点，</p><p>​ //并将前驱结点的值赋给该结点，然后删除前驱结点</p><p>​ else{</p><p>​ q = T-&gt;lchild;</p><p>​ while(q-&gt;rchild){</p><p>​ q = q-&gt;rchild;</p><p>​ }</p><p>​ T-&gt;data = q-&gt;data;</p><p>​ if(T-&gt;lchild-&gt;data==q-&gt;data){</p><p>​ tag = 1;</p><p>​ }</p><p>​ DeleteAVL(T-&gt;lchild, q-&gt;data, shorter);</p><p>​ if(tag==1){</p><p>​ BBSTree r = T-&gt;rchild;</p><p>​ if(NULL==r) T-&gt;bf = 0;</p><p>​ else{</p><p>​ switch(r-&gt;bf){</p><p>​ case EH: T-&gt;bf=-1;break;</p><p>​ default: RightBalance(T);break;</p><p>​ }</p><p>​ }</p><p>​ }</p><p>​ }</p><p>​ }else if(e<t->data){ //左子树中继续查找</t-></p><p>​ if(!DeleteAVL(T-&gt;lchild, e, shorter)){</p><p>​ return FALSE;</p><p>​ }</p><p>​ //删除完结点之后，调整结点的平衡因子</p><p>​ if(shorter&amp;&amp;(tag==0)) {</p><p>​ switch(T-&gt;bf){</p><p>​ case LH:</p><p>​ T-&gt;bf = EH;</p><p>​ shorter = TRUE;</p><p>​ break;</p><p>​ case EH:</p><p>​ T-&gt;bf = RH;</p><p>​ shorter = FALSE;</p><p>​ break;</p><p>​ //如果本来就是右子树较高，删除之后就不平衡，需要做右平衡操作</p><p>​ case RH:</p><p>​ RightBalance(T); //右平衡处理</p><p>​ if(T-&gt;rchild-&gt;bf == EH)</p><p>​ shorter = FALSE;</p><p>​ else</p><p>​ shorter = TRUE;</p><p>​ break;</p><p>​ }</p><p>​ }</p><p>​ }else if(e&gt;T-&gt;data){ //右子树中继续查找</p><p>​ if(!DeleteAVL(T-&gt;rchild, e, shorter)){</p><p>​ return FALSE;</p><p>​ }</p><p>​ //删除完结点之后，调整结点的平衡因子</p><p>​ if(shorter&amp;&amp;(tag==0)) {</p><p>​ switch(T-&gt;bf){</p><p>​ case LH:</p><p>​ LeftBalance(T); //左平衡处理</p><p>​ if(T-&gt;lchild-&gt;bf == EH)</p><p>​ shorter = FALSE;</p><p>​ else</p><p>​ shorter = TRUE;</p><p>​ break;</p><p>​ case EH:</p><p>​ T-&gt;bf = LH;</p><p>​ shorter = FALSE;</p><p>​ break;</p><p>​ case RH:</p><p>​ T-&gt;bf = EH;</p><p>​ shorter = TRUE;</p><p>​ break;</p><p>​ }</p><p>​ }</p><p>​ if(tag==1){</p><p>​ int depthLeft = BBSTreeDepth(T-&gt;lchild);</p><p>​ int depthRight = BBSTreeDepth(T-&gt;rchild);</p><p>​ T-&gt;bf = depthLeft - depthRight;</p><p>​ }</p><p>​ }</p><p>​ return TRUE;</p><p>}</p><h4 id="二叉平衡树查找的递归实现"><a href="#二叉平衡树查找的递归实现" class="headerlink" title="/二叉平衡树查找的递归实现/"></a>/<em>二叉平衡树查找的递归实现/</em></h4><p>/<em>若平衡二叉树中存在值为key的结点，则返回该结点指针，否则返回NULL</em>/</p><p>BBSTree SearchBBST(BBSTree T,RcdType key) {</p><p>​ if(NULL == T)</p><p>​ return NULL;</p><p>​ if(T -&gt; data == key)</p><p>​ return T;</p><p>​ if(T -&gt; data &gt; key)</p><p>​ return SearchBBST(T -&gt; lchild,key);</p><p>​ return SearchBBST(T -&gt; rchild,key);</p><p>}</p><h4 id="二叉平衡树查找的非递归实现"><a href="#二叉平衡树查找的非递归实现" class="headerlink" title="/二叉平衡树查找的非递归实现/"></a>/<em>二叉平衡树查找的非递归实现/</em></h4><p>/若平衡二叉树中存在值为key的结点，则返回该结点指针，否则返回NULL*/</p><p>BBSTree SearchBBST_I(BBSTree T,RcdType e) {</p><p>​ while(T) {</p><p>​ if(e &lt; T -&gt; data)</p><p>​ T = T -&gt; lchild;</p><p>​ else if(e &gt; T -&gt; data)</p><p>​ T = T -&gt; rchild;</p><p>​ else</p><p>​ return T;</p><p>​ }</p><p>​ return NULL;</p><p>}</p><h4 id="寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）"><a href="#寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）" class="headerlink" title="/寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）/"></a>/<em>寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）</em>/</h4><p>BBSTree FindMin(BBSTree T){</p><p>​ if(T)</p><p>​ while(T -&gt; lchild)</p><p>​ T = T -&gt; lchild;</p><p>​ return T;</p><p>}</p><h4 id="递归先序遍历（中序、后序遍历类似不再列出）"><a href="#递归先序遍历（中序、后序遍历类似不再列出）" class="headerlink" title="/递归先序遍历（中序、后序遍历类似不再列出）/"></a>/<em>递归先序遍历（中序、后序遍历类似不再列出）</em>/</h4><p>Status PreOrder(BBSTree T){</p><p>​ if(T) {</p><p>​ printf(“%5d”,T-&gt;data);</p><p>​ PreOrder(T -&gt; lchild);</p><p>​ PreOrder(T -&gt; rchild);</p><p>​ }</p><p>​ return OK;</p><p>}</p><h4 id="非递归中序遍历"><a href="#非递归中序遍历" class="headerlink" title="/非递归中序遍历/"></a>/<em>非递归中序遍历</em>/</h4><p>void InOrderTraverse_I(BBSTree T){</p><p>​ LStack S;</p><p>​ InitStack_LS(S);</p><p>​ BBSTree p = NULL;</p><p>​ p = GoFarLeft(T, S);</p><p>​ while(p!=NULL){</p><p>​ printf(“%d “,p-&gt;data);</p><p>​ if(p-&gt;rchild!=NULL){</p><p>​ p = GoFarLeft(p-&gt;rchild, S);</p><p>​ }</p><p>​ else if(StackEmpty_LS(S)!=TRUE) Pop_LS(S, p);</p><p>​ else p = NULL;</p><p>​ }</p><p>}</p><h4 id="非递归先序遍历"><a href="#非递归先序遍历" class="headerlink" title="/非递归先序遍历/"></a>/非递归先序遍历/</h4><p>void PreOrderTravese_I(BBSTree T){</p><p>​ LStack S;</p><p>​ InitStack_LS(S);</p><p>​ BBSTree p;</p><p>​ p = VisitFarLeft(T, S); //先将左边的数据先序读取</p><p>​ while(p!=NULL){</p><p>​ if(p-&gt;rchild!=NULL) //如果最左下结点的右子树不为空</p><p>​ p = VisitFarLeft(p-&gt;rchild, S); //执行遍历该结点的左子树</p><p>​ else if(StackEmpty_LS(S)!=TRUE) Pop_LS(S,p); //如果S不为空栈，出栈</p><p>​ else p = NULL; //如果为空栈，p赋予空</p><p>​ }</p><p>}</p><h4 id="非递归后序遍历"><a href="#非递归后序遍历" class="headerlink" title="/非递归后序遍历/"></a>/<em>非递归后序遍历</em>/</h4><p>void LastOrderTravese_I(BBSTree root){</p><p>​ BBSTree p = root;</p><p>​ BBSTree stack[30];</p><p>​ int num=0;</p><p>​ BBSTree have_visited = NULL;</p><p>​ while(NULL!=p||num&gt;0){</p><p>​ while(NULL!=p){</p><p>​ stack[num++]=p;</p><p>​ p=p-&gt;lchild;</p><p>​ }</p><p>​ p=stack[num-1];</p><p>​ if(NULL==p-&gt;rchild||have_visited==p-&gt;rchild){</p><p>​ printf(“%d “,p-&gt;data);</p><p>​ num–;</p><p>​ have_visited=p;</p><p>​ p=NULL;</p><p>​ }</p><p>​ else{</p><p>​ p=p-&gt;rchild;</p><p>​ }</p><p>​ }</p><p>​ printf(“\n”);</p><p>}</p><h4 id="层次遍历"><a href="#层次遍历" class="headerlink" title="/层次遍历/"></a>/<em>层次遍历</em>/</h4><p>void LevelOrederTraverse_Print(BBSTree T){</p><p>​ if(T==NULL){</p><p>​ printf(“这是一棵空树!”);</p><p>​ }</p><p>​ if(T!=NULL){</p><p>​ LQueue Q;</p><p>​ InitQueue_LQ(Q);</p><p>​ BBSTree p = T;</p><p>​ printf(“%d “,p-&gt;data); EnQueue_LQ(Q,p);//首先访问根结点，并将根节点入队</p><p>​ while(DeQueue_LQ(Q,p)){ //队非空时重复操作，出队</p><p>​ if(p-&gt;lchild!=NULL){ //访问左孩子并入队</p><p>​ printf(“%d “, p-&gt;lchild-&gt;data);</p><p>​ EnQueue_LQ(Q, p-&gt;lchild);</p><p>​ }</p><p>​ if(p-&gt;rchild!=NULL){ //访问右孩子并入队</p><p>​ printf(“%d “, p-&gt;rchild-&gt;data);</p><p>​ EnQueue_LQ(Q, p-&gt;rchild);</p><p>​ }</p><p>​ }</p><p>​ }</p><p>}</p><h4 id="求平衡二叉树的深度"><a href="#求平衡二叉树的深度" class="headerlink" title="/求平衡二叉树的深度/"></a>/<em>求平衡二叉树的深度</em>/</h4><p>int BBSTreeDepth(BBSTree T){</p><p>​ int depthLeft, depthRight;</p><p>​ if(NULL==T) return 0;</p><p>​ else{</p><p>​ depthLeft = BBSTreeDepth(T-&gt;lchild);</p><p>​ depthRight = BBSTreeDepth(T-&gt;rchild);</p><p>​ return 1+(depthLeft &gt; depthRight ? depthLeft : depthRight);</p><p>​ }</p><p>}</p><h4 id="合并平衡二叉树"><a href="#合并平衡二叉树" class="headerlink" title="/合并平衡二叉树/"></a>/<em>合并平衡二叉树</em>/</h4><p>void MergeBBST(BBSTree &amp;T1, BBSTree T2) {</p><p>​ Status taller = FALSE;</p><p>​ if (T2 != NULL) {</p><p>​ MergeBBST(T1, T2-&gt;lchild);</p><p>​ InsertAVL(T1, T2-&gt;data, taller);</p><p>​ MergeBBST(T1, T2-&gt;rchild);</p><p>​ }</p><p>}</p><h4 id="分裂平衡二叉树"><a href="#分裂平衡二叉树" class="headerlink" title="/分裂平衡二叉树/"></a>/<em>分裂平衡二叉树</em>/</h4><p>void SpiltBBST(BBSTree T, RcdType key, BBSTree &amp;T1, BBSTree &amp;T2) {</p><p>​ Status taller = FALSE;</p><p>​ if (T != NULL) {</p><p>​ SpiltBBST(T-&gt;lchild, key, T1, T2); // 递归访问左子树</p><p>​ if(T-&gt;data &gt; key) {</p><p>​ InsertAVL(T1, T-&gt;data, taller);</p><p>​ } else {</p><p>​ InsertAVL(T2, T-&gt;data, taller);</p><p>​ }</p><p>​ SpiltBBST(T-&gt;rchild, key, T1, T2);</p><p>​ }</p><p>}</p><h2 id="调试分析"><a href="#调试分析" class="headerlink" title="调试分析"></a>调试分析</h2><h3 id="调试过程中遇到的问题及处理方法"><a href="#调试过程中遇到的问题及处理方法" class="headerlink" title="调试过程中遇到的问题及处理方法"></a>调试过程中遇到的问题及处理方法</h3><p>一开始运行过程中程序停止运行。遇到这个情况一开始我以为是编译器有问题，但是换了个编译器还是同样的问题，后来我上网查询了有关资料，大概明白了是自己的代码出现了问题。所以只能将新增的代码注释掉，一条一条测试，调试过程很漫长，最后才发现是内存泄露和空指针异常，将指针不适用之后指向为 NULL，才把问题解决了。</p><h3 id="算法改进与设想"><a href="#算法改进与设想" class="headerlink" title="算法改进与设想"></a>算法改进与设想</h3><p>在对动态查找表的查找方式上，课程设计选择的是平衡二叉树，那么当查找的结点元素与关键字数量庞大的时候，就会造成平衡二叉树的高度过高，查找、添加、删除等操作的时候效率就会变得很低，而且输入后的排序与整合平衡二叉树T所需要用到的时间就会很长，所以，如果动态查找表中的元素数量庞大的时候可以优先选择B树和B+树等，可以有效降低查找树的高度，提高查找处理效率。</p><h3 id="经验与体会"><a href="#经验与体会" class="headerlink" title="经验与体会"></a>经验与体会</h3><p>本次课程设计主要实现平衡二叉树的查找，插入和删除，增加合并和分裂的功能。许多接口的实现都是基于之前二叉树等的操作，根据平衡二叉树的特性进行改动和完善，删除的难点在于找待删除点的前驱结点和删除后对失衡情况的调节.合并和分裂平衡二叉树，一开始我是想用一个数组先把元素汇总再进行创建新的平衡二叉树，但查阅资料后，觉得这一种方法有些死板，不及直接递归访问结点元素并进行插入操作。总结来说，平衡二叉树是一种基于二叉树的抽象数据类型，平衡这一特性，给一些基本操作增加了不小的难度，值得去思考和研究。</p><p>在做一个比较大的程序过程中，应该学会边编写程序边运行，即当你完成了一个比较小的功能时便对其调试， 这样有助于我们高效地完成项目，而且在调试 BUG 的过程也可以大大减小其难度。必须要有良好的编程习惯。首先编码风格一定要规范，这样不仅有利于读者和编程者对代码的阅读，更有利于对代码的维护。其次要对代码要细心，比较一些指针的初始化和不需要时指为空，这些都是可以极大减少我们出现 BUG 的几率</p><hr></div><div></div><div class="post-tags"><a href="/tags/树/" rel="tag"><i class="fa fa-tag"></i> 树</a><a href="/tags/课设/" rel="tag"><i class="fa fa-tag"></i> 课设</a></div><div> ﻿</div><footer class="post-footer"><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/吹水/2019/05/11/bbforfun.html" rel="prev" title="谈谈回家安顿的一周"><i class="fa fa-chevron-left"></i> 谈谈回家安顿的一周</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/canvas/2019/05/11/canvas.html" rel="next" title="canvas学习笔记">canvas学习笔记<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC80NDE0Mi8yMDY3Ng=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <a href="/"><img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿"></a><p class="site-author-name" itemprop="name">林加鸿</p><p class="site-description motion-element" itemprop="description">阿波的个人博客，主要涉及但不局限前端与算法等编程学习，图文算法分享，以记录生活或者读书笔记为主，（づ￣3￣）づ╭❤～</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">25</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories"><span class="site-state-item-count">10</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags"><span class="site-state-item-count">23</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/jhjhljh" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="http://weibo.com/jhjhljh" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i> 微博</a></span><span class="links-of-author-item"><a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎"><i class="fa fa-fw fa-battery-3"></i> 知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-globe"></i> 神奇的链接</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"> <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a></li><li class="links-of-blogroll-item"> <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a></li><li class="links-of-blogroll-item"> <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a></li><li class="links-of-blogroll-item"> <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人们" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人们</a></li><li class="links-of-blogroll-item"> <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a></li></ul></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求分析"><span class="nav-number">1.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概要设计"><span class="nav-number">2.</span> <span class="nav-text">概要设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接口设计"><span class="nav-number">2.1.</span> <span class="nav-text">接口设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主程序与各接口函数的调用"><span class="nav-number">2.1.1.</span> <span class="nav-text">主程序与各接口函数的调用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细设计"><span class="nav-number">3.</span> <span class="nav-text">详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要变量和存储结构定义"><span class="nav-number">3.1.</span> <span class="nav-text">重要变量和存储结构定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法设计"><span class="nav-number">3.2.</span> <span class="nav-text">算法设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化平衡二叉树"><span class="nav-number">3.2.1.</span> <span class="nav-text">/初始化平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#销毁平衡二叉树"><span class="nav-number">3.2.2.</span> <span class="nav-text">/销毁平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判空平衡二叉树"><span class="nav-number">3.2.3.</span> <span class="nav-text">/判空平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一棵平衡二叉树"><span class="nav-number">3.2.4.</span> <span class="nav-text">/创建一棵平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出平衡二叉树"><span class="nav-number">3.2.5.</span> <span class="nav-text">/输出平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出平衡二叉树-1"><span class="nav-number">3.2.6.</span> <span class="nav-text">/输出平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树的插入操作"><span class="nav-number">3.2.7.</span> <span class="nav-text">/平衡二叉树的插入操作/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左旋调整（右旋与之类似，不再列出）"><span class="nav-number">3.2.8.</span> <span class="nav-text">/左旋调整（右旋与之类似，不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左平衡处理操作（右平衡与之类似，不再列出）"><span class="nav-number">3.2.9.</span> <span class="nav-text">/左平衡处理操作（右平衡与之类似，不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树的删除操作"><span class="nav-number">3.2.10.</span> <span class="nav-text">/平衡二叉树的删除操作/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树中存在值为key的结点，则删除"><span class="nav-number">3.2.11.</span> <span class="nav-text">/平衡二叉树中存在值为key的结点，则删除/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉平衡树查找的递归实现"><span class="nav-number">3.2.12.</span> <span class="nav-text">/二叉平衡树查找的递归实现/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉平衡树查找的非递归实现"><span class="nav-number">3.2.13.</span> <span class="nav-text">/二叉平衡树查找的非递归实现/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）"><span class="nav-number">3.2.14.</span> <span class="nav-text">/寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归先序遍历（中序、后序遍历类似不再列出）"><span class="nav-number">3.2.15.</span> <span class="nav-text">/递归先序遍历（中序、后序遍历类似不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归中序遍历"><span class="nav-number">3.2.16.</span> <span class="nav-text">/非递归中序遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归先序遍历"><span class="nav-number">3.2.17.</span> <span class="nav-text">/非递归先序遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归后序遍历"><span class="nav-number">3.2.18.</span> <span class="nav-text">/非递归后序遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#层次遍历"><span class="nav-number">3.2.19.</span> <span class="nav-text">/层次遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求平衡二叉树的深度"><span class="nav-number">3.2.20.</span> <span class="nav-text">/求平衡二叉树的深度/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并平衡二叉树"><span class="nav-number">3.2.21.</span> <span class="nav-text">/合并平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分裂平衡二叉树"><span class="nav-number">3.2.22.</span> <span class="nav-text">/分裂平衡二叉树/</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试分析"><span class="nav-number">4.</span> <span class="nav-text">调试分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调试过程中遇到的问题及处理方法"><span class="nav-number">4.1.</span> <span class="nav-text">调试过程中遇到的问题及处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法改进与设想"><span class="nav-number">4.2.</span> <span class="nav-text">算法改进与设想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经验与体会"><span class="nav-number">4.3.</span> <span class="nav-text">经验与体会</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright"> &copy; 2018 - <span itemprop="copyrightYear">2019</span><span class="with-love" id="heart"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">林加鸿</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span><span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script><script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script type="text/javascript">var isfetched=!1,search_path="search.xml";0==search_path.length&&(search_path="search.xml");var path="/"+search_path;function proceedsearch(){$("body").append('<div class="popoverlay">').css("overflow","hidden"),$(".popup").toggle()}var searchFunc=function(e,c,n){"use strict";$.ajax({url:e,dataType:"xml",async:!0,success:function(e){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var t=$("entry",e).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get(),a=document.getElementById(c),r=document.getElementById(n);a.addEventListener("input",function(){var u=0,d='<ul class="search-result-list">',f=this.value.trim().toLowerCase().split(/[\s\-]+/);r.innerHTML="",1<this.value.trim().length&&t.forEach(function(e){var a=!1,r=e.title.trim().toLowerCase(),c=e.content.trim().replace(/<[^>]+>/g,"").toLowerCase(),t=decodeURIComponent(e.url),n=-1,s=-1,o=-1;if(""!=r&&f.forEach(function(e,t){n=r.indexOf(e),s=c.indexOf(e),(0<=n||0<=s)&&(a=!0,0==t&&(o=s))}),a){u+=1,d+="<li><a href='"+t+"' class='search-result-title'>"+r+"</a>";var i=e.content.trim().replace(/<[^>]+>/g,"");if(0<=o){var l=o-20,p=o+80;l<0&&(l=0),0==l&&(p=50),p>i.length&&(p=i.length);var h=i.substring(l,p);f.forEach(function(e){var t=new RegExp(e,"gi");h=h.replace(t,'<b class="search-keyword">'+e+"</b>")}),d+='<p class="search-result">'+h+"...</p>"}d+="</li>"}}),d+="</ul>",0==u&&(d='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'),""==f&&(d='<div id="no-result"><i class="fa fa-search fa-5x" /></div>'),r.innerHTML=d}),proceedsearch()}})};$(".popup-trigger").click(function(e){e.stopPropagation(),0==isfetched?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(function(e){$(".popup").hide(),$(".popoverlay").remove(),$("body").css("overflow","")}),$(".popup").click(function(e){e.stopPropagation()})</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz","zQfRdGCiWzVvsSpXKOJsbvHe")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script><script type="text/javascript" src="/js/src/love.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script><script>$("body").backstretch("http://prc4nro7n.bkt.clouddn.com/landscape-4208571_1280.jpg")</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({pluginRootPath:"live2dw/",pluginJsPath:"lib/",pluginModelPath:"assets/",tagMode:!1,debug:!1,model:{scale:1,jsonPath:"/live2dw/assets/wanko.model.json"},display:{superSample:2,width:200,height:200,position:"left"},mobile:{show:!1},react:{opacityDefault:.9,opacityOnHover:.5},log:!1})</script></body></html>
+﻿<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  ﻿<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="树,课设,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://prc4nro7n.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ">
+<meta name="keywords" content="树,课设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构课程设计-平衡二叉树">
+<meta property="og:url" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign/write-593333_1280.jpg">
+<meta property="og:updated_time" content="2019-05-11T15:44:28.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构课程设计-平衡二叉树">
+<meta name="twitter:description" content="当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ">
+<meta name="twitter:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign/write-593333_1280.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 数据结构课程设计-平衡二叉树 | Abo </title>
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">阿波同学</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructureAssign.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构课程设计-平衡二叉树
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T21:09:56+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
+                    <span itemprop="name">DataStructure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/DataStructure/2019/05/11/DataStructureAssign.html" class="leancloud_visitors" data-flag-title="数据结构课程设计-平衡二叉树">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p class="description">当年的数据结构课程设计-平衡二叉树，想了想还是放上来吧，当初费尽心思，怕是如今都已看不懂了இ௰இ</p>
+
+<p><img src="/DataStructure/2019/05/11/DataStructureAssign/write-593333_1280.jpg" alt="write-593333_1280"></p>
+<a id="more"></a>
+<blockquote class="question">“那片笑声让我想起我的那些花儿，在我生命每个角落静静为我开着~”</blockquote>
+
+
+        <div id="aplayer-ZkPQInEK" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-ZkPQInEK"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "那些花儿",
+              author: "吴青峰",
+              url: "http://prc4nro7n.bkt.clouddn.com/%E9%82%A3%E4%BA%9B%E8%8A%B1%E5%84%BF+%E6%9C%9B%E6%98%A5%E9%A3%8E.mp3",
+              pic: "",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>“平衡二叉树操作演示”系统是利用平衡二叉树实现一个动态查找表的三种基本功能：查找、插入和删除，同时，还能拓展实现新的功能：初始化、求深度、求最大最小结点、先中后序及层序遍历、打印平衡二叉树、判空、合并和分裂平衡二叉树等功能，并通过括号表示方法和凹入表表示方法将动态查找表和平衡二叉树的详细信息展示给用户知晓；同时，还要求系统界面设计简洁明了、用户操作简单方便，提高系统实用性与运行效率。</p>
+<p>说明：使用anyview或者codeblock运行；输入值形式是数字，无论对功能的选则还是对数据的录入，都是以数字的形式进行输入，如若超过规定范围程序将直接结束。</p>
+<h2 id="概要设计"><a href="#概要设计" class="headerlink" title="概要设计"></a>概要设计</h2><h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><p>Status InitBBST(BBSTree &amp;T)</p>
+<p>  初始化平衡二叉树</p>
+<p> void DestroyBBSTree(BBSTree &amp;T)</p>
+<p> 销毁平衡二叉树</p>
+<p>Status BBSTreeEmpty(BBSTree T)</p>
+<p> 判空平衡二叉树</p>
+<p>void PrintTree(BBSTree &amp;T)</p>
+<p>打印平衡二叉树</p>
+<p>void CreateBBST(BBSTree &amp;T)</p>
+<p>输入结点数目，动态创建一棵平衡二叉树</p>
+<p>Status InsertAVL(BBSTree &amp;T, RcdType e, Status &amp;taller)</p>
+<p>平衡二叉树的插入操作，将e插入到T中</p>
+<p>插入成功返回TRUE，失败返回FALSE</p>
+<p>Status DeleteAVL(BBSTree &amp;t, RcdType e, Status &amp;shorter) </p>
+<p>平衡二叉树的删除操作，将e从T中删除</p>
+<p>删除成功返回TRUE，失败返回FALSE</p>
+<p>void L_Rotate(BBSTree &amp;p)</p>
+<p>对p左旋操作</p>
+<p>void R_Rotate(BBSTree &amp;p)</p>
+<p>对p右旋操作</p>
+<p>void LeftBalance(BBSTree &amp;T)</p>
+<p>对T左平衡操作</p>
+<p>void RightBalance(BBSTree &amp;T)</p>
+<p>对T右平衡操作</p>
+<p>Status PreOrder(BBSTree T)</p>
+<p>递归先序遍历输出</p>
+<p>Status InOrder(BBSTree T)</p>
+<p>递归中序遍历输出</p>
+<p>Status PostOrder(BBSTree T)</p>
+<p>递归后序遍历输出</p>
+<p>void PreOrderTravese_I(BBSTree T)</p>
+<p>非递归先序遍历输出</p>
+<p>void InOrderTraverse_I(BBSTree T)</p>
+<p>非递归中序遍历输出</p>
+<p>void LastOrderTravese_I(BBSTree T)</p>
+<p>非递归后序遍历输出</p>
+<p>void LevelOrederTraverse_Print(BBSTree T)</p>
+<p>层次遍历输出</p>
+<p>BBSTree SearchBBST(BBSTree T,RcdType key)</p>
+<p>二叉平衡树查找的递归实现</p>
+<p>BBSTree SearchBBST_I(BBSTree T,RcdType e)</p>
+<p>二叉平衡树查找的非递归实现</p>
+<p>BBSTree FindMin(BBSTree T)</p>
+<p>寻找平衡二叉树最小元素所在结点地址</p>
+<p>BBSTree FindMax(BBSTree T)</p>
+<p>寻找平衡二叉树最大元素所在结点地址</p>
+<p>int BBSTreeDepth(BBSTree T)</p>
+<p>求平衡二叉树的深度</p>
+<p>void MergeBBST(BBSTree &amp;T1, BBSTree T2)</p>
+<p>合并两棵平衡二叉树</p>
+<p>void SpiltBBST(BBSTree T, RcdType key, BBSTree &amp;T1, BBSTree &amp;T2)</p>
+<p>按关键值key分裂T成两棵二叉树</p>
+<h4 id="主程序与各接口函数的调用"><a href="#主程序与各接口函数的调用" class="headerlink" title="主程序与各接口函数的调用"></a>主程序与各接口函数的调用</h4><p>int main(){</p>
+<p>​    BBSTree T = NULL;</p>
+<p>​    int choice;</p>
+<p>​    printf(“================================================\n”);</p>
+<p>​    printf(“<strong><strong><strong><strong>*</strong></strong></strong></strong>平衡二叉树<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong>\n”);</p>
+<p>​    printf(“================================================\n”);</p>
+<p>​    printf(“        1：创建一棵平衡二叉树\n”);</p>
+<p>​    printf(“        2：平衡二叉树的插入\n”);</p>
+<p>​    printf(“        3：平衡二叉树的删除\n”);</p>
+<p>​    printf(“        4：平衡二叉树的查找\n”);</p>
+<p>​    printf(“        5：平衡二叉树的遍历\n”);</p>
+<p>​    printf(“        6：求平衡二叉树的深度\n”);</p>
+<p>​    printf(“        7：合并平衡二叉树\n”);</p>
+<p>​    printf(“        8：分裂平衡二叉树\n”);</p>
+<p>​    printf(“   请根据上述说明选择所需操作1-8: “);</p>
+<p>​    scanf(“%d”,&amp;choice);</p>
+<p>​    while(choice &gt; 0 &amp;&amp; choice &lt;= 3)</p>
+<p>​    {</p>
+<p>​    if(choice == 1)</p>
+<p>​    {</p>
+<p>​        if(OK == InitBBST(T));</p>
+<p>​            CreateBBST(T);</p>
+<p>​        printf(“平衡二叉树表示为：\n”);</p>
+<p>​        PrintTree(T,0);</p>
+<p>​        printf(“\n”);</p>
+<p>​        PrintTree1(T);</p>
+<p>​        printf(“\n请重新输入你的选择: “);</p>
+<p>​        scanf(“%d”,&amp;choice);</p>
+<p>​    }</p>
+<p>​    if(choice == 2)</p>
+<p>​    {</p>
+<p>​        int num;</p>
+<p>​        RcdType s;</p>
+<p>​        Status taller = TRUE;</p>
+<p>​        printf(“请输入要插入的元素：”);</p>
+<p>​        scanf(“%d”,&amp;num);</p>
+<p>​        s = num;</p>
+<p>​        InsertAVL(T,s,taller);</p>
+<p>​        printf(“平衡二叉树表示为：\n”);</p>
+<p>​        PrintTree(T,0);</p>
+<p>​        PrintTree1(T);</p>
+<p>​        printf(“\n请重新输入你的选择: “);</p>
+<p>​        scanf(“%d”,&amp;choice);</p>
+<p>​    }</p>
+<p>​    if(choice == 3){</p>
+<p>​        RcdType e;</p>
+<p>​        Status shorter = TRUE;</p>
+<p>​        printf(“请输入要删除的元素：”);</p>
+<p>​        scanf(“%d”,&amp;e);</p>
+<p>​        DeleteAVL(T, e, shorter);</p>
+<p>​        printf(“平衡二叉树表示为：\n”);</p>
+<p>​        PrintTree(T,0);</p>
+<p>​        PrintTree1(T);</p>
+<p>​        printf(“\n请重新输入你的选择: “);</p>
+<p>​        scanf(“%d”,&amp;choice);</p>
+<p>​    }</p>
+<p>​    }</p>
+<p>​    if(choice == 4){</p>
+<p>​        int choice2;</p>
+<p>​        printf(“40:递归查找\n41:非递归查找\n”);</p>
+<p>​        printf(“42:查找最小元素\n43:查找最大元素\n”);</p>
+<p>​        printf(“请选择一种查找方式：”);</p>
+<p>​        scanf(“%d”,&amp;choice2);</p>
+<p>​        switch(choice2){</p>
+<p>​            case 40:</p>
+<p>​            int key1;</p>
+<p>​            printf(“\n请输入欲查找元素：”);</p>
+<p>​            scanf(“%d”,&amp;key1);</p>
+<p>​            if(NULL != SearchBBST(T,key1))</p>
+<p>​                printf(“\n查找成功”);</p>
+<p>​            else</p>
+<p>​                printf(“\n查找失败”);</p>
+<p>​            break;</p>
+<p>​            case 41:</p>
+<p>​            int key2;</p>
+<p>​            printf(“\n请输入欲查找元素：”);</p>
+<p>​            scanf(“%d”,&amp;key2);</p>
+<p>​            if(NULL != SearchBBST_I(T,key2))</p>
+<p>​                printf(“\n查找成功”);</p>
+<p>​            else</p>
+<p>​                printf(“\n查找失败”);</p>
+<p>​            break;</p>
+<p>​            case 42:</p>
+<p>​            BBSTree T1 = FindMin(T);</p>
+<p>​            if(T1)</p>
+<p>​                printf(“\n查找成功，且为%d”,T1-&gt;data);</p>
+<p>​            break;</p>
+<p>​    //        case 43:</p>
+<p>​            BBSTree T2 = FindMax(T);</p>
+<p>​            if(T2)</p>
+<p>​                printf(“\n查找成功，且为%d”,T2-&gt;data);</p>
+<p>​            break;</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    if(choice == 5){</p>
+<p>​        int choice2;</p>
+<p>​        printf(“50:递归先序\n51:递归中序\n52:递归后序\n”);</p>
+<p>​        printf(“53:非递归先序\n54:非递归中序\n55:非递归后序\n56:层次遍历\n”);</p>
+<p>​        printf(“请选择一种遍历方式：”);</p>
+<p>​        scanf(“%d”,&amp;choice2);</p>
+<p>​        switch(choice2){</p>
+<p>​            case 50:</p>
+<p>​            printf(“\n递归先序遍历输出：”);</p>
+<p>​            PreOrder(T); break;</p>
+<p>​            case 51:</p>
+<p>​            printf(“\n递归中序遍历输出：”);</p>
+<p>​            InOrder(T);  break;</p>
+<p>​            case 52:</p>
+<p>​            printf(“\n递归后序遍历输出：”);</p>
+<p>​            PostOrder(T);break;</p>
+<p>​            case 53:</p>
+<p>​            printf(“\n非递归先序遍历输出：”);</p>
+<p>​            PreOrderTravese_I(T);break;</p>
+<p>​            case 54:</p>
+<p>​            printf(“\n非递归中序遍历输出：”);</p>
+<p>​            InOrderTraverse_I(T);  break;</p>
+<p>​            case 55:</p>
+<p>​            printf(“\n非递归后序遍历输出：”);</p>
+<p>​            LastOrderTravese_I(T);</p>
+<p>​            printf(“\n”);  break;</p>
+<p>​            case 56:</p>
+<p>​            printf(“\n层次遍历输出：”);</p>
+<p>​            LevelOrederTraverse_Print(T);</p>
+<p>​            printf(“\n”);  break;</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    if(choice == 6)</p>
+<p>​    {</p>
+<p>​        printf(“深度为：%d\n”,BBSTreeDepth(T));</p>
+<p>​    }</p>
+<p>​    if(choice == 7)</p>
+<p>​    {</p>
+<p>​        BBSTree T1,T2,T3;</p>
+<p>​        if(OK == (InitBBST(T1))&amp;&amp;(InitBBST(T2))&amp;&amp;(InitBBST(T)))</p>
+<p>​        {</p>
+<p>​            printf(“请构造第一棵子树\n”);</p>
+<p>​            CreateBBST(T1);</p>
+<p>​            printf(“平衡二叉树表示为：\n”);</p>
+<p>​            PrintTree(T1,0);</p>
+<p>​            PrintTree1(T1);</p>
+<p>​            printf(“\n”);</p>
+<p>​            printf(“请构造第二棵子树\n”);</p>
+<p>​            CreateBBST(T2);</p>
+<p>​            printf(“平衡二叉树表示为：\n”);</p>
+<p>​            PrintTree(T2,0);</p>
+<p>​            PrintTree1(T2);</p>
+<p>​            printf(“\n”);</p>
+<p>​            printf(“合并后为：”);</p>
+<p>​            MergeBBST(T,T1);</p>
+<p>​            MergeBBST(T,T2);</p>
+<p>​            printf(“平衡二叉树表示为：\n”);</p>
+<p>​            PrintTree(T,0);</p>
+<p>​            PrintTree1(T);</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    if(choice == 8)</p>
+<p>​    {</p>
+<p>​        BBSTree T1,T2;</p>
+<p>​        if(OK == (InitBBST(T1))&amp;&amp;(InitBBST(T2)))</p>
+<p>​        {</p>
+<p>​            int x;</p>
+<p>​            printf(“请输入要分裂时作为参照的关键字：”);</p>
+<p>​            scanf(“%d”,&amp;x);</p>
+<p>​            SpiltBBST(T,x,T1,T2);</p>
+<p>​            printf(“分裂后的第一棵树为：”);</p>
+<p>​            printf(“平衡二叉树表示为：\n”);</p>
+<p>​            PrintTree(T1,0);</p>
+<p>​            PrintTree1(T1);</p>
+<p>​            printf(“\n”);</p>
+<p>​            printf(“分裂后的第二棵树为：”);</p>
+<p>​            printf(“平衡二叉树表示为：\n”);</p>
+<p>​            PrintTree(T2,0);</p>
+<p>​            PrintTree1(T2);</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>}</p>
+<h2 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h2> <blockquote class="question">以下高能代码段，慎看吧(╯‵□′)╯炸弹！•••*～●</blockquote>
+
+<h3 id="重要变量和存储结构定义"><a href="#重要变量和存储结构定义" class="headerlink" title="重要变量和存储结构定义"></a>重要变量和存储结构定义</h3><p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;stdlib.h&gt;</p>
+<p>#define LH +1  //左高</p>
+<p>#define EH 0   //等高</p>
+<p>#define RH -1  //右高</p>
+<p>#define FALSE 0</p>
+<p>#define TRUE 1</p>
+<p>#define OK 1</p>
+<p>#define ERROR 0</p>
+<p>#define OVERFLOW -1</p>
+<p>typedef int Status;</p>
+<p>typedef int RcdType;</p>
+<p>/<em>平衡二叉树结构体</em>/</p>
+<p>typedef struct BBSTNode {</p>
+<p>​    RcdType data;</p>
+<p>​    int bf;</p>
+<p>​    struct BBSTNode <em>lchild, </em>rchild;</p>
+<p>}*BBSTree;</p>
+<h3 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a><strong>算法设计</strong></h3><h4 id="初始化平衡二叉树"><a href="#初始化平衡二叉树" class="headerlink" title="/初始化平衡二叉树/"></a>/<em>初始化平衡二叉树</em>/</h4><p>Status InitBBST(BBSTree &amp;T){</p>
+<p>​    T = NULL;</p>
+<p>​    return OK;</p>
+<p>}</p>
+<h4 id="销毁平衡二叉树"><a href="#销毁平衡二叉树" class="headerlink" title="/销毁平衡二叉树/"></a>/<em>销毁平衡二叉树</em>/</h4><p>void DestroyBBSTree(BBSTree &amp;T){</p>
+<p>​    if(T != NULL){</p>
+<p>​        DestroyBBSTree(T -&gt; lchild);</p>
+<p>​        DestroyBBSTree(T -&gt; rchild);</p>
+<p>​        free(T);</p>
+<p>​        T = NULL;</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="判空平衡二叉树"><a href="#判空平衡二叉树" class="headerlink" title="/判空平衡二叉树/"></a>/<em>判空平衡二叉树</em>/</h4><p>Status BBSTreeEmpty(BBSTree T){</p>
+<p>​    if(!T){</p>
+<p>​        return TRUE;</p>
+<p>​    }</p>
+<p>​    else{</p>
+<p>​        return FALSE;</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="创建一棵平衡二叉树"><a href="#创建一棵平衡二叉树" class="headerlink" title="/创建一棵平衡二叉树/"></a>/<em>创建一棵平衡二叉树</em>/</h4><p>void CreateBBST(BBSTree &amp;T)</p>
+<p>{</p>
+<p>​    RcdType e;</p>
+<p>​    int num;</p>
+<p>​    Status taller = TRUE;</p>
+<p>​    printf(“\n请输入平衡二叉树的结点个数:”);</p>
+<p>​    scanf(“%d”, &amp;num);</p>
+<p>​    getchar();</p>
+<p>​    printf(“请顺序输入元素(按’回车键’结束):”);</p>
+<p>​    for (int i = 0; i &lt; num; i++) {</p>
+<p>​        scanf(“%d”, &amp;e);</p>
+<p>​        InsertAVL(T, e, taller);</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="输出平衡二叉树"><a href="#输出平衡二叉树" class="headerlink" title="/输出平衡二叉树/"></a>/<em>输出平衡二叉树</em>/</h4><p>void PrintTree(BBSTree T, int nLayer){</p>
+<p>​    if(T == NULL) {</p>
+<p>​        return;</p>
+<p>​    }</p>
+<p>​    PrintTree(T-&gt;rchild, nLayer + 4);</p>
+<p>​    for(int i = 0; i &lt; nLayer; i++) {</p>
+<p>​        printf(“ “);</p>
+<p>​    }</p>
+<p>​    printf(“%d\n”, T-&gt;data);</p>
+<p>​    PrintTree(T-&gt;lchild, nLayer + 4);</p>
+<p>}</p>
+<h4 id="输出平衡二叉树-1"><a href="#输出平衡二叉树-1" class="headerlink" title="/输出平衡二叉树/"></a>/<em>输出平衡二叉树</em>/</h4><p>void PrintTree1(BBSTree &amp;T)</p>
+<p>{</p>
+<p>​    if(T)</p>
+<p>​    {</p>
+<p>​        printf(“%d”,T-&gt;data);</p>
+<p>​        if(T-&gt;lchild || T-&gt;rchild)</p>
+<p>​        {</p>
+<p>​            printf(“(“);</p>
+<p>​            PrintTree1(T-&gt;lchild);</p>
+<p>​            if(T-&gt;rchild)</p>
+<p>​                printf(“,”);</p>
+<p>​            PrintTree1(T-&gt;rchild);</p>
+<p>​            printf(“)”);</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="平衡二叉树的插入操作"><a href="#平衡二叉树的插入操作" class="headerlink" title="/平衡二叉树的插入操作/"></a>/<em>平衡二叉树的插入操作</em>/</h4><p>/若平衡二叉树中不存在值为e的结点，则插入到T/</p>
+<p>Status InsertAVL(BBSTree &amp;T, RcdType e, Status &amp;taller){</p>
+<p>​    if(NULL==T){</p>
+<p>​        T = (BBSTree)malloc(sizeof(BBSTNode));</p>
+<p>​        T-&gt;data = e;</p>
+<p>​        T-&gt;bf = EH; </p>
+<p>​        T-&gt;lchild = NULL; </p>
+<p>​        T-&gt;rchild = NULL;</p>
+<p>​    }else if(e==T-&gt;data){ //书中已存在和e相等的结点 </p>
+<p>​        taller = FALSE; return FALSE;        </p>
+<p>​    }else if(e<t->data){</t-></p>
+<p>​        if(FALSE==InsertAVL(T-&gt;lchild, e, taller)) return FALSE;</p>
+<p>​        if(TRUE==taller){</p>
+<p>​            switch(T-&gt;bf){</p>
+<p>​                case LH: LeftBalance(T); taller = FALSE; break;</p>
+<p>​                case EH: T-&gt;bf = LH; taller = TRUE; break;</p>
+<p>​                case RH: T-&gt;bf = EH; taller = FALSE; break;</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​    }else{</p>
+<p>​        if(FALSE==InsertAVL(T-&gt;rchild, e, taller)) return FALSE;</p>
+<p>​        if(TRUE==taller){</p>
+<p>​            switch(T-&gt;bf){</p>
+<p>​                case LH: T-&gt;bf = EH; taller = FALSE; break;</p>
+<p>​                case EH: T-&gt;bf = RH; taller = TRUE; break;</p>
+<p>​                case RH: RightBalance(T); taller = FALSE; break;</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    return TRUE;</p>
+<p>}</p>
+<h4 id="左旋调整（右旋与之类似，不再列出）"><a href="#左旋调整（右旋与之类似，不再列出）" class="headerlink" title="/左旋调整（右旋与之类似，不再列出）/"></a>/<em>左旋调整（右旋与之类似，不再列出）</em>/</h4><p>void L_Rotate(BBSTree &amp;p) {</p>
+<p>​    BBSTree rc = p -&gt; rchild;</p>
+<p>​    p -&gt; rchild = rc -&gt; lchild;</p>
+<p>​    rc -&gt; lchild = p;</p>
+<p>​    p = rc;</p>
+<p>}</p>
+<h4 id="左平衡处理操作（右平衡与之类似，不再列出）"><a href="#左平衡处理操作（右平衡与之类似，不再列出）" class="headerlink" title="/左平衡处理操作（右平衡与之类似，不再列出）/"></a>/<em>左平衡处理操作（右平衡与之类似，不再列出）</em>/</h4><p>void LeftBalance(BBSTree &amp;T){</p>
+<p>​    BBSTree lc, rd;</p>
+<p>​    lc = T-&gt;lchild;</p>
+<p>​    switch(lc-&gt;bf){</p>
+<p>​        case LH:</p>
+<p>​            T-&gt;bf = lc-&gt;bf = EH; R_Rotate(T); break;</p>
+<p>​        case RH:</p>
+<p>​            rd = lc-&gt;rchild;</p>
+<p>​            switch(rd-&gt;bf){</p>
+<p>​                case LH: T-&gt;bf = RH; lc-&gt;bf = EH; break;</p>
+<p>​                case EH: T-&gt;bf = lc-&gt;bf = EH; break;</p>
+<p>​                case RH: T-&gt;bf = EH; lc-&gt;bf = LH; break;</p>
+<p>​            }</p>
+<p>​            rd-&gt;bf = EH;</p>
+<p>​            L_Rotate(T-&gt;lchild);</p>
+<p>​            R_Rotate(T);</p>
+<p>​            break;</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="平衡二叉树的删除操作"><a href="#平衡二叉树的删除操作" class="headerlink" title="/平衡二叉树的删除操作/"></a>/<em>平衡二叉树的删除操作/</em></h4><h4 id="平衡二叉树中存在值为key的结点，则删除"><a href="#平衡二叉树中存在值为key的结点，则删除" class="headerlink" title="/平衡二叉树中存在值为key的结点，则删除/"></a>/<em>平衡二叉树中存在值为key的结点，则删除</em>/</h4><p>Status DeleteAVL(BBSTree &amp;T, RcdType e, Status &amp;shorter){</p>
+<p> //当被删结点是有两个孩子，且其前驱结点是左孩子时，tag=1</p>
+<p>​    int tag = 0;</p>
+<p>​    if(T == NULL){</p>
+<p>​        return FALSE;    //如果不存在元素，返回失败</p>
+<p>​    }else if(e==T-&gt;data){</p>
+<p>​        BBSTNode *q = NULL;</p>
+<p>​        //如果该结点只有一个孩子，则将自子树取代该结点</p>
+<p>​        if(T-&gt;lchild == NULL){</p>
+<p>​            q = T;</p>
+<p>​            T = T-&gt;rchild;</p>
+<p>​            free(q);</p>
+<p>​            shorter = TRUE;</p>
+<p>​        }</p>
+<p>​        else if(T-&gt;rchild == NULL){</p>
+<p>​            q = T;</p>
+<p>​            T = T-&gt;lchild;</p>
+<p>​            free(q);</p>
+<p>​            shorter = TRUE;</p>
+<p>​        }</p>
+<p>​        //如果被删结点有两个孩子，则找到结点的前驱结点，</p>
+<p>​        //并将前驱结点的值赋给该结点，然后删除前驱结点</p>
+<p>​        else{</p>
+<p>​            q = T-&gt;lchild;</p>
+<p>​            while(q-&gt;rchild){</p>
+<p>​                q = q-&gt;rchild;</p>
+<p>​            }</p>
+<p>​            T-&gt;data = q-&gt;data;</p>
+<p>​            if(T-&gt;lchild-&gt;data==q-&gt;data){</p>
+<p>​                tag = 1;</p>
+<p>​            }</p>
+<p>​            DeleteAVL(T-&gt;lchild, q-&gt;data, shorter);</p>
+<p>​            if(tag==1){</p>
+<p>​                BBSTree r = T-&gt;rchild;</p>
+<p>​                if(NULL==r) T-&gt;bf = 0;</p>
+<p>​                else{</p>
+<p>​                    switch(r-&gt;bf){</p>
+<p>​                        case EH: T-&gt;bf=-1;break;</p>
+<p>​                        default: RightBalance(T);break;</p>
+<p>​                    }</p>
+<p>​                }</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​    }else if(e<t->data){        //左子树中继续查找</t-></p>
+<p>​        if(!DeleteAVL(T-&gt;lchild, e, shorter)){</p>
+<p>​            return FALSE;</p>
+<p>​        }</p>
+<p>​        //删除完结点之后，调整结点的平衡因子</p>
+<p>​        if(shorter&amp;&amp;(tag==0))  {</p>
+<p>​            switch(T-&gt;bf){</p>
+<p>​                case LH:</p>
+<p>​                    T-&gt;bf = EH;</p>
+<p>​                    shorter = TRUE;</p>
+<p>​                    break;</p>
+<p>​                case EH:</p>
+<p>​                    T-&gt;bf = RH;</p>
+<p>​                    shorter = FALSE;</p>
+<p>​                    break;</p>
+<p>​                //如果本来就是右子树较高，删除之后就不平衡，需要做右平衡操作</p>
+<p>​                case RH:</p>
+<p>​                    RightBalance(T);    //右平衡处理</p>
+<p>​                    if(T-&gt;rchild-&gt;bf == EH)</p>
+<p>​                        shorter = FALSE;</p>
+<p>​                    else</p>
+<p>​                        shorter = TRUE;</p>
+<p>​                    break;</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​    }else if(e&gt;T-&gt;data){ //右子树中继续查找</p>
+<p>​        if(!DeleteAVL(T-&gt;rchild, e, shorter)){</p>
+<p>​            return FALSE;</p>
+<p>​        }</p>
+<p>​        //删除完结点之后，调整结点的平衡因子</p>
+<p>​        if(shorter&amp;&amp;(tag==0))  {</p>
+<p>​            switch(T-&gt;bf){</p>
+<p>​                case LH:</p>
+<p>​                    LeftBalance(T);     //左平衡处理</p>
+<p>​                    if(T-&gt;lchild-&gt;bf == EH)</p>
+<p>​                        shorter = FALSE;</p>
+<p>​                    else</p>
+<p>​                        shorter = TRUE;</p>
+<p>​                    break;</p>
+<p>​                case EH:</p>
+<p>​                    T-&gt;bf = LH;</p>
+<p>​                    shorter = FALSE;</p>
+<p>​                    break;</p>
+<p>​                case RH:</p>
+<p>​                    T-&gt;bf = EH;</p>
+<p>​                    shorter = TRUE;</p>
+<p>​                    break;</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​        if(tag==1){</p>
+<p>​            int depthLeft = BBSTreeDepth(T-&gt;lchild);</p>
+<p>​            int depthRight = BBSTreeDepth(T-&gt;rchild);</p>
+<p>​            T-&gt;bf = depthLeft - depthRight;</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    return TRUE;</p>
+<p>}</p>
+<h4 id="二叉平衡树查找的递归实现"><a href="#二叉平衡树查找的递归实现" class="headerlink" title="/二叉平衡树查找的递归实现/"></a>/<em>二叉平衡树查找的递归实现/</em></h4><p>/<em>若平衡二叉树中存在值为key的结点，则返回该结点指针，否则返回NULL</em>/</p>
+<p>BBSTree SearchBBST(BBSTree T,RcdType key) {</p>
+<p>​    if(NULL == T)</p>
+<p>​        return NULL;</p>
+<p>​    if(T -&gt; data == key)</p>
+<p>​        return T;</p>
+<p>​    if(T -&gt; data &gt; key)</p>
+<p>​        return SearchBBST(T -&gt; lchild,key);</p>
+<p>​    return SearchBBST(T -&gt; rchild,key);</p>
+<p>}</p>
+<h4 id="二叉平衡树查找的非递归实现"><a href="#二叉平衡树查找的非递归实现" class="headerlink" title="/二叉平衡树查找的非递归实现/"></a>/<em>二叉平衡树查找的非递归实现/</em></h4><p>/若平衡二叉树中存在值为key的结点，则返回该结点指针，否则返回NULL*/</p>
+<p>BBSTree SearchBBST_I(BBSTree T,RcdType e) {</p>
+<p>​    while(T) {</p>
+<p>​        if(e &lt; T -&gt; data)</p>
+<p>​            T = T -&gt; lchild;</p>
+<p>​        else if(e &gt; T -&gt; data)</p>
+<p>​            T = T -&gt; rchild;</p>
+<p>​        else</p>
+<p>​            return T;</p>
+<p>​    }</p>
+<p>​    return NULL;</p>
+<p>}</p>
+<h4 id="寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）"><a href="#寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）" class="headerlink" title="/寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）/"></a>/<em>寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）</em>/</h4><p>BBSTree FindMin(BBSTree T){</p>
+<p>​    if(T)</p>
+<p>​        while(T -&gt; lchild)</p>
+<p>​            T = T -&gt; lchild;</p>
+<p>​    return T;</p>
+<p>}</p>
+<h4 id="递归先序遍历（中序、后序遍历类似不再列出）"><a href="#递归先序遍历（中序、后序遍历类似不再列出）" class="headerlink" title="/递归先序遍历（中序、后序遍历类似不再列出）/"></a>/<em>递归先序遍历（中序、后序遍历类似不再列出）</em>/</h4><p>Status PreOrder(BBSTree T){</p>
+<p>​    if(T) {</p>
+<p>​        printf(“%5d”,T-&gt;data);</p>
+<p>​        PreOrder(T -&gt; lchild);</p>
+<p>​        PreOrder(T -&gt; rchild);</p>
+<p>​    }</p>
+<p>​    return OK;</p>
+<p>}</p>
+<h4 id="非递归中序遍历"><a href="#非递归中序遍历" class="headerlink" title="/非递归中序遍历/"></a>/<em>非递归中序遍历</em>/</h4><p>void InOrderTraverse_I(BBSTree T){</p>
+<p>​    LStack S;</p>
+<p>​    InitStack_LS(S);</p>
+<p>​    BBSTree p = NULL;</p>
+<p>​    p = GoFarLeft(T, S);</p>
+<p>​    while(p!=NULL){</p>
+<p>​        printf(“%d “,p-&gt;data);</p>
+<p>​        if(p-&gt;rchild!=NULL){</p>
+<p>​            p = GoFarLeft(p-&gt;rchild, S);</p>
+<p>​        }</p>
+<p>​        else if(StackEmpty_LS(S)!=TRUE) Pop_LS(S, p);</p>
+<p>​        else p = NULL;</p>
+<p>​    }        </p>
+<p>}</p>
+<h4 id="非递归先序遍历"><a href="#非递归先序遍历" class="headerlink" title="/非递归先序遍历/"></a>/非递归先序遍历/</h4><p>void PreOrderTravese_I(BBSTree T){</p>
+<p>​    LStack S;</p>
+<p>​    InitStack_LS(S);</p>
+<p>​    BBSTree p;</p>
+<p>​    p = VisitFarLeft(T, S);       //先将左边的数据先序读取</p>
+<p>​    while(p!=NULL){</p>
+<p>​        if(p-&gt;rchild!=NULL)              //如果最左下结点的右子树不为空</p>
+<p>​            p = VisitFarLeft(p-&gt;rchild, S);   //执行遍历该结点的左子树</p>
+<p>​        else if(StackEmpty_LS(S)!=TRUE) Pop_LS(S,p);    //如果S不为空栈，出栈</p>
+<p>​        else p = NULL;    //如果为空栈，p赋予空</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="非递归后序遍历"><a href="#非递归后序遍历" class="headerlink" title="/非递归后序遍历/"></a>/<em>非递归后序遍历</em>/</h4><p>void LastOrderTravese_I(BBSTree root){</p>
+<p>​    BBSTree p = root;</p>
+<p>​    BBSTree stack[30];</p>
+<p>​    int num=0;</p>
+<p>​    BBSTree have_visited = NULL;</p>
+<p>​    while(NULL!=p||num&gt;0){</p>
+<p>​        while(NULL!=p){</p>
+<p>​            stack[num++]=p;</p>
+<p>​            p=p-&gt;lchild;        </p>
+<p>​        }</p>
+<p>​        p=stack[num-1];</p>
+<p>​        if(NULL==p-&gt;rchild||have_visited==p-&gt;rchild){</p>
+<p>​            printf(“%d  “,p-&gt;data);</p>
+<p>​            num–;</p>
+<p>​            have_visited=p;</p>
+<p>​            p=NULL;</p>
+<p>​        }</p>
+<p>​        else{</p>
+<p>​            p=p-&gt;rchild;</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    printf(“\n”);</p>
+<p>}</p>
+<h4 id="层次遍历"><a href="#层次遍历" class="headerlink" title="/层次遍历/"></a>/<em>层次遍历</em>/</h4><p>void LevelOrederTraverse_Print(BBSTree T){ </p>
+<p>​    if(T==NULL){</p>
+<p>​        printf(“这是一棵空树!”);</p>
+<p>​    }</p>
+<p>​    if(T!=NULL){</p>
+<p>​        LQueue Q;</p>
+<p>​        InitQueue_LQ(Q);</p>
+<p>​        BBSTree p = T;</p>
+<p>​        printf(“%d “,p-&gt;data); EnQueue_LQ(Q,p);//首先访问根结点，并将根节点入队</p>
+<p>​        while(DeQueue_LQ(Q,p)){ //队非空时重复操作，出队</p>
+<p>​            if(p-&gt;lchild!=NULL){ //访问左孩子并入队</p>
+<p>​                printf(“%d “, p-&gt;lchild-&gt;data);</p>
+<p>​                EnQueue_LQ(Q, p-&gt;lchild);</p>
+<p>​            }</p>
+<p>​            if(p-&gt;rchild!=NULL){ //访问右孩子并入队</p>
+<p>​                printf(“%d “, p-&gt;rchild-&gt;data);</p>
+<p>​                EnQueue_LQ(Q, p-&gt;rchild);</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="求平衡二叉树的深度"><a href="#求平衡二叉树的深度" class="headerlink" title="/求平衡二叉树的深度/"></a>/<em>求平衡二叉树的深度</em>/</h4><p>int BBSTreeDepth(BBSTree T){</p>
+<p>​    int depthLeft, depthRight;</p>
+<p>​    if(NULL==T) return 0;</p>
+<p>​    else{</p>
+<p>​        depthLeft = BBSTreeDepth(T-&gt;lchild);</p>
+<p>​        depthRight = BBSTreeDepth(T-&gt;rchild);</p>
+<p>​        return 1+(depthLeft &gt; depthRight ? depthLeft : depthRight);</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="合并平衡二叉树"><a href="#合并平衡二叉树" class="headerlink" title="/合并平衡二叉树/"></a>/<em>合并平衡二叉树</em>/</h4><p>void MergeBBST(BBSTree &amp;T1, BBSTree T2) {</p>
+<p>​    Status taller = FALSE;</p>
+<p>​    if (T2 != NULL) {</p>
+<p>​        MergeBBST(T1, T2-&gt;lchild);</p>
+<p>​        InsertAVL(T1, T2-&gt;data, taller);</p>
+<p>​        MergeBBST(T1, T2-&gt;rchild);</p>
+<p>​    }</p>
+<p>}</p>
+<h4 id="分裂平衡二叉树"><a href="#分裂平衡二叉树" class="headerlink" title="/分裂平衡二叉树/"></a>/<em>分裂平衡二叉树</em>/</h4><p>void SpiltBBST(BBSTree T, RcdType key, BBSTree &amp;T1, BBSTree &amp;T2) {</p>
+<p>​    Status taller = FALSE;</p>
+<p>​    if (T != NULL) {</p>
+<p>​        SpiltBBST(T-&gt;lchild, key, T1, T2); // 递归访问左子树</p>
+<p>​        if(T-&gt;data &gt; key) {</p>
+<p>​            InsertAVL(T1, T-&gt;data, taller);</p>
+<p>​        } else {</p>
+<p>​            InsertAVL(T2, T-&gt;data, taller);</p>
+<p>​        }</p>
+<p>​        SpiltBBST(T-&gt;rchild, key, T1, T2);</p>
+<p>​    }</p>
+<p>}</p>
+<h2 id="调试分析"><a href="#调试分析" class="headerlink" title="调试分析"></a>调试分析</h2><h3 id="调试过程中遇到的问题及处理方法"><a href="#调试过程中遇到的问题及处理方法" class="headerlink" title="调试过程中遇到的问题及处理方法"></a>调试过程中遇到的问题及处理方法</h3><p>一开始运行过程中程序停止运行。遇到这个情况一开始我以为是编译器有问题，但是换了个编译器还是同样的问题，后来我上网查询了有关资料，大概明白了是自己的代码出现了问题。所以只能将新增的代码注释掉，一条一条测试，调试过程很漫长，最后才发现是内存泄露和空指针异常，将指针不适用之后指向为 NULL，才把问题解决了。</p>
+<h3 id="算法改进与设想"><a href="#算法改进与设想" class="headerlink" title="算法改进与设想"></a>算法改进与设想</h3><p>在对动态查找表的查找方式上，课程设计选择的是平衡二叉树，那么当查找的结点元素与关键字数量庞大的时候，就会造成平衡二叉树的高度过高，查找、添加、删除等操作的时候效率就会变得很低，而且输入后的排序与整合平衡二叉树T所需要用到的时间就会很长，所以，如果动态查找表中的元素数量庞大的时候可以优先选择B树和B+树等，可以有效降低查找树的高度，提高查找处理效率。</p>
+<h3 id="经验与体会"><a href="#经验与体会" class="headerlink" title="经验与体会"></a>经验与体会</h3><p>本次课程设计主要实现平衡二叉树的查找，插入和删除，增加合并和分裂的功能。许多接口的实现都是基于之前二叉树等的操作，根据平衡二叉树的特性进行改动和完善，删除的难点在于找待删除点的前驱结点和删除后对失衡情况的调节.合并和分裂平衡二叉树，一开始我是想用一个数组先把元素汇总再进行创建新的平衡二叉树，但查阅资料后，觉得这一种方法有些死板，不及直接递归访问结点元素并进行插入操作。总结来说，平衡二叉树是一种基于二叉树的抽象数据类型，平衡这一特性，给一些基本操作增加了不小的难度，值得去思考和研究。</p>
+<p>在做一个比较大的程序过程中，应该学会边编写程序边运行，即当你完成了一个比较小的功能时便对其调试， 这样有助于我们高效地完成项目，而且在调试 BUG 的过程也可以大大减小其难度。必须要有良好的编程习惯。首先编码风格一定要规范，这样不仅有利于读者和编程者对代码的阅读，更有利于对代码的维护。其次要对代码要细心，比较一些指针的初始化和不需要时指为空，这些都是可以极大减少我们出现 BUG 的几率</p>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/树/" rel="tag"><i class="fa fa-tag"></i> 树</a>
+          
+            <a href="/tags/课设/" rel="tag"><i class="fa fa-tag"></i> 课设</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        ﻿
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/吹水/2019/05/11/bbforfun.html" rel="prev" title="谈谈回家安顿的一周">
+                <i class="fa fa-chevron-left"></i> 谈谈回家安顿的一周
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/canvas/2019/05/11/canvas.html" rel="next" title="canvas学习笔记">
+                 canvas学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDE0Mi8yMDY3Ng=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">阿波的个人博客，主要涉及但不局限前端与算法等编程学习，图文算法分享，以记录生活或者读书笔记为主，（づ￣3￣）づ╭❤～</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人们" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人们</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求分析"><span class="nav-number">1.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概要设计"><span class="nav-number">2.</span> <span class="nav-text">概要设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接口设计"><span class="nav-number">2.1.</span> <span class="nav-text">接口设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主程序与各接口函数的调用"><span class="nav-number">2.1.1.</span> <span class="nav-text">主程序与各接口函数的调用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细设计"><span class="nav-number">3.</span> <span class="nav-text">详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要变量和存储结构定义"><span class="nav-number">3.1.</span> <span class="nav-text">重要变量和存储结构定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法设计"><span class="nav-number">3.2.</span> <span class="nav-text">算法设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化平衡二叉树"><span class="nav-number">3.2.1.</span> <span class="nav-text">/初始化平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#销毁平衡二叉树"><span class="nav-number">3.2.2.</span> <span class="nav-text">/销毁平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判空平衡二叉树"><span class="nav-number">3.2.3.</span> <span class="nav-text">/判空平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一棵平衡二叉树"><span class="nav-number">3.2.4.</span> <span class="nav-text">/创建一棵平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出平衡二叉树"><span class="nav-number">3.2.5.</span> <span class="nav-text">/输出平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出平衡二叉树-1"><span class="nav-number">3.2.6.</span> <span class="nav-text">/输出平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树的插入操作"><span class="nav-number">3.2.7.</span> <span class="nav-text">/平衡二叉树的插入操作/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左旋调整（右旋与之类似，不再列出）"><span class="nav-number">3.2.8.</span> <span class="nav-text">/左旋调整（右旋与之类似，不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左平衡处理操作（右平衡与之类似，不再列出）"><span class="nav-number">3.2.9.</span> <span class="nav-text">/左平衡处理操作（右平衡与之类似，不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树的删除操作"><span class="nav-number">3.2.10.</span> <span class="nav-text">/平衡二叉树的删除操作/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平衡二叉树中存在值为key的结点，则删除"><span class="nav-number">3.2.11.</span> <span class="nav-text">/平衡二叉树中存在值为key的结点，则删除/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉平衡树查找的递归实现"><span class="nav-number">3.2.12.</span> <span class="nav-text">/二叉平衡树查找的递归实现/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉平衡树查找的非递归实现"><span class="nav-number">3.2.13.</span> <span class="nav-text">/二叉平衡树查找的非递归实现/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）"><span class="nav-number">3.2.14.</span> <span class="nav-text">/寻找平衡二叉树最小元素所在结点地址（寻找最大元素类似不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归先序遍历（中序、后序遍历类似不再列出）"><span class="nav-number">3.2.15.</span> <span class="nav-text">/递归先序遍历（中序、后序遍历类似不再列出）/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归中序遍历"><span class="nav-number">3.2.16.</span> <span class="nav-text">/非递归中序遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归先序遍历"><span class="nav-number">3.2.17.</span> <span class="nav-text">/非递归先序遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非递归后序遍历"><span class="nav-number">3.2.18.</span> <span class="nav-text">/非递归后序遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#层次遍历"><span class="nav-number">3.2.19.</span> <span class="nav-text">/层次遍历/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求平衡二叉树的深度"><span class="nav-number">3.2.20.</span> <span class="nav-text">/求平衡二叉树的深度/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并平衡二叉树"><span class="nav-number">3.2.21.</span> <span class="nav-text">/合并平衡二叉树/</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分裂平衡二叉树"><span class="nav-number">3.2.22.</span> <span class="nav-text">/分裂平衡二叉树/</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试分析"><span class="nav-number">4.</span> <span class="nav-text">调试分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调试过程中遇到的问题及处理方法"><span class="nav-number">4.1.</span> <span class="nav-text">调试过程中遇到的问题及处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法改进与设想"><span class="nav-number">4.2.</span> <span class="nav-text">算法改进与设想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经验与体会"><span class="nav-number">4.3.</span> <span class="nav-text">经验与体会</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://prc4nro7n.bkt.clouddn.com/landscape-4208571_1280.jpg");
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":200,"height":200,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+</html>
