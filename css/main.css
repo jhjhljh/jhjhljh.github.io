@@ -1792,7 +1792,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #a85dc3;
+  background: #ff093c;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2725,6 +2725,10 @@ embed {
 img {
   width: 100%;
 }
+#posts img {
+  width: auto;
+  text-align: center;
+}
 .posts-expand .post-eof {
   margin: 0px;
   background-color: rgba(255,255,255,0);
@@ -2803,7 +2807,7 @@ img {
 }
 a {
   color: #5073b8;
-  border-bottom-color: #5073b8;
+  border-bottom: none;
 }
 a:hover {
   color: #a166ab;
