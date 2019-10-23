@@ -1,1 +1,1338 @@
-<!doctype html><html class="theme-next muse use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><script></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet"><link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet"><link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"><link href="/css/main.css?v=5.1.3" rel="stylesheet"><meta name="keywords" content="串,"><link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3"><meta name="description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来"><meta name="keywords" content="串"><meta property="og:type" content="article"><meta property="og:title" content="数据结构-串"><meta property="og:url" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03.html"><meta property="og:site_name" content="Abo"><meta property="og:description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03/startup.jpg"><meta property="og:updated_time" content="2019-05-12T16:10:27.446Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="数据结构-串"><meta name="twitter:description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来"><meta name="twitter:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03/startup.jpg"><script id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",sidebar:"",fancybox:!0,motion:!0,duoshuo:{userId:"undefined",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:"",labels:""}}</script><link rel="canonical" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03.html"><script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script><link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"><style>.pace .pace-progress{background:#1e92fb;height:3px}.pace .pace-progress-inner{box-shadow:0 0 10px #1e92fb,0 0 5px #1e92fb}.pace .pace-activity{border-top-color:#1e92fb;border-left-color:#1e92fb}</style><title>数据结构-串 | Abo</title></head><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz","zQfRdGCiWzVvsSpXKOJsbvHe")</script><script>function showTime(e){var t=new AV.Query(e);$(".leancloud_visitors").each(function(){var r=$(this).attr("id").trim();t.equalTo("url",r),t.find({success:function(e){if(0!=e.length)for(var t=0;t<e.length;t++){var n=e[t];o=$(document.getElementById(r)).text()+": "+n.get("time");$(document.getElementById(r)).text(o)}else{var o=$(document.getElementById(r)).text()+": 0";$(document.getElementById(r)).text(o)}},error:function(e,t){console.log("Error: "+t.code+" "+t.message)}})})}function addCount(o){o=AV.Object.extend("Counter");url=$(".leancloud_visitors").attr("id").trim(),title=$(".leancloud_visitors").attr("data-flag-title").trim();var e=new AV.Query(o);e.equalTo("url",url),e.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){var t=$(document.getElementById(url)).text()+": "+e.get("time");$(document.getElementById(url)).text(t)},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new o;n.set("title",title),n.set("url",url),n.set("time",1),n.save(null,{success:function(e){console.log("newcounter.get('time')="+e.get("time"));var t=$(document.getElementById(url)).text()+": "+e.get("time");$(document.getElementById(url)).text(t)},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><div class="container one-collumn page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Abo</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description">阿波同学</h1></div><div class="site-nav-toggle"><button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-futbol-o"></i><br>关于</a></li><li class="menu-item menu-item-top"><a href="/top" rel="section"><i class="menu-item-icon fa fa-fw fa-signal"></i><br>排行</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup"><span class="search-icon fa fa-search"></span> <input type="text" id="local-search-input"><div id="local-search-result"></div><span class="popup-btn-close">close</span></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03.html"><span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="林加鸿"><meta itemprop="description" content><meta itemprop="image" content="/images/avatar.jpg"></span><span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Abo"><span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject"><img style="display:none" itemprop="url image" alt="Abo" src></span></span><header class="post-header"><h2 class="post-title" itemprop="name headline">数据结构-串</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T01:22:26+08:00">2019-05-11</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataStructure/" itemprop="url" rel="index"><span itemprop="name">DataStructure</span></a></span></span> <span class="post-comments-count"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-comment-o"></i></span><a href="/DataStructure/2019/05/11/DataStructure-03.html#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/DataStructure/2019/05/11/DataStructure-03.html" itemprop="commentCount"></span></a></span> <span id="/DataStructure/2019/05/11/DataStructure-03.html" class="leancloud_visitors" data-flag-title="数据结构-串"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">热度</span><span class="leancloud-visitors-count"></span> <span>℃</span></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">字数统计</span> <span title="字数统计">2.4k</span> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span> <span class="post-meta-item-text">阅读时长</span> <span title="阅读时长">9</span></div></div></header><div class="post-body" itemprop="articleBody"><p class="description">虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来</p><p><img src="/DataStructure/2019/05/11/DataStructure-03/startup.jpg" alt="startup"></p><a id="more"></a><blockquote class="question">“你将不再是道具，而是人如其名的人”</blockquote><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=534064298&auto=1&height=66"></iframe><ul><li>前言<blockquote><p>串(string)是由零个或多个字符组成的有限序列，又名叫字符串,一般记为s=”a1a2a3….an”(n≥0),其中s是串的名称，用双引号括起来的字符序列是串的值，注意单引号不属于串中的内容。</p><blockquote><p>串中的字符数目n称为串的长度</p><blockquote><p>零个字符的串称为空串(null string)，它的长度为0，可以直接用两双引号“”表示，也可以用希腊字母Ø表示</p><blockquote><p>空格串，是只包含空格的串，注意它与空串的区别，空格串是有长度的，而且可以不止一个空格</p></blockquote></blockquote></blockquote></blockquote></li><li>字串和主串：串中容易个数的连续字符组成的子序列称为该串的字串，相应地，包含字串的串称为主串<blockquote><p>字串在主串中的位置就是字串的第一个字符在主串中的符号</p></blockquote></li></ul><hr><h4 id="串的比较"><a href="#串的比较" class="headerlink" title="串的比较"></a>串的比较</h4><p>串的比较是通过组成串的字符之间的编码来进行的，而字符的编码指的是字符在对应字符集中的序号。</p><blockquote><p>ASCII——扩展——Unicode——UTF-8的关系了解一波?</p><blockquote><p>如果我们要在c语言中比较两个串是否相等，必须是它们串的长度以及它们各自对应位置的字符都相等时，才算是相等,而对于两个不相等的串，怎么判定它们的大小呢?</p><blockquote><p>给定两个串：s=“a1a2….an”，t=“b1b2b3…bn”，当满足以下条件之一时，s&lt;t.</p><ol><li>n&lt;m，且ai=bi(i=1，2…..,n) 例如当s=”hap”,t=”happy”就有s&lt;t</li><li>存在某个k≤min(m,n),使得ai=bi(i=1,2….k-1), ak&lt;bk 例如当s=”happen”,t=”happy”因为两串的前4个字母均相同，而两串第五个字母(k)值e&lt;y，所以s&lt;t</li></ol></blockquote></blockquote></blockquote><hr><h4 id="串的抽象数据类型"><a href="#串的抽象数据类型" class="headerlink" title="串的抽象数据类型"></a>串的抽象数据类型</h4><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ADT 串(string)</span><br><span class="line">Data 串中元素仅由一个字符组成，相邻元素具有前驱和后继关系</span><br><span class="line"></span><br><span class="line">Operation</span><br><span class="line">    StrAssign(<span class="built_in">T</span>,*chars)：生成一个其值等于字符串常量chars的串<span class="built_in">T</span></span><br><span class="line">    StrCopy(<span class="built_in">T</span>,S)<span class="symbol">:</span>串S存在，由串S复制得串<span class="built_in">T</span></span><br><span class="line">    ClearStrng(S)<span class="symbol">:</span>串S存在，将串清空</span><br><span class="line">    StringEmpty(S)<span class="symbol">:</span>若串S为空，则返回<span class="built_in">true</span>，否则返回<span class="built_in">false</span></span><br><span class="line">    StrLength(S)<span class="symbol">:</span>返回串S的元素个数，即串的长度</span><br><span class="line">    StrCompare(S,<span class="built_in">T</span>)<span class="symbol">:</span>若S&gt;<span class="built_in">T</span>,返回值&gt;<span class="number">0</span>，若S=<span class="built_in">T</span>,返回<span class="number">0</span>，若S&lt;<span class="built_in">T</span>,返回值&lt;<span class="number">0</span></span><br><span class="line">    <span class="built_in">Concat</span>(<span class="built_in">T</span>,<span class="symbol">S1</span>,<span class="symbol">S2</span>)<span class="symbol">:</span>用<span class="built_in">T</span>返回由<span class="symbol">S1</span>和<span class="symbol">S2</span>连接而成的新串</span><br><span class="line">    SubString(Sub,S,pos,<span class="built_in">len</span>)<span class="symbol">:</span>串S存在，<span class="number">1</span>≤pos≤StrLength(S)。若主串S中存在和串<span class="built_in">T</span>值相同的子串，则返回它在主串S中第pos个字符之后第一次出现的位置，否则返回<span class="number">0</span></span><br><span class="line">    <span class="built_in">Index</span>(S,<span class="built_in">T</span>,pos)<span class="symbol">:</span>串S和<span class="built_in">T</span>存在，<span class="built_in">T</span>是非空串，<span class="number">1</span>≤pos≤StrLength(S)。若主串S中存在和串<span class="built_in">T</span>值相同的字串，则返回它在主串中第pos个字符之后第一次出现的位置，否则返回<span class="number">0</span></span><br><span class="line">    <span class="built_in">Replace</span>(S,<span class="built_in">T</span>,V)<span class="symbol">:</span>串S,<span class="built_in">T</span>和V存在，<span class="built_in">T</span>是非空串。用V代替主串S中出现的所有与<span class="built_in">T</span>相等的不重叠字串</span><br><span class="line">    StrInsert(S,pos,<span class="built_in">T</span>)<span class="symbol">:</span>串S，<span class="built_in">T</span>存在，<span class="number">1</span>≤pos≤StrLength(S)+<span class="number">1</span>,在串S的第pos个字符之前插入串<span class="built_in">T</span></span><br><span class="line">    StrDelete(S,pos,<span class="built_in">len</span>)<span class="symbol">:</span>串S存在，<span class="number">1</span>≤pos≤StrLength(S)-<span class="built_in">len</span>+<span class="number">1</span>。从串S中删除第pos个字符起长度为<span class="built_in">len</span>的子串</span><br><span class="line">endADTs</span><br></pre></td></tr></table></figure><p>我们来看一个操作Index的实现算法<br></p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*T为非空串。若主串S中第pos个字符之后存在与T相等的子串则返回第一个这样的字串在S中的位置，否则返回0*/</span></span><br><span class="line"><span class="keyword">int</span> Index(<span class="keyword">String</span> S, <span class="keyword">String</span> T, <span class="keyword">int</span> pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> n,m,i;</span><br><span class="line">    <span class="keyword">String</span> sub;</span><br><span class="line">    <span class="built_in">if</span>(pos &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        n = StrLength(S);</span><br><span class="line">        m = StrLength(T);</span><br><span class="line">        i = pos;</span><br><span class="line">        <span class="built_in">while</span>(i &lt;= n-m+<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            SubString(sub,S,i,m);<span class="comment">/*取主串第i个位置，长度与T相等子串给sub*/</span></span><br><span class="line">            <span class="built_in">if</span>(StrCompare(sub,T) != <span class="number">0</span>) <span class="comment">/*如果两串不相等*/</span></span><br><span class="line">                ++i;</span><br><span class="line">            <span class="built_in">else</span></span><br><span class="line">                <span class="built_in">return</span> i;<span class="comment">/*如果两串相等，则返回i值*/</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> <span class="number">0</span>;<span class="comment">/*若无子串与T相等，返回0*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p><blockquote><p>串的顺序存储结构是用一组地址连续的存储单元来存储串中的字符序列的。按照预定义的大小，为每个定义的串变量分配一个固定长度的存储区。一般是用定长数组来定义</p><blockquote><p>既然是定长数组，就存在一个预定义的最大串长度，一般可以将实际的串长度值保存在数组的0下标位置，有的书也会定义存储在数组的最后一个下标位置</p><blockquote><p>有些是规定在串值后面加一个不计入串长度的结束标记字符，比如“\0”来表示串值的终结，这个时候你要想知道串长度，遍历计算一下即可</p></blockquote></blockquote></blockquote><h4 id="朴素的模式匹配算法-BF算法-Brute-Force"><a href="#朴素的模式匹配算法-BF算法-Brute-Force" class="headerlink" title="朴素的模式匹配算法(BF算法)(Brute Force)"></a>朴素的模式匹配算法(BF算法)(Brute Force)</h4><blockquote><p>子串的的定位操作通常称为串的模糊匹配，应该算是串中最重要的操作之一<br></p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*返回子串在主串S中第pos个字符之后的位置，若不存在则返回值为0。T非空，1≤pos≤StrLength(S)*/</span></span><br><span class="line"><span class="keyword">int</span> Index(<span class="keyword">String</span> S, <span class="keyword">String</span> T, <span class="keyword">int</span> pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i = pos;   <span class="comment">/*i用于主串S中当前位置下标，若pos不为1则从pos位置开始匹配*/</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;  <span class="comment">/*j用于子串T中当前位置下标值*/</span></span><br><span class="line">    <span class="built_in">while</span>(i &lt;= S[<span class="number">0</span>] &amp;&amp; j&lt;= T[<span class="number">0</span>])  <span class="comment">/*若i小于S长度且j小于T的长度时循环*/</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">if</span>(S[i] == T[j])  <span class="comment">/*两字母相等则继续*/</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">else</span>    <span class="comment">/*指针后退重新开始匹配*/</span></span><br><span class="line">        &#123;</span><br><span class="line">            i = i-j+<span class="number">2</span>;  <span class="comment">/*i退回到上次匹配首位的下一位*/</span></span><br><span class="line">            j = <span class="number">1</span>;  <span class="comment">/*j退回到子串T的首位*/</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">if</span>(j &gt; T[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">return</span> i-T[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">else</span></span><br><span class="line">        <span class="built_in">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p></blockquote><hr><h4 id="KMP模式匹配算法"><a href="#KMP模式匹配算法" class="headerlink" title="KMP模式匹配算法"></a>KMP模式匹配算法</h4><p>三位前辈发表一个模式匹配算法，可以大大避免重复遍历的情况，我们称之为克努特-莫里斯-普拉特算法，简称KMP算法</p><blockquote><p>此处省略原理简介以及next数组的引入，自己看书，简述几个例子</p><ol><li>abcdex———011111</li><li>abcabx———011123</li><li>ababaaaba———011234223</li><li>aaaaaaaab———012345678</li></ol><ul><li>KMP模式匹配算法实现<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/*通过计算返回子串<span class="literal">T</span>的<span class="keyword">next</span>数组*/</span><br><span class="line">void get_next(String <span class="literal">T</span>,int *<span class="keyword">next</span>)</span><br><span class="line">&#123;</span><br><span class="line">    int i,j;</span><br><span class="line">    i=<span class="number">1</span>;</span><br><span class="line">    j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">next</span>[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;<span class="literal">T</span>[<span class="number">0</span>])  /*此处<span class="literal">T</span>[<span class="number">0</span>]表示串<span class="literal">T</span>的长度*/</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">0</span> || <span class="literal">T</span>[i]==<span class="literal">T</span>[j])  /*<span class="literal">T</span>[i]表示后缀的单个字符，<span class="literal">T</span>[j]表示前缀的单个字符*/</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">            <span class="keyword">next</span>[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            j = <span class="keyword">next</span>[j];      /*若字符不相同，则j值回溯*/</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*返回子串T在主串S中第pos个字符之后的位置。若不存在，则函数返回值为0.。T非空，1≤pos≤StrLength(S)*/</span></span><br><span class="line"><span class="keyword">int</span> Index_KMP(String S, String T,<span class="keyword">int</span> pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i = pos;  <span class="comment">/*i用于主串S当前位置下标值，若pos不为1，则从pos位置开始匹配*/</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;  <span class="comment">/*j用于子串T中当前位置下标值*/</span></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">next</span>[<span class="number">255</span>]; <span class="regexp">/定义一next数组/</span></span><br><span class="line">    get_next(T,<span class="keyword">next</span>);<span class="regexp">/对串T作分析，得到next数组/</span></span><br><span class="line">    <span class="keyword">while</span>(i &lt;= S[<span class="number">0</span>] &amp;&amp; k &lt;= T[<span class="number">0</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">0</span> || S[i] == T[j])  <span class="regexp">/两字母相等则继续，与朴素算法增加了j=0判断/</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            j = <span class="keyword">next</span>[j];  <span class="regexp">/j退回合适的位置，i值不变/</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j &gt; T[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">return</span> i-T[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>绿色注释部分为相对于朴素匹配算法增加的代码，改动不算大，关键就是去掉了i值回溯的部分。</p><blockquote><p>对于get_next函数来说，若T的长度为m，因只涉及到简单的单循环，其时间复杂度为O(m)，而由于i值的不回溯，使得index_KMP算法效率得到了提高</p><blockquote><p>while循环的时间复杂度为O(n),因此，整个算法的时间复杂度为O(n+m)，相较于朴素算法的O((n-m+1)*m)l来说，是要好一些。</p><blockquote><p>KMP算法仅当模式与主串之间存在许多“部分匹配”的情况下才体现出它的优势，否则两者差异并不明显</p></blockquote></blockquote></blockquote></blockquote><hr><h4 id="KMP模式匹配算法改进"><a href="#KMP模式匹配算法改进" class="headerlink" title="KMP模式匹配算法改进"></a>KMP模式匹配算法改进</h4><blockquote><p>对next函数进行了改良,假设取代的数组为nextval(String T,int *nextval),注意观察两者区别<br></p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*求模式串T的next函数修正值并存入数组nextval*/</span></span><br><span class="line">void get_nextval(String T,int *nextval)</span><br><span class="line">&#123;</span><br><span class="line">    int i,<span class="keyword">j;</span></span><br><span class="line"><span class="keyword"> </span>   i = <span class="number">1</span><span class="comment">;</span></span><br><span class="line">    <span class="keyword">j </span>= <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    nextval[<span class="number">1</span>]=<span class="number">0</span><span class="comment">;</span></span><br><span class="line">    while(i &lt;T[<span class="number">0</span>])  <span class="comment">/*此处T[0]表示串T的长度*/</span></span><br><span class="line">    &#123;</span><br><span class="line">        if(<span class="keyword">j==0 </span><span class="title">||</span> T[i] == T[<span class="keyword">j]) </span><span class="comment">/*T[i]表示后缀的单个字符，T[j]表示前缀的单个字符*/</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++i<span class="comment">;</span></span><br><span class="line">            ++<span class="keyword">j;</span></span><br><span class="line"><span class="keyword"> </span>           <span class="comment">/*以下则是区别之处*/</span></span><br><span class="line">            if(T[i] != T[<span class="keyword">j]) </span> <span class="comment">/*若当前字符与前缀字符不同*/</span></span><br><span class="line">               nextval[i] = <span class="keyword">j; </span> <span class="comment">/*则当前的j为nextval在i位置的值*/</span></span><br><span class="line">            else</span><br><span class="line">               nextval[i] = nextval[<span class="keyword">j]; </span> <span class="comment">/*如果与前缀字符相同，则将前缀字符的nextval值赋值给nextval在i位置的值*/</span></span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">           <span class="keyword">j </span>= nextval[<span class="keyword">j]; </span><span class="comment">/*若字符不相同，则j值回溯*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p></blockquote><blockquote><p>实际匹配算法，只需要将”get_next(T,next);”改为”get_nextval(t,next);”j即可，这里不再重复</p><ul><li>nextval数组值推导</li></ul><ol><li>ababaaaba——011234223——010104210</li><li>aaaaaaaab——012345678——000000008</li></ol></blockquote><blockquote><p>总结改进过的KMP算法，它是在计算出next值的同时,如果a位字符与它next值指向的b位字符相等，则a位的nextval就指向b位的nextval值，如果不等，则该a位的nextval值就是它自己的a位的next的值。</p></blockquote><hr></div><div></div><div class="post-tags"><a href="/tags/串/" rel="tag"><i class="fa fa-tag"></i> 串</a></div><div></div><footer class="post-footer"><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/DataStructure/2019/05/11/DataStructure-04.html" rel="prev" title="数据结构-树"><i class="fa fa-chevron-left"></i> 数据结构-树</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/git/2019/05/11/git.html" rel="next" title="那些年你见过的git操作">那些年你见过的git操作<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview">站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="/"><img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿"></a><p class="site-author-name" itemprop="name">林加鸿</p><p class="site-description motion-element" itemprop="description">阿波的个人博客，主要涉及但不局限前端与算法等编程学习，图文算法分享，以记录生活或者读书笔记为主，（づ￣3￣）づ╭❤～</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives"><span class="site-state-item-count">41</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories"><span class="site-state-item-count">18</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags"><span class="site-state-item-count">33</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/jhjhljh" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="http://weibo.com/jhjhljh" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i> 微博</a></span><span class="links-of-author-item"><a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎"><i class="fa fa-fw fa-battery-3"></i> 知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-globe"></i> 神奇的链接</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"><a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a></li><li class="links-of-blogroll-item"><a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a></li><li class="links-of-blogroll-item"><a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a></li><li class="links-of-blogroll-item"><a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a></li><li class="links-of-blogroll-item"><a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a></li></ul></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#串的比较"><span class="nav-number">1.</span> <span class="nav-text">串的比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串的抽象数据类型"><span class="nav-number">2.</span> <span class="nav-text">串的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#朴素的模式匹配算法-BF算法-Brute-Force"><span class="nav-number">3.</span> <span class="nav-text">朴素的模式匹配算法(BF算法)(Brute Force)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMP模式匹配算法"><span class="nav-number">4.</span> <span class="nav-text">KMP模式匹配算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMP模式匹配算法改进"><span class="nav-number">5.</span> <span class="nav-text">KMP模式匹配算法改进</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; 2018 - <span itemprop="copyrightYear">2019</span><span class="with-love" id="heart"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">林加鸿</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span><span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script>"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script><script src="/js/src/utils.js?v=5.1.3"></script><script src="/js/src/motion.js?v=5.1.3"></script><script src="/js/src/scrollspy.js?v=5.1.3"></script><script src="/js/src/post-details.js?v=5.1.3"></script><script src="/js/src/bootstrap.js?v=5.1.3"></script><script src="http://v2.uyan.cc/code/uyan.js?uid="></script><script>var isfetched=!1,search_path="search.xml";0==search_path.length&&(search_path="search.xml");var path="/"+search_path;function proceedsearch(){$("body").append('<div class="popoverlay">').css("overflow","hidden"),$(".popup").toggle()}var searchFunc=function(e,c,n){"use strict";$.ajax({url:e,dataType:"xml",async:!0,success:function(e){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var t=$("entry",e).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get(),a=document.getElementById(c),r=document.getElementById(n);a.addEventListener("input",function(){var u=0,d='<ul class="search-result-list">',f=this.value.trim().toLowerCase().split(/[\s\-]+/);r.innerHTML="",1<this.value.trim().length&&t.forEach(function(e){var a=!1,r=e.title.trim().toLowerCase(),c=e.content.trim().replace(/<[^>]+>/g,"").toLowerCase(),t=decodeURIComponent(e.url),n=-1,s=-1,o=-1;if(""!=r&&f.forEach(function(e,t){n=r.indexOf(e),s=c.indexOf(e),(0<=n||0<=s)&&(a=!0,0==t&&(o=s))}),a){u+=1,d+="<li><a href='"+t+"' class='search-result-title'>"+r+"</a>";var i=e.content.trim().replace(/<[^>]+>/g,"");if(0<=o){var l=o-20,p=o+80;l<0&&(l=0),0==l&&(p=50),p>i.length&&(p=i.length);var h=i.substring(l,p);f.forEach(function(e){var t=new RegExp(e,"gi");h=h.replace(t,'<b class="search-keyword">'+e+"</b>")}),d+='<p class="search-result">'+h+"...</p>"}d+="</li>"}}),d+="</ul>",0==u&&(d='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'),""==f&&(d='<div id="no-result"><i class="fa fa-search fa-5x" /></div>'),r.innerHTML=d}),proceedsearch()}})};$(".popup-trigger").click(function(e){e.stopPropagation(),0==isfetched?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(function(e){$(".popup").hide(),$(".popoverlay").remove(),$("body").css("overflow","")}),$(".popup").click(function(e){e.stopPropagation()})</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz","zQfRdGCiWzVvsSpXKOJsbvHe")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script><script src="/js/src/love.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script><script>$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg")</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({pluginRootPath:"live2dw/",pluginJsPath:"lib/",pluginModelPath:"assets/",tagMode:!1,debug:!1,model:{scale:1,jsonPath:"/live2dw/assets/wanko.model.json"},display:{superSample:2,width:200,height:200,position:"left"},mobile:{show:!1},react:{opacityDefault:.9,opacityOnHover:.5},log:!1})</script></body></html>
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="串,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来">
+<meta name="keywords" content="串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-串">
+<meta property="og:url" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03/startup.jpg">
+<meta property="og:updated_time" content="2019-05-12T16:10:27.446Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-串">
+<meta name="twitter:description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来">
+<meta name="twitter:image" content="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03/startup.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 数据结构-串 | Abo </title>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/DataStructure/2019/05/11/DataStructure-03.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构-串
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T01:22:26+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
+                    <span itemprop="name">DataStructure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                 <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/DataStructure/2019/05/11/DataStructure-03.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/DataStructure/2019/05/11/DataStructure-03.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/DataStructure/2019/05/11/DataStructure-03.html" class="leancloud_visitors" data-flag-title="数据结构-串">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p class="description">虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来</p>
+
+<p><img src="/DataStructure/2019/05/11/DataStructure-03/startup.jpg" alt="startup"></p>
+<a id="more"></a>
+<blockquote class="question">“你将不再是道具，而是人如其名的人”</blockquote>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=534064298&auto=1&height=66"></iframe>
+
+<ul>
+<li>前言<blockquote>
+<p>串(string)是由零个或多个字符组成的有限序列，又名叫字符串,一般记为s=”a1a2a3….an”(n≥0),其中s是串的名称，用双引号括起来的字符序列是串的值，注意单引号不属于串中的内容。</p>
+<blockquote>
+<p>串中的字符数目n称为串的长度</p>
+<blockquote>
+<p>零个字符的串称为空串(null string)，它的长度为0，可以直接用两双引号“”表示，也可以用希腊字母Ø表示</p>
+<blockquote>
+<p>空格串，是只包含空格的串，注意它与空串的区别，空格串是有长度的，而且可以不止一个空格</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+<li>字串和主串：串中容易个数的连续字符组成的子序列称为该串的字串，相应地，包含字串的串称为主串<blockquote>
+<p>字串在主串中的位置就是字串的第一个字符在主串中的符号</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h4 id="串的比较"><a href="#串的比较" class="headerlink" title="串的比较"></a>串的比较</h4><p>串的比较是通过组成串的字符之间的编码来进行的，而字符的编码指的是字符在对应字符集中的序号。</p>
+<blockquote>
+<p>ASCII——扩展——Unicode——UTF-8的关系了解一波?</p>
+<blockquote>
+<p>如果我们要在c语言中比较两个串是否相等，必须是它们串的长度以及它们各自对应位置的字符都相等时，才算是相等,而对于两个不相等的串，怎么判定它们的大小呢?</p>
+<blockquote>
+<p>给定两个串：s=“a1a2….an”，t=“b1b2b3…bn”，当满足以下条件之一时，s&lt;t.</p>
+<ol>
+<li>n&lt;m，且ai=bi(i=1，2…..,n) 例如当s=”hap”,t=”happy”就有s&lt;t</li>
+<li>存在某个k≤min(m,n),使得ai=bi(i=1,2….k-1), ak&lt;bk 例如当s=”happen”,t=”happy”因为两串的前4个字母均相同，而两串第五个字母(k)值e&lt;y，所以s&lt;t</li>
+</ol>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr>
+<h4 id="串的抽象数据类型"><a href="#串的抽象数据类型" class="headerlink" title="串的抽象数据类型"></a>串的抽象数据类型</h4><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ADT 串(string)</span><br><span class="line">Data 串中元素仅由一个字符组成，相邻元素具有前驱和后继关系</span><br><span class="line"></span><br><span class="line">Operation</span><br><span class="line">    StrAssign(<span class="built_in">T</span>,*chars)：生成一个其值等于字符串常量chars的串<span class="built_in">T</span></span><br><span class="line">    StrCopy(<span class="built_in">T</span>,S)<span class="symbol">:</span>串S存在，由串S复制得串<span class="built_in">T</span></span><br><span class="line">    ClearStrng(S)<span class="symbol">:</span>串S存在，将串清空</span><br><span class="line">    StringEmpty(S)<span class="symbol">:</span>若串S为空，则返回<span class="built_in">true</span>，否则返回<span class="built_in">false</span></span><br><span class="line">    StrLength(S)<span class="symbol">:</span>返回串S的元素个数，即串的长度</span><br><span class="line">    StrCompare(S,<span class="built_in">T</span>)<span class="symbol">:</span>若S&gt;<span class="built_in">T</span>,返回值&gt;<span class="number">0</span>，若S=<span class="built_in">T</span>,返回<span class="number">0</span>，若S&lt;<span class="built_in">T</span>,返回值&lt;<span class="number">0</span></span><br><span class="line">    <span class="built_in">Concat</span>(<span class="built_in">T</span>,<span class="symbol">S1</span>,<span class="symbol">S2</span>)<span class="symbol">:</span>用<span class="built_in">T</span>返回由<span class="symbol">S1</span>和<span class="symbol">S2</span>连接而成的新串</span><br><span class="line">    SubString(Sub,S,pos,<span class="built_in">len</span>)<span class="symbol">:</span>串S存在，<span class="number">1</span>≤pos≤StrLength(S)。若主串S中存在和串<span class="built_in">T</span>值相同的子串，则返回它在主串S中第pos个字符之后第一次出现的位置，否则返回<span class="number">0</span></span><br><span class="line">    <span class="built_in">Index</span>(S,<span class="built_in">T</span>,pos)<span class="symbol">:</span>串S和<span class="built_in">T</span>存在，<span class="built_in">T</span>是非空串，<span class="number">1</span>≤pos≤StrLength(S)。若主串S中存在和串<span class="built_in">T</span>值相同的字串，则返回它在主串中第pos个字符之后第一次出现的位置，否则返回<span class="number">0</span></span><br><span class="line">    <span class="built_in">Replace</span>(S,<span class="built_in">T</span>,V)<span class="symbol">:</span>串S,<span class="built_in">T</span>和V存在，<span class="built_in">T</span>是非空串。用V代替主串S中出现的所有与<span class="built_in">T</span>相等的不重叠字串</span><br><span class="line">    StrInsert(S,pos,<span class="built_in">T</span>)<span class="symbol">:</span>串S，<span class="built_in">T</span>存在，<span class="number">1</span>≤pos≤StrLength(S)+<span class="number">1</span>,在串S的第pos个字符之前插入串<span class="built_in">T</span></span><br><span class="line">    StrDelete(S,pos,<span class="built_in">len</span>)<span class="symbol">:</span>串S存在，<span class="number">1</span>≤pos≤StrLength(S)-<span class="built_in">len</span>+<span class="number">1</span>。从串S中删除第pos个字符起长度为<span class="built_in">len</span>的子串</span><br><span class="line">endADTs</span><br></pre></td></tr></table></figure>
+<p>我们来看一个操作Index的实现算法<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*T为非空串。若主串S中第pos个字符之后存在与T相等的子串则返回第一个这样的字串在S中的位置，否则返回0*/</span></span><br><span class="line"><span class="keyword">int</span> Index(<span class="keyword">String</span> S, <span class="keyword">String</span> T, <span class="keyword">int</span> pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> n,m,i;</span><br><span class="line">    <span class="keyword">String</span> sub;</span><br><span class="line">    <span class="built_in">if</span>(pos &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        n = StrLength(S);</span><br><span class="line">        m = StrLength(T);</span><br><span class="line">        i = pos;</span><br><span class="line">        <span class="built_in">while</span>(i &lt;= n-m+<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            SubString(sub,S,i,m);<span class="comment">/*取主串第i个位置，长度与T相等子串给sub*/</span></span><br><span class="line">            <span class="built_in">if</span>(StrCompare(sub,T) != <span class="number">0</span>) <span class="comment">/*如果两串不相等*/</span></span><br><span class="line">                ++i;</span><br><span class="line">            <span class="built_in">else</span></span><br><span class="line">                <span class="built_in">return</span> i;<span class="comment">/*如果两串相等，则返回i值*/</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> <span class="number">0</span>;<span class="comment">/*若无子串与T相等，返回0*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>串的顺序存储结构是用一组地址连续的存储单元来存储串中的字符序列的。按照预定义的大小，为每个定义的串变量分配一个固定长度的存储区。一般是用定长数组来定义</p>
+<blockquote>
+<p>既然是定长数组，就存在一个预定义的最大串长度，一般可以将实际的串长度值保存在数组的0下标位置，有的书也会定义存储在数组的最后一个下标位置</p>
+<blockquote>
+<p>有些是规定在串值后面加一个不计入串长度的结束标记字符，比如“\0”来表示串值的终结，这个时候你要想知道串长度，遍历计算一下即可</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h4 id="朴素的模式匹配算法-BF算法-Brute-Force"><a href="#朴素的模式匹配算法-BF算法-Brute-Force" class="headerlink" title="朴素的模式匹配算法(BF算法)(Brute Force)"></a>朴素的模式匹配算法(BF算法)(Brute Force)</h4><blockquote>
+<p>子串的的定位操作通常称为串的模糊匹配，应该算是串中最重要的操作之一<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*返回子串在主串S中第pos个字符之后的位置，若不存在则返回值为0。T非空，1≤pos≤StrLength(S)*/</span></span><br><span class="line"><span class="keyword">int</span> Index(<span class="keyword">String</span> S, <span class="keyword">String</span> T, <span class="keyword">int</span> pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i = pos;   <span class="comment">/*i用于主串S中当前位置下标，若pos不为1则从pos位置开始匹配*/</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;  <span class="comment">/*j用于子串T中当前位置下标值*/</span></span><br><span class="line">    <span class="built_in">while</span>(i &lt;= S[<span class="number">0</span>] &amp;&amp; j&lt;= T[<span class="number">0</span>])  <span class="comment">/*若i小于S长度且j小于T的长度时循环*/</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">if</span>(S[i] == T[j])  <span class="comment">/*两字母相等则继续*/</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">else</span>    <span class="comment">/*指针后退重新开始匹配*/</span></span><br><span class="line">        &#123;</span><br><span class="line">            i = i-j+<span class="number">2</span>;  <span class="comment">/*i退回到上次匹配首位的下一位*/</span></span><br><span class="line">            j = <span class="number">1</span>;  <span class="comment">/*j退回到子串T的首位*/</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">if</span>(j &gt; T[<span class="number">0</span>])</span><br><span class="line">        <span class="built_in">return</span> i-T[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">else</span></span><br><span class="line">        <span class="built_in">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h4 id="KMP模式匹配算法"><a href="#KMP模式匹配算法" class="headerlink" title="KMP模式匹配算法"></a>KMP模式匹配算法</h4><p>三位前辈发表一个模式匹配算法，可以大大避免重复遍历的情况，我们称之为克努特-莫里斯-普拉特算法，简称KMP算法</p>
+<blockquote>
+<p>此处省略原理简介以及next数组的引入，自己看书，简述几个例子</p>
+<ol>
+<li>abcdex———011111</li>
+<li>abcabx———011123</li>
+<li>ababaaaba———011234223</li>
+<li>aaaaaaaab———012345678</li>
+</ol>
+<ul>
+<li>KMP模式匹配算法实现<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/*通过计算返回子串<span class="literal">T</span>的<span class="keyword">next</span>数组*/</span><br><span class="line">void get_next(String <span class="literal">T</span>,int *<span class="keyword">next</span>)</span><br><span class="line">&#123;</span><br><span class="line">    int i,j;</span><br><span class="line">    i=<span class="number">1</span>;</span><br><span class="line">    j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">next</span>[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;<span class="literal">T</span>[<span class="number">0</span>])  /*此处<span class="literal">T</span>[<span class="number">0</span>]表示串<span class="literal">T</span>的长度*/</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">0</span> || <span class="literal">T</span>[i]==<span class="literal">T</span>[j])  /*<span class="literal">T</span>[i]表示后缀的单个字符，<span class="literal">T</span>[j]表示前缀的单个字符*/</span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">            <span class="keyword">next</span>[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            j = <span class="keyword">next</span>[j];      /*若字符不相同，则j值回溯*/</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*返回子串T在主串S中第pos个字符之后的位置。若不存在，则函数返回值为0.。T非空，1≤pos≤StrLength(S)*/</span></span><br><span class="line"><span class="keyword">int</span> Index_KMP(String S, String T,<span class="keyword">int</span> pos)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i = pos;  <span class="comment">/*i用于主串S当前位置下标值，若pos不为1，则从pos位置开始匹配*/</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;  <span class="comment">/*j用于子串T中当前位置下标值*/</span></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">next</span>[<span class="number">255</span>]; <span class="regexp">/定义一next数组/</span></span><br><span class="line">    get_next(T,<span class="keyword">next</span>);<span class="regexp">/对串T作分析，得到next数组/</span></span><br><span class="line">    <span class="keyword">while</span>(i &lt;= S[<span class="number">0</span>] &amp;&amp; k &lt;= T[<span class="number">0</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(j==<span class="number">0</span> || S[i] == T[j])  <span class="regexp">/两字母相等则继续，与朴素算法增加了j=0判断/</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++i;</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            j = <span class="keyword">next</span>[j];  <span class="regexp">/j退回合适的位置，i值不变/</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(j &gt; T[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">return</span> i-T[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>绿色注释部分为相对于朴素匹配算法增加的代码，改动不算大，关键就是去掉了i值回溯的部分。</p>
+<blockquote>
+<p>对于get_next函数来说，若T的长度为m，因只涉及到简单的单循环，其时间复杂度为O(m)，而由于i值的不回溯，使得index_KMP算法效率得到了提高</p>
+<blockquote>
+<p>while循环的时间复杂度为O(n),因此，整个算法的时间复杂度为O(n+m)，相较于朴素算法的O((n-m+1)*m)l来说，是要好一些。</p>
+<blockquote>
+<p>KMP算法仅当模式与主串之间存在许多“部分匹配”的情况下才体现出它的优势，否则两者差异并不明显</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr>
+<h4 id="KMP模式匹配算法改进"><a href="#KMP模式匹配算法改进" class="headerlink" title="KMP模式匹配算法改进"></a>KMP模式匹配算法改进</h4><blockquote>
+<p>对next函数进行了改良,假设取代的数组为nextval(String T,int *nextval),注意观察两者区别<br> <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*求模式串T的next函数修正值并存入数组nextval*/</span></span><br><span class="line">void get_nextval(String T,int *nextval)</span><br><span class="line">&#123;</span><br><span class="line">    int i,<span class="keyword">j;</span></span><br><span class="line"><span class="keyword"> </span>   i = <span class="number">1</span><span class="comment">;</span></span><br><span class="line">    <span class="keyword">j </span>= <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    nextval[<span class="number">1</span>]=<span class="number">0</span><span class="comment">;</span></span><br><span class="line">    while(i &lt;T[<span class="number">0</span>])  <span class="comment">/*此处T[0]表示串T的长度*/</span></span><br><span class="line">    &#123;</span><br><span class="line">        if(<span class="keyword">j==0 </span><span class="title">||</span> T[i] == T[<span class="keyword">j]) </span><span class="comment">/*T[i]表示后缀的单个字符，T[j]表示前缀的单个字符*/</span></span><br><span class="line">        &#123;</span><br><span class="line">            ++i<span class="comment">;</span></span><br><span class="line">            ++<span class="keyword">j;</span></span><br><span class="line"><span class="keyword"> </span>           <span class="comment">/*以下则是区别之处*/</span></span><br><span class="line">            if(T[i] != T[<span class="keyword">j]) </span> <span class="comment">/*若当前字符与前缀字符不同*/</span></span><br><span class="line">               nextval[i] = <span class="keyword">j; </span> <span class="comment">/*则当前的j为nextval在i位置的值*/</span></span><br><span class="line">            else</span><br><span class="line">               nextval[i] = nextval[<span class="keyword">j]; </span> <span class="comment">/*如果与前缀字符相同，则将前缀字符的nextval值赋值给nextval在i位置的值*/</span></span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">           <span class="keyword">j </span>= nextval[<span class="keyword">j]; </span><span class="comment">/*若字符不相同，则j值回溯*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>实际匹配算法，只需要将”get_next(T,next);”改为”get_nextval(t,next);”j即可，这里不再重复</p>
+<ul>
+<li>nextval数组值推导</li>
+</ul>
+<ol>
+<li>ababaaaba——011234223——010104210</li>
+<li>aaaaaaaab——012345678——000000008</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>总结改进过的KMP算法，它是在计算出next值的同时,如果a位字符与它next值指向的b位字符相等，则a位的nextval就指向b位的nextval值，如果不等，则该a位的nextval值就是它自己的a位的next的值。</p>
+</blockquote>
+<hr>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/串/" rel="tag"><i class="fa fa-tag"></i> 串</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/DataStructure/2019/05/11/DataStructure-04.html" rel="prev" title="数据结构-树">
+                <i class="fa fa-chevron-left"></i> 数据结构-树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/git/2019/05/11/git.html" rel="next" title="那些年你见过的git操作">
+                 那些年你见过的git操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">本博客主要用于分享生活以及前端web、数据结构与算法、计算机基础等编程知识，愿时光未央，岁月静好ㄟ(😁)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#串的比较"><span class="nav-number">1.</span> <span class="nav-text">串的比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串的抽象数据类型"><span class="nav-number">2.</span> <span class="nav-text">串的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#朴素的模式匹配算法-BF算法-Brute-Force"><span class="nav-number">3.</span> <span class="nav-text">朴素的模式匹配算法(BF算法)(Brute Force)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMP模式匹配算法"><span class="nav-number">4.</span> <span class="nav-text">KMP模式匹配算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMP模式匹配算法改进"><span class="nav-number">5.</span> <span class="nav-text">KMP模式匹配算法改进</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":200,"height":200,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+</html>
