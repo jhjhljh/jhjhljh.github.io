@@ -95,7 +95,7 @@
 <link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="阿波,算法,前端web,编程,生活">
+  <meta name="keywords" content="面试,正则,">
 
 
 
@@ -114,7 +114,7 @@
 
 
 <meta name="description" content="经常见到的正则表达式，但是却经常忘记,,ԾㅂԾ,,可以记住常见的语句，比如身份证跟邮箱、电话操作，没准面试问了呢？">
-<meta name="keywords" content="阿波，jhjhljh，前端web，黑科技，算法">
+<meta name="keywords" content="面试,正则">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式的常见用法">
 <meta property="og:url" content="http://jhjhljh.github.io/2019-08-27/expression.html">
@@ -123,7 +123,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-08-27/expression/wallhaven-kw1mr1.jpg">
 <meta property="og:image" content="http://jhjhljh.github.io/img/regexp-cn.png">
-<meta property="og:updated_time" content="2019-10-20T11:16:28.983Z">
+<meta property="og:updated_time" content="2019-10-25T08:20:16.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式的常见用法">
 <meta name="twitter:description" content="经常见到的正则表达式，但是却经常忘记,,ԾㅂԾ,,可以记住常见的语句，比如身份证跟邮箱、电话操作，没准面试问了呢？">
@@ -486,6 +486,28 @@ $(function() {
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -570,12 +592,12 @@ $(function() {
 
       
         <p class="description">经常见到的正则表达式，但是却经常忘记,,ԾㅂԾ,,</p><br><blockquote class="question">可以记住常见的语句，比如身份证跟邮箱、电话操作，没准面试问了呢？</blockquote><br><img src="/2019-08-27/expression/wallhaven-kw1mr1.jpg" alt="wallhaven-kw1mr1"><br><br><a id="more"></a><br><br><blockquote class="question">内容</blockquote><br>
-        <div id="aplayer-YUnUDhTU" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-vcNkzDCO" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-YUnUDhTU"),
+            element: document.getElementById("aplayer-vcNkzDCO"),
             narrow: false,
             autoplay: true,
             showlrc: false,
@@ -589,7 +611,7 @@ $(function() {
           });
           window.aplayers || (window.aplayers = []);
           window.aplayers.push(ap);
-        </script><br><br>## 什么是正则表达式?<br><br>&gt; 正则表达式是一组由字母和符号组成的特殊文本, 它可以用来从文本中找出满足你想要的格式的句子.<br><br><blockquote class="question">体验了一波失心疯的“小易”编程题，生活从此无小易，难度跟字节跳动不是一个级别的</blockquote><br><br>想象你正在写一个应用, 然后你想设定一个用户命名的规则, 让用户名包含字符,数字,下划线和连字符,以及限制字符的个数,好让名字看起来没那么丑.<br>我们使用以下正则表达式来验证一个用户名:<br><br><br><br><br><br><p align="center"><br>  <img src="/2019-08-27/../img/regexp-cn.png" alt="Regular expression"><br></p>
+        </script><br><br>## 什么是正则表达式?<br><br>&gt; 正则表达式是一组由字母和符号组成的特殊文本, 它可以用来从文本中找出满足你想要的格式的句子.<br><br><blockquote class="question">体验了一波失心疯的“小易”编程题，生活从此无小易，难度跟字节跳动不是一个级别的</blockquote><br>想象你正在写一个应用, 然后你想设定一个用户命名的规则, 让用户名包含字符,数字,下划线和连字符,以及限制字符的个数,好让名字看起来没那么丑.<br>我们使用以下正则表达式来验证一个用户名:<br><br><br><br><br><br><p align="center"><br>  <img src="/2019-08-27/../img/regexp-cn.png" alt="Regular expression"><br></p>
 
 <p>以上的正则表达式可以接受 <code>john_doe</code>, <code>jo-hn_doe</code>, <code>john12_as</code>.<br>但不匹配<code>Jo</code>, 因为它包含了大写的字母而且太短了.</p>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
@@ -1026,6 +1048,14 @@ $(function() {
       
     </div>
   
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+          
+            <a href="/tags/正则/" rel="tag"><i class="fa fa-tag"></i> 正则</a>
+          
+        </div>
+      
 
 
     <div>
@@ -1124,7 +1154,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1142,7 +1172,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

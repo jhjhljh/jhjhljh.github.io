@@ -1,0 +1,1426 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="前端,js,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
+<meta name="keywords" content="前端,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？">
+<meta property="og:url" content="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs/wallhaven-g89vrl.jpg">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs/11.jpg">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs/22.jpg">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs/20180814185755910.png">
+<meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/ieee754.png">
+<meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/IEEE754_1.png">
+<meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/float.png">
+<meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case1.png">
+<meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case2.png">
+<meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case3.png">
+<meta property="og:updated_time" content="2019-10-26T07:23:07.352Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？">
+<meta name="twitter:description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
+<meta name="twitter:image" content="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs/wallhaven-g89vrl.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？ | Abo </title>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/2019-10-25/WeirdMathInJs.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-25T15:55:03+08:00">
+                2019-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                 <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019-10-25/WeirdMathInJs.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019-10-25/WeirdMathInJs.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2019-10-25/WeirdMathInJs.html" class="leancloud_visitors" data-flag-title="0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p></p><p class="description">关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴 </p><br><img src="/2019-10-25/WeirdMathInJs/wallhaven-g89vrl.jpg" alt="wallhaven-g89vrl"><p></p>
+<a id="more"></a>
+<p><blockquote class="question">像这种变态的问题，在 JS 中存在很多</blockquote></p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=744960&auto=0&height=66"></iframe><br>在解决0.1+0.2的问题之前，我们先来聊一聊js中的基本类型</p>
+<h2 id="基本类型的分类"><a href="#基本类型的分类" class="headerlink" title="基本类型的分类"></a>基本类型的分类</h2><p>JS 的基本类型分为两大类型，分别为<strong>原始类型</strong>和<strong>对象类型</strong>。</p>
+<p>原始类型包括哪些？对象类型包括哪些？为什么要这样分类？他们的区别又是什么？</p>
+<p><strong>原始类型存储的都是值，而对象类型存储的都是地址</strong>。如下图：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">let</span> j = i;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019-10-25/WeirdMathInJs/11.jpg" alt="11"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">let</span> obj2 = obj1;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019-10-25/WeirdMathInJs/22.jpg" alt="22"></p>
+<p>如上图所示，我们清楚了原始类型和对象类型最根本的区别，那么问题又来了，当我们进行变量之间赋值的时候，原始类型直接赋值的是值，而对象类型赋值的是地址。</p>
+<p>所以，当我们将对象作为参数进行传递的时候，在函数内改变的是该地址指向的对象，而传递的参数是原始类型，则改变的是一个副本（复制的另一个值）。也就是说，如果是对象，则改变了原始的值，而不能改变原始类型原始的值。</p>
+<p><strong>原始类型</strong>共六种，分别为<code>String</code>、<code>Number</code>、<code>Boolean</code>、<code>null</code>、<code>undefined</code>、<code>symbol</code>。</p>
+<h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3><p>对于<code>null</code>有一个历史存留的 bug，<code>null</code>是对象类型吗？虽然我们使用 <strong>typeof 检测</strong><code>null</code>是<strong>对象类型</strong>，这其实是一个 <strong>bug</strong>。</p>
+<p><blockquote class="question">typeof null == Object 😑</blockquote></p>
+<h3 id="bug的原因"><a href="#bug的原因" class="headerlink" title="bug的原因"></a>bug的原因</h3><p>因为 JS 最初的版本是 32 位系统的，为了将性能将用低位存储变量类型信息，000 开头表示代表的是对象，此时<code>null</code>表示全零，所以系统就错误的将<code>null</code>判断为对象类型。虽然 JS 内部判断代码已经更改，但是这个 bug 一直留存下来。</p>
+<h4 id="null-出现的情况汇总"><a href="#null-出现的情况汇总" class="headerlink" title="null 出现的情况汇总"></a>null 出现的情况汇总</h4><ol>
+<li><p>手动设置变量的值或者对象某一个属性值为<code>null</code>（此时不赋值，后边会赋值）。</p>
+</li>
+<li><p>在 JS 的 DOM 元素获取中，如果没有获取到指定的元素对象，结果一般都是<code>null</code>。</p>
+</li>
+<li><p><code>Object.prototype._proto_</code>的值也是<code>null</code>。</p>
+</li>
+<li><p>正则捕获的时候，如果没有获取到结果，默认的也是<code>null</code>。</p>
+</li>
+</ol>
+<h3 id="symbol"><a href="#symbol" class="headerlink" title="symbol"></a>symbol</h3><p>有关<code>symbol</code>使用的比较少，但是它的存在是有原因的。</p>
+<h4 id="symbol是什么"><a href="#symbol是什么" class="headerlink" title="symbol是什么"></a>symbol是什么</h4><p><code>symbol</code>表示独一无二的值，因为由于对象的属性都是字符串类型，我们避免不了相同字符串冲突的问题。所以为了防止对象的属性都是字符串类型而冲突引入的。</p>
+<h4 id="symbol的使用"><a href="#symbol的使用" class="headerlink" title="symbol的使用"></a>symbol的使用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 通常参数是字符串类型，如果为对象类型，就会调用 toString 方法</span></span><br><span class="line"> <span class="keyword">let</span> s1 = <span class="built_in">Symbol</span>(参数);<span class="comment">// 这个参数可以认为是 Symbol 实例的一个描述,用于区分</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">// 第一种写法</span></span><br><span class="line"> <span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"> a[s1] = <span class="string">'Hello!'</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// 第二种写法</span></span><br><span class="line"> <span class="keyword">let</span> a = &#123;</span><br><span class="line">    [s1] = <span class="string">'Hello'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h3><h4 id="undefined出现的情况"><a href="#undefined出现的情况" class="headerlink" title="undefined出现的情况"></a>undefined出现的情况</h4><ol>
+<li><p>变量提升: 只声明未定义默认值就是<code>undefined</code>。</p>
+</li>
+<li><p>严格模式下：没有明确的执行主体,<code>this</code>就是<code>undefined</code>。</p>
+</li>
+<li><p>对象没有这个属性名，属性值是<code>undefined</code>。</p>
+</li>
+<li><p>函数定义形参不传值，默认就是<code>undefined</code>。</p>
+</li>
+<li><p>函数没有返回值（没有<code>return</code>或者return;），默认返回的就是 <code>undefined</code>。</p>
+</li>
+</ol>
+<h4 id="为什么有的编程规范要求用-void-0-代替-undefined"><a href="#为什么有的编程规范要求用-void-0-代替-undefined" class="headerlink" title="为什么有的编程规范要求用 void 0 代替 undefined"></a>为什么有的编程规范要求用 void 0 代替 undefined</h4><p>Undefined 类型表示未定义，它的类型只有一个值，就是 undefined。</p>
+<p>任何变量在被赋值前它的值都是 undefined，但是在 JavaScript 引擎中，undefined 是一个变量而非关键字。在旧的浏览器中，<strong>全局变量 undefined 可以被重写</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * IE8 浏览器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> value;</span><br><span class="line"><span class="built_in">console</span>.log(value === <span class="literal">undefined</span>); <span class="comment">//true</span></span><br><span class="line"><span class="comment">// 重写 undefined</span></span><br><span class="line"><span class="literal">undefined</span> = <span class="string">'hi'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(value === <span class="literal">undefined</span>); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>从上面的例子可知，在旧的浏览器下如果 undefined 被重写为非 undefined 值，那么它就无法用来正确检测一个变量是否被赋值。</p>
+<p>这个问题在 <a href="https://es5.github.io/#x15.1.1.3" target="_blank" rel="noopener">ECMAScript 5</a> 中被修复了，在实现了 ECMAScript 5 规范的浏览器中运行以下代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Chrome 浏览器</span></span><br><span class="line"><span class="comment"> */</span> </span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(<span class="built_in">window</span>, <span class="literal">undefined</span>); <span class="comment">//运行结果：&#123;"writable":false,"enumerable":false,"configurable":false&#125;</span></span><br></pre></td></tr></table></figure>
+<p>从上面的运行结果可知，全局变量 undefined 的 writable 属性是 false，也就是<strong>不可写</strong>。</p>
+<h5 id="void"><a href="#void" class="headerlink" title="void"></a>void</h5><p>void 运算符对给定的表达式进行求值，会忽略计算结果并始终返回 undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value1 = <span class="string">'hi'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(value1); <span class="comment">//"hi"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> value2 = <span class="keyword">void</span> <span class="string">'hi'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(value2); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<p>因此，我们可以利用这一点准确地获取预期的 undefined 值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value;</span><br><span class="line"><span class="built_in">console</span>.log(value === <span class="keyword">void</span> <span class="number">0</span>); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(value === <span class="keyword">void</span>(<span class="number">0</span>)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h2 id="为什么-0-1-0-2-0-3"><a href="#为什么-0-1-0-2-0-3" class="headerlink" title="为什么 0.1 + 0.2 != 0.3 ?"></a>为什么 0.1 + 0.2 != 0.3 ?</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span> &gt; <span class="number">0.3</span> <span class="comment">// true</span></span><br><span class="line"><span class="number">0.1</span> * <span class="number">0.1</span> = <span class="number">0.010000000000000002</span></span><br></pre></td></tr></table></figure>
+<h3 id="是什么导致了这种情况？"><a href="#是什么导致了这种情况？" class="headerlink" title="是什么导致了这种情况？"></a>是什么导致了这种情况？</h3><p>原因很简单，JS 采用的是双精度版本，这个版本就存在精度问题，就导致了上边这种情况。</p>
+<h3 id="内部的原理是什么？"><a href="#内部的原理是什么？" class="headerlink" title="内部的原理是什么？"></a>内部的原理是什么？</h3><p>我们计算机的信息全部转化为二进制进行存储的，那么<code>0.1</code>的二进制表示的是一个无限循环小数，该版本的 JS 采用的是浮点数标准需要对这种无限循环的二进制进行截取，从而导致了精度丢失，造成了<code>0.1</code>不再是<code>0.1</code>，截取之后<code>0.1</code>变成了 <code>0.100...001</code>，<code>0.2</code>变成了<code>0.200...002</code>。所以两者相加的数大于<code>0.3</code>。</p>
+<p>那好，既然<code>0.1</code>不等于<code>0.1</code>了，那为什么我在控制台上输出<code>console.log(0.1)</code>还等于<code>0.1</code>呢？</p>
+<p>因为在输入内容进行转换的时候，二进制转换成十进制，然后十进制转换成字符串，在这个转换的过程中发生了取近似值，所以打印出来的是一个近似值。</p>
+<h3 id="深入原理"><a href="#深入原理" class="headerlink" title="深入原理"></a>深入原理</h3><h4 id="计算机内部如何表示数"><a href="#计算机内部如何表示数" class="headerlink" title="计算机内部如何表示数"></a>计算机内部如何表示数</h4><h5 id="1-计算机内部如何表示整数"><a href="#1-计算机内部如何表示整数" class="headerlink" title="1. 计算机内部如何表示整数"></a>1. 计算机内部如何表示整数</h5><p>这里以十进制数13来展示“按位计数法”如何表示整数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">十进制值</th>
+<th style="text-align:left">进制</th>
+<th style="text-align:left">按位格式</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">1x10^1 + 3x10^0 = 10 + 3</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">1101</td>
+<td style="text-align:left">1x2^3 + 1x2^2 + 0x2^1 + 1x2^0 = 8 + 4 + 0 + 1</td>
+</tr>
+</tbody>
+</table>
+<h5 id="2-计算机内部如何表示小数"><a href="#2-计算机内部如何表示小数" class="headerlink" title="2. 计算机内部如何表示小数"></a>2. 计算机内部如何表示小数</h5><p>再看小数怎么用按位计数法表示，以十进制数0.625为例：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">十进制值</th>
+<th style="text-align:left">进制</th>
+<th style="text-align:left">按位格式</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0.625</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">0.625</td>
+<td style="text-align:left">6x10^-1 + 2x10^-2 + 5x10^-3 = 0.6 + 0.02 + 0.005</td>
+</tr>
+<tr>
+<td style="text-align:left">0.625</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">0.101</td>
+<td style="text-align:left">1x2^-1 + 0 x2^-2 + 1x2^-3 = 1/2 + 0 + 1/8</td>
+</tr>
+</tbody>
+</table>
+<h5 id="3-如何用二进制表示0-1"><a href="#3-如何用二进制表示0-1" class="headerlink" title="3. 如何用二进制表示0.1"></a>3. 如何用二进制表示0.1</h5><p>关于十进制与二进制间如何转换，这里不细说，直接给出结论：</p>
+<p><strong>十进制整数转二进制方法：除2取余；十进制小数转二进制方法：乘2除整</strong></p>
+<p>十进制0.1转换成二进制，乘2取整过程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> * <span class="number">2</span> = <span class="number">0.2</span> # <span class="number">0</span></span><br><span class="line"><span class="number">0.2</span> * <span class="number">2</span> = <span class="number">0.4</span> # <span class="number">0</span></span><br><span class="line"><span class="number">0.4</span> * <span class="number">2</span> = <span class="number">0.8</span> # <span class="number">0</span></span><br><span class="line"><span class="number">0.8</span> * <span class="number">2</span> = <span class="number">1.6</span> # <span class="number">1</span></span><br><span class="line"><span class="number">0.6</span> * <span class="number">2</span> = <span class="number">1.2</span> # <span class="number">1</span></span><br><span class="line"><span class="number">0.2</span> * <span class="number">2</span> = <span class="number">0.4</span> # <span class="number">0</span></span><br><span class="line"></span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
+<p>从上面可以看出，0.1的二进制格式是：0.0001100011….。这是一个<strong>二进制无限循环小数</strong>，但计算机内存有限，我们不能用储存所有的小数位数。那么在精度与内存间如何取舍呢？</p>
+<p>答案是：<strong>在某个精度点直接舍弃</strong>。当然，代价就是，0.1在计算机内部根本就不是精确的0.1，而是一个有舍入误差的0.1。当代码被编译或解释后，0.1已经被四舍五入成一个与之很接近的计算机内部数字，以至于计算还没开始，一个很小的舍入错误就已经产生了。这也就是 0.1 + 0.2 不等于0.3 的原因。</p>
+<p>有误差的两个数，其计算的结果，当然就<strong>很可能</strong>与我们期望的不一样了。注意前面的这句话中的“很可能”这三个字？为啥是很可能昵？</p>
+<p><img src="/2019-10-25/WeirdMathInJs/20180814185755910.png" alt="20180814185755910"></p>
+<h4 id="0-1-0-1-为什么等于0-2"><a href="#0-1-0-1-为什么等于0-2" class="headerlink" title="0.1 + 0.1 为什么等于0.2"></a>0.1 + 0.1 为什么等于0.2</h4><p>答案是：两个有舍入误差的值在求和时，相互抵消了，但这种“负负得正，相互抵消”不一定是可靠的，当这两个数字是用不同长度数位来表示的浮点数时，舍入误差可能不会相互抵消。</p>
+<p>又如，对于 0.1 + 0.3 ，结果其实并不是0.4，但0.4是最接近真实结果的数，比其它任何浮点数都更接近。许多语言也就直接显示结果为0.4了，而不展示一个浮点数的真实结果了。</p>
+<p>另外要注意，<strong>二进制能精确地表示位数有限且分母是2的倍数的小数</strong>，比如0.5，0.5在计算机内部就没有舍入误差。所以0.5 + 0.5 === 1</p>
+<h2 id="前方高能"><a href="#前方高能" class="headerlink" title="前方高能"></a>前方高能</h2><p><a href="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/ieee754.png" target="_blank" rel="noopener"><img src="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/ieee754.png" alt="IEEE754浮点数"></a></p>
+<p>上图是IEEE对浮点数表示的说明，这里分单精度与双精度之分，如下图：<br><a href="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/IEEE754_1.png" target="_blank" rel="noopener"><img src="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/IEEE754_1.png" alt="单精度与双精度"></a></p>
+<p>对于单精度浮点数，采用32位存储，最高的1位是符号位s，接着的8位是指数E，剩下的23位为有效数字M。<br>对于双精度浮点数，采用64位存储，最高的1位是符号位S，接着的11位是指数E，剩下的52位为有效数字M。<br>在单精度浮点格式中，s、exp和frac字段分别为 1 位、k = 8 位和 n = 23 位，得到一个 32 位的表示。 在双精度浮点格式(C 语言中的 double)中，s、exp 和 frac 字段分别为 1 位、k = 11 位和 n = 52 位，得到一个 64 位的表示。</p>
+<p>根据 exp 的值，被编码的值可以分成三种不同的情况(最后一种情况有两 个变种)。下图说明了对单精度格式的情况。<br><a href="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/float.png" target="_blank" rel="noopener"><img src="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/float.png" alt="单精度浮点数"></a></p>
+<h3 id="情况1-格式化的值"><a href="#情况1-格式化的值" class="headerlink" title="情况1:格式化的值"></a>情况1:格式化的值</h3><p><a href="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case1.png" target="_blank" rel="noopener"><img src="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case1.png" alt="格式化的值"></a></p>
+<h3 id="情况2-非格式化的值"><a href="#情况2-非格式化的值" class="headerlink" title="情况2:非格式化的值"></a>情况2:非格式化的值</h3><p><a href="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case2.png" target="_blank" rel="noopener"><img src="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case2.png" alt="非格式化的值"></a></p>
+<h3 id="情况3-特殊值"><a href="#情况3-特殊值" class="headerlink" title="情况3:特殊值"></a>情况3:特殊值</h3><p><a href="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case3.png" target="_blank" rel="noopener"><img src="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case3.png" alt="特殊值"></a></p>
+<p>好了，下面我们重点关注一下情况1，并举例来看，不然实在头大啊。以单精度举例。</p>
+<h3 id="浮点数转换为二进制"><a href="#浮点数转换为二进制" class="headerlink" title="浮点数转换为二进制"></a>浮点数转换为二进制</h3><p>浮点数转换成二进制，我们要将整数部分和小数部分分开，整数部分采用除2取余，小数部分采用乘2取整。<br>例如，13.125 转换为二进制：<br>1.整数部分</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">        <span class="number">13</span></span><br><span class="line">    ÷   <span class="number">2</span></span><br><span class="line">--------------       ↑</span><br><span class="line">        <span class="number">6</span>    <span class="number">1</span>       |</span><br><span class="line">    ÷   <span class="number">2</span>            |</span><br><span class="line">--------------       |</span><br><span class="line">        <span class="number">3</span>    <span class="number">0</span>       |</span><br><span class="line">    ÷   <span class="number">2</span>            |</span><br><span class="line">--------------       |</span><br><span class="line">        <span class="number">1</span>    <span class="number">1</span>       |    </span><br><span class="line">    ÷   <span class="number">2</span>            |</span><br><span class="line">--------------       |</span><br><span class="line">        <span class="number">0</span>    <span class="number">1</span>    ----</span><br></pre></td></tr></table></figure>
+<p>逆序将余数拼上得到13的二进制：1101</p>
+<p>2.小数部分</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">        <span class="number">0.125</span></span><br><span class="line">    x       <span class="number">2</span>        ----</span><br><span class="line">-----------------       |</span><br><span class="line">        <span class="number">0.25</span>    <span class="number">0</span>       |</span><br><span class="line">    x      <span class="number">2</span>            |</span><br><span class="line">-----------------       |</span><br><span class="line">        <span class="number">0.5</span>     <span class="number">0</span>       |</span><br><span class="line">    x     <span class="number">2</span>             |</span><br><span class="line">-----------------       |</span><br><span class="line">        <span class="number">1.0</span>     <span class="number">1</span>       ↓</span><br></pre></td></tr></table></figure>
+<p>得到小数部分的二进制：0.001</p>
+<p>两部分相加，得到13.125的二进制：<code>1101.001</code></p>
+<p>好了，到现在，我们知道了如何将浮点数转换为二进制表示，也知道了IEEE中浮点数的存储方式，那么，我们接下来用13.125这个例子来看看计算机中具体是如何表示的呢。</p>
+<p>二进制 <code>1101.001</code>可以写成 <code>1.101001 * 2^3</code>，即这里 M 为 1.101001,E为3,s为0。<br>单精度下，符号位s即为0,阶码字段exp的值e=E+127，即e=3+127=130，130的二进制表示为<code>10000010</code><br>小数字段，frac为尾数M的二进制，即1.101001<br>那么，在单精度下，计算机中的表示为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>  <span class="number">10000010</span>  <span class="number">101001</span> <span class="number">00000000000000000</span></span><br><span class="line">-------------------------------------</span><br><span class="line">s  <span class="built_in">exp</span>       frac</span><br></pre></td></tr></table></figure>
+<h3 id="0-1-0-2"><a href="#0-1-0-2" class="headerlink" title="0.1+0.2"></a>0.1+0.2</h3><p>好了，关于浮点数转换二进制，以及浮点数的表示我们都知道了，那么，现在我们来看看，为什么 <code>0.1+0.2!=0.3</code>的吧。首先，我们还是先看看js里到底输出多少吧：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">0.1</span>+<span class="number">0.2</span></span><br><span class="line"><span class="number">0.30000000000000004</span></span><br></pre></td></tr></table></figure>
+<h4 id="0-1的二进制"><a href="#0-1的二进制" class="headerlink" title="0.1的二进制"></a>0.1的二进制</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">0.1</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.2</span>     <span class="number">0</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.4</span>     <span class="number">0</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.8</span>     <span class="number">0</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.6</span>     <span class="number">1</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.2</span>     <span class="number">1</span></span><br><span class="line">------- 又从<span class="number">0.2</span>开始循环了</span><br></pre></td></tr></table></figure>
+<p>于是，我们得到了0.1的二进制表示，即为<code>0.0001100110011(0011循环)</code>，即<code>1.100110011(0011)*2^-4</code><br>即，M 1.100110011(0011),E -4,<br>那么，s=0,e=-4+1023=1019,<br>那么，js中由于是双精度的，那么0.1的表示为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>  <span class="number">01111111011</span>  <span class="number">1001100110011001100110011001100110011001100110011001</span></span><br><span class="line">--------------------------------------------------------------------</span><br><span class="line"><span class="function">s  <span class="title">exp</span><span class="params">(<span class="number">11</span>位)</span>     <span class="title">frac</span><span class="params">(<span class="number">52</span>位)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="0-2的二进制"><a href="#0-2的二进制" class="headerlink" title="0.2的二进制"></a>0.2的二进制</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">0.2</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.4</span>     <span class="number">0</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.8</span>     <span class="number">0</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.6</span>     <span class="number">1</span></span><br><span class="line">x     <span class="number">2</span></span><br><span class="line">-------</span><br><span class="line">    <span class="number">0.2</span>     <span class="number">1</span></span><br><span class="line">------- 又从<span class="number">0.2</span>开始循环了</span><br></pre></td></tr></table></figure>
+<p>0.2的二进制表示：<code>0.001100110011(0011循环)</code>，即<code>1.100110011(0011)*2^-3</code><br>那么，js双精度0.2的表示：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">0 </span> <span class="number">01111111100</span>  <span class="number">1001100110011001100110011001100110011001100110011001</span></span><br></pre></td></tr></table></figure>
+<h4 id="浮点数运算"><a href="#浮点数运算" class="headerlink" title="浮点数运算"></a>浮点数运算</h4><p>浮点数的加减运算一般由以下五个步骤完成：</p>
+<ul>
+<li>对阶</li>
+<li>尾数运算</li>
+<li>结果规格化</li>
+<li>舍入处理</li>
+<li>溢出判断</li>
+</ul>
+<h5 id="对阶"><a href="#对阶" class="headerlink" title="对阶"></a>对阶</h5><p>将两个进行运算的浮点数的阶码对齐的操作。对阶的目的是为使两个浮点数的尾数能够进行加减运算。因为，当进行Mx·2Ex与My·2Ey加减运算时，只有使两浮点数的指数值部分相同，才能将相同的指数值作为公因数提出来，然后进行尾数的加减运算。<br>对阶的具体方法是：首先求出两浮点数阶码的差，即⊿E＝Ex-Ey，将小阶码加上⊿E，使之与大阶码相等，同时将小阶码对应的浮点数的尾数右移相应位数，以保证该浮点数的值不变。几点注意：</p>
+<p>（1）对阶的原则是小阶对大阶，之所以这样做是因为若大阶对小阶，则尾数的数值部分的高位需移出，而小阶对大阶移出的是尾数的数值部分的低位，这样损失的精度更小。</p>
+<p>（2）若⊿E＝0，说明两浮点数的阶码已经相同，无需再做对阶操作了。</p>
+<p>（3）采用补码表示的尾数右移时，符号位保持不变。</p>
+<p>（4）由于尾数右移时是将最低位移出，会损失一定的精度，为减少误差，可先保留若干移出的位，供以后舍入处理用。</p>
+<h5 id="尾数运算"><a href="#尾数运算" class="headerlink" title="尾数运算"></a>尾数运算</h5><p>尾数运算就是进行完成对阶后的尾数相加减。这里采用的就是我们前面讲过的纯小数的定点数加减运算。</p>
+<h5 id="结果规格化"><a href="#结果规格化" class="headerlink" title="结果规格化"></a>结果规格化</h5><p>在机器中，为保证浮点数表示的唯一性，浮点数在机器中都是以规格化形式存储的。对于IEEE754标准的浮点数来说，就是尾数必须是1.M的形式。由于在进行上述两个定点小数的尾数相加减运算后，尾数有可能是非规格化形式，为此必须进行规格化操作。 规格化操作包括左规和右规两种情况。 左规操作：将尾数左移，同时阶码减值，直至尾数成为1.M的形式。例如，浮点数0.0011·25是非规格化的形式，需进行左规操作，将其尾数左移3位，同时阶码减3，就变成1.1100·22规格化形式了。 右规操作：将尾数右移1位，同时阶码增1，便成为规格化的形式了。要注意的是，右规操作只需将尾数右移一位即可，这种情况出现在尾数的最高位（小数点前一位）运算时出现了进位，使尾数成为10.xxxx或11.xxxx的形式。例如，10.0011·25右规一位后便成为<br>1.00011·26的规格化形式了。</p>
+<h5 id="舍入处理"><a href="#舍入处理" class="headerlink" title="舍入处理"></a>舍入处理</h5><p>浮点运算在对阶或右规时，尾数需要右移，被右移出去的位会被丢掉，从而造成运算结果精度的损失。为了减少这种精度损失，可以将一定位数的移出位先保留起来，称为保护位，在规格化后用于舍入处理。 IEEE754标准列出了四种可选的舍入处理方法：</p>
+<p>（1）就近舍入（round to nearest） 这是标准列出的默认舍入方式，其含义相当于我们日常所说的“四舍五入”。例如，对于32位单精度浮点数来说，若超出可保存的23位的多余位大于等于100…01，则多余位的值超过了最低可表示位值的一半，这种情况下，舍入的方法是在尾数的最低有效位上加1；若多余位小于等于011…11，则直接舍去；若多余位为100…00，此时再判断尾数的最低有效位的值，若为0则直接舍去，若为1则再加1。</p>
+<p>（2）朝+∞舍入（round toward +∞） 对正数来说，只要多余位不为全0，则向尾数最低有效位进1；对负数来说，则是简单地舍去。</p>
+<p>（3）朝-∞舍入（round toward -∞） 与朝+∞舍入方法正好相反，对正数来说，只是简单地舍去；对负数来说，只要多余位不为全0，则向尾数最低有效位进1。</p>
+<p>（4）朝0舍入（round toward 0） 即简单地截断舍去，而不管多余位是什么值。这种方法实现简单，但容易形成累积误差，且舍入处理后的值总是向下偏差。</p>
+<h5 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h5><p>与定点数运算不同的是，浮点数的溢出是以其运算结果的阶码的值是否产生溢出来判断的。若阶码的值超过了阶码所能表示的最大正数，则为上溢，进一步，若此时浮点数为正数，则为正上溢，记为+∞，若浮点数为负数，则为负上溢，记为-∞；若阶码的值超过了阶码所能表示的最小负数，则为下溢，进一步，若此时浮点数为正数，则为正下溢，若浮点数为负数，则为负下溢。正下溢和负下溢都作为0处理。</p>
+<h3 id="计算0-1-0-2"><a href="#计算0-1-0-2" class="headerlink" title="计算0.1+0.2"></a>计算0.1+0.2</h3><p>0.1的阶码-4,0.2的阶码-3,对阶阶段，将0.1的阶码变为-3，然后0.1的尾数部分：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1100110011001100110011001100110011001100110011001100</span></span><br></pre></td></tr></table></figure>
+<p>可能会有人问，这里最高位怎么是1，移位后不应该是0么，别忘了，尾数部分我们隐含了一个最高位是1的条件，因此，移位后，会将该位一并移过来。<br>将其与0.2的尾数部分进行相加：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">1100110011001100110011001100110011001100110011001100</span></span><br><span class="line">+   <span class="number">1001100110011001100110011001100110011001100110011001</span></span><br><span class="line">    ----------------------------------------------------</span><br><span class="line">  <span class="number">100110011001100110011001100110011001100110011001100111</span></span><br></pre></td></tr></table></figure>
+<p>注意，这里计算时，进位2位，去除原来最高位默认的1，相当于阶码部分加1，即由原来的-3变为-2，那么，阶码部分的表示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1111111101</span></span><br></pre></td></tr></table></figure>
+<p>而尾数部分，去除最高位1，最后一位1，进行舍入，得到52位新的二进制表示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0011001100110011001100110011001100110011001100110100</span></span><br></pre></td></tr></table></figure>
+<p>即，最后计算的结果如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>  <span class="number">01111111101</span>  <span class="number">0011001100110011001100110011001100110011001100110100</span></span><br></pre></td></tr></table></figure>
+<p>该数表示的即0.1+0.2的结果 <code>2^-2 * 1.0011001100110011001100110011001100110011001100110100</code><br>将其转换成十进制数为：<code>0.3000000000000000444089209850062616169452667236328125</code><br>由于精度问题，只取到<code>0.30000000000000004</code></p>
+<p>到这里，就把所有的推演过程所需要的知识补充完整了，在推演的过程中，真心觉得，人工推演二进制真累啊，十分感谢计算机前辈，设计出方案并实践于计算机，感谢。</p>
+<h2 id="Number-EPSILON"><a href="#Number-EPSILON" class="headerlink" title="Number.EPSILON"></a>Number.EPSILON</h2><p>Number.EPSILON是在Number对象上面，新增一个极小的常量。根据规格，它表示 1 与大于 1 的最小浮点数之间的差。</p>
+<p>对于 64 位浮点数(double)来说，大于 1 的最小浮点数相当于二进制的 1.00..001 ，小数点后面有连续 51 个零。这个值减去 1 之后，就等于 2 的-52 次方。<br>Number.EPSILON 实际上是 JavaScript 能够表示的最小精度。误差如果小于这个值，就可以认为已经没有意义了，即不存在误差了。</p>
+<p><strong>引入一个这么小的量的目的，在于为浮点数计算，设置一个误差范围。</strong></p>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019-10-25/pronounciation.html" rel="prev" title="IT 圈里的这些词你读对了吗？">
+                <i class="fa fa-chevron-left"></i> IT 圈里的这些词你读对了吗？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-10-25/prototype.html" rel="next" title="什么是 JS 原型和原型链?">
+                 什么是 JS 原型和原型链? <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">本博客主要用于分享生活以及前端web、数据结构与算法、计算机基础等编程知识，愿时光未央，岁月静好ㄟ(😁)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型的分类"><span class="nav-number">1.</span> <span class="nav-text">基本类型的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug的原因"><span class="nav-number">1.2.</span> <span class="nav-text">bug的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null-出现的情况汇总"><span class="nav-number">1.2.1.</span> <span class="nav-text">null 出现的情况汇总</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#symbol"><span class="nav-number">1.3.</span> <span class="nav-text">symbol</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#symbol是什么"><span class="nav-number">1.3.1.</span> <span class="nav-text">symbol是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#symbol的使用"><span class="nav-number">1.3.2.</span> <span class="nav-text">symbol的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined出现的情况"><span class="nav-number">1.4.1.</span> <span class="nav-text">undefined出现的情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么有的编程规范要求用-void-0-代替-undefined"><span class="nav-number">1.4.2.</span> <span class="nav-text">为什么有的编程规范要求用 void 0 代替 undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#void"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">void</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么-0-1-0-2-0-3"><span class="nav-number">2.</span> <span class="nav-text">为什么 0.1 + 0.2 != 0.3 ?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是什么导致了这种情况？"><span class="nav-number">2.1.</span> <span class="nav-text">是什么导致了这种情况？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部的原理是什么？"><span class="nav-number">2.2.</span> <span class="nav-text">内部的原理是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入原理"><span class="nav-number">2.3.</span> <span class="nav-text">深入原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机内部如何表示数"><span class="nav-number">2.3.1.</span> <span class="nav-text">计算机内部如何表示数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-计算机内部如何表示整数"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">1. 计算机内部如何表示整数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-计算机内部如何表示小数"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">2. 计算机内部如何表示小数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-如何用二进制表示0-1"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">3. 如何用二进制表示0.1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1-0-1-为什么等于0-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">0.1 + 0.1 为什么等于0.2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前方高能"><span class="nav-number">3.</span> <span class="nav-text">前方高能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#情况1-格式化的值"><span class="nav-number">3.1.</span> <span class="nav-text">情况1:格式化的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况2-非格式化的值"><span class="nav-number">3.2.</span> <span class="nav-text">情况2:非格式化的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况3-特殊值"><span class="nav-number">3.3.</span> <span class="nav-text">情况3:特殊值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数转换为二进制"><span class="nav-number">3.4.</span> <span class="nav-text">浮点数转换为二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-0-2"><span class="nav-number">3.5.</span> <span class="nav-text">0.1+0.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1的二进制"><span class="nav-number">3.5.1.</span> <span class="nav-text">0.1的二进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-2的二进制"><span class="nav-number">3.5.2.</span> <span class="nav-text">0.2的二进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮点数运算"><span class="nav-number">3.5.3.</span> <span class="nav-text">浮点数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对阶"><span class="nav-number">3.5.3.1.</span> <span class="nav-text">对阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#尾数运算"><span class="nav-number">3.5.3.2.</span> <span class="nav-text">尾数运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结果规格化"><span class="nav-number">3.5.3.3.</span> <span class="nav-text">结果规格化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#舍入处理"><span class="nav-number">3.5.3.4.</span> <span class="nav-text">舍入处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#溢出判断"><span class="nav-number">3.5.3.5.</span> <span class="nav-text">溢出判断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算0-1-0-2"><span class="nav-number">3.6.</span> <span class="nav-text">计算0.1+0.2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number-EPSILON"><span class="nav-number">4.</span> <span class="nav-text">Number.EPSILON</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":200,"height":200,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+</html>
