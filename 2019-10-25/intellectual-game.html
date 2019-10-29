@@ -122,7 +122,7 @@
 <meta property="og:description" content="某种意义上算是有趣的「脑筋急转弯」题目，可以使用算法编程解决，但只要稍加思考，就能找到规律">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-25/intellectual-game/wallhaven-mdow68.jpg">
-<meta property="og:updated_time" content="2019-10-25T06:16:23.160Z">
+<meta property="og:updated_time" content="2019-10-28T13:54:01.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="睿智游戏合集 😶">
 <meta name="twitter:description" content="某种意义上算是有趣的「脑筋急转弯」题目，可以使用算法编程解决，但只要稍加思考，就能找到规律">
@@ -550,7 +550,7 @@ $(function() {
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  2.5k
                 </span>
               
 
@@ -566,7 +566,7 @@ $(function() {
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  5
+                  8
                 </span>
               
             </div>
@@ -588,13 +588,10 @@ $(function() {
       
 
       
-        <p class="description">某种意义上算是有趣的「脑筋急转弯」题目，可以使用算法编程解决，但只要稍加思考，就能找到规律</p>
-
-<p><img src="/2019-10-25/intellectual-game/wallhaven-mdow68.jpg" alt="wallhaven-mdow68"></p>
+        <p></p><p class="description">某种意义上算是有趣的「脑筋急转弯」题目，可以使用算法编程解决，但只要稍加思考，就能找到规律</p><br><img src="/2019-10-25/intellectual-game/wallhaven-mdow68.jpg" alt="wallhaven-mdow68"><p></p>
 <a id="more"></a>
 <p><blockquote class="question">主要介绍Nim游戏的衍生</blockquote></p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=3019698&auto=0&height=66"></iframe>
-
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=3019698&auto=0&height=66"></iframe></p>
 <h2 id="Nim-游戏"><a href="#Nim-游戏" class="headerlink" title="Nim 游戏"></a>Nim 游戏</h2><p>游戏规则是这样的：你和你的朋友面前有一堆石子，你们轮流拿，一次至少拿一颗，最多拿三颗，谁拿走最后一颗石子谁获胜。</p>
 <p>假设你们都很聪明，由你第一个开始拿，请你写一个算法，输入一个正整数 n，返回你是否能赢（true 或 false）。</p>
 <p>比如现在有 4 颗石子，算法应该返回 false。因为无论你拿 1 颗 2 颗还是 3 颗，对方都能一次性拿完，拿走最后一颗石子，所以你一定会输。</p>
@@ -626,6 +623,29 @@ $(function() {
 <p>就假设现在总共有 16 盏灯，我们求 16 的平方根，等于 4，这就说明最后会有 4 盏灯亮着，它们分别是第 1×1=1 盏、第 2×2=4 盏、第 3×3=9 盏和第 4×4=16盏。</p>
 <p>我们不是想求有多少个可开方的数吗，4 是最大的平方根，那么小于 4 的正整数的平方都是在 1~16 内的，是会被按奇数次开关，最终亮着的灯。</p>
 <p>就算有的 n 平方根结果是小数，强转成 int 型，也相当于一个最大整数上界，比这个上界小的所有整数，平方后的索引都是最后亮着的灯的索引。所以说我们直接把平方根转成整数，就是这个问题的答案。</p>
+<h2 id="分针时针重合问题"><a href="#分针时针重合问题" class="headerlink" title="分针时针重合问题"></a>分针时针重合问题</h2><p><strong>在一天的时间里，钟表的时针和分针会重合多少次？</strong></p>
+<p><strong>解析：</strong></p>
+<p>答案是22次。</p>
+<p>这个问题可以使用编程的方式，具体地求出这22个时针和分针重合的时间都在几点几分。不过，其实只需要稍微想一想，就能想出这个答案：）</p>
+<p>大家可以思考一下，在午夜零点的时候，是一天里第一次时针和分针发生重合的时候。下一次在什么时候呢？因为第一分钟，分针就会直接越过时针，所以，<strong>在0:00-1:00之间，不可能再发生时针和分针重合的时候了。</strong></p>
+<p>下一次时针和分针发生重合的时候，一定是在1点多。具体多少我们可以不求了，但我们知道，1点多一定有一次时针和分针重合的时候。</p>
+<p>那么再下一次呢？相信聪明的同学们很快就能想明白，在两点多的位置。</p>
+<p>再下一次呢？是三点多。</p>
+<p>依此类推。</p>
+<p>大家可以思考一下，在时针走回12点之前，最后一次时针和分针重合的时候是什么时候？答案是在十点多，而不是11点多。<strong>11:00-11:59这段时间里，时针和分针不会再重合了。</strong>分针走过11:00-11:59这一圈的过程中，时针总会比分针更接近12点的位置，直到最后一分钟，时针和分针再次同时指向12点。</p>
+<p>因此，在0:00-11:59这12个小时里，时针和分针一共重合了11次。这11次分别是零点；1点多；2点多；3点多；4点多；5点多；6点多；7点多；8点多；9点多；10点多。</p>
+<p>那么在一天的时间里，一共24个小时，也就是时针要绕表盘转两圈，所以，一共重合了22次：）</p>
+<p>有兴趣的同学可以尝试一下，具体用编程的方式（甚至用数学的方式？）求解一下这22次分别是什么时间：）</p>
+<h2 id="电话号码验证问题"><a href="#电话号码验证问题" class="headerlink" title="电话号码验证问题"></a>电话号码验证问题</h2><p><strong>你想要检验你的好朋友，同时也是计算机大牛的bobo老师是否知道你的正确的手机号码。</strong></p>
+<p><strong>但是，小慕同学不让你接近bobo老师，只给你一张卡片，让你写一个问题给bobo老师。**</strong>小慕会将这张卡片传给bobo老师，然后再将bobo老师的回答用这个卡片传回来。<strong><strong>这一问一答的过程，你就需要判断出：</strong></strong>bobo老师是否知道你的正确的电话号码。**</p>
+<p><strong>但是，你并不希望小慕同学知道你的电话号码。**</strong>可是，小慕同学一定会偷看你和bobo老师写在卡片上的内容的。**</p>
+<p><strong>请问，你要怎么写这张卡片？</strong></p>
+<p><strong>解析：</strong></p>
+<p>最中规中矩的方法，是使用校验算法（或者摘要算法，哈希算法，不可逆的加密算法，但不管怎样，核心是做校验。）你可以在卡片上写上任意校验算法名称，根据正确的手机号码得到的校验码，以及其他必须的校验信息（如果有的话）。由于bobo老师是计算机大牛，所以可以假设bobo老师可以看懂你写的任何校验算法，然后将他知道的手机号码相应地转换成校验码，和你提供的校验码作比较，之后回答校验成功或者失败就好了。</p>
+<p>整个过程，小慕只能看到校验算法相关的信息和校验码，是不能反推出原始信息的。</p>
+<p>但是，对于这个问题，其实可以直接在卡片上<strong>要求bobo老师根据他所知道的号码给你打一个电话</strong>，就能知道bobo老师手上的电话号码是否正确啦！</p>
+<p>是不是发现，<strong>有些时候，跳出程序员思维，事情会更简单：**</strong>）**</p>
+<hr>
 <hr>
       
     </div>
@@ -743,7 +763,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -862,7 +882,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nim-游戏"><span class="nav-number">1.</span> <span class="nav-text">Nim 游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#石头游戏"><span class="nav-number">2.</span> <span class="nav-text">石头游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电灯开关问题"><span class="nav-number">3.</span> <span class="nav-text">电灯开关问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nim-游戏"><span class="nav-number">1.</span> <span class="nav-text">Nim 游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#石头游戏"><span class="nav-number">2.</span> <span class="nav-text">石头游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电灯开关问题"><span class="nav-number">3.</span> <span class="nav-text">电灯开关问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分针时针重合问题"><span class="nav-number">4.</span> <span class="nav-text">分针时针重合问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电话号码验证问题"><span class="nav-number">5.</span> <span class="nav-text">电话号码验证问题</span></a></li></ol></div>
             
 
           </div>
