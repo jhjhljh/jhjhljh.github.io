@@ -116,7 +116,7 @@
 <meta name="description" content="给定n个非负整数表示每个宽度为1的柱子的高度图，计算按此排列的柱子，下雨后能接多少雨水">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高频面试题：接雨水🌧">
+<meta property="og:title" content="高频面试题：接雨水 💦">
 <meta property="og:url" content="http://jhjhljh.github.io/2019-10-29/water-problem.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="给定n个非负整数表示每个宽度为1的柱子的高度图，计算按此排列的柱子，下雨后能接多少雨水">
@@ -132,9 +132,9 @@
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-29/water-problem/8.jpg">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-29/water-problem/9.jpg">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-29/water-problem/10.jpg">
-<meta property="og:updated_time" content="2019-10-29T15:06:33.199Z">
+<meta property="og:updated_time" content="2019-11-04T14:34:38.441Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高频面试题：接雨水🌧">
+<meta name="twitter:title" content="高频面试题：接雨水 💦">
 <meta name="twitter:description" content="给定n个非负整数表示每个宽度为1的柱子的高度图，计算按此排列的柱子，下雨后能接多少雨水">
 <meta name="twitter:image" content="http://jhjhljh.github.io/2019-10-29/water-problem/20191029164006.jpg">
 
@@ -187,7 +187,7 @@
 </style>
 
 
-  <title> 高频面试题：接雨水🌧 | Abo </title>
+  <title> 高频面试题：接雨水 💦 | Abo </title>
 </head>
 
   	 <!-- custom analytics part create by xiamo -->
@@ -467,7 +467,7 @@ $(function() {
             
             
               
-                高频面试题：接雨水🌧
+                高频面试题：接雨水 💦
               
             
           </h2>
@@ -535,7 +535,7 @@ $(function() {
 			 
           
           
-             <span id="/2019-10-29/water-problem.html" class="leancloud_visitors" data-flag-title="高频面试题：接雨水🌧">
+             <span id="/2019-10-29/water-problem.html" class="leancloud_visitors" data-flag-title="高频面试题：接雨水 💦">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -598,12 +598,9 @@ $(function() {
       
 
       
-        <p class="description">给定n个非负整数表示每个宽度为1的柱子的高度图，计算按此排列的柱子，下雨后能接多少雨水</p>
-
-<p><img src="/2019-10-29/water-problem/20191029164006.jpg" alt="20191029164006"></p>
+        <p></p><p class="description">给定n个非负整数表示每个宽度为1的柱子的高度图，计算按此排列的柱子，下雨后能接多少雨水</p><br><img src="/2019-10-29/water-problem/20191029164006.jpg" alt="20191029164006"><p></p>
 <a id="more"></a>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=22645196&auto=0&height=66"></iframe>
-
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=22645196&auto=0&height=66"></iframe></p>
 <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/2019-10-29/water-problem/1.jpg" alt="1"></p>
 <p>就是用一个数组表示一个条形图，问你这个条形图最多能接多少水。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span></span>;</span><br></pre></td></tr></table></figure>
@@ -644,7 +641,7 @@ $(function() {
 <p>其实这个问题要这么思考，我们只在乎<code>min(l_max, r_max)</code>。对于上图的情况，我们已经知道<code>l_max &lt; r_max</code>了，至于这个<code>r_max</code>是不是右边最大的，不重要，<strong>重要的是height[i]能够装的水只和l_max有关。</strong></p>
 <p><img src="/2019-10-29/water-problem/10.jpg" alt="10"></p>
 <p>对于 l_max &gt; r_max 的情况也是类似的。</p>
-<h2 id="奇技淫巧"><a href="#奇技淫巧" class="headerlink" title="奇技淫巧"></a>奇技淫巧</h2><p>其实就是整理了双指针解法，缩减到四行。</p>
+<h2 id="另外一种接水题目"><a href="#另外一种接水题目" class="headerlink" title="另外一种接水题目"></a>另外一种接水题目</h2><p>题目描述： 柱子不考虑宽度，存粹考虑能装的最多水，求容器装水量，即“水桶效应”题。</p>
 <p>定义 <em>i</em> 和 <em>j</em> 两个指针分别指向数组的左右两端，然后两个指针向中间搜索，并且更新面积最大值 <code>res</code>，直到 <code>i == j</code> 时返回 <code>res</code>。</p>
 <p>其中 <strong>容器装水量的算法是找出左右两个边缘中较小的那个乘以两边缘的距离</strong>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = height.length - <span class="number">1</span>, res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            res = height[i] &lt; height[j] ? Math.max(res, (j - i) * height[i++]): Math.max(res, (j - i) * height[j--]); </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -685,8 +682,8 @@ $(function() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019-10-29/Binary-Search.html" rel="prev" title="二分查找解题模版与题型🎈">
-                <i class="fa fa-chevron-left"></i> 二分查找解题模版与题型🎈
+              <a href="/2019-10-29/Binary-Search.html" rel="prev" title="二分查找解题模版与题型 🎈">
+                <i class="fa fa-chevron-left"></i> 二分查找解题模版与题型 🎈
               </a>
             
           </div>
@@ -767,7 +764,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -776,7 +773,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -785,7 +782,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -886,7 +883,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心思路"><span class="nav-number">2.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备忘录优化"><span class="nav-number">3.</span> <span class="nav-text">备忘录优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双指针解法"><span class="nav-number">4.</span> <span class="nav-text">双指针解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#奇技淫巧"><span class="nav-number">5.</span> <span class="nav-text">奇技淫巧</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心思路"><span class="nav-number">2.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备忘录优化"><span class="nav-number">3.</span> <span class="nav-text">备忘录优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双指针解法"><span class="nav-number">4.</span> <span class="nav-text">双指针解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另外一种接水题目"><span class="nav-number">5.</span> <span class="nav-text">另外一种接水题目</span></a></li></ol></div>
             
 
           </div>

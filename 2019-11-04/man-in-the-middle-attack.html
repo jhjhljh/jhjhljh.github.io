@@ -1,0 +1,1300 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="密码学,攻击,HTTPS,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="中间人攻击👻（Man-in-the-middle attack）">
+<meta name="keywords" content="密码学,攻击,HTTPS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPS连接以及中间人攻击劫持">
+<meta property="og:url" content="http://jhjhljh.github.io/2019-11-04/man-in-the-middle-attack.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="中间人攻击👻（Man-in-the-middle attack）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-04/man-in-the-middle-attack/68249763_p0.jpg">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201712/04095322_XXOc.jpg">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201712/04095322_Ey4I.jpg">
+<meta property="og:updated_time" content="2019-11-04T14:32:14.935Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTPS连接以及中间人攻击劫持">
+<meta name="twitter:description" content="中间人攻击👻（Man-in-the-middle attack）">
+<meta name="twitter:image" content="http://jhjhljh.github.io/2019-11-04/man-in-the-middle-attack/68249763_p0.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/2019-11-04/man-in-the-middle-attack.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> HTTPS连接以及中间人攻击劫持 | Abo </title>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/2019-11-04/man-in-the-middle-attack.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTTPS连接以及中间人攻击劫持
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-04T21:53:53+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/密码学/" itemprop="url" rel="index">
+                    <span itemprop="name">密码学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                 <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019-11-04/man-in-the-middle-attack.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019-11-04/man-in-the-middle-attack.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2019-11-04/man-in-the-middle-attack.html" class="leancloud_visitors" data-flag-title="HTTPS连接以及中间人攻击劫持">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p class="description">中间人攻击👻（Man-in-the-middle attack）</p>
+
+<p><img src="/2019-11-04/man-in-the-middle-attack/68249763_p0.jpg" alt="68249763_p0"></p>
+<a id="more"></a>
+<blockquote class="question">连着上文介绍的加密算法等概念，现在补充一下中间人攻击</blockquote>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=1382233571&auto=0&height=32"></iframe>
+
+<h2 id="什么是中间人攻击"><a href="#什么是中间人攻击" class="headerlink" title="什么是中间人攻击"></a>什么是中间人攻击</h2><p>简单来说攻击者就是一个介入通信的传话员，攻击者知道通信双方的所有通信内容，而且可以任意增加、删除、修改双方的通信内容，而双方对此并不知情。</p>
+<p>而中间人攻击不仅仅局限于针对 HTTPS，对于开放性的连接，中间人攻击非常容易。比如在一个未加密的 Wi-Fi 网络中，一个攻击者可以很容易地将自己插入双方的通信之中以截取或者修改通信的内容。</p>
+<p>一个通俗的例子：</p>
+<ol>
+<li>假设 Tom 想和 Jerry 交换一些秘密信息，然而 Tom 又不想跑到 Jerry 家里，于是 Tom 叫来了邮递员，给了邮递员一封信。信的内容是希望 Jerry 给 Tom 一个盒子（这个盒子有两把钥匙）和其中一把钥匙（另一把在 Jerry 手里）。</li>
+<li>邮递员在拿到 Tom 给的信件以后，把 Tom 的信拆开看了一遍，了解到 Tom 希望 Jerry 给 Tom 一个有锁的盒子，又用另一个信封装了回去，并交给了 Jerry。</li>
+<li>Jerry 在收到 Tom 的信（实际已经被邮递员拆阅过了）之后，给了邮递员一个有锁的盒子和其中一把钥匙。</li>
+<li>邮递员想知道他们的通信内容，于是他把 Jerry 给 Tom 的盒子换成了他自己的盒子，并附上了自己盒子中的一把钥匙，并在之后将自己的盒子交给了 Tom。</li>
+<li>Tom 在收到盒子之后，以为这个盒子是 Jerry 给他的，于是就把秘密的信件放进了盒子里，并把钥匙留下了，之后又交给了邮递员。</li>
+<li>邮递员在拿到盒子之后，用自己的另一把钥匙打开盒子，看了里面的信件。之后将信件调换之后放进了 Jerry 给的盒子，交给了 Jerry。</li>
+<li>Jerry 在拿到邮递员给他的盒子之后，并不知道这个盒子里的信件其实已经被邮递员调换过了，所以 Jerry 认为盒子里的信件是来自 Tom 且未被修改过的。之后 Jerry 把回信放进了盒子里，又交给了邮递员。</li>
+<li>邮递员再次调换盒子里的信件，交给了 Tom。</li>
+</ol>
+<p>这就是一个典型中间人攻击的过程。在 HTTPS 中，Tom 就是客户端，Jerry 是服务端，而邮递员就是客户端和服务端之间的任何实体（包括代理服务器、路由器、反向代理服务器等等），两把钥匙分别是公钥和私钥。通信双方并不知道（且通常很难发觉）自己其实在和<em>中间人</em>通信而非直接和对方通信。在通信过程中，Tom 和 Jerry 并没有验证对方的身份，这就导致了邮递员可以任意查看、修改或者丢弃双方的通信内容。</p>
+<h2 id="HTTPS连接过程及中间人攻击原理"><a href="#HTTPS连接过程及中间人攻击原理" class="headerlink" title="HTTPS连接过程及中间人攻击原理"></a>HTTPS连接过程及中间人攻击原理</h2><p>https协议就是http+ssl协议，如下图所示为其连接过程：</p>
+<p><img src="https://static.oschina.net/uploads/img/201712/04095322_XXOc.jpg" alt="连接过程"></p>
+<p><strong>1.https请求</strong><br>客户端向服务端发送https请求；<br><strong>2.生成公钥和私钥</strong><br>服务端收到请求之后，生成公钥和私钥。公钥相当于是锁，私钥相当于是钥匙，只有私钥才能够打开公钥锁住的内容；<br><strong>3.返回公钥</strong><br>服务端将公钥（证书）返回给客户端，公钥里面包含有很多信息，比如证书的颁发机构、过期时间等等；<br><strong>4.客户端验证公钥</strong><br>客户端收到公钥之后，首先会验证其是否有效，如颁发机构或者过期时间等，如果发现有问题就会抛出异常，提示证书存在问题。如果没有问题，那么就生成一个随机值，作为客户端的密钥，然后用服务端的公钥加密；<br><strong>5.发送客户端密钥</strong><br>客户端用服务端的公钥加密密钥，然后发送给服务端。<br><strong>6.服务端收取密钥，对称加密内容</strong><br>服务端收到经过加密的密钥，然后用私钥将其解密，得到客户端的密钥，然后服务端把要传输的内容和客户端的密钥进行对称加密，这样除非知道密钥，否则无法知道传输的内容。<br><strong>7.加密传输</strong><br>服务端将经过加密的内容传输给客户端。<br><strong>8.获取加密内容，解密</strong><br>客户端获取加密内容后，用之前生成的密钥对其进行解密，获取到内容。</p>
+<h2 id="中间人劫持攻击"><a href="#中间人劫持攻击" class="headerlink" title="中间人劫持攻击"></a>中间人劫持攻击</h2><p>https也不是绝对安全的，如下图所示为中间人劫持攻击，中间人可以获取到客户端与服务器之间所有的通信内容。 </p>
+<p><img src="https://static.oschina.net/uploads/img/201712/04095322_Ey4I.jpg" alt="攻击"></p>
+<p>中间人截取客户端发送给服务器的请求，然后伪装成客户端与服务器进行通信；将服务器返回给客户端的内容发送给客户端，伪装成服务器与客户端进行通信。<br>通过这样的手段，便可以获取客户端和服务器之间通信的所有内容。<br>使用中间人攻击手段，必须要让客户端信任中间人的证书，如果客户端不信任，则这种攻击手段也无法发挥作用。</p>
+<h2 id="如何防御中间人攻击"><a href="#如何防御中间人攻击" class="headerlink" title="如何防御中间人攻击"></a>如何防御中间人攻击</h2><p>中间人攻击是一个（缺乏）相互认证的攻击；由于客户端与服务器之间在SSL握手的过程中缺乏相互认证而造成的漏洞</p>
+<p>防御中间人攻击的方案通常基于一下几种技术</p>
+<ol>
+<li>公钥基础建设PKI</li>
+</ol>
+<p>使用PKI相互认证机制，客户端验证服务器，服务器验证客户端；上述两个例子中都是只验证服务器，这样就造成了SSL握手环节的漏洞，而如果使用相互认证的的话，基本可以</p>
+<ol>
+<li>更强力的相互认证</li>
+<li>延迟测试</li>
+</ol>
+<p>使用复杂加密哈希函数进行计算以造成数十秒的延迟；如果双方通常情况下都要花费20秒来计算，并且整个通讯花费了60秒计算才到达对方，这就能表明存在第三方中间人。</p>
+<ol>
+<li>使用其他形式的密钥交换形式</li>
+</ol>
+<h3 id="前方高能"><a href="#前方高能" class="headerlink" title="前方高能"></a>前方高能</h3><p>从邮递员的例子看起来，似乎任何在通信双方的实体都可以实施中间人攻击，那么 HTTPS 是如何防止中间人攻击的呢？要防止被中间人攻击，那么就要确保通信中的信息来自他声称的那个人，且没有被修改过。在现实中，有多种方式可以确定某个实体的身份，比如个人的签名 / 私章、组织的公章、甚至古时的信物。大部分情况下，只需要在信件最后盖上签上自己的名字或者盖上组织的公章，那么接收者就可以确定这封信件就来自于他所声称的那个人 / 组织。在二进制的世界中，可以使用数字签名来确保某段消息 / 某份文件确实是由他所声称的那个实体所发出来的。</p>
+<p>在之前的文章中，我们介绍过非对称加密，其中公钥是公开的，而私钥只有拥有者知道。用私钥对某个文件 / 某段消息的散列值进行签名就像一个人亲手在信件最后签上了自己的名字一样，证明这份文件 / 这段消息确实来自私钥的拥有者（<em>因为公钥是公开的，私钥只有拥有者知道，所以如果能用其公开的公钥解开数字签名，那就证明这条消息确实来自于他私钥的拥有者</em>），这就可以确保消息是来自他所声称的那个实体。这样，在通信中，双方每次在写完消息之后，计算消息的散列值，并用自己的私钥加密生成数字签名，附在信件后面，接收者在收到消息和数字签名之后，先计算散列值，再使用对方的公钥解密数字签名中的散列值，进行对比，如果一致，就可以确保该消息确实是来自于对方，并且没有被篡改过。</p>
+<p>不过有个问题，如果<em>中间人在会话建立阶段把双方交换的真实公钥替换成自己的公钥</em>了，那么中间人还是可以篡改消息的内容而双方并不知情。为了解决这个问题，需要找一个通信双方都信任的第三方来为双方确认身份。这就像大家都相信公证处，公证处拿着自己的公章为每一封信件都盖上了自己的章，证明这封信确实是由本人发出的，这样就算中间人可以替换掉通信双方消息的签名，也无法替换掉公证处的公章。这个公章，在二进制的世界里，就是<strong>数字证书</strong>，公证处就是 <strong>CA（数字证书认证机构）</strong>。</p>
+<p>数字证书就是申请人将一些必要信息（包括公钥、姓名、电子邮件、有效期）等提供给 CA，CA 在通过各种手段确认申请人确实是他所声称的人之后，用自己的私钥对申请人所提供信息计算散列值进行加密，形成数字签名，附在证书最后，再将数字证书颁发给申请人，申请人就可以使用 CA 的证书向别人证明他自己的身份了。对方收到数字证书之后，只需要用 CA 的公钥解密证书最后的签名得到加密之前的散列值，再计算数字证书中信息的散列值，将两者进行对比，只要散列值一致，就证明这张数字证书是有效且未被篡改过的。</p>
+<p>通信过程的安全性<strong>自下而上</strong>就是这样保证的：</p>
+<ol>
+<li>双方通信内容的安全性是靠公钥加密、私钥解密来保证的，这一安全性由非对称加密的特性，即由公钥加密的信息只能使用对应的私钥才能解开来保证。由于私钥不会传递，只有拥有者知道，所以<em>安全性就由<strong>公钥</strong>的正确性来保证。</em></li>
+<li>公钥由对方在通信初始所提供，但是这时很容易被中间人替换掉，为了保证公钥的正确性，所以在发送公钥的时候也会提供对应的数字证书，用于验证这个公钥是对方的而不是中间人的。那么<em>安全性就是由<strong>数字证书</strong>的正确性来保证了。</em></li>
+<li>数字证书是由上级 CA 签发给个人 / 组织的，上级 CA 用自己的私钥给个人证书进行签名，保证证书中的公钥不被篡改，而接受者需要用上级 CA 证书中的公钥来解密个人数字证书中的数字签名来验证证书中的公钥是否是正确的。那么<em>安全性就是由<strong>上级 CA 证书</strong>的正确性保证的了。</em></li>
+<li>但是，上级 CA 证书也是由其上级 CA 签发的，这种信任关系一直到根证书。根证书没有上级 CA 为其签名，而是自签名的，也就是说，它自身为自身签名，保证正确性。所以根证书就是这个信任链最重要的部分。如果根证书泄露的话，其签名的所有证书及使用其签名的证书所签名的证书的安全性将不复存在。现在，<em>安全性就是靠系统<strong>根证书</strong>的私钥不被泄露或者其公钥不被篡改来保证的了。</em></li>
+<li>根证书不应该通过网络分发，因为通过网络分发的话，可能会被中间人攻击。一般根证书都通过操作系统或者浏览器分发，在操作系统中会内置很多根证书，但是最初的操作系统也不能通过网络分发，因为中间人可以修改操作系统中的根证书。所以要保证安全只能靠最原始的方法，当面交流。硬件厂商会和证书签发机构合作，在电脑、手机等设备出厂的时候在其操作系统中<strong>内置</strong>签发机构的根证书，再将这些设备分发出去，这样，这些设备的用户就可以安全地进行信息交换了。所以，<em>安全性就依赖于这些设备在分发到消费者手中之前不会被恶意修改来保证了。</em></li>
+</ol>
+<p>至此，整个信任链就建立起来了，只需要有一台设备上安装了可以信任的根证书，就可以用来分发更多安全的操作系统了。之后的所有信任链都是安全的了。</p>
+<h2 id="SSLTrip-及-HSTS"><a href="#SSLTrip-及-HSTS" class="headerlink" title="SSLTrip 及 HSTS"></a>SSLTrip 及 HSTS</h2><p>HTTP 协议最初的时候是明文的，因为安全问题所以现在很多网站都在逐渐过渡到 HTTPS，然而对于大部分使用者来说，他们并不知道 HTTP 和 HTTPS 之间的区别，在浏览器输入地址的时候都是直接输入 <code>www.example.com</code> 而非 <code>https://www.example.com</code>，在大部分情况下，如果一个网站启用了 HTTPS，服务器会将这个请求使用 <code>301</code> 或者 <code>302</code> 状态码以及一个 <code>Location</code> 头部将请求从 80 端口重定向至使用 HTTPS 的 443 端口。但是，如果中间人劫持了使用者的网络请求，那么中间人可以阻止客户端与服务器建立 HTTPS 连接，而是一直使用不安全的 HTTP 连接，而中间人则和服务器建立正常的 HTTPS 连接，让客户端以为自己正在和真实服务器通信。这种攻击手法称作 SSLTrip。</p>
+<p>为了解决这个问题，IETF（互联网工程任务小组）引入了一个策略，叫做 <strong>HSTS</strong> (HTTP Strict Transport Security, HTTP 严格传输安全)。HSTS 的作用是强制客户端与服务端建立安全的 HTTPS 连接，而非不安全的 HTTP 连接。如果一个站点启用了 HSTS 策略，那么客户端在第一次与该站点建立连接之后，在未来的一段时间内（由一个 HTTP 头部控制，这个头部为：Strict-Transport-Security），客户端与该站点的所有连接都会直接使用 HTTPS，<em>即使客户端访问的是 HTTP，也会直接在客户端重定向到 HTTPS 连接。</em></p>
+<p>假设 <code>https://example.com</code> 的响应头部含有 <code>Strict-Transport-Security: max-age=31536000; includeSubDomains</code>，这意味着：</p>
+<ol>
+<li>在未来的 1 年时间里（即 31536000 秒中），只要浏览器向 <code>example.com</code> 或者其子域名发送请求，必须采用 HTTPS 来发起连接。即使用户在地址栏里写的是 <code>http://example.com</code>，那也直接重写为 <code>https://example.com</code> 并直接发起 HTTPS 连接。</li>
+<li>在接下去的一年中，如果服务器提供的 HTTPS 证书无效（不论是域名对不上还是自签名还是不在有效期内），用户都无法访问该站点。</li>
+</ol>
+<p>如果站点没有启用 HSTS，用户可以忽略证书无效的警告，继续建立连接，而如果站点启用了 HSTS，那么用户即使想冒风险，浏览器也不会继续访问。</p>
+<p>HSTS 可以很大程度上防止 SSLTrip 攻击，不过这样还是有个问题，那就是要启用 HSTS，浏览器至少要和服务器建立一次 HTTPS 连接，如果中间人一直阻止浏览器与服务器建立 HTTPS 连接，那么 HSTS 就失效了。解决这个问题有个办法，那就是将 HSTS 站点列表内置到浏览器中，这样只要浏览器<strong>离线</strong>判断该站点启用了 HSTS，就会跳过原先的 HTTP 重定向，直接发起 HTTPS 请求。</p>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/密码学/" rel="tag"><i class="fa fa-tag"></i> 密码学</a>
+          
+            <a href="/tags/攻击/" rel="tag"><i class="fa fa-tag"></i> 攻击</a>
+          
+            <a href="/tags/HTTPS/" rel="tag"><i class="fa fa-tag"></i> HTTPS</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-11-04/Cryptography.html" rel="next" title="关于密码学里面那些绕来绕去的概念">
+                 关于密码学里面那些绕来绕去的概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">本博客主要用于分享生活以及前端web、数据结构与算法、计算机基础等编程知识，愿时光未央，岁月静好ㄟ(😁)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是中间人攻击"><span class="nav-number">1.</span> <span class="nav-text">什么是中间人攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS连接过程及中间人攻击原理"><span class="nav-number">2.</span> <span class="nav-text">HTTPS连接过程及中间人攻击原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中间人劫持攻击"><span class="nav-number">3.</span> <span class="nav-text">中间人劫持攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何防御中间人攻击"><span class="nav-number">4.</span> <span class="nav-text">如何防御中间人攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前方高能"><span class="nav-number">4.1.</span> <span class="nav-text">前方高能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSLTrip-及-HSTS"><span class="nav-number">5.</span> <span class="nav-text">SSLTrip 及 HSTS</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":200,"height":200,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+</html>

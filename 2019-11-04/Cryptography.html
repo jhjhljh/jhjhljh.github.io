@@ -1,0 +1,1448 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="密码学,HTTPS,加密算法,TLS/SSL,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="非对称（私钥）算法、对称（公钥）算法、RSA算法、数字签名、数字证书及https协议、TLS/SSL">
+<meta name="keywords" content="密码学,HTTPS,加密算法,TLS&#x2F;SSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于密码学里面那些绕来绕去的概念">
+<meta property="og:url" content="http://jhjhljh.github.io/2019-11-04/Cryptography.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="非对称（私钥）算法、对称（公钥）算法、RSA算法、数字签名、数字证书及https协议、TLS/SSL">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-04/Cryptography/52533640_p0.jpg">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-04/Cryptography/31704456_p0.jpg">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-04/Cryptography/20191104191547.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080914.jpg">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080915.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080916.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080917.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080918.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080919.jpg">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080920.png">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-04/Cryptography/2019.png">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-04/Cryptography/20191.png">
+<meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/201402/bg2014020502.png">
+<meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/201402/bg2014020503.gif">
+<meta property="og:updated_time" content="2019-11-04T14:24:24.057Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于密码学里面那些绕来绕去的概念">
+<meta name="twitter:description" content="非对称（私钥）算法、对称（公钥）算法、RSA算法、数字签名、数字证书及https协议、TLS/SSL">
+<meta name="twitter:image" content="http://jhjhljh.github.io/2019-11-04/Cryptography/52533640_p0.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/2019-11-04/Cryptography.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 关于密码学里面那些绕来绕去的概念 | Abo </title>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/2019-11-04/Cryptography.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于密码学里面那些绕来绕去的概念
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-04T18:48:45+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/密码学/" itemprop="url" rel="index">
+                    <span itemprop="name">密码学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                 <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019-11-04/Cryptography.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019-11-04/Cryptography.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2019-11-04/Cryptography.html" class="leancloud_visitors" data-flag-title="关于密码学里面那些绕来绕去的概念">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p></p><p class="description">非对称（私钥）算法、对称（公钥）算法、RSA算法、数字签名、数字证书及https协议、TLS/SSL</p><br><img src="/2019-11-04/Cryptography/52533640_p0.jpg" alt="52533640_p0"><p></p>
+<a id="more"></a>
+<p><blockquote class="question">密码学真香真好玩</blockquote></p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=28941729&auto=0&height=32"></iframe></p>
+<h2 id="公钥算法与私钥算法"><a href="#公钥算法与私钥算法" class="headerlink" title="公钥算法与私钥算法"></a>公钥算法与私钥算法</h2><h3 id="私钥算法"><a href="#私钥算法" class="headerlink" title="私钥算法"></a>私钥算法</h3><p><strong>私钥加密算法</strong>，又称 <strong>对称加密算法</strong>，因为这种算法解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。常见的有《<a href="http://songlee24.github.io/2014/12/06/des-encrypt/" target="_blank" rel="noopener">DES加密算法</a>》、《<a href="http://songlee24.github.io/2014/12/13/aes-encrypt/" target="_blank" rel="noopener">AES加密算法</a>》。</p>
+<blockquote>
+<p>常见的对称加密算法有DES、3DES、AES、Blowfish、IDEA、RC5、RC6。</p>
+</blockquote>
+<h3 id="公钥算法"><a href="#公钥算法" class="headerlink" title="公钥算法"></a>公钥算法</h3><blockquote>
+<p>RSA算法一直是最广为使用的非对称加密算法</p>
+</blockquote>
+<p><strong>公钥加密算法</strong>，也就是 <strong>非对称加密算法</strong>，这种算法加密和解密的密码不一样，一个是公钥，另一个是私钥：</p>
+<ul>
+<li>公钥和私钥成对出现</li>
+<li>公开的密钥叫公钥，只有自己知道的叫私钥</li>
+<li>用公钥加密的数据只有对应的私钥可以解密</li>
+<li>用私钥加密的数据只有对应的公钥可以解密</li>
+<li>如果可以用公钥解密，则必然是对应的私钥加的密</li>
+<li>如果可以用私钥解密，则必然是对应的公钥加的密</li>
+</ul>
+<p>公钥和私钥是相对的，<u>两者本身并没有规定哪一个必须是公钥或私钥</u>。</p>
+<p><img src="/2019-11-04/Cryptography/31704456_p0.jpg" alt="31704456_p0"></p>
+<h2 id="实现数据的安全传输"><a href="#实现数据的安全传输" class="headerlink" title="实现数据的安全传输"></a>实现数据的安全传输</h2><p>要实现数据的安全传输，当然就要对数据进行加密了。</p>
+<p>如果使用对称加密算法，加解密使用同一个密钥，除了自己保存外，对方也要知道这个密钥，才能对数据进行解密。如果你把密钥也一起传过去，就存在密码泄漏的可能。所以我们使用<strong>非对称算法</strong>，过程如下：</p>
+<ol>
+<li>首先 接收方 生成一对密钥，即私钥和公钥；</li>
+<li>然后，接收方 将公钥发送给 发送方；</li>
+<li>发送方用收到的公钥对数据加密，再发送给接收方；</li>
+<li>接收方收到数据后，使用自己的私钥解密。</li>
+</ol>
+<p>由于在非对称算法中，公钥加密的数据必须用对应的私钥才能解密，而私钥又只有接收方自己知道，这样就保证了数据传输的安全性。</p>
+<p><img src="/2019-11-04/Cryptography/20191104191547.png" alt="20191104191547"></p>
+<p>划重点：上图即是RSA算法</p>
+<blockquote>
+<p>RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是1977年由罗纳德·李维斯特、阿迪·萨莫尔和伦纳德·阿德曼一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。</p>
+</blockquote>
+<blockquote>
+<p>图中关于cer证书跟pfx证书以后再说</p>
+</blockquote>
+<h2 id="对信息进行数字签名"><a href="#对信息进行数字签名" class="headerlink" title="对信息进行数字签名"></a>对信息进行数字签名</h2><p>除了保证数据的安全传输之外，公钥体系的另一个用途就是对数据进行签名。通常<strong>“数字签名”</strong>是用来验证发送方的身份并帮助保护数据的完整性。</p>
+<p>例如：一个发送者 A 想要传些资料给<u>大家</u>，用自己的私钥对资料加密，即签名。这样一来，所有收到资料的人都可以用发送者的公钥进行验证，便可确认资料是由 A 发出来的了。（因为只有Ａ使用私钥签名得到的信息，才能用这个公钥来解） 采用数字签名，可以确认两点：</p>
+<ol>
+<li>保证信息是由签名者自己签名发送的，签名者不能否认或难以否认。</li>
+<li>保证信息自签发后到收到为止未曾作过任何修改。</li>
+</ol>
+<p>之所以可以确认这两点，是因为用公钥可以解密的必然是用对应的私钥加的密，而私钥只有签名者持有。</p>
+<h2 id="公钥算法的缺点"><a href="#公钥算法的缺点" class="headerlink" title="公钥算法的缺点"></a>公钥算法的缺点</h2><p>现实中，公钥机制也有它的缺点，那就是<strong>效率非常低</strong>，比常用的私钥算法（如 DES 和 AES）慢上一两个数量级都有可能。所以它不适合为大量的原始信息进行加密。为了同时兼顾安全和效率，我们通常结合使用公钥算法和私钥算法：</p>
+<ol>
+<li>首先，发送方使用对称算法对原始信息进行加密。</li>
+<li>接收方通过公钥机制生成一对密钥，一个公钥，一个私钥。</li>
+<li>接收方 将公钥发送给 发送方。</li>
+<li>发送方用公钥对<strong>对称算法的密钥</strong>进行加密，并发送给接收方。</li>
+<li>接收方用私钥进行解密得到<strong>对称算法的密钥</strong>。</li>
+<li>发送方再把已加密的原始信息发送给接收方。</li>
+<li>接收方使用对称算法的密钥进行解密。</li>
+</ol>
+<h2 id="数字签名跟数字证书"><a href="#数字签名跟数字证书" class="headerlink" title="数字签名跟数字证书"></a>数字签名跟数字证书</h2><h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><blockquote>
+<p>鲍勃给苏珊回信，决定采用”数字签名”。他写完后先用Hash函数，生成信件的摘要（digest）。鲍勃使用私钥，对这个摘要加密，生成”数字签名”（signature）。鲍勃将这个签名，附在信件下面，一起发给苏珊。</p>
+<blockquote>
+<p>苏珊收信后，取下数字签名，用鲍勃的公钥解密，得到信件的摘要。由此证明，这封信确实是鲍勃发出的</p>
+</blockquote>
+<blockquote>
+<p> 对信件本身使用Hash函数，将得到的结果，与上一步得到的摘要进行对比。如果两者一致，就证明这封信未被修改过。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>注意区分数字签名跟数字证书</p>
+</blockquote>
+<h3 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h3><blockquote>
+<p>复杂的情况出现了。道格想欺骗苏珊，他偷偷使用了苏珊的电脑，用自己的公钥换走了鲍勃的公钥。此时，苏珊实际拥有的是道格的公钥，但是还以为这是鲍勃的公钥。因此，道格就可以冒充鲍勃，用自己的私钥做成”数字签名”，写信给苏珊，让苏珊用假的鲍勃公钥进行解密。</p>
+<blockquote>
+<p>后来，苏珊感觉不对劲，发现自己无法确定公钥是否真的属于鲍勃。她想到了一个办法，要求鲍勃去找”证书中心”（certificate authority，简称CA），为公钥做认证。证书中心用自己的私钥，对鲍勃的公钥和一些相关信息一起加密，生成”数字证书”（Digital Certificate）。</p>
+<blockquote>
+<p>鲍勃拿到数字证书以后，就可以放心了。以后再给苏珊写信，只要在签名的同时，再附上数字证书就行了。</p>
+<blockquote>
+<p>苏珊收信后，用CA的公钥解开数字证书，就可以拿到鲍勃真实的公钥了，然后就能证明”数字签名”是否真的是鲍勃签的。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="数字证书的实例：https协议"><a href="#数字证书的实例：https协议" class="headerlink" title="数字证书的实例：https协议"></a>数字证书的实例：https协议</h2><p>这个协议主要用于网页加密</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080914.jpg" alt="img"></p>
+<p>下面，我们看一个应用”数字证书”的实例：https协议。这个协议主要用于网页加密。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080915.png" alt="img"></p>
+<p>首先，客户端向服务器发出加密请求。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080916.png" alt="img"></p>
+<p>服务器用自己的私钥加密网页以后，连同本身的数字证书，一起发送给客户端。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080917.png" alt="img"></p>
+<p>客户端（浏览器）的”证书管理器”，有”受信任的根证书颁发机构”列表。客户端会根据这张列表，查看解开数字证书的公钥是否在列表之内。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080918.png" alt="img"></p>
+<p>如果数字证书记载的网址，与你正在浏览的网址不一致，就说明这张证书可能被冒用，浏览器会发出警告。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080919.jpg" alt="img"></p>
+<p>如果这张数字证书不是由受信任的机构颁发的，浏览器会发出另一种警告。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080920.png" alt="img"></p>
+<p>如果数字证书是可靠的，客户端就可以使用证书中的服务器公钥，对信息进行加密，然后与服务器交换加密信息。</p>
+<p>我们就拿segmentfault为例。</p>
+<p><img src="/2019-11-04/Cryptography/2019.png" alt="2019"></p>
+<p>我们可以看到这里显示sf安装了证书，并且显示是<code>valid</code>，证明：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- <span class="built_in">sf</span>是<span class="built_in">sf</span>，我没有被劫持到其他站点</span><br><span class="line">- 我和<span class="built_in">sf</span>之前的通信是加密的，安全的，其他人窃取不到</span><br></pre></td></tr></table></figure>
+<p>那么浏览器是怎么验证的sf的证书的呢？还记得上面我提了一句“根证书”么？因为一般我们去申请证书都是通过CA机构，同时大家都信任CA机构比如digicert，verisign，那么我们就可以事先将这些CA机构的证明安装到我们的电脑上，也就是这些CA机构的”公钥”，我们也称它们为<code>“根证书”</code>。（CA把张三的“个人信息”以及“公钥信息”用他的私钥加密成“密文”，把这个密文当做“电子签名”签在了证书上，然后这个证书就被称为“电子证书”，最后再把自己的公钥送给了用户）这些根证书是预先安装在我们电脑上的，所以每当我们访问segmentfault的时候，如果segmentfault服务器上安装了证书，他想和我们建立安全通信，就好比上面例子中，张三直接把公钥发给李四一样，在这里：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">segmentfault说：“<span class="keyword">hi</span>，我们建立安全通信吧，这是我的公钥”</span><br><span class="line">你的浏览器：“你怎么证明你的公钥是你的呢？”</span><br><span class="line">segmentfault说：“这是我的证书，请查看”</span><br></pre></td></tr></table></figure>
+<p>然后segmentfault就把安装在服务器上的证书传给你的浏览器，因为你的浏览器已经有一些神器“根证书”的存在，所以这些根证书（CA机构的公钥）就可以来“解密”sf发过来的证书上的签名，然后对比一下解密后的信息和sf证书中所呈现的信息是否一致，如果一致，就ok拉！</p>
+<p>最后上一个截图：</p>
+<p><img src="/2019-11-04/Cryptography/20191.png" alt="2019"></p>
+<p>大家注意，最上面“DigiCert Global Root CA”，说明我们使用digicert这个CA组织的根证书来进行认证sf的证书，然后digicert替我们证明了sf证书的合理性：“This certificate is valid”，同时给我列出来证书中的一些详细信息，比如：证书的持有者，证书的过期时间，证书中所携带的“公钥”信息（用来验证你得到的公钥确实是sf的）</p>
+<h2 id="TLS-SSL协议"><a href="#TLS-SSL协议" class="headerlink" title="TLS/SSL协议"></a>TLS/SSL协议</h2><p>不使用SSL/TLS的HTTP通信，就是不加密的通信。所有信息明文传播，带来了三大风险。</p>
+<blockquote>
+<p>（1） <strong>窃听风险</strong>（eavesdropping）：第三方可以获知通信内容。</p>
+<p>（2） <strong>篡改风险</strong>（tampering）：第三方可以修改通信内容。</p>
+<p>（3） <strong>冒充风险</strong>（pretending）：第三方可以冒充他人身份参与通信。</p>
+</blockquote>
+<p>SSL/TLS协议是为了解决这三大风险而设计的，希望达到：</p>
+<blockquote>
+<p>（1） 所有信息都是<strong>加密传播</strong>，第三方无法窃听。</p>
+<p>（2） 具有<strong>校验机制</strong>，一旦被篡改，通信双方会立刻发现。</p>
+<p>（3） 配备<strong>身份证书</strong>，防止身份被冒充。</p>
+</blockquote>
+<p>SSL/TLS协议的基本思路是采用<a href="http://en.wikipedia.org/wiki/Public-key_cryptography" target="_blank" rel="noopener">公钥加密法</a>，也就是说，客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。</p>
+<p>但是，这里有两个问题。</p>
+<p><strong>（1）如何保证公钥不被篡改？</strong></p>
+<blockquote>
+<p>解决方法：将公钥放在<a href="http://en.wikipedia.org/wiki/Digital_certificate" target="_blank" rel="noopener">数字证书</a>中。只要证书是可信的，公钥就是可信的。</p>
+</blockquote>
+<p><strong>（2）公钥加密计算量太大，如何减少耗用的时间？</strong></p>
+<blockquote>
+<p>解决方法：每一次对话（session），客户端和服务器端都生成一个”对话密钥”（session key），用它来加密信息。由于”对话密钥”是对称加密，所以运算速度非常快，而服务器公钥只用于加密”对话密钥”本身，这样就减少了加密运算的消耗时间。</p>
+</blockquote>
+<p>因此，SSL/TLS协议的基本过程是这样的：</p>
+<blockquote>
+<p>（1） 客户端向服务器端索要并验证公钥。</p>
+<p>（2） 双方协商生成”对话密钥”。</p>
+<p>（3） 双方采用”对话密钥”进行加密通信。</p>
+</blockquote>
+<p>上面过程的前两步，又称为”握手阶段”（handshake）。</p>
+<h3 id="握手阶段的详细过程"><a href="#握手阶段的详细过程" class="headerlink" title="握手阶段的详细过程"></a>握手阶段的详细过程</h3><p><img src="https://www.ruanyifeng.com/blogimg/asset/201402/bg2014020502.png" alt="img"></p>
+<p>“握手阶段”涉及四次通信，我们一个个来看。需要注意的是，”握手阶段”的所有通信都是明文的。</p>
+<h4 id="客户端发出请求（ClientHello）"><a href="#客户端发出请求（ClientHello）" class="headerlink" title="客户端发出请求（ClientHello）"></a>客户端发出请求（ClientHello）</h4><p>首先，客户端（通常是浏览器）先向服务器发出加密通信的请求，这被叫做ClientHello请求。</p>
+<p>在这一步，客户端主要向服务器提供以下信息。</p>
+<blockquote>
+<p>（1） 支持的协议版本，比如TLS 1.0版。</p>
+<p>（2） 一个客户端生成的随机数，稍后用于生成”对话密钥”。</p>
+<p>（3） 支持的加密方法，比如RSA公钥加密。</p>
+<p>（4） 支持的压缩方法。</p>
+</blockquote>
+<p>这里需要注意的是，客户端发送的信息之中不包括服务器的域名。也就是说，理论上服务器只能包含一个网站，否则会分不清应该向客户端提供哪一个网站的数字证书。这就是为什么通常一台服务器只能有一张数字证书的原因。</p>
+<p>对于虚拟主机的用户来说，这当然很不方便。2006年，TLS协议加入了一个<a href="http://tools.ietf.org/html/rfc4366" target="_blank" rel="noopener">Server Name Indication扩展</a>，允许客户端向服务器提供它所请求的域名。</p>
+<h4 id="服务器回应（SeverHello）"><a href="#服务器回应（SeverHello）" class="headerlink" title="服务器回应（SeverHello）"></a>服务器回应（SeverHello）</h4><p>服务器收到客户端请求后，向客户端发出回应，这叫做SeverHello。服务器的回应包含以下内容。</p>
+<blockquote>
+<p>（1） 确认使用的加密通信协议版本，比如TLS 1.0版本。如果浏览器与服务器支持的版本不一致，服务器关闭加密通信。</p>
+<p>（2） 一个服务器生成的随机数，稍后用于生成”对话密钥”。</p>
+<p>（3） 确认使用的加密方法，比如RSA公钥加密。</p>
+<p>（4） 服务器证书。</p>
+</blockquote>
+<p>除了上面这些信息，如果服务器需要确认客户端的身份，就会再包含一项请求，要求客户端提供”客户端证书”。比如，金融机构往往只允许认证客户连入自己的网络，就会向正式客户提供USB密钥，里面就包含了一张客户端证书。</p>
+<h4 id="客户端回应"><a href="#客户端回应" class="headerlink" title="客户端回应"></a>客户端回应</h4><p>客户端收到服务器回应以后，首先验证服务器证书。如果证书不是可信机构颁布、或者证书中的域名与实际域名不一致、或者证书已经过期，就会向访问者显示一个警告，由其选择是否还要继续通信。</p>
+<p>如果证书没有问题，客户端就会从证书中取出服务器的公钥。然后，向服务器发送下面三项信息。</p>
+<blockquote>
+<p>（1） 一个随机数。该随机数用服务器公钥加密，防止被窃听。</p>
+<p>（2） 编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送。</p>
+<p>（3） 客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时也是前面发送的所有内容的hash值，用来供服务器校验。</p>
+</blockquote>
+<p>上面第一项的随机数，是整个握手阶段出现的第三个随机数，又称”pre-master key”。有了它以后，客户端和服务器就同时有了三个随机数，接着双方就用事先商定的加密方法，各自生成本次会话所用的同一把”会话密钥”。</p>
+<p>至于为什么一定要用三个随机数，来生成”会话密钥”，<a href="http://blog.csdn.net/dog250/article/details/5717162" target="_blank" rel="noopener">dog250</a>解释得很好：</p>
+<blockquote>
+<p>“不管是客户端还是服务器，都需要随机数，这样生成的密钥才不会每次都一样。由于SSL协议中证书是静态的，因此十分有必要引入一种随机因素来保证协商出来的密钥的随机性。</p>
+<p>对于RSA密钥交换算法来说，pre-master-key本身就是一个随机数，再加上hello消息中的随机，三个随机数通过一个密钥导出器最终导出一个对称密钥。</p>
+<p>pre master的存在在于SSL协议不信任每个主机都能产生完全随机的随机数，如果随机数不随机，那么pre master secret就有可能被猜出来，那么仅适用pre master secret作为密钥就不合适了，因此必须引入新的随机因素，那么客户端和服务器加上pre master secret三个随机数一同生成的密钥就不容易被猜出了，一个伪随机可能完全不随机，可是是三个伪随机就十分接近随机了，每增加一个自由度，随机性增加的可不是一。”</p>
+</blockquote>
+<p>此外，如果前一步，服务器要求客户端证书，客户端会在这一步发送证书及相关信息。</p>
+<h4 id="服务器的最后回应"><a href="#服务器的最后回应" class="headerlink" title="服务器的最后回应"></a>服务器的最后回应</h4><p>服务器收到客户端的第三个随机数pre-master key之后，计算生成本次会话所用的”会话密钥”。然后，向客户端最后发送下面信息。</p>
+<blockquote>
+<p>（1）编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送。</p>
+<p>（2）服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时也是前面发送的所有内容的hash值，用来供客户端校验。</p>
+</blockquote>
+<p>至此，整个握手阶段全部结束。接下来，客户端与服务器进入加密通信，就完全是使用普通的HTTP协议，只不过用”会话密钥”加密内容。</p>
+<p><img src="https://www.ruanyifeng.com/blogimg/asset/201402/bg2014020503.gif" alt="img"></p>
+<h3 id="大白话"><a href="#大白话" class="headerlink" title="大白话"></a>大白话</h3><p>SSL(secure sockets layer)是TLS(transport layer security)的<strong>前身</strong>，为什么将他们合起来的，大家可以理解成都属于同一东西的不同阶段吧，比如该协议之前叫SSL后来改名成TLS了。</p>
+<p>为什么要有这种协议呢？因为HTTP是使用明文传输，随着网络的发展，安全性越来越重要，所以大家就要想办法让传输更加安全，同时使用密码学的成果，利用“非对称加密算法”的思想以及OSI模型，来对HTTP的信息进行加密。</p>
+<p>根据OSI模型，如果向外传输信息就是要从上到下挨个层进行，TLS/SSL也是位于应用层，所以为了加密HTTP的内容，那么TLS/SSL必须位于HTTP下面，可以看成这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP</span><br><span class="line">TLS/SSL</span><br><span class="line">TCP</span><br><span class="line">Ip</span><br><span class="line">..</span><br></pre></td></tr></table></figure>
+<p>信息从HTTP经过TLS/SSL<strong>非对称加密</strong>后传出去，而在接收方，接收到信息是需要一层层向上进行，经过每层的“解包/解密”，最终通过HTTP转换成超文本信息。</p>
+<p>所以HTTPS 就是 “HTTP内容向下传输的时候加了一层TLS/SSL加密”，仅此而已，这样，我们就可以实现，使用HTTP协议进行互联网信息传播的时候，对信息进行加密处理了，相信大家已经对非对称加密算法有一定了解了。比如说我们通过HTTPS连接某银行网站，这样我们就可以将我们的密码通过银行给我们的公钥进行加密后发送给银行，而避免了在传输过程中被他人偷看的可能，因为即使他们讲我们的密文盗走，也无法解密，只有银行网站可以解密，为什么？因为只有银行拥有与我们使用“公钥”加密相对的那个“私钥”。</p>
+<p>但是同样的问题，就是我们怎么知道我们使用的公钥就是银行给我们的呢？即使我们所访问的域名和银行的域名一致，因为黑客完全可以通过修改我们本地的hosts文件，或者入侵dns，将域名映射到黑客的服务器。所以，这就是CA(certificate authority)，数字证书，数字签名，公钥基础设施(PKI)的作用了</p>
+<blockquote>
+<p>公开密钥基础建设（英语：Public Key Infrastructure，缩写：PKI），又称公开密钥基础架构、公钥基础建设、公钥基础设施、公开密码匙基础建设或公钥基础架构，是一组由硬件、软件、参与者、管理政策与流程组成的基础架构，其目的在于创造、管理、分配、使用、存储以及撤销数字证书。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>每个用户都有一对私钥和公钥。<ul>
+<li>私钥用来进行解密和签名，是给自己用的。</li>
+<li>公钥由本人公开，用于加密和验证签名，是给别人用的。</li>
+</ul>
+</li>
+<li>当该用户发送文件时，用私钥签名，别人用他给的公钥解密，可以保证该信息是由他发送的。即数字签名。</li>
+<li>当该用户接受文件时，别人用他的公钥加密，他用私钥解密，可以保证该信息只能由他看到。即安全传输。</li>
+</ol>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/密码学/" rel="tag"><i class="fa fa-tag"></i> 密码学</a>
+          
+            <a href="/tags/HTTPS/" rel="tag"><i class="fa fa-tag"></i> HTTPS</a>
+          
+            <a href="/tags/加密算法/" rel="tag"><i class="fa fa-tag"></i> 加密算法</a>
+          
+            <a href="/tags/TLS-SSL/" rel="tag"><i class="fa fa-tag"></i> TLS/SSL</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019-11-04/man-in-the-middle-attack.html" rel="prev" title="HTTPS连接以及中间人攻击劫持">
+                <i class="fa fa-chevron-left"></i> HTTPS连接以及中间人攻击劫持
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-11-02/Sudoku.html" rel="next" title="标准数独技巧">
+                 标准数独技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">本博客主要用于分享生活以及前端web、数据结构与算法、计算机基础等编程知识，愿时光未央，岁月静好ㄟ(😁)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#公钥算法与私钥算法"><span class="nav-number">1.</span> <span class="nav-text">公钥算法与私钥算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#私钥算法"><span class="nav-number">1.1.</span> <span class="nav-text">私钥算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公钥算法"><span class="nav-number">1.2.</span> <span class="nav-text">公钥算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现数据的安全传输"><span class="nav-number">2.</span> <span class="nav-text">实现数据的安全传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对信息进行数字签名"><span class="nav-number">3.</span> <span class="nav-text">对信息进行数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公钥算法的缺点"><span class="nav-number">4.</span> <span class="nav-text">公钥算法的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名跟数字证书"><span class="nav-number">5.</span> <span class="nav-text">数字签名跟数字证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数字签名"><span class="nav-number">5.1.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字证书"><span class="nav-number">5.2.</span> <span class="nav-text">数字证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字证书的实例：https协议"><span class="nav-number">6.</span> <span class="nav-text">数字证书的实例：https协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS-SSL协议"><span class="nav-number">7.</span> <span class="nav-text">TLS/SSL协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#握手阶段的详细过程"><span class="nav-number">7.1.</span> <span class="nav-text">握手阶段的详细过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端发出请求（ClientHello）"><span class="nav-number">7.1.1.</span> <span class="nav-text">客户端发出请求（ClientHello）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器回应（SeverHello）"><span class="nav-number">7.1.2.</span> <span class="nav-text">服务器回应（SeverHello）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端回应"><span class="nav-number">7.1.3.</span> <span class="nav-text">客户端回应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器的最后回应"><span class="nav-number">7.1.4.</span> <span class="nav-text">服务器的最后回应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大白话"><span class="nav-number">7.2.</span> <span class="nav-text">大白话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":200,"height":200,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+</html>

@@ -1,0 +1,1393 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="生活,数独,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="数独真香真好玩">
+<meta name="keywords" content="生活,数独">
+<meta property="og:type" content="article">
+<meta property="og:title" content="标准数独技巧">
+<meta property="og:url" content="http://jhjhljh.github.io/2019-11-02/Sudoku.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="数独真香真好玩">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-02/Sudoku/wallhaven-yj87qx.jpg">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-51302100-1362282278_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-65577400-1362282715_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-70518500-1362282882_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-43787800-1362283750_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-23678400-1362286252_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-25884000-1362286395_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-81270400-1362286810_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-74443300-1362287201_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-75056700-1362287330_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-09755800-1362290370_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-93193500-1362300286_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-65787800-1362300516_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-71038800-1362300770_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-92359400-1362462777_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-87161500-1362463127_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-96823300-1362463362_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-10182500-1362464247_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-38419500-1362464899_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-54844100-1362466784_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-16362300-1362467134_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-97130100-1362469980_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-69111400-1362470266_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-72063800-1362485082_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-27103000-1362485222_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-85439500-1362485394_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-81176800-1362485716_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-16594100-1362486183_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-30319300-1362487368_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-77394800-1362487482_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-48416500-1362487614_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-19194100-1362640882_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-69360900-1362648966_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-89943200-1362649245_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-48388300-1362659468_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-89642500-1362660014_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-72560000-1362660358_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-09453000-1362663568_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-38297300-1362664874_thumb.png">
+<meta property="og:image" content="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-07750600-1362665201_thumb.png">
+<meta property="og:updated_time" content="2019-11-02T10:51:30.543Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="标准数独技巧">
+<meta name="twitter:description" content="数独真香真好玩">
+<meta name="twitter:image" content="http://jhjhljh.github.io/2019-11-02/Sudoku/wallhaven-yj87qx.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/2019-11-02/Sudoku.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 标准数独技巧 | Abo </title>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/2019-11-02/Sudoku.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                标准数独技巧
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-02T15:33:57+08:00">
+                2019-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/生活/" itemprop="url" rel="index">
+                    <span itemprop="name">生活</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                 <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019-11-02/Sudoku.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019-11-02/Sudoku.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2019-11-02/Sudoku.html" class="leancloud_visitors" data-flag-title="标准数独技巧">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p class="description">数独真香真好玩</p>
+
+<p><img src="/2019-11-02/Sudoku/wallhaven-yj87qx.jpg" alt="wallhaven-yj87qx"></p>
+<a id="more"></a>
+<blockquote class="question">记录自己忽略的技巧点</blockquote>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4880738&auto=0&height=66"></iframe>
+
+<h2 id="宫摒除区块-Pointing"><a href="#宫摒除区块-Pointing" class="headerlink" title="宫摒除区块 Pointing"></a>宫摒除区块 Pointing</h2><blockquote class="question">GOT IT FINISH,通过数字标记的方法可以确定</blockquote>
+
+<h3 id="适用情况"><a href="#适用情况" class="headerlink" title="适用情况"></a>适用情况</h3><p>在进行宫摒除时，发现某数在某宫可能位置不止一个，但是可能位置处在同行或同列，则可以排除相应行或列中除他们外其他格的该数。</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-51302100-1362282278_thumb.png" alt="pointing1.png"></p>
+<p>数字5对第二宫摒除发现第二宫5的可能位置是2个星号格，虽然目前不能确定是哪一格，但可以确定的是第三行<strong>除了</strong>星号格外其他格（用短横线标示）<strong>一定不是5</strong>。如下图所示：</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-65577400-1362282715_thumb.png" alt="pointing2.png"></p>
+<h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-70518500-1362282882.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-70518500-1362282882_thumb.png" alt="pointing3.png"></a></p>
+<p>观察数字6，对第七宫进行摒除，得到第七宫的6在星号两格（同在第七行），故第七行除星号格外不能再有6。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-43787800-1362283750.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-43787800-1362283750_thumb.png" alt="pointing4.png"></a></p>
+<p>继而可以得到第八宫的6只能在r8c6。</p>
+<h2 id="行列摒除区块-Claiming"><a href="#行列摒除区块-Claiming" class="headerlink" title="行列摒除区块 Claiming"></a>行列摒除区块 Claiming</h2><blockquote class="question">GOT IT BUT FAILED, 不熟练</blockquote>
+
+<h3 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h3><p>在进行行列摒除时，发现某数在某行或某列可能位置不止一个，但是可能位置处在同宫，则可以排除相应宫中除他们外其他格的该数</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-23678400-1362286252_thumb.png" alt="claiming1.png"></p>
+<p>A对第一行摒除发现第一行A的可能位置是2个星号格，虽然目前不能确定是哪一格，但可以确定的是第二宫除了星号格外其他格（用短横线标示）一定不是A。如下图所示：</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-25884000-1362286395_thumb.png" alt="claiming2.png"></p>
+<h3 id="实际应用-1"><a href="#实际应用-1" class="headerlink" title="实际应用"></a>实际应用</h3><p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-81270400-1362286810.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-81270400-1362286810_thumb.png" alt="claiming3.png"></a></p>
+<p>观察数字4，对第四行进行摒除，得到第四行的4在星号两格（同在第六宫），故第六宫除星号格外不能再有4。如下图所示：</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-74443300-1362287201.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-74443300-1362287201_thumb.png" alt="claiming4.png"></a></p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-75056700-1362287330.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-75056700-1362287330_thumb.png" alt="claiming5.png"></a></p>
+<p>数字4对第九列摒除，第九列的4只能在r4c9。</p>
+<blockquote>
+<p>可以理解为取公共点</p>
+</blockquote>
+<h2 id="摒除数对-Hidden-Pair"><a href="#摒除数对-Hidden-Pair" class="headerlink" title="摒除数对 Hidden Pair"></a><strong>摒除数对 Hidden Pair</strong></h2><blockquote class="question">GOT IT BUT FAILED, 不熟练</blockquote>
+
+<h3 id="使用情况-1"><a href="#使用情况-1" class="headerlink" title="使用情况"></a>使用情况</h3><p>与宫摒除、行列摒除相同，只是同时观察2个数，且这两个数恰好被锁定在一行、一列、一宫的两个相同位置</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-09755800-1362290370_thumb.png" alt="hp1.png"></p>
+<p>图中无论是字母A还是字母B在第一宫可能的位置都是星号格，故这两格不能再有除A、B外的其他数字。</p>
+<h3 id="实际应用-2"><a href="#实际应用-2" class="headerlink" title="实际应用"></a>实际应用</h3><blockquote>
+<p>例子中14的标记对，容易忽略</p>
+</blockquote>
+<p>为了阐述摒除数对，下面这个例子同时涉及到宫摒除数对（第一步）和行列摒除数对（第二步）。</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-93193500-1362300286_thumb.png" alt="hp2.png"><br>数字2和3同时对第六宫摒除，得到第六宫的2和3只能在星号处。故星号两格除了2和3不再有其他可能的数。</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-65787800-1362300516_thumb.png" alt="hp3.png"></p>
+<p>数字1和4同时对第五行摒除，其中r5c7，我们之前已经得到它可能的候选数只有2或3，自然不能有1和4，第五行的1和4只能在星号处。故星号两格除了1和4不能会再有其他可能数字。</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-71038800-1362300770_thumb.png" alt="hp4.png"></p>
+<p>此时数字7对第五行摒除，第五行的7只能在星号处。</p>
+<h2 id="唯余数对-Naked-Pair"><a href="#唯余数对-Naked-Pair" class="headerlink" title="唯余数对 Naked Pair"></a>唯余数对 Naked Pair</h2><blockquote class="question">难</blockquote>
+
+<h3 id="使用情况-2"><a href="#使用情况-2" class="headerlink" title="使用情况"></a>使用情况</h3><p>与唯一余数观察方法相同，只是同时观察两格，且这两格所剩可能填写的数字均为2个且组合相同。</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-92359400-1362462777_thumb.png" alt="np1.png"></p>
+<p>图中星号所示两格可能的数字均只剩下8和9，由于他们同在第一宫，称其为89数对，继而可以删除它们同在的第一宫内其他格的候选数8和9。</p>
+<h3 id="实际应用-3"><a href="#实际应用-3" class="headerlink" title="实际应用"></a>实际应用</h3><p>为了阐述唯余数对，下面这个例子用到了3次唯余数对和1次摒除数对，方便大家对两者进行对比。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-87161500-1362463127.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-87161500-1362463127_thumb.png" alt="np2.png"></a></p>
+<p>分别来看黑色星号的两格和白色星号的两格，通过点算他们所在行列宫已经出现过的数字，可以发现黑色星号两格剩余可能数字均为59，计为59数对；白色星号两格剩余可能数字均为57，计为57数对。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-96823300-1362463362.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-96823300-1362463362_thumb.png" alt="np3.png"></a></p>
+<p>点算黑色星号可能的数字，我们发现在其行列宫已经出现过2,3,4,6,7，而第一步得到的59数对（蓝色所示）因为同在第三行，故第三行其他格不能再有5或9，黑色星号格可能数字只剩下1和8；同样的，看白色星号，其所在行列宫已经出现过的数字有2,3,4,5,6,9，第一步得到的57数对（紫色所示）同在第七行，故第七行的其他格内不能再有5或7，白色星号格可能数字只剩1和8。由于黑色和白色星号格同在第六列，且可能候选均为1和8，则称其为18数对，第六列除他们俩外其他格都不能是1或8。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-10182500-1362464247.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-10182500-1362464247_thumb.png" alt="np4.png"></a></p>
+<p>数字1和3对第五行摒除，得到第五行的1和3只能在星号两格（摒除数对）。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-38419500-1362464899.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-38419500-1362464899_thumb.png" alt="np5.png"></a></p>
+<p>数字4对第五行摒除，得到r5c8=4。</p>
+<h2 id="三链数-Triplet"><a href="#三链数-Triplet" class="headerlink" title="三链数 Triplet"></a><strong>三链数 Triplet</strong></h2><h3 id="使用情况-3"><a href="#使用情况-3" class="headerlink" title="使用情况"></a>使用情况</h3><p>与摒除数对和唯余数对观察方法相同，只是拓展到3个数或3格。这三格需属于同行或同列或同宫。</p>
+<h3 id="实际应用-4"><a href="#实际应用-4" class="headerlink" title="实际应用"></a>实际应用</h3><p>下面这个例子同时用到了摒除三链数(Hidden Triplet)和唯余三链数(Naked Triplet)，并会把前面的区块和唯余复习一下。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-54844100-1362466784.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-54844100-1362466784_thumb.png" alt="t1.png"></a></p>
+<p>点算星号3格，自左往右，可能的数字依次为249,249,29，且它们同时处于第五行，则第五行的其他格不能再有2、4、9。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-16362300-1362467134.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-16362300-1362467134_thumb.png" alt="t2.png"></a></p>
+<p>数字2,7,8对第四宫摒除，得到第四宫的2,7,8只能在星号3格。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-97130100-1362469980.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-97130100-1362469980_thumb.png" alt="t3.png"></a></p>
+<p>数字4对第四宫摒除，得到第四宫的4只能在星号格。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-69111400-1362470266.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-69111400-1362470266_thumb.png" alt="t4.png"></a></p>
+<p>r2c1唯余解9。</p>
+<h2 id="四角对角线-矩形摒除-X-Wing"><a href="#四角对角线-矩形摒除-X-Wing" class="headerlink" title="四角对角线/矩形摒除 X-Wing"></a><strong>四角对角线/矩形摒除 X-Wing</strong></h2><h3 id="使用情况-4"><a href="#使用情况-4" class="headerlink" title="使用情况"></a>使用情况</h3><p>注：四角对角线是日本书里面对X-Wing的称呼，国内的书和网站称矩形删除或者X翼之类的比较多，一般还是直接用英文的X-Wing即可。</p>
+<p>观察某一个数字A，若在某两行(列)中数字A只可能存在于某相同的两列(行)，则这两列(行)的其他格都不能有A。</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-72063800-1362485082_thumb.png" alt="xwing1.png"></p>
+<p>图中，第二行和第五行的A只能在第二列和第五列，对于第二行和第五行的A可能有以下两种排列：<img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-27103000-1362485222_thumb.png" alt="xwing2.png"></p>
+<p>不论是哪一种情况，第二列和第五列其他格都不能是A。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-85439500-1362485394.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-85439500-1362485394_thumb.png" alt="xwing3.png"></a></p>
+<h3 id="实际应用-5"><a href="#实际应用-5" class="headerlink" title="实际应用"></a>实际应用</h3><p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-81176800-1362485716.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-81176800-1362485716_thumb.png" alt="xwing4.png"></a></p>
+<p>数字1分别对第三列和第八列摒除，得到第三列的1在黑色星号2格，第八列的1在白色星号2格。所以第三行和第九行除他们外的其他格都不能是1。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-16594100-1362486183.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-16594100-1362486183_thumb.png" alt="xwing5.png"></a></p>
+<p>点算星号格，本来还剩1和3的可能，其中1已经被X-Wing摒除，故r3c1=3。</p>
+<p>*注：有的地方会把行列区块归结到X-Wing里面，例如我们用之前<a href="http://www.sudokufans.org.cn/forums/topic/69-标准数独技巧导读帖/?do=findComment&amp;comment=5173" target="_blank" rel="noopener">行列区块的例子</a>来看。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-30319300-1362487368.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-30319300-1362487368_thumb.png" alt="claiming1.png"></a></p>
+<p>数字4对第三宫摒除，得到第三宫的4在星号格。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-77394800-1362487482.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-77394800-1362487482_thumb.png" alt="claiming2.png"></a></p>
+<p>数字4对第九宫摒除，得到第九宫的4在星号格。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-48416500-1362487614.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-48416500-1362487614_thumb.png" alt="claiming3.png"></a></p>
+<p>第三宫和第九宫的4都在第七列和第八列，故第七列和第八列除它们外的其他格都不含4。</p>
+<p>从描述中聪明如你们应该能够发现一些差别，这里就不多做解释了。</p>
+<h2 id="摩天楼-Skyscraper"><a href="#摩天楼-Skyscraper" class="headerlink" title="摩天楼 Skyscraper"></a><strong>摩天楼 Skyscraper</strong></h2><blockquote class="question">记住</blockquote>
+
+<h3 id="使用情况-5"><a href="#使用情况-5" class="headerlink" title="使用情况"></a>使用情况</h3><p>当数字A在某两行（列）均只存在两个可能位置，且其中一侧两数存在于同列（行）时，则可对另一侧两格共同影响格的数字A删除。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-19194100-1362640882.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-19194100-1362640882_thumb.png" alt="S1.png"></a></p>
+<p>左图：第二列和第五列的数字A可能的位置均只有2个，其中蓝色A处于同一行，故可以删除另一侧紫色A的共同作用格（星号所示）的A。</p>
+<p>右图：第二行和第八行的数字A可能的位置均只有2个，其中蓝色A处于同一列，故可以删除另一侧紫色A的共同作用格（星号所示）的A。</p>
+<p><strong>原理：</strong>如果你之前已经学习过<a href="http://www.sudokufans.org.cn/forums/topic/38-数独高级技巧入门链的逻辑及aic/" target="_blank" rel="noopener">链的入门</a>，可以用链的观点来看。</p>
+<p>左图：r2c2==r5c2–r5c5==r1c5 -&gt; r1c1,r1c3,r2c4,r2c6&lt;&gt;A。</p>
+<p>亦可进行如下推理：根据r2c2是否是A分为2种情况1）r2c2=A；2）r2c2!=A -&gt; r5c2=A -&gt; r5c5!=A -&gt; r1c5=A。即r1c5和r2c2至少有一个是A，故可以删除他们共同影响的r1c1,r1c3,r2c4,r2c6的候选数A。</p>
+<p>右图：r2c7==r2c2–r8c2==r8c8 -&gt; r1c8,r3c8,r7c7,r9c7&lt;&gt;A。（与左图类似，恕不赘述）</p>
+<h3 id="实际应用-6"><a href="#实际应用-6" class="headerlink" title="实际应用"></a>实际应用</h3><p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-69360900-1362648966.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-69360900-1362648966_thumb.png" alt="s2.png"></a></p>
+<p>数字7对第一、四行摒除，各有2个可能位置，且一侧均在第五列，另一侧共同作用格（白色星号所示）可以排除7的可能。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-89943200-1362649245.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-89943200-1362649245_thumb.png" alt="s3.png"></a></p>
+<p>第一宫的7只能在r1c1。</p>
+<h2 id="双线风筝-Two-Strings-Kite"><a href="#双线风筝-Two-Strings-Kite" class="headerlink" title="双线风筝 Two Strings Kite"></a>双线风筝 Two Strings Kite</h2><h3 id="适用情况-1"><a href="#适用情况-1" class="headerlink" title="适用情况"></a>适用情况</h3><p>当数字A在一行、一列均只有2个可能位置，行的一个端点和列的一个端点属于同一宫，则可以删除另两个端点的共同作用格。</p>
+<p><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-48388300-1362659468_thumb.png" alt="t1.png"></p>
+<p>图中第一行的A可能位置在r1c3和r1c7，第一列A的可能位置在r3c1和r7c1，他们各自的一个端点r1c3和r3c1同属于第一宫，所以可以删除另外两个端点r1c7和r7c1共同作用格r7c7的候选数A。</p>
+<p>用链表示：r1c7==r1c3–r3c1==r7c1 -&gt; r7c7!=A</p>
+<h3 id="实际应用-7"><a href="#实际应用-7" class="headerlink" title="实际应用"></a>实际应用</h3><p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-89642500-1362660014.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-89642500-1362660014_thumb.png" alt="t2.png"></a></p>
+<p>第一列和第九行的4都只有两个位置，且r7c1和r9c3同属于第七宫，故可以删除r2c1和r9c6共同影响的r2c6的候选数4。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-72560000-1362660358.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-72560000-1362660358_thumb.png" alt="t3.png"></a></p>
+<p>星号处根据盘面还剩2和4的可能，其中4已被双线风筝删除，得唯余解2。</p>
+<h2 id="多宝鱼-Turbot-Fish"><a href="#多宝鱼-Turbot-Fish" class="headerlink" title="多宝鱼 Turbot Fish"></a>多宝鱼 Turbot Fish</h2><h3 id="适用情况-2"><a href="#适用情况-2" class="headerlink" title="适用情况"></a>适用情况</h3><p>当数字A在一行（列）和一宫中均只有2个可能位置，且其中行的一个端点和宫的一个端点存在于同一行（列），则可以删除另两两个端点共同作用格的候选数A。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-09453000-1362663568.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-09453000-1362663568_thumb.png" alt="T1.png"></a></p>
+<p>图中第二列和第三宫字母A都只有2个可能位置，其中第二列的一个端点r1c2和第三宫的端点r1c7同属于第一行，故可以删除另两个端点r7c2和r3c8共同影响的r7c8的候选数A。</p>
+<p>用链表示r3c8==r1c7–r1c2==r7c2 -&gt; r7c8!=A</p>
+<h3 id="实际应用-8"><a href="#实际应用-8" class="headerlink" title="实际应用"></a>实际应用</h3><p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-38297300-1362664874.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-38297300-1362664874_thumb.png" alt="t2.png"></a></p>
+<p>图中第七宫的2有两个可能位置r7c3和r9c1，第七列的2可能在r4c7和r9c7，其中r9c1和r9c7同属于第九行，所以可以删除另两个端点r7c3和r4c7共同影响的r4c3的2。</p>
+<p><a href="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-07750600-1362665201.png" target="_blank" rel="noopener"><img src="http://www.sudokufans.org.cn/forums/uploads/monthly_03_2013/post-2-0-07750600-1362665201_thumb.png" alt="t3.png"></a></p>
+<p>第三列的2只能在r7c3（其中r4c3的2由Turbot Fish删除）。</p>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/生活/" rel="tag"><i class="fa fa-tag"></i> 生活</a>
+          
+            <a href="/tags/数独/" rel="tag"><i class="fa fa-tag"></i> 数独</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019-11-04/Cryptography.html" rel="prev" title="关于密码学里面那些绕来绕去的概念">
+                <i class="fa fa-chevron-left"></i> 关于密码学里面那些绕来绕去的概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-10-30/lesson.html" rel="next" title="一些零散的笔记与目标">
+                 一些零散的笔记与目标 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">本博客主要用于分享生活以及前端web、数据结构与算法、计算机基础等编程知识，愿时光未央，岁月静好ㄟ(😁)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#宫摒除区块-Pointing"><span class="nav-number">1.</span> <span class="nav-text">宫摒除区块 Pointing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适用情况"><span class="nav-number">1.1.</span> <span class="nav-text">适用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用"><span class="nav-number">1.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行列摒除区块-Claiming"><span class="nav-number">2.</span> <span class="nav-text">行列摒除区块 Claiming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情况"><span class="nav-number">2.1.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-1"><span class="nav-number">2.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摒除数对-Hidden-Pair"><span class="nav-number">3.</span> <span class="nav-text">摒除数对 Hidden Pair</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情况-1"><span class="nav-number">3.1.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-2"><span class="nav-number">3.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#唯余数对-Naked-Pair"><span class="nav-number">4.</span> <span class="nav-text">唯余数对 Naked Pair</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情况-2"><span class="nav-number">4.1.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-3"><span class="nav-number">4.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三链数-Triplet"><span class="nav-number">5.</span> <span class="nav-text">三链数 Triplet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情况-3"><span class="nav-number">5.1.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-4"><span class="nav-number">5.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四角对角线-矩形摒除-X-Wing"><span class="nav-number">6.</span> <span class="nav-text">四角对角线/矩形摒除 X-Wing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情况-4"><span class="nav-number">6.1.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-5"><span class="nav-number">6.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摩天楼-Skyscraper"><span class="nav-number">7.</span> <span class="nav-text">摩天楼 Skyscraper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情况-5"><span class="nav-number">7.1.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-6"><span class="nav-number">7.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双线风筝-Two-Strings-Kite"><span class="nav-number">8.</span> <span class="nav-text">双线风筝 Two Strings Kite</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适用情况-1"><span class="nav-number">8.1.</span> <span class="nav-text">适用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-7"><span class="nav-number">8.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多宝鱼-Turbot-Fish"><span class="nav-number">9.</span> <span class="nav-text">多宝鱼 Turbot Fish</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适用情况-2"><span class="nav-number">9.1.</span> <span class="nav-text">适用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用-8"><span class="nav-number">9.2.</span> <span class="nav-text">实际应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
+</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":200,"height":200,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+</html>
