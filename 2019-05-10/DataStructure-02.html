@@ -1,1 +1,1390 @@
-<!doctype html><html class="theme-next muse use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><script></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet"><link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet"><link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"><link href="/css/main.css?v=5.1.3" rel="stylesheet"><meta name="keywords" content="线性表,"><link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3"><meta name="description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点"><meta name="keywords" content="线性表"><meta property="og:type" content="article"><meta property="og:title" content="数据结构-栈与队列"><meta property="og:url" content="http://jhjhljh.github.io/2019-05-10/DataStructure-02.html"><meta property="og:site_name" content="Abo"><meta property="og:description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://jhjhljh.github.io/2019-05-10/DataStructure-02/faded.jpg"><meta property="og:updated_time" content="2019-05-12T16:02:11.869Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="数据结构-栈与队列"><meta name="twitter:description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点"><meta name="twitter:image" content="http://jhjhljh.github.io/2019-05-10/DataStructure-02/faded.jpg"><script id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",sidebar:"",fancybox:!0,motion:!0,duoshuo:{userId:"undefined",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:"",labels:""}}</script><link rel="canonical" href="http://jhjhljh.github.io/2019-05-10/DataStructure-02.html"><script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script><link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet"><style>.pace .pace-progress{background:#1e92fb;height:3px}.pace .pace-progress-inner{box-shadow:0 0 10px #1e92fb,0 0 5px #1e92fb}.pace .pace-activity{border-top-color:#1e92fb;border-left-color:#1e92fb}</style><title>数据结构-栈与队列 | Abo</title></head><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz","zQfRdGCiWzVvsSpXKOJsbvHe")</script><script>function showTime(e){var t=new AV.Query(e);$(".leancloud_visitors").each(function(){var r=$(this).attr("id").trim();t.equalTo("url",r),t.find({success:function(e){if(0!=e.length)for(var t=0;t<e.length;t++){var n=e[t];o=$(document.getElementById(r)).text()+": "+n.get("time");$(document.getElementById(r)).text(o)}else{var o=$(document.getElementById(r)).text()+": 0";$(document.getElementById(r)).text(o)}},error:function(e,t){console.log("Error: "+t.code+" "+t.message)}})})}function addCount(o){o=AV.Object.extend("Counter");url=$(".leancloud_visitors").attr("id").trim(),title=$(".leancloud_visitors").attr("data-flag-title").trim();var e=new AV.Query(o);e.equalTo("url",url),e.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){var t=$(document.getElementById(url)).text()+": "+e.get("time");$(document.getElementById(url)).text(t)},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new o;n.set("title",title),n.set("url",url),n.set("time",1),n.save(null,{success:function(e){console.log("newcounter.get('time')="+e.get("time"));var t=$(document.getElementById(url)).text()+": "+e.get("time");$(document.getElementById(url)).text(t)},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><div class="container one-collumn page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Abo</span><span class="logo-line-after"><i></i></span></a></div><h1 class="site-subtitle" itemprop="description">林加鸿</h1></div><div class="site-nav-toggle"><button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-futbol-o"></i><br>关于</a></li><li class="menu-item menu-item-top"><a href="/top" rel="section"><i class="menu-item-icon fa fa-fw fa-signal"></i><br>排行</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup"><span class="search-icon fa fa-search"></span> <input type="text" id="local-search-input"><div id="local-search-result"></div><span class="popup-btn-close">close</span></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/2019-05-10/DataStructure-02.html"><span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="林加鸿"><meta itemprop="description" content><meta itemprop="image" content="/images/avatar.jpg"></span><span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Abo"><span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject"><img style="display:none" itemprop="url image" alt="Abo" src></span></span><header class="post-header"><h2 class="post-title" itemprop="name headline">数据结构-栈与队列</h2><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T19:51:38+08:00">2019-05-10</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataStructure/" itemprop="url" rel="index"><span itemprop="name">DataStructure</span></a></span></span> <span class="post-comments-count"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-comment-o"></i></span><a href="/2019-05-10/DataStructure-02.html#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019-05-10/DataStructure-02.html" itemprop="commentCount"></span></a></span> <span id="/2019-05-10/DataStructure-02.html" class="leancloud_visitors" data-flag-title="数据结构-栈与队列"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">热度</span><span class="leancloud-visitors-count"></span> <span>℃</span></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">字数统计</span> <span title="字数统计">4.1k</span> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-clock-o"></i></span> <span class="post-meta-item-text">阅读时长</span> <span title="阅读时长">16</span></div></div></header><div class="post-body" itemprop="articleBody"><p></p><p class="description"><br>数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点<br></p><br><img src="/2019-05-10/DataStructure-02/faded.jpg" alt="fade"><p></p><a id="more"></a><hr><blockquote class="question">“花也好。星星也好。世间所有美丽的事物，都是为了比喻你而存在。”</blockquote><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=462688887&auto=1&height=32"></iframe><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><ul><li>前言：<blockquote><p>栈(stack)是限定仅在表尾进行插入和删除操作的线性表</p><blockquote><p>队列是只允许在一端进行插入操作,而在另一端进行删除操作的线性表</p></blockquote></blockquote></li><li>我们把允许插入和删除的一端称为栈顶(top)，另一端称为栈底(bottom),不含任何数据元素的栈称为空栈。栈又称为后进先出(Last In First Out)的线性表，简称LIFO结构。<blockquote><p>首先它是一个线性表，也就是说，栈元素具有线性关系，即前驱后继关系。定义中说是在线性表的表尾进行插入和删除操作，这里表尾是指栈顶，而不是栈底</p></blockquote></li><li>栈的插入操作，叫作进栈，也称压栈,入栈</li><li>栈的删除操作，叫作出栈<blockquote><p>最先进栈的元素，是不是就只能是最后出栈呢？</p><blockquote><p>举例:3个整型数字元素1，2，3依次进栈，会有哪些出栈次序呢？？？</p><blockquote><p>321，123，213，132，231</p><blockquote><p>没有312</p></blockquote></blockquote></blockquote></blockquote></li></ul><hr><h4 id="栈的抽象数据类型"><a href="#栈的抽象数据类型" class="headerlink" title="栈的抽象数据类型"></a>栈的抽象数据类型</h4><blockquote><p>对于栈来讲，理论上线性表的操作特性它都具备，由于它的特殊性，特别是插入和删除操作，我们改名为push和pop,英文直译的话是压和弹,我们一般叫进栈和出栈<br></p><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ADT</span> 栈(stack)</span><br><span class="line"><span class="selector-tag">Data</span></span><br><span class="line">    同线性表。元素具有相同的类型，相邻元素具有前驱和后继关系</span><br><span class="line"><span class="selector-tag">Operation</span></span><br><span class="line">    <span class="selector-tag">InitStack</span>(*S):初始化操作，建立一个空栈<span class="selector-tag">S</span></span><br><span class="line">    <span class="selector-tag">DestroyStack</span>(*S):若栈存在，则销毁它</span><br><span class="line">    <span class="selector-tag">ClearStack</span>(*S):将栈清空</span><br><span class="line">    <span class="selector-tag">StackEmpty</span>(S):若栈为空，返回<span class="selector-tag">true</span>，否则返回<span class="selector-tag">false</span></span><br><span class="line">    <span class="selector-tag">GetTop</span>(S,*e):若栈存在且非空，用<span class="selector-tag">e</span>返回<span class="selector-tag">S</span>的栈顶元素</span><br><span class="line">    <span class="selector-tag">Push</span>(*S,e):若栈存在，插入新元素<span class="selector-tag">e</span>到栈<span class="selector-tag">S</span>中并成为栈顶元素</span><br><span class="line">    <span class="selector-tag">Pop</span>(*S,*e):删除栈<span class="selector-tag">S</span>中栈顶元素，并用<span class="selector-tag">e</span>返回其值</span><br><span class="line">    <span class="selector-tag">StackLength</span>(S):返回栈<span class="selector-tag">S</span>的元素个数</span><br><span class="line"><span class="selector-tag">endADT</span></span><br></pre></td></tr></table></figure><p></p></blockquote><blockquote><p>同理：思考一下何时用S，<em>S，e，</em>e</p></blockquote><hr><h4 id="栈的顺序存储结构及实现"><a href="#栈的顺序存储结构及实现" class="headerlink" title="栈的顺序存储结构及实现"></a>栈的顺序存储结构及实现</h4><blockquote><p>若存储栈的长度为StackSize，则栈顶位置top必须小于StackSize。若栈存在一个元素时，top等于0，因此通常把空栈的判定条件定位top等于-1</p><blockquote><p>栈的结构定义<br></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> SElemType;<span class="comment">/*SElemType类型根据实际情况而定，这里假设为int*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    SElemType data[MAXSIZE];</span><br><span class="line">    <span class="keyword">int</span> top;<span class="comment">/*用于栈顶指针*/</span></span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure><p></p></blockquote></blockquote><ul><li><p>进栈操作(push)</p><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*插入元素e为新的栈顶元素*/</span></span><br><span class="line">Status <span class="keyword">Push</span>(SqStack *S,SElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S-&gt;top == MAXSIZE - <span class="number">1</span>) <span class="comment">/*栈满*/</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">ERROR</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S-&gt;top++;<span class="comment">/*栈顶指针增加一*/</span></span><br><span class="line">    S-&gt;data[S-&gt;top]=e;<span class="comment">/*将新插入元素赋值给栈顶空闲*/</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>出栈操作(pop)</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR*/</span></span><br><span class="line">Status Pop(SqStack *S,SElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="title">if</span>(S-&gt;</span>top == -<span class="number">1</span>)</span><br><span class="line">        return ERROR;</span><br><span class="line">    *<span class="function"><span class="title">e</span> = S-&gt;</span><span class="function"><span class="title">data</span>[S-&gt;</span>top];<span class="comment">/*将要删除的栈顶元素赋值给e*/</span></span><br><span class="line">    <span class="function"><span class="title">s</span>-&gt;</span>top--;<span class="comment">/*栈顶指针减一*/</span></span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><blockquote><p>两者没有涉及到任何循环语句，由此时间复杂度均是O(1)</p></blockquote><hr><h4 id="两栈共享空间"><a href="#两栈共享空间" class="headerlink" title="两栈共享空间"></a>两栈共享空间</h4><blockquote><p>栈的顺序存储缺陷：必须事先确定数组存储空间大小</p><blockquote><p>不理解：栈1为空时，就是top1等于-1时，而当top2等于n时，即是栈2为空时；若栈2是空栈，栈1的top1等于n-1时，就是栈1满了。反之，当栈1为空栈时，top2等于0时，为栈2满。</p><blockquote><p>两个栈相遇之时，就是两个指针相差1之时，即top1 + 1== top2为栈满<br></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*两栈共享空间结构*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    SElemType data[MAXSIZE];</span><br><span class="line">    <span class="keyword">int</span> top1;<span class="comment">/*栈1栈顶指针*/</span></span><br><span class="line">    <span class="keyword">int</span> top2;<span class="comment">/*栈2栈顶指针*/</span></span><br><span class="line">&#125;SqDoubleStack;</span><br></pre></td></tr></table></figure><p></p></blockquote></blockquote></blockquote><blockquote><p>对于两栈共享空间的push，除了要插入元素值参数外，还需要有一个判断是栈1还是栈2的栈号参数stackNumber<br></p><figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*插入元素e为新的栈顶元素*/</span></span><br><span class="line">Status Push(SqDoubleStack *S,SElemType e, <span class="keyword">int</span> stackNumber)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S-&gt;top1+<span class="number">1</span>==S-&gt;top2)<span class="comment">/*栈已满，不能再push新元素了*/</span></span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    <span class="keyword">if</span>(stackNumber==<span class="number">1</span>)<span class="comment">/*栈1有元素进栈*/</span></span><br><span class="line">        S-&gt;data[++S-&gt;top1]=e;<span class="comment">/*若栈1则先top1+1后给数组元素赋值*/</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(stackNumber==<span class="number">2</span>)<span class="comment">/*栈2有元素进栈*/</span></span><br><span class="line">        S-&gt;data[--S-&gt;top2]=e;<span class="comment">/*若栈2则先top2-1后给数组元素赋值*/</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p></blockquote><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR*/</span></span><br><span class="line">Status <span class="keyword">Pop</span>(SqDoubleStack *S,SElemType *e,int stackNumber)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(stackNumber==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(S-&gt;top1==<span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">ERROR</span>;</span><br><span class="line">        *e=S-&gt;data[S-&gt;top1--];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(stackNumber==<span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(S-&gt;top2==MAXSIZE)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">ERROR</span>;</span><br><span class="line">        *e=S-&gt;data[S-&gt;top2++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意前提条件:两个具有相同数据类型的栈</p></blockquote><hr><h4 id="栈的链式存储结构及实现"><a href="#栈的链式存储结构及实现" class="headerlink" title="栈的链式存储结构及实现"></a>栈的链式存储结构及实现</h4><blockquote><p>栈的链式存储结构简称为链栈</p><blockquote><p>有栈顶在头部，那对于链栈来说，是不需要头结点的</p><blockquote><p>对于链栈，基本不存在栈满的情况，除非内存已经没有可以使用的空间，对于空栈来说，链表原定义是头指针指向空，那么链栈的空其实就是top=NULL<br></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*链栈的结构代码*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    SElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;StackNode,*LinkStackPtr;<span class="comment">/*ptr指pointer,即指针*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkStack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LinkStackPtr top;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">&#125;LinkStack;</span><br></pre></td></tr></table></figure><p></p></blockquote></blockquote></blockquote><ul><li><p>栈的链表存储结构——进栈操作</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*插入元素e为新的栈顶元素*/</span></span><br><span class="line">Status Push(LinkStack *S,SElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    LinkStackPtr s = (LinkStackPtr)malloc(<span class="keyword">sizeof</span>(StackNode));</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;next=S-&gt;top;<span class="comment">/*把当前的栈顶元素赋值给新结点的直接后继*/</span></span><br><span class="line">    S-&gt;top=s;<span class="comment">/*将新的结点s赋值给栈顶指针*/</span></span><br><span class="line">    S-&gt;count++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>栈的链式存储结构——出栈操作</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR；*/</span></span><br><span class="line">Status Pop(LinkStack *S,SElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    LinkStackPtr p;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(*S))</span><br><span class="line">        return ERROR;</span><br><span class="line">    *<span class="function"><span class="title">e</span>=S-&gt;</span><span class="function"><span class="title">top</span>-&gt;</span><span class="keyword">data</span>;</span><br><span class="line">    <span class="function"><span class="title">p</span>=S-&gt;</span>top;<span class="comment">/*将栈顶结点赋值给p*/</span></span><br><span class="line">    S-&gt;<span class="function"><span class="title">top</span>=S-&gt;</span><span class="function"><span class="title">top</span>-&gt;</span>next;<span class="comment">/*使得栈顶指针下移一位，指向后一结点*/</span></span><br><span class="line">    free(p);</span><br><span class="line">    S-&gt;count--;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><blockquote><p>链栈的进栈push和出栈pop操作都很简单，没有任何循环操作，时间复杂度均为O(1)</p></blockquote><hr><p>栈的应用</p><ul><li>递归之斐波那契数列(Fibonacci)<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*迭代法实现*/</span></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    int a[<span class="number">40</span>];</span><br><span class="line">    a[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    a[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    printf(<span class="string">"%d"</span>,a[<span class="number">0</span>]);</span><br><span class="line">    printf(<span class="string">"%d"</span>,a[<span class="number">1</span>]);</span><br><span class="line">    for(i=<span class="number">2</span>;i&lt;<span class="number">40</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        a[i]=a[i<span class="number">-1</span>]+a[i<span class="number">-2</span>];</span><br><span class="line">        printf(<span class="string">"%d"</span>,a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*斐波那契的递归函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Fbi</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> i == <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> Fbi(i<span class="number">-1</span>)+Fbi(i<span class="number">-2</span>);<span class="comment">/*这里Fbi就是函数自己，它在调用自己*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">40</span>;i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,Fbi(i));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>我们把一个直接调用自己或者通过一系列的调用语句间接地调用自己的函数，称作递归函数，每个递归定义必须至少有一个条件，满足时递归不再进行，即不再引用自身而是返回值退出</p><ul><li>栈的应用之四则运算表达式求值<br>逆波兰(Reverse Polish Notation,RPN):一种不需要括号的后缀表达法，这种后缀表示法，巧妙解决了程序实现四则运算的难题</li><li>例子：对于”9+(3-1)X3+10/2”如果用后缀表示法应该是”9 3 1 - 3 * + 10 2 / +”</li><li>计算规则:从左到右遍历表达式的每个数字和符号，遇到是数字就出栈，遇到是符号，就将处以栈顶的两个数字出栈，进行运算，运算结果进栈，一直到最后获得最终结果</li><li>中缀表达式转后缀表达式规则:从左到右遍历中缀表达式的每个数字和符号，若是数字就输出，即成为后缀表达式的一部分；若是符号，则判断其与栈顶符号的优先级，是右括号或优先级低于栈顶符号，则栈顶元素依次出栈并输出，并将当前符号进栈，一直到最终输出后缀表达式为止</li></ul></blockquote><hr><h4 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h4><ul><li>定义：队列(queue)是只允许在一端进行插入操作，而在另一端进行删除操作的线性表<blockquote><p>队列是一种先进先出(First In First Out)的线性表，简称FIFO。允许插入的一端称为队尾，允许删除的一端称为队头.</p></blockquote></li></ul><hr><h4 id="队列的抽象数据类型"><a href="#队列的抽象数据类型" class="headerlink" title="队列的抽象数据类型"></a>队列的抽象数据类型</h4><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ADT</span> 队列(Queue)</span><br><span class="line"><span class="selector-tag">Data</span></span><br><span class="line">    同线性表。元素具有相同的类型，相邻元素具有前驱和后继关系</span><br><span class="line"><span class="selector-tag">Operation</span></span><br><span class="line">    <span class="selector-tag">InitQueue</span>(*Q):初始化操作，建立一个空队列<span class="selector-tag">Q</span></span><br><span class="line">    <span class="selector-tag">DestroyQueue</span>(*Q):若队列<span class="selector-tag">Q</span>存在，则销毁它</span><br><span class="line">    <span class="selector-tag">ClearQueue</span>(*Q):将队列<span class="selector-tag">Q</span>清空</span><br><span class="line">    <span class="selector-tag">QueueEmpty</span>(Q):若队列<span class="selector-tag">Q</span>为空，返回<span class="selector-tag">true</span>，否则返回<span class="selector-tag">false</span></span><br><span class="line">    <span class="selector-tag">GetHead</span>(Q,*e):若队列<span class="selector-tag">Q</span>存在且非空，用<span class="selector-tag">e</span>返回队列<span class="selector-tag">Q</span>的队头元素</span><br><span class="line">    <span class="selector-tag">EnQueue</span>(*Q,e):若队列<span class="selector-tag">Q</span>存在，插入新元素<span class="selector-tag">e</span>到队列<span class="selector-tag">Q</span>中并成为队尾元素</span><br><span class="line">    <span class="selector-tag">DeQueue</span>(*Q,*e):删除队列<span class="selector-tag">Q</span>中队头元素，并用<span class="selector-tag">e</span>返回其值</span><br><span class="line">    <span class="selector-tag">QueueLength</span>(Q):返回队列<span class="selector-tag">Q</span>的元素个数</span><br><span class="line"><span class="selector-tag">endADT</span></span><br></pre></td></tr></table></figure><hr><h4 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h4><ul><li>队列顺序存储的不足<blockquote><p>假设一个队列有n个元素，则顺序存储的队列需建立一个大于n的数组，数组下标为0的一端即是队头</p><blockquote><p>所谓的入队列操作，就是在队尾插入一个元素，不需要移动任何元素，时间复杂度为O(1)</p><blockquote><p>与栈不同的是，队列元素的出列在队头，即下标为0的地方，队列所有元素都得前移，那时间复杂度为O(n)，之后利用指针改善</p><blockquote><p>这里的实现和线性表的顺序存储结构完全相同，不再详述</p></blockquote></blockquote></blockquote></blockquote></li></ul><blockquote><p>为了避免当只有一个元素时，队头跟队尾重合使处理变得麻烦，所以引入两个指针，front指针指向队头元素，rear指针指向队尾元素的下一个元素，这样当front等于rear时，此队列不是还剩一个元素，而是空队列</p><ul><li>定义：我们把队列的这种头尾相接的顺序存储结构称为循环队列。<br>我们刚才说，空队列时，front等于rear，现在当队列满时，也是front等于rear，那么如何判断此时的队列究竟是空还是满呢？<blockquote><p>法一是设置一个标志变量flag,当front == rear，且flag=0时队列空，当flag=1时为队列满</p><blockquote><p>法二是当队列空时，条件就是front=rear，当队列满时，我们修改其条件，保留一个元素空间。</p></blockquote></blockquote></li><li>重点讨论法二:由于rear可能比front大，也可能比front小，所以尽管它们只相差一个位置就是满的情况，也可能相差整整一圈。若队列的最大尺寸为QueueSize，那么队列满的条件是:(rear+1)%QueueSize == front</li><li>队列长度: 当rear &gt; front时，队列长度就是rear-front。但当rear &lt; front时，队列长度分为两段，一段是Queue-front，另一段是0+rear，加在一起就是rear-front+Queue，由此通用的计算队列长度公式为: (rear-front+Queue)%Queue<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> QElemType;<span class="comment">/*QElemType类型根据实际情况而定，这里假设为int*/</span></span><br><span class="line"><span class="comment">/*循环队列的顺序存储结构代码*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QElemType data[MAXSIZE];</span><br><span class="line">    <span class="keyword">int</span> front;<span class="comment">/*头指针*/</span></span><br><span class="line">    <span class="keyword">int</span> rear;<span class="comment">/*尾指针，若队列不空，指向队列尾元素的下一个位置*/</span></span><br><span class="line">&#125;SqQueue</span><br></pre></td></tr></table></figure></li></ul></blockquote><p>循环队列的初始化代码如下<br></p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*初始化一个空队列Q*/</span></span><br><span class="line">Status InitQueue(SqQueue *Q)</span><br><span class="line">&#123;</span><br><span class="line">    Q-&gt;front = <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    Q-&gt;rear = <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    return OK<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p><p>循环队列求队列长度代码如下：<br></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*返回Q的元素个数，也就是队列的当前长度*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">QueueLength</span><span class="params">(SqQueue Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (Q.rear-Q.front+MAXSIZE)%MAXSIZE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p><p>循环队列的入队列操作代码<br></p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若队列未满，则插入元素e为Q新的队尾元素*/</span></span><br><span class="line">Status EnQueue(SqQueue *Q,QElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>((Q-&gt;rear+<span class="number">1</span>)%MAXSIZE == Q-&gt;front)<span class="comment">/*队列满的判断*/</span></span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    Q-&gt;data[Q-&gt;rear]=e;<span class="comment">/*将元素e赋值给队尾*/</span></span><br><span class="line">    Q-&gt;rear=(Q-&gt;rear+<span class="number">1</span>)%MAXSIZE;<span class="comment">/*rear指针向后移一位置,若到最后则转到数组头部*/</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p><p>循环队列的出队列操作代码<br></p><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若队列不空，则删除Q中队头元素，用e返回其值*/</span></span><br><span class="line">Status DeQueue(SqQueue *Q,QElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="title">if</span>(Q-&gt;</span><span class="function"><span class="title">front</span> = Q-&gt;</span>rear)<span class="comment">/*队列空的判断*/</span></span><br><span class="line">        return ERROR;</span><br><span class="line">    *<span class="function"><span class="title">e</span>=Q-&gt;</span><span class="function"><span class="title">data</span>[Q-&gt;</span>front];</span><br><span class="line">    Q-&gt;<span class="function"><span class="title">front</span>=(Q-&gt;</span>front+<span class="number">1</span>)%MAXSIZE;<span class="comment">/*front指针向后移一个位置，若到最后则转到数组头部*/</span></span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p><blockquote><p>可以发现，单是顺序存储，若不是循环队列，算法的时间性能是不高的，但循环队列又面临数组可能溢出的问题，所以我们需要研究一下不需要担心队列长度的链式存储结构。</p></blockquote><hr><h4 id="队列的链式存储结构及实现"><a href="#队列的链式存储结构及实现" class="headerlink" title="队列的链式存储结构及实现"></a>队列的链式存储结构及实现</h4><ul><li>定义：队列的链式存储结构，其实就是线性表的单链表,只不过它只能尾进头出而已，我们把它简称为链队列。<blockquote><p>重点：为了操作上的方便，我们将队头指针指向链队列的头结点，而队尾指针指向终端结点</p></blockquote></li><li><p>链队列的结构为：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> QElemType;<span class="comment">/*QElemType类型根据实际情况而定，这里假设为int*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> /*结点结构*/</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;QNode,*QueuePtr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> /*队列的链表结构*/</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QueuePtr front,rear;<span class="comment">/*队头，队尾指针*/</span></span><br><span class="line">&#125;LinkQueue</span><br></pre></td></tr></table></figure></li><li><p>队列的链式存储结构——入队操作</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/*插入元素e为Q的新的队尾元素*/</span></span><br><span class="line">Status EnQueue(LinkQueue *Q,QElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    QueuePtr s = (QueuePtr)malloc(sizeof(QNode));</span><br><span class="line">    <span class="keyword">if</span>(!s) <span class="regexp">/*存储分配失败*/</span></span><br><span class="line">        <span class="keyword">exit</span>(OVERFLOW);</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;<span class="keyword">next</span>=NULL;</span><br><span class="line">    Q-&gt;rear-&gt;<span class="keyword">next</span>=s;<span class="regexp">/*把拥有元素e新结点s赋值给原队尾结点的后继，把当前的s设置为队尾结点，rear指向s*/</span></span><br><span class="line">    Q-&gt;rear=s;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>队列的链式存储结构——出队操作</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若队列不空，删除Q的队头元素，用e返回其值，并返回OK，否则返回ERROR*/</span></span><br><span class="line">Status DeQueue(LinkQueue *Q,QElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    QueuePtr p;</span><br><span class="line">    <span class="function"><span class="title">if</span>(Q-&gt;</span><span class="function"><span class="title">front</span> == Q-&gt;</span>rear)</span><br><span class="line">        return ERROR;</span><br><span class="line">    <span class="function"><span class="title">p</span>=Q-&gt;</span><span class="function"><span class="title">front</span>-&gt;</span>next;<span class="comment">/*将欲删除的队头结点暂存给p*/</span></span><br><span class="line">    *<span class="function"><span class="title">e</span>=p-&gt;</span><span class="keyword">data</span>;<span class="comment">/*将欲删除的队头结点的值赋值给e*/</span></span><br><span class="line">    Q-&gt;<span class="function"><span class="title">front</span>-&gt;</span><span class="function"><span class="title">next</span>=p-&gt;</span><span class="function"><span class="title">next</span>;/*将原队头结点后继p-&gt;</span>next赋值给头结点后继*/</span><br><span class="line">    <span class="function"><span class="title">if</span>(Q-&gt;</span>rear==p)<span class="comment">/*若队头是队尾，则删除后将rear指向头结点*/</span></span><br><span class="line">        Q-&gt;<span class="function"><span class="title">rear</span>=Q-&gt;</span>front;</span><br><span class="line">    free(p);</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><blockquote><p>对于循环队列与链队列的比较，可以从两方面考虑</p><blockquote><p>时间上，它们的基本操作都是常数时间，即O(1)，不过循环队列是事先申请好空间，使用期间不释放，而链队列每次申请和释放结点会存在一些时间开销，如果入队出队频繁，还是有细微差异的</p><blockquote><p>空间上，循环队列必须有一个固定长度，所以就有存储元素个数和空间浪费的问题,空间上链队列更灵活</p><blockquote><p>总的来说，在可以确定队列长度最大值的情况下，建议用循环队列，如果无法预估队列长度，则用链队列.</p></blockquote></blockquote></blockquote></blockquote><hr><h4 id="总结回顾"><a href="#总结回顾" class="headerlink" title="总结回顾"></a>总结回顾</h4><p>stack跟queue均可以用线性表的顺序存储结构来实现，但是都存在着顺序存储的一些弊端,由此它们各自有各自的技巧解决问题</p><ul><li>对于栈来说，如果是两个相同数据类型的栈，则可以用数组的两端作栈底的方法来让两个栈共享数据，这就可以最大化利用数组的空间。</li><li>对于队列来说，未来避免数组插入和删除时需要移动数据，则引入了循环队列，使得本来插入和删除是O(n)的时间复杂度变成了O(1)<br>它们也可以通过链式存储结构来实现，实现原则跟线性表差不多。</li></ul></div><div></div><div class="post-tags"><a href="/tags/线性表/" rel="tag"><i class="fa fa-tag"></i> 线性表</a></div><div></div><footer class="post-footer"><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019-05-11/git.html" rel="prev" title="那些年你见过的git操作"><i class="fa fa-chevron-left"></i> 那些年你见过的git操作</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2019-05-10/DataStructure-01.html" rel="next" title="数据结构-线性表">数据结构-线性表<i class="fa fa-chevron-right"></i></a></div></div></footer></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview">站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="/"><img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿"></a><p class="site-author-name" itemprop="name">林加鸿</p><p class="site-description motion-element" itemprop="description">本博客主要用于分享生活以及前端web、数据结构与算法、计算机基础等编程知识，愿时光未央，岁月静好ㄟ(😁)ㄏ</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives"><span class="site-state-item-count">58</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories"><span class="site-state-item-count">20</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags"><span class="site-state-item-count">47</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/jhjhljh" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="http://weibo.com/jhjhljh" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i> 微博</a></span><span class="links-of-author-item"><a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎"><i class="fa fa-fw fa-battery-3"></i> 知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-globe"></i> 神奇的链接</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"><a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a></li><li class="links-of-blogroll-item"><a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a></li><li class="links-of-blogroll-item"><a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a></li><li class="links-of-blogroll-item"><a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a></li><li class="links-of-blogroll-item"><a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a></li></ul></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的抽象数据类型"><span class="nav-number">2.</span> <span class="nav-text">栈的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的顺序存储结构及实现"><span class="nav-number">3.</span> <span class="nav-text">栈的顺序存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两栈共享空间"><span class="nav-number">4.</span> <span class="nav-text">两栈共享空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的链式存储结构及实现"><span class="nav-number">5.</span> <span class="nav-text">栈的链式存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的定义"><span class="nav-number">6.</span> <span class="nav-text">队列的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的抽象数据类型"><span class="nav-number">7.</span> <span class="nav-text">队列的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列"><span class="nav-number">8.</span> <span class="nav-text">循环队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的链式存储结构及实现"><span class="nav-number">9.</span> <span class="nav-text">队列的链式存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结回顾"><span class="nav-number">10.</span> <span class="nav-text">总结回顾</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="copyright">&copy; 2018 - <span itemprop="copyrightYear">2019</span><span class="with-love" id="heart"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">林加鸿</span></div><div class="busuanzi-count"><script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span><span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script>"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script><script src="/js/src/utils.js?v=5.1.3"></script><script src="/js/src/motion.js?v=5.1.3"></script><script src="/js/src/scrollspy.js?v=5.1.3"></script><script src="/js/src/post-details.js?v=5.1.3"></script><script src="/js/src/bootstrap.js?v=5.1.3"></script><script src="http://v2.uyan.cc/code/uyan.js?uid="></script><script>var isfetched=!1,search_path="search.xml";0==search_path.length&&(search_path="search.xml");var path="/"+search_path;function proceedsearch(){$("body").append('<div class="popoverlay">').css("overflow","hidden"),$(".popup").toggle()}var searchFunc=function(e,c,n){"use strict";$.ajax({url:e,dataType:"xml",async:!0,success:function(e){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var t=$("entry",e).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get(),a=document.getElementById(c),r=document.getElementById(n);a.addEventListener("input",function(){var u=0,d='<ul class="search-result-list">',f=this.value.trim().toLowerCase().split(/[\s\-]+/);r.innerHTML="",1<this.value.trim().length&&t.forEach(function(e){var a=!1,r=e.title.trim().toLowerCase(),c=e.content.trim().replace(/<[^>]+>/g,"").toLowerCase(),t=decodeURIComponent(e.url),n=-1,s=-1,o=-1;if(""!=r&&f.forEach(function(e,t){n=r.indexOf(e),s=c.indexOf(e),(0<=n||0<=s)&&(a=!0,0==t&&(o=s))}),a){u+=1,d+="<li><a href='"+t+"' class='search-result-title'>"+r+"</a>";var i=e.content.trim().replace(/<[^>]+>/g,"");if(0<=o){var l=o-20,p=o+80;l<0&&(l=0),0==l&&(p=50),p>i.length&&(p=i.length);var h=i.substring(l,p);f.forEach(function(e){var t=new RegExp(e,"gi");h=h.replace(t,'<b class="search-keyword">'+e+"</b>")}),d+='<p class="search-result">'+h+"...</p>"}d+="</li>"}}),d+="</ul>",0==u&&(d='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'),""==f&&(d='<div id="no-result"><i class="fa fa-search fa-5x" /></div>'),r.innerHTML=d}),proceedsearch()}})};$(".popup-trigger").click(function(e){e.stopPropagation(),0==isfetched?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(function(e){$(".popup").hide(),$(".popoverlay").remove(),$("body").css("overflow","")}),$(".popup").click(function(e){e.stopPropagation()})</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script><script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz","zQfRdGCiWzVvsSpXKOJsbvHe")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script><script src="/js/src/love.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script><script>$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg")</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({pluginRootPath:"live2dw/",pluginJsPath:"lib/",pluginModelPath:"assets/",tagMode:!1,debug:!1,model:{scale:1,jsonPath:"/live2dw/assets/wanko.model.json"},display:{superSample:2,width:200,height:200,position:"left"},mobile:{show:!1},react:{opacityDefault:.9,opacityOnHover:.5},log:!1})</script></body></html>
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+<link href="https://fonts.loli.net/css?family=EB+Garamond:500,500i,700,700i|Noto+Serif+SC:400,500,700&display=swap" rel="stylesheet">
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="线性表,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点">
+<meta name="keywords" content="线性表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-栈与队列">
+<meta property="og:url" content="http://jhjhljh.github.io/2019-05-10/DataStructure-02.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-05-10/DataStructure-02/faded.jpg">
+<meta property="og:updated_time" content="2019-05-12T16:02:11.869Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-栈与队列">
+<meta name="twitter:description" content="数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点">
+<meta name="twitter:image" content="http://jhjhljh.github.io/2019-05-10/DataStructure-02/faded.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/2019-05-10/DataStructure-02.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 数据结构-栈与队列 | Abo </title>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/2019-05-10/DataStructure-02.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构-栈与队列
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-10T19:51:38+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataStructure/" itemprop="url" rel="index">
+                    <span itemprop="name">DataStructure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                 <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019-05-10/DataStructure-02.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019-05-10/DataStructure-02.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2019-05-10/DataStructure-02.html" class="leancloud_visitors" data-flag-title="数据结构-栈与队列">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p></p><p class="description"><br>    数据结构与算法-栈与队列部分,栈与队列是数据结构重要思想之一，之后的抽象数据类型中诸多算法与方法会利用其特点<br></p><br><img src="/2019-05-10/DataStructure-02/faded.jpg" alt="fade"><p></p>
+<a id="more"></a>
+<hr>
+
+<blockquote class="question">“花也好。星星也好。世间所有美丽的事物，都是为了比喻你而存在。”</blockquote>
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=462688887&auto=1&height=32"></iframe>
+
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><ul>
+<li>前言：<blockquote>
+<p>栈(stack)是限定仅在表尾进行插入和删除操作的线性表</p>
+<blockquote>
+<p>队列是只允许在一端进行插入操作,而在另一端进行删除操作的线性表</p>
+</blockquote>
+</blockquote>
+</li>
+<li>我们把允许插入和删除的一端称为栈顶(top)，另一端称为栈底(bottom),不含任何数据元素的栈称为空栈。栈又称为后进先出(Last In First Out)的线性表，简称LIFO结构。<blockquote>
+<p>首先它是一个线性表，也就是说，栈元素具有线性关系，即前驱后继关系。定义中说是在线性表的表尾进行插入和删除操作，这里表尾是指栈顶，而不是栈底</p>
+</blockquote>
+</li>
+<li>栈的插入操作，叫作进栈，也称压栈,入栈</li>
+<li>栈的删除操作，叫作出栈<blockquote>
+<p>最先进栈的元素，是不是就只能是最后出栈呢？</p>
+<blockquote>
+<p>举例:3个整型数字元素1，2，3依次进栈，会有哪些出栈次序呢？？？</p>
+<blockquote>
+<p>321，123，213，132，231</p>
+<blockquote>
+<p>没有312</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h4 id="栈的抽象数据类型"><a href="#栈的抽象数据类型" class="headerlink" title="栈的抽象数据类型"></a>栈的抽象数据类型</h4><blockquote>
+<p>对于栈来讲，理论上线性表的操作特性它都具备，由于它的特殊性，特别是插入和删除操作，我们改名为push和pop,英文直译的话是压和弹,我们一般叫进栈和出栈<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ADT</span> 栈(stack)</span><br><span class="line"><span class="selector-tag">Data</span></span><br><span class="line">    同线性表。元素具有相同的类型，相邻元素具有前驱和后继关系</span><br><span class="line"><span class="selector-tag">Operation</span></span><br><span class="line">    <span class="selector-tag">InitStack</span>(*S):初始化操作，建立一个空栈<span class="selector-tag">S</span></span><br><span class="line">    <span class="selector-tag">DestroyStack</span>(*S):若栈存在，则销毁它</span><br><span class="line">    <span class="selector-tag">ClearStack</span>(*S):将栈清空</span><br><span class="line">    <span class="selector-tag">StackEmpty</span>(S):若栈为空，返回<span class="selector-tag">true</span>，否则返回<span class="selector-tag">false</span></span><br><span class="line">    <span class="selector-tag">GetTop</span>(S,*e):若栈存在且非空，用<span class="selector-tag">e</span>返回<span class="selector-tag">S</span>的栈顶元素</span><br><span class="line">    <span class="selector-tag">Push</span>(*S,e):若栈存在，插入新元素<span class="selector-tag">e</span>到栈<span class="selector-tag">S</span>中并成为栈顶元素</span><br><span class="line">    <span class="selector-tag">Pop</span>(*S,*e):删除栈<span class="selector-tag">S</span>中栈顶元素，并用<span class="selector-tag">e</span>返回其值</span><br><span class="line">    <span class="selector-tag">StackLength</span>(S):返回栈<span class="selector-tag">S</span>的元素个数</span><br><span class="line"><span class="selector-tag">endADT</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>同理：思考一下何时用S，<em>S，e，</em>e</p>
+</blockquote>
+<hr>
+<h4 id="栈的顺序存储结构及实现"><a href="#栈的顺序存储结构及实现" class="headerlink" title="栈的顺序存储结构及实现"></a>栈的顺序存储结构及实现</h4><blockquote>
+<p>若存储栈的长度为StackSize，则栈顶位置top必须小于StackSize。若栈存在一个元素时，top等于0，因此通常把空栈的判定条件定位top等于-1</p>
+<blockquote>
+<p>栈的结构定义<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> SElemType;<span class="comment">/*SElemType类型根据实际情况而定，这里假设为int*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    SElemType data[MAXSIZE];</span><br><span class="line">    <span class="keyword">int</span> top;<span class="comment">/*用于栈顶指针*/</span></span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<ul>
+<li><p>进栈操作(push)</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*插入元素e为新的栈顶元素*/</span></span><br><span class="line">Status <span class="keyword">Push</span>(SqStack *S,SElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S-&gt;top == MAXSIZE - <span class="number">1</span>) <span class="comment">/*栈满*/</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">ERROR</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S-&gt;top++;<span class="comment">/*栈顶指针增加一*/</span></span><br><span class="line">    S-&gt;data[S-&gt;top]=e;<span class="comment">/*将新插入元素赋值给栈顶空闲*/</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>出栈操作(pop)</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR*/</span></span><br><span class="line">Status Pop(SqStack *S,SElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="title">if</span>(S-&gt;</span>top == -<span class="number">1</span>)</span><br><span class="line">        return ERROR;</span><br><span class="line">    *<span class="function"><span class="title">e</span> = S-&gt;</span><span class="function"><span class="title">data</span>[S-&gt;</span>top];<span class="comment">/*将要删除的栈顶元素赋值给e*/</span></span><br><span class="line">    <span class="function"><span class="title">s</span>-&gt;</span>top--;<span class="comment">/*栈顶指针减一*/</span></span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>两者没有涉及到任何循环语句，由此时间复杂度均是O(1)</p>
+</blockquote>
+<hr>
+<h4 id="两栈共享空间"><a href="#两栈共享空间" class="headerlink" title="两栈共享空间"></a>两栈共享空间</h4><blockquote>
+<p>栈的顺序存储缺陷：必须事先确定数组存储空间大小</p>
+<blockquote>
+<p>不理解：栈1为空时，就是top1等于-1时，而当top2等于n时，即是栈2为空时；若栈2是空栈，栈1的top1等于n-1时，就是栈1满了。反之，当栈1为空栈时，top2等于0时，为栈2满。</p>
+<blockquote>
+<p>两个栈相遇之时，就是两个指针相差1之时，即top1 + 1== top2为栈满<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*两栈共享空间结构*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    SElemType data[MAXSIZE];</span><br><span class="line">    <span class="keyword">int</span> top1;<span class="comment">/*栈1栈顶指针*/</span></span><br><span class="line">    <span class="keyword">int</span> top2;<span class="comment">/*栈2栈顶指针*/</span></span><br><span class="line">&#125;SqDoubleStack;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>对于两栈共享空间的push，除了要插入元素值参数外，还需要有一个判断是栈1还是栈2的栈号参数stackNumber<br><figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*插入元素e为新的栈顶元素*/</span></span><br><span class="line">Status Push(SqDoubleStack *S,SElemType e, <span class="keyword">int</span> stackNumber)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S-&gt;top1+<span class="number">1</span>==S-&gt;top2)<span class="comment">/*栈已满，不能再push新元素了*/</span></span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    <span class="keyword">if</span>(stackNumber==<span class="number">1</span>)<span class="comment">/*栈1有元素进栈*/</span></span><br><span class="line">        S-&gt;data[++S-&gt;top1]=e;<span class="comment">/*若栈1则先top1+1后给数组元素赋值*/</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(stackNumber==<span class="number">2</span>)<span class="comment">/*栈2有元素进栈*/</span></span><br><span class="line">        S-&gt;data[--S-&gt;top2]=e;<span class="comment">/*若栈2则先top2-1后给数组元素赋值*/</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR*/</span></span><br><span class="line">Status <span class="keyword">Pop</span>(SqDoubleStack *S,SElemType *e,int stackNumber)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(stackNumber==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(S-&gt;top1==<span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">ERROR</span>;</span><br><span class="line">        *e=S-&gt;data[S-&gt;top1--];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(stackNumber==<span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(S-&gt;top2==MAXSIZE)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">ERROR</span>;</span><br><span class="line">        *e=S-&gt;data[S-&gt;top2++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意前提条件:两个具有相同数据类型的栈</p>
+</blockquote>
+<hr>
+<h4 id="栈的链式存储结构及实现"><a href="#栈的链式存储结构及实现" class="headerlink" title="栈的链式存储结构及实现"></a>栈的链式存储结构及实现</h4><blockquote>
+<p>栈的链式存储结构简称为链栈</p>
+<blockquote>
+<p>有栈顶在头部，那对于链栈来说，是不需要头结点的</p>
+<blockquote>
+<p>对于链栈，基本不存在栈满的情况，除非内存已经没有可以使用的空间，对于空栈来说，链表原定义是头指针指向空，那么链栈的空其实就是top=NULL<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*链栈的结构代码*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    SElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;StackNode,*LinkStackPtr;<span class="comment">/*ptr指pointer,即指针*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkStack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LinkStackPtr top;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">&#125;LinkStack;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li><p>栈的链表存储结构——进栈操作</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*插入元素e为新的栈顶元素*/</span></span><br><span class="line">Status Push(LinkStack *S,SElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    LinkStackPtr s = (LinkStackPtr)malloc(<span class="keyword">sizeof</span>(StackNode));</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;next=S-&gt;top;<span class="comment">/*把当前的栈顶元素赋值给新结点的直接后继*/</span></span><br><span class="line">    S-&gt;top=s;<span class="comment">/*将新的结点s赋值给栈顶指针*/</span></span><br><span class="line">    S-&gt;count++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>栈的链式存储结构——出栈操作</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若栈不空，则删除S的栈顶元素，用e返回其值，并返回OK；否则返回ERROR；*/</span></span><br><span class="line">Status Pop(LinkStack *S,SElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    LinkStackPtr p;</span><br><span class="line">    <span class="keyword">if</span>(StackEmpty(*S))</span><br><span class="line">        return ERROR;</span><br><span class="line">    *<span class="function"><span class="title">e</span>=S-&gt;</span><span class="function"><span class="title">top</span>-&gt;</span><span class="keyword">data</span>;</span><br><span class="line">    <span class="function"><span class="title">p</span>=S-&gt;</span>top;<span class="comment">/*将栈顶结点赋值给p*/</span></span><br><span class="line">    S-&gt;<span class="function"><span class="title">top</span>=S-&gt;</span><span class="function"><span class="title">top</span>-&gt;</span>next;<span class="comment">/*使得栈顶指针下移一位，指向后一结点*/</span></span><br><span class="line">    free(p);</span><br><span class="line">    S-&gt;count--;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>链栈的进栈push和出栈pop操作都很简单，没有任何循环操作，时间复杂度均为O(1)</p>
+</blockquote>
+<hr>
+<p>栈的应用</p>
+<ul>
+<li>递归之斐波那契数列(Fibonacci)<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*迭代法实现*/</span></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    int a[<span class="number">40</span>];</span><br><span class="line">    a[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    a[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    printf(<span class="string">"%d"</span>,a[<span class="number">0</span>]);</span><br><span class="line">    printf(<span class="string">"%d"</span>,a[<span class="number">1</span>]);</span><br><span class="line">    for(i=<span class="number">2</span>;i&lt;<span class="number">40</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        a[i]=a[i<span class="number">-1</span>]+a[i<span class="number">-2</span>];</span><br><span class="line">        printf(<span class="string">"%d"</span>,a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*斐波那契的递归函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Fbi</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> i == <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> Fbi(i<span class="number">-1</span>)+Fbi(i<span class="number">-2</span>);<span class="comment">/*这里Fbi就是函数自己，它在调用自己*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">40</span>;i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,Fbi(i));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们把一个直接调用自己或者通过一系列的调用语句间接地调用自己的函数，称作递归函数，每个递归定义必须至少有一个条件，满足时递归不再进行，即不再引用自身而是返回值退出</p>
+<ul>
+<li>栈的应用之四则运算表达式求值<br>逆波兰(Reverse Polish Notation,RPN):一种不需要括号的后缀表达法，这种后缀表示法，巧妙解决了程序实现四则运算的难题</li>
+<li>例子：对于”9+(3-1)X3+10/2”如果用后缀表示法应该是”9 3 1 - 3 * + 10 2 / +”</li>
+<li>计算规则:从左到右遍历表达式的每个数字和符号，遇到是数字就出栈，遇到是符号，就将处以栈顶的两个数字出栈，进行运算，运算结果进栈，一直到最后获得最终结果</li>
+<li>中缀表达式转后缀表达式规则:从左到右遍历中缀表达式的每个数字和符号，若是数字就输出，即成为后缀表达式的一部分；若是符号，则判断其与栈顶符号的优先级，是右括号或优先级低于栈顶符号，则栈顶元素依次出栈并输出，并将当前符号进栈，一直到最终输出后缀表达式为止</li>
+</ul>
+</blockquote>
+<hr>
+<h4 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h4><ul>
+<li>定义：队列(queue)是只允许在一端进行插入操作，而在另一端进行删除操作的线性表<blockquote>
+<p>队列是一种先进先出(First In First Out)的线性表，简称FIFO。允许插入的一端称为队尾，允许删除的一端称为队头.</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h4 id="队列的抽象数据类型"><a href="#队列的抽象数据类型" class="headerlink" title="队列的抽象数据类型"></a>队列的抽象数据类型</h4><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ADT</span> 队列(Queue)</span><br><span class="line"><span class="selector-tag">Data</span></span><br><span class="line">    同线性表。元素具有相同的类型，相邻元素具有前驱和后继关系</span><br><span class="line"><span class="selector-tag">Operation</span></span><br><span class="line">    <span class="selector-tag">InitQueue</span>(*Q):初始化操作，建立一个空队列<span class="selector-tag">Q</span></span><br><span class="line">    <span class="selector-tag">DestroyQueue</span>(*Q):若队列<span class="selector-tag">Q</span>存在，则销毁它</span><br><span class="line">    <span class="selector-tag">ClearQueue</span>(*Q):将队列<span class="selector-tag">Q</span>清空</span><br><span class="line">    <span class="selector-tag">QueueEmpty</span>(Q):若队列<span class="selector-tag">Q</span>为空，返回<span class="selector-tag">true</span>，否则返回<span class="selector-tag">false</span></span><br><span class="line">    <span class="selector-tag">GetHead</span>(Q,*e):若队列<span class="selector-tag">Q</span>存在且非空，用<span class="selector-tag">e</span>返回队列<span class="selector-tag">Q</span>的队头元素</span><br><span class="line">    <span class="selector-tag">EnQueue</span>(*Q,e):若队列<span class="selector-tag">Q</span>存在，插入新元素<span class="selector-tag">e</span>到队列<span class="selector-tag">Q</span>中并成为队尾元素</span><br><span class="line">    <span class="selector-tag">DeQueue</span>(*Q,*e):删除队列<span class="selector-tag">Q</span>中队头元素，并用<span class="selector-tag">e</span>返回其值</span><br><span class="line">    <span class="selector-tag">QueueLength</span>(Q):返回队列<span class="selector-tag">Q</span>的元素个数</span><br><span class="line"><span class="selector-tag">endADT</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h4><ul>
+<li>队列顺序存储的不足<blockquote>
+<p>假设一个队列有n个元素，则顺序存储的队列需建立一个大于n的数组，数组下标为0的一端即是队头</p>
+<blockquote>
+<p>所谓的入队列操作，就是在队尾插入一个元素，不需要移动任何元素，时间复杂度为O(1)</p>
+<blockquote>
+<p>与栈不同的是，队列元素的出列在队头，即下标为0的地方，队列所有元素都得前移，那时间复杂度为O(n)，之后利用指针改善</p>
+<blockquote>
+<p>这里的实现和线性表的顺序存储结构完全相同，不再详述</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>为了避免当只有一个元素时，队头跟队尾重合使处理变得麻烦，所以引入两个指针，front指针指向队头元素，rear指针指向队尾元素的下一个元素，这样当front等于rear时，此队列不是还剩一个元素，而是空队列</p>
+<ul>
+<li>定义：我们把队列的这种头尾相接的顺序存储结构称为循环队列。<br>我们刚才说，空队列时，front等于rear，现在当队列满时，也是front等于rear，那么如何判断此时的队列究竟是空还是满呢？<blockquote>
+<p>法一是设置一个标志变量flag,当front == rear，且flag=0时队列空，当flag=1时为队列满</p>
+<blockquote>
+<p>法二是当队列空时，条件就是front=rear，当队列满时，我们修改其条件，保留一个元素空间。</p>
+</blockquote>
+</blockquote>
+</li>
+<li>重点讨论法二:由于rear可能比front大，也可能比front小，所以尽管它们只相差一个位置就是满的情况，也可能相差整整一圈。若队列的最大尺寸为QueueSize，那么队列满的条件是:(rear+1)%QueueSize == front</li>
+<li>队列长度: 当rear &gt; front时，队列长度就是rear-front。但当rear &lt; front时，队列长度分为两段，一段是Queue-front，另一段是0+rear，加在一起就是rear-front+Queue，由此通用的计算队列长度公式为: (rear-front+Queue)%Queue<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> QElemType;<span class="comment">/*QElemType类型根据实际情况而定，这里假设为int*/</span></span><br><span class="line"><span class="comment">/*循环队列的顺序存储结构代码*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QElemType data[MAXSIZE];</span><br><span class="line">    <span class="keyword">int</span> front;<span class="comment">/*头指针*/</span></span><br><span class="line">    <span class="keyword">int</span> rear;<span class="comment">/*尾指针，若队列不空，指向队列尾元素的下一个位置*/</span></span><br><span class="line">&#125;SqQueue</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>循环队列的初始化代码如下<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*初始化一个空队列Q*/</span></span><br><span class="line">Status InitQueue(SqQueue *Q)</span><br><span class="line">&#123;</span><br><span class="line">    Q-&gt;front = <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    Q-&gt;rear = <span class="number">0</span><span class="comment">;</span></span><br><span class="line">    return OK<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>循环队列求队列长度代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*返回Q的元素个数，也就是队列的当前长度*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">QueueLength</span><span class="params">(SqQueue Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (Q.rear-Q.front+MAXSIZE)%MAXSIZE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>循环队列的入队列操作代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若队列未满，则插入元素e为Q新的队尾元素*/</span></span><br><span class="line">Status EnQueue(SqQueue *Q,QElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>((Q-&gt;rear+<span class="number">1</span>)%MAXSIZE == Q-&gt;front)<span class="comment">/*队列满的判断*/</span></span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    Q-&gt;data[Q-&gt;rear]=e;<span class="comment">/*将元素e赋值给队尾*/</span></span><br><span class="line">    Q-&gt;rear=(Q-&gt;rear+<span class="number">1</span>)%MAXSIZE;<span class="comment">/*rear指针向后移一位置,若到最后则转到数组头部*/</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>循环队列的出队列操作代码<br><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若队列不空，则删除Q中队头元素，用e返回其值*/</span></span><br><span class="line">Status DeQueue(SqQueue *Q,QElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="title">if</span>(Q-&gt;</span><span class="function"><span class="title">front</span> = Q-&gt;</span>rear)<span class="comment">/*队列空的判断*/</span></span><br><span class="line">        return ERROR;</span><br><span class="line">    *<span class="function"><span class="title">e</span>=Q-&gt;</span><span class="function"><span class="title">data</span>[Q-&gt;</span>front];</span><br><span class="line">    Q-&gt;<span class="function"><span class="title">front</span>=(Q-&gt;</span>front+<span class="number">1</span>)%MAXSIZE;<span class="comment">/*front指针向后移一个位置，若到最后则转到数组头部*/</span></span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>可以发现，单是顺序存储，若不是循环队列，算法的时间性能是不高的，但循环队列又面临数组可能溢出的问题，所以我们需要研究一下不需要担心队列长度的链式存储结构。</p>
+</blockquote>
+<hr>
+<h4 id="队列的链式存储结构及实现"><a href="#队列的链式存储结构及实现" class="headerlink" title="队列的链式存储结构及实现"></a>队列的链式存储结构及实现</h4><ul>
+<li>定义：队列的链式存储结构，其实就是线性表的单链表,只不过它只能尾进头出而已，我们把它简称为链队列。<blockquote>
+<p>重点：为了操作上的方便，我们将队头指针指向链队列的头结点，而队尾指针指向终端结点</p>
+</blockquote>
+</li>
+<li><p>链队列的结构为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> QElemType;<span class="comment">/*QElemType类型根据实际情况而定，这里假设为int*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> /*结点结构*/</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;QNode,*QueuePtr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> /*队列的链表结构*/</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QueuePtr front,rear;<span class="comment">/*队头，队尾指针*/</span></span><br><span class="line">&#125;LinkQueue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>队列的链式存储结构——入队操作</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/*插入元素e为Q的新的队尾元素*/</span></span><br><span class="line">Status EnQueue(LinkQueue *Q,QElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    QueuePtr s = (QueuePtr)malloc(sizeof(QNode));</span><br><span class="line">    <span class="keyword">if</span>(!s) <span class="regexp">/*存储分配失败*/</span></span><br><span class="line">        <span class="keyword">exit</span>(OVERFLOW);</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;<span class="keyword">next</span>=NULL;</span><br><span class="line">    Q-&gt;rear-&gt;<span class="keyword">next</span>=s;<span class="regexp">/*把拥有元素e新结点s赋值给原队尾结点的后继，把当前的s设置为队尾结点，rear指向s*/</span></span><br><span class="line">    Q-&gt;rear=s;</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>队列的链式存储结构——出队操作</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*若队列不空，删除Q的队头元素，用e返回其值，并返回OK，否则返回ERROR*/</span></span><br><span class="line">Status DeQueue(LinkQueue *Q,QElemType *e)</span><br><span class="line">&#123;</span><br><span class="line">    QueuePtr p;</span><br><span class="line">    <span class="function"><span class="title">if</span>(Q-&gt;</span><span class="function"><span class="title">front</span> == Q-&gt;</span>rear)</span><br><span class="line">        return ERROR;</span><br><span class="line">    <span class="function"><span class="title">p</span>=Q-&gt;</span><span class="function"><span class="title">front</span>-&gt;</span>next;<span class="comment">/*将欲删除的队头结点暂存给p*/</span></span><br><span class="line">    *<span class="function"><span class="title">e</span>=p-&gt;</span><span class="keyword">data</span>;<span class="comment">/*将欲删除的队头结点的值赋值给e*/</span></span><br><span class="line">    Q-&gt;<span class="function"><span class="title">front</span>-&gt;</span><span class="function"><span class="title">next</span>=p-&gt;</span><span class="function"><span class="title">next</span>;/*将原队头结点后继p-&gt;</span>next赋值给头结点后继*/</span><br><span class="line">    <span class="function"><span class="title">if</span>(Q-&gt;</span>rear==p)<span class="comment">/*若队头是队尾，则删除后将rear指向头结点*/</span></span><br><span class="line">        Q-&gt;<span class="function"><span class="title">rear</span>=Q-&gt;</span>front;</span><br><span class="line">    free(p);</span><br><span class="line">    return OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>对于循环队列与链队列的比较，可以从两方面考虑</p>
+<blockquote>
+<p>时间上，它们的基本操作都是常数时间，即O(1)，不过循环队列是事先申请好空间，使用期间不释放，而链队列每次申请和释放结点会存在一些时间开销，如果入队出队频繁，还是有细微差异的</p>
+<blockquote>
+<p>空间上，循环队列必须有一个固定长度，所以就有存储元素个数和空间浪费的问题,空间上链队列更灵活</p>
+<blockquote>
+<p>总的来说，在可以确定队列长度最大值的情况下，建议用循环队列，如果无法预估队列长度，则用链队列.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr>
+<h4 id="总结回顾"><a href="#总结回顾" class="headerlink" title="总结回顾"></a>总结回顾</h4><p>stack跟queue均可以用线性表的顺序存储结构来实现，但是都存在着顺序存储的一些弊端,由此它们各自有各自的技巧解决问题</p>
+<ul>
+<li>对于栈来说，如果是两个相同数据类型的栈，则可以用数组的两端作栈底的方法来让两个栈共享数据，这就可以最大化利用数组的空间。</li>
+<li>对于队列来说，未来避免数组插入和删除时需要移动数据，则引入了循环队列，使得本来插入和删除是O(n)的时间复杂度变成了O(1)<br>它们也可以通过链式存储结构来实现，实现原则跟线性表差不多。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/线性表/" rel="tag"><i class="fa fa-tag"></i> 线性表</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019-05-11/git.html" rel="prev" title="那些年你见过的git操作">
+                <i class="fa fa-chevron-left"></i> 那些年你见过的git操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-05-10/DataStructure-01.html" rel="next" title="数据结构-线性表">
+                 数据结构-线性表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">欢迎来到Abo的博客，博客以分享前端web知识、数据结构与算法、计算机基础为主，希望能帮到您ㄟ(😀)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="😋Taylor Swift Official Website😋" target="_blank">😋Taylor Swift Official Website😋</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的抽象数据类型"><span class="nav-number">2.</span> <span class="nav-text">栈的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的顺序存储结构及实现"><span class="nav-number">3.</span> <span class="nav-text">栈的顺序存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两栈共享空间"><span class="nav-number">4.</span> <span class="nav-text">两栈共享空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的链式存储结构及实现"><span class="nav-number">5.</span> <span class="nav-text">栈的链式存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的定义"><span class="nav-number">6.</span> <span class="nav-text">队列的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的抽象数据类型"><span class="nav-number">7.</span> <span class="nav-text">队列的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列"><span class="nav-number">8.</span> <span class="nav-text">循环队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的链式存储结构及实现"><span class="nav-number">9.</span> <span class="nav-text">队列的链式存储结构及实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结回顾"><span class="nav-number">10.</span> <span class="nav-text">总结回顾</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
+</script>
+</body>
+</html>

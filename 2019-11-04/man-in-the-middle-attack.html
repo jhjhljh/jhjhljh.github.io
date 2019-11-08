@@ -45,46 +45,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
 
 
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="https://fonts.loli.net/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
+<link href="https://fonts.loli.net/css?family=EB+Garamond:500,500i,700,700i|Noto+Serif+SC:400,500,700&display=swap" rel="stylesheet">
 
 
 
@@ -124,7 +85,7 @@
 <meta property="og:image" content="http://jhjhljh.github.io/2019-11-04/man-in-the-middle-attack/68249763_p0.jpg">
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201712/04095322_XXOc.jpg">
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201712/04095322_Ey4I.jpg">
-<meta property="og:updated_time" content="2019-11-04T14:32:14.935Z">
+<meta property="og:updated_time" content="2019-11-06T13:06:42.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTPS连接以及中间人攻击劫持">
 <meta name="twitter:description" content="中间人攻击👻（Man-in-the-middle attack）">
@@ -590,14 +551,10 @@ $(function() {
       
 
       
-        <p class="description">中间人攻击👻（Man-in-the-middle attack）</p>
-
-<p><img src="/2019-11-04/man-in-the-middle-attack/68249763_p0.jpg" alt="68249763_p0"></p>
+        <p></p><p class="description">中间人攻击👻（Man-in-the-middle attack）</p><br><img src="/2019-11-04/man-in-the-middle-attack/68249763_p0.jpg" alt="68249763_p0"><p></p>
 <a id="more"></a>
-<blockquote class="question">连着上文介绍的加密算法等概念，现在补充一下中间人攻击</blockquote>
-
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=1382233571&auto=0&height=32"></iframe>
-
+<p><blockquote class="question">连着上文介绍的加密算法等概念，现在补充一下中间人攻击</blockquote></p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=1382233571&auto=0&height=32"></iframe></p>
 <h2 id="什么是中间人攻击"><a href="#什么是中间人攻击" class="headerlink" title="什么是中间人攻击"></a>什么是中间人攻击</h2><p>简单来说攻击者就是一个介入通信的传话员，攻击者知道通信双方的所有通信内容，而且可以任意增加、删除、修改双方的通信内容，而双方对此并不知情。</p>
 <p>而中间人攻击不仅仅局限于针对 HTTPS，对于开放性的连接，中间人攻击非常容易。比如在一个未加密的 Wi-Fi 网络中，一个攻击者可以很容易地将自己插入双方的通信之中以截取或者修改通信的内容。</p>
 <p>一个通俗的例子：</p>
@@ -633,20 +590,20 @@ $(function() {
 <li>使用其他形式的密钥交换形式</li>
 </ol>
 <h3 id="前方高能"><a href="#前方高能" class="headerlink" title="前方高能"></a>前方高能</h3><p>从邮递员的例子看起来，似乎任何在通信双方的实体都可以实施中间人攻击，那么 HTTPS 是如何防止中间人攻击的呢？要防止被中间人攻击，那么就要确保通信中的信息来自他声称的那个人，且没有被修改过。在现实中，有多种方式可以确定某个实体的身份，比如个人的签名 / 私章、组织的公章、甚至古时的信物。大部分情况下，只需要在信件最后盖上签上自己的名字或者盖上组织的公章，那么接收者就可以确定这封信件就来自于他所声称的那个人 / 组织。在二进制的世界中，可以使用数字签名来确保某段消息 / 某份文件确实是由他所声称的那个实体所发出来的。</p>
-<p>在之前的文章中，我们介绍过非对称加密，其中公钥是公开的，而私钥只有拥有者知道。用私钥对某个文件 / 某段消息的散列值进行签名就像一个人亲手在信件最后签上了自己的名字一样，证明这份文件 / 这段消息确实来自私钥的拥有者（<em>因为公钥是公开的，私钥只有拥有者知道，所以如果能用其公开的公钥解开数字签名，那就证明这条消息确实来自于他私钥的拥有者</em>），这就可以确保消息是来自他所声称的那个实体。这样，在通信中，双方每次在写完消息之后，计算消息的散列值，并用自己的私钥加密生成数字签名，附在信件后面，接收者在收到消息和数字签名之后，先计算散列值，再使用对方的公钥解密数字签名中的散列值，进行对比，如果一致，就可以确保该消息确实是来自于对方，并且没有被篡改过。</p>
-<p>不过有个问题，如果<em>中间人在会话建立阶段把双方交换的真实公钥替换成自己的公钥</em>了，那么中间人还是可以篡改消息的内容而双方并不知情。为了解决这个问题，需要找一个通信双方都信任的第三方来为双方确认身份。这就像大家都相信公证处，公证处拿着自己的公章为每一封信件都盖上了自己的章，证明这封信确实是由本人发出的，这样就算中间人可以替换掉通信双方消息的签名，也无法替换掉公证处的公章。这个公章，在二进制的世界里，就是<strong>数字证书</strong>，公证处就是 <strong>CA（数字证书认证机构）</strong>。</p>
+<p>在之前的文章中，我们介绍过非对称加密，其中公钥是公开的，而私钥只有拥有者知道。用私钥对某个文件 / 某段消息的散列值进行签名就像一个人亲手在信件最后签上了自己的名字一样，证明这份文件 / 这段消息确实来自私钥的拥有者（因为公钥是公开的，私钥只有拥有者知道，所以如果能用其公开的公钥解开数字签名，那就证明这条消息确实来自于他私钥的拥有者），这就可以确保消息是来自他所声称的那个实体。这样，在通信中，双方每次在写完消息之后，计算消息的散列值，并用自己的私钥加密生成数字签名，附在信件后面，接收者在收到消息和数字签名之后，先计算散列值，再使用对方的公钥解密数字签名中的散列值，进行对比，如果一致，就可以确保该消息确实是来自于对方，并且没有被篡改过。</p>
+<p>不过有个问题，如果中间人在会话建立阶段把双方交换的真实公钥替换成自己的公钥了，那么中间人还是可以篡改消息的内容而双方并不知情。为了解决这个问题，需要找一个通信双方都信任的第三方来为双方确认身份。这就像大家都相信公证处，公证处拿着自己的公章为每一封信件都盖上了自己的章，证明这封信确实是由本人发出的，这样就算中间人可以替换掉通信双方消息的签名，也无法替换掉公证处的公章。这个公章，在二进制的世界里，就是<strong>数字证书</strong>，公证处就是 <strong>CA（数字证书认证机构）</strong>。</p>
 <p>数字证书就是申请人将一些必要信息（包括公钥、姓名、电子邮件、有效期）等提供给 CA，CA 在通过各种手段确认申请人确实是他所声称的人之后，用自己的私钥对申请人所提供信息计算散列值进行加密，形成数字签名，附在证书最后，再将数字证书颁发给申请人，申请人就可以使用 CA 的证书向别人证明他自己的身份了。对方收到数字证书之后，只需要用 CA 的公钥解密证书最后的签名得到加密之前的散列值，再计算数字证书中信息的散列值，将两者进行对比，只要散列值一致，就证明这张数字证书是有效且未被篡改过的。</p>
 <p>通信过程的安全性<strong>自下而上</strong>就是这样保证的：</p>
 <ol>
-<li>双方通信内容的安全性是靠公钥加密、私钥解密来保证的，这一安全性由非对称加密的特性，即由公钥加密的信息只能使用对应的私钥才能解开来保证。由于私钥不会传递，只有拥有者知道，所以<em>安全性就由<strong>公钥</strong>的正确性来保证。</em></li>
-<li>公钥由对方在通信初始所提供，但是这时很容易被中间人替换掉，为了保证公钥的正确性，所以在发送公钥的时候也会提供对应的数字证书，用于验证这个公钥是对方的而不是中间人的。那么<em>安全性就是由<strong>数字证书</strong>的正确性来保证了。</em></li>
-<li>数字证书是由上级 CA 签发给个人 / 组织的，上级 CA 用自己的私钥给个人证书进行签名，保证证书中的公钥不被篡改，而接受者需要用上级 CA 证书中的公钥来解密个人数字证书中的数字签名来验证证书中的公钥是否是正确的。那么<em>安全性就是由<strong>上级 CA 证书</strong>的正确性保证的了。</em></li>
-<li>但是，上级 CA 证书也是由其上级 CA 签发的，这种信任关系一直到根证书。根证书没有上级 CA 为其签名，而是自签名的，也就是说，它自身为自身签名，保证正确性。所以根证书就是这个信任链最重要的部分。如果根证书泄露的话，其签名的所有证书及使用其签名的证书所签名的证书的安全性将不复存在。现在，<em>安全性就是靠系统<strong>根证书</strong>的私钥不被泄露或者其公钥不被篡改来保证的了。</em></li>
-<li>根证书不应该通过网络分发，因为通过网络分发的话，可能会被中间人攻击。一般根证书都通过操作系统或者浏览器分发，在操作系统中会内置很多根证书，但是最初的操作系统也不能通过网络分发，因为中间人可以修改操作系统中的根证书。所以要保证安全只能靠最原始的方法，当面交流。硬件厂商会和证书签发机构合作，在电脑、手机等设备出厂的时候在其操作系统中<strong>内置</strong>签发机构的根证书，再将这些设备分发出去，这样，这些设备的用户就可以安全地进行信息交换了。所以，<em>安全性就依赖于这些设备在分发到消费者手中之前不会被恶意修改来保证了。</em></li>
+<li>双方通信内容的安全性是靠公钥加密、私钥解密来保证的，这一安全性由非对称加密的特性，即由公钥加密的信息只能使用对应的私钥才能解开来保证。由于私钥不会传递，只有拥有者知道，所以安全性就由<strong>公钥</strong>的正确性来保证。</li>
+<li>公钥由对方在通信初始所提供，但是这时很容易被中间人替换掉，为了保证公钥的正确性，所以在发送公钥的时候也会提供对应的数字证书，用于验证这个公钥是对方的而不是中间人的。那么安全性就是由<strong>数字证书</strong>的正确性来保证了。</li>
+<li>数字证书是由上级 CA 签发给个人 / 组织的，上级 CA 用自己的私钥给个人证书进行签名，保证证书中的公钥不被篡改，而接受者需要用上级 CA 证书中的公钥来解密个人数字证书中的数字签名来验证证书中的公钥是否是正确的。那么安全性就是由<strong>上级 CA 证书</strong>的正确性保证的了。</li>
+<li>但是，上级 CA 证书也是由其上级 CA 签发的，这种信任关系一直到根证书。根证书没有上级 CA 为其签名，而是自签名的，也就是说，它自身为自身签名，保证正确性。所以根证书就是这个信任链最重要的部分。如果根证书泄露的话，其签名的所有证书及使用其签名的证书所签名的证书的安全性将不复存在。*现在，安全性就是靠系统<strong>根证书</strong>的私钥不被泄露或者其公钥不被篡改来保证的了。**</li>
+<li>根证书不应该通过网络分发，因为通过网络分发的话，可能会被中间人攻击。一般根证书都通过操作系统或者浏览器分发，在操作系统中会内置很多根证书，但是最初的操作系统也不能通过网络分发，因为中间人可以修改操作系统中的根证书。所以要保证安全只能靠最原始的方法，当面交流。硬件厂商会和证书签发机构合作，在电脑、手机等设备出厂的时候在其操作系统中<strong>内置</strong>签发机构的根证书，再将这些设备分发出去，这样，这些设备的用户就可以安全地进行信息交换了。所以，安全性就依赖于这些设备在分发到消费者手中之前不会被恶意修改来保证了。</li>
 </ol>
 <p>至此，整个信任链就建立起来了，只需要有一台设备上安装了可以信任的根证书，就可以用来分发更多安全的操作系统了。之后的所有信任链都是安全的了。</p>
 <h2 id="SSLTrip-及-HSTS"><a href="#SSLTrip-及-HSTS" class="headerlink" title="SSLTrip 及 HSTS"></a>SSLTrip 及 HSTS</h2><p>HTTP 协议最初的时候是明文的，因为安全问题所以现在很多网站都在逐渐过渡到 HTTPS，然而对于大部分使用者来说，他们并不知道 HTTP 和 HTTPS 之间的区别，在浏览器输入地址的时候都是直接输入 <code>www.example.com</code> 而非 <code>https://www.example.com</code>，在大部分情况下，如果一个网站启用了 HTTPS，服务器会将这个请求使用 <code>301</code> 或者 <code>302</code> 状态码以及一个 <code>Location</code> 头部将请求从 80 端口重定向至使用 HTTPS 的 443 端口。但是，如果中间人劫持了使用者的网络请求，那么中间人可以阻止客户端与服务器建立 HTTPS 连接，而是一直使用不安全的 HTTP 连接，而中间人则和服务器建立正常的 HTTPS 连接，让客户端以为自己正在和真实服务器通信。这种攻击手法称作 SSLTrip。</p>
-<p>为了解决这个问题，IETF（互联网工程任务小组）引入了一个策略，叫做 <strong>HSTS</strong> (HTTP Strict Transport Security, HTTP 严格传输安全)。HSTS 的作用是强制客户端与服务端建立安全的 HTTPS 连接，而非不安全的 HTTP 连接。如果一个站点启用了 HSTS 策略，那么客户端在第一次与该站点建立连接之后，在未来的一段时间内（由一个 HTTP 头部控制，这个头部为：Strict-Transport-Security），客户端与该站点的所有连接都会直接使用 HTTPS，<em>即使客户端访问的是 HTTP，也会直接在客户端重定向到 HTTPS 连接。</em></p>
+<p>为了解决这个问题，IETF（互联网工程任务小组）引入了一个策略，叫做 <strong>HSTS</strong> (HTTP Strict Transport Security, HTTP 严格传输安全)。HSTS 的作用是强制客户端与服务端建立安全的 HTTPS 连接，而非不安全的 HTTP 连接。如果一个站点启用了 HSTS 策略，那么客户端在第一次与该站点建立连接之后，在未来的一段时间内（由一个 HTTP 头部控制，这个头部为：Strict-Transport-Security），客户端与该站点的所有连接都会直接使用 HTTPS，即使客户端访问的是 HTTP，也会直接在客户端重定向到 HTTPS 连接。</p>
 <p>假设 <code>https://example.com</code> 的响应头部含有 <code>Strict-Transport-Security: max-age=31536000; includeSubDomains</code>，这意味着：</p>
 <ol>
 <li>在未来的 1 年时间里（即 31536000 秒中），只要浏览器向 <code>example.com</code> 或者其子域名发送请求，必须采用 HTTPS 来发起连接。即使用户在地址栏里写的是 <code>http://example.com</code>，那也直接重写为 <code>https://example.com</code> 并直接发起 HTTPS 连接。</li>
@@ -691,8 +648,8 @@ $(function() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019-11-05/horse-thief.html" rel="prev" title="赛马问题">
-                <i class="fa fa-chevron-left"></i> 赛马问题
+              <a href="/2019-11-05/horse-thief.html" rel="prev" title="关于赛马问题(horse-racing problem)">
+                <i class="fa fa-chevron-left"></i> 关于赛马问题(horse-racing problem)
               </a>
             
           </div>
@@ -766,14 +723,14 @@ $(function() {
           <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
 </a>
           <p class="site-author-name" itemprop="name">林加鸿</p>
-          <p class="site-description motion-element" itemprop="description">本博客主要用于分享生活以及前端web、数据结构与算法、计算机基础等编程知识，愿时光未央，岁月静好ㄟ(😁)ㄏ</p>
+          <p class="site-description motion-element" itemprop="description">欢迎来到Abo的博客，博客以分享前端web知识、数据结构与算法、计算机基础为主，希望能帮到您ㄟ(😀)ㄏ</p>
         </div>
         <nav class="site-state motion-element">
         
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -791,7 +748,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -858,7 +815,7 @@ $(function() {
                 </li>
               
                 <li class="links-of-blogroll-item">
-                  <a href="https://www.taylorswift.com/" title="Taylor Swift Official Website" target="_blank">Taylor Swift Official Website</a>
+                  <a href="https://www.taylorswift.com/" title="😋Taylor Swift Official Website😋" target="_blank">😋Taylor Swift Official Website😋</a>
                 </li>
               
                 <li class="links-of-blogroll-item">
@@ -1300,5 +1257,5 @@ $(function() {
 <script>
 $("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
 </script>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":200,"height":200,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+</body>
 </html>
