@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://jhjhljh.github.io/2019-11-09/this-apply-call-bind.html</loc>
+    <lastmod>2019-11-10</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-08-25/difference.html</loc>
+    <lastmod>2019-11-10</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-06-06/js.html</loc>
+    <lastmod>2019-11-09</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-11-09/encodeString.html</loc>
+    <lastmod>2019-11-09</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-10-20/leetcode-02.html</loc>
+    <lastmod>2019-11-09</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-10-25/intellectual-game.html</loc>
+    <lastmod>2019-11-09</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-05-11/git.html</loc>
+    <lastmod>2019-11-09</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-11-09/brackets-problem.html</loc>
+    <lastmod>2019-11-09</lastmod>
+  </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-08/path-join-reduce.html</loc>
     <lastmod>2019-11-08</lastmod>
   </url>  <url>
@@ -38,9 +62,6 @@
     <lastmod>2019-10-29</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-10-26/two-sum.html</loc>
-    <lastmod>2019-10-28</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-25/intellectual-game.html</loc>
     <lastmod>2019-10-28</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-10-28/calender.html</loc>
@@ -103,16 +124,7 @@
     <loc>http://jhjhljh.github.io/2019-05-13/leetcode-01.html</loc>
     <lastmod>2019-10-25</lastmod>
   </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-06-06/js.html</loc>
-    <lastmod>2019-10-25</lastmod>
-  </url>  <url>
     <loc>http://jhjhljh.github.io/2019-09-22/interview.html</loc>
-    <lastmod>2019-10-25</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-08-25/difference.html</loc>
-    <lastmod>2019-10-25</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-05-11/git.html</loc>
     <lastmod>2019-10-25</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-08-27/expression.html</loc>
@@ -132,9 +144,6 @@
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-10-23/glass.html</loc>
     <lastmod>2019-10-24</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-20/leetcode-02.html</loc>
-    <lastmod>2019-10-23</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-10-21/time-space-complexity.html</loc>
     <lastmod>2019-10-23</lastmod>

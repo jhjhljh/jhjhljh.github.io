@@ -56,7 +56,7 @@
 <link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="前端,js,">
+  <meta name="keywords" content="前端,js,闭包,">
 
 
 
@@ -75,9 +75,9 @@
 
 
 <meta name="description" content="记录一下上次面试题所设计到的js作用域和闭包">
-<meta name="keywords" content="前端,js">
+<meta name="keywords" content="前端,js,闭包">
 <meta property="og:type" content="article">
-<meta property="og:title" content="所谓js作用域和闭包">
+<meta property="og:title" content="作用域和闭包是个啥？">
 <meta property="og:url" content="http://jhjhljh.github.io/2019-06-06/js.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="记录一下上次面试题所设计到的js作用域和闭包">
@@ -88,9 +88,9 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/7/1695629acd9a63c3?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/7/1695629ace41db0a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/7/1695629acfb7e4ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2019-10-25T08:24:15.729Z">
+<meta property="og:updated_time" content="2019-11-09T08:19:39.459Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="所谓js作用域和闭包">
+<meta name="twitter:title" content="作用域和闭包是个啥？">
 <meta name="twitter:description" content="记录一下上次面试题所设计到的js作用域和闭包">
 <meta name="twitter:image" content="http://jhjhljh.github.io/2019-06-06/js/wallhaven-5w5xo1.png">
 
@@ -143,7 +143,7 @@
 </style>
 
 
-  <title> 所谓js作用域和闭包 | Abo </title>
+  <title> 作用域和闭包是个啥？ | Abo </title>
 </head>
 
   	 <!-- custom analytics part create by xiamo -->
@@ -423,7 +423,7 @@ $(function() {
             
             
               
-                所谓js作用域和闭包
+                作用域和闭包是个啥？
               
             
           </h2>
@@ -491,7 +491,7 @@ $(function() {
 			 
           
           
-             <span id="/2019-06-06/js.html" class="leancloud_visitors" data-flag-title="所谓js作用域和闭包">
+             <span id="/2019-06-06/js.html" class="leancloud_visitors" data-flag-title="作用域和闭包是个啥？">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -516,7 +516,7 @@ $(function() {
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1.5k
+                  1.4k
                 </span>
               
 
@@ -558,7 +558,7 @@ $(function() {
 <a id="more"></a>
 <h1 id="🎁大白话解释作用域和闭包是个啥"><a href="#🎁大白话解释作用域和闭包是个啥" class="headerlink" title="🎁大白话解释作用域和闭包是个啥"></a>🎁大白话解释作用域和闭包是个啥</h1><h2 id="作用域的分类"><a href="#作用域的分类" class="headerlink" title="作用域的分类"></a>作用域的分类</h2><p>常见的变量作用域就是 <strong>静态作用域（词法作用域）</strong> 与 <strong>动态作用域</strong> 。词法作用域注重的是 <strong>write-time</strong> ，即 <strong>编程时的上下文</strong> ，而 <strong>动态作用域</strong> 则注重的是 <strong>run-time</strong> ，即 <strong>运行时上下文</strong> 。词法作用域中我们需要知道一个函数 <strong>在什么地方被定义</strong> ，而动态作用域中我们需要关心的是函数 <strong>在什么地方被调用</strong></p>
 <p>而 javascript 使用的则是词法作用域</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> value = <span class="number">2</span></span><br><span class="line">    foo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar() <span class="comment">// 1</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> value = <span class="number">2</span></span><br><span class="line">    foo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar() <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 <p>在 javascript 解析模式中，当 foo 被调用的时候：</p>
 <ul>
 <li>检查 foo 函数内是否存在 value<ul>
@@ -579,9 +579,9 @@ $(function() {
 <p><img src="https://user-gold-cdn.xitu.io/2019/3/7/1695629acee38bb3?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="20190307092333.png"></p>
 <h2 id="变量的两种查找类型"><a href="#变量的两种查找类型" class="headerlink" title="变量的两种查找类型"></a>变量的两种查找类型</h2><p>一种是 rhs 一种是 lhs</p>
 <p>假设有这么一段代码：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span>(<span class="keyword">a</span>)<span class="comment"> // 输出 undefined</span></span><br><span class="line">console.<span class="built_in">log</span>(a2)<span class="comment"> // 报错 a2 is not defined</span></span><br><span class="line">var <span class="keyword">a</span> = <span class="number">1</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span>(<span class="keyword">a</span>)<span class="comment"> // 输出 undefined</span></span><br><span class="line">console.<span class="built_in">log</span>(a2)<span class="comment"> // 报错 a2 is not defined</span></span><br><span class="line">var <span class="keyword">a</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>上述代码实际上在变量提升的作用下应该是下面这个顺序：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> a</span><br><span class="line">console.log(a) <span class="comment">// 输出 undefined</span></span><br><span class="line">console.log(a2) <span class="comment">// 报错 a2 is not defined</span></span><br><span class="line"><span class="selector-tag">a</span> = <span class="number">1</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> a</span><br><span class="line">console.log(a) <span class="comment">// 输出 undefined</span></span><br><span class="line">console.log(a2) <span class="comment">// 报错 a2 is not defined</span></span><br><span class="line"><span class="selector-tag">a</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>第一个 console 输出 undefined 因为还未执行赋值操作，查询过程是 <code>rhs</code> 也就是 <code>right-hand-side</code></li>
 <li>第二个 console 报错，是因为 rhs 查询 a2 变量不存在因此报错</li>
@@ -590,7 +590,7 @@ $(function() {
 <p><img src="https://user-gold-cdn.xitu.io/2019/3/7/1695629acf62d663?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="20190307093837.png"></p>
 <h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包是啥？闭包就是从函数外部访问函数内部的变量，函数内部的变量可以持续存在的一种实现。</p>
 <p>在了解了词法作用域和变量的查询方式之后，我们看看一个简单的闭包的实现逻辑：</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span> &#123;</span></span><br><span class="line">	<span class="built_in">let</span> num = <span class="number">1</span> <span class="comment">// 里面的变量</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">()</span> &#123;</span></span><br><span class="line">		num += <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">()</span> &#123;</span></span><br><span class="line">		console.<span class="built_in">log</span>(num)</span><br><span class="line">	&#125;</span><br><span class="line">	return &#123; add, <span class="built_in">log</span> &#125; <span class="comment">// 我要到外面去了</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const &#123; add, <span class="built_in">log</span> &#125; = f()</span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>() <span class="comment">// 1 我从里面来，我在外面被调用，还是可以获得里面的变量</span></span><br><span class="line">add()</span><br><span class="line"><span class="built_in">log</span>() <span class="comment">// 2</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span><span class="params">()</span> &#123;</span></span><br><span class="line">	<span class="built_in">let</span> num = <span class="number">1</span> <span class="comment">// 里面的变量</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">()</span> &#123;</span></span><br><span class="line">		num += <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">()</span> &#123;</span></span><br><span class="line">		console.<span class="built_in">log</span>(num)</span><br><span class="line">	&#125;</span><br><span class="line">	return &#123; add, <span class="built_in">log</span> &#125; <span class="comment">// 我要到外面去了</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const &#123; add, <span class="built_in">log</span> &#125; = f()</span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>() <span class="comment">// 1 我从里面来，我在外面被调用，还是可以获得里面的变量</span></span><br><span class="line">add()</span><br><span class="line"><span class="built_in">log</span>() <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>首先定义一个 f 函数，函数内部维护一个变量 num，然后定义两个函数 add 和 log<ul>
 <li>add 函数每次调用会增加 num 的值</li>
@@ -603,7 +603,7 @@ $(function() {
 <li>最后再次调用 log 方法打印 num，此时则为 2</li>
 </ul>
 <p>为什么外部定义的 add 函数可以访问 f 函数内部的变量呢。正常情况下外部作用域不可访问内部作用域的变量，但我们将内部访问其内部变量的方法“导出”出去，以至于可以从外部直接调用函数内部的方法，这样我们就可以从函数的外部访问函数内部的变量了。</p>
-<h2 id="经典的-for-循环问题"><a href="#经典的-for-循环问题" class="headerlink" title="经典的 for 循环问题"></a>经典的 for 循环问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">arr = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++) &#123;</span><br><span class="line">    arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">arr[<span class="number">2</span>]() <span class="comment">// 10</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<h2 id="经典的-for-循环问题"><a href="#经典的-for-循环问题" class="headerlink" title="经典的 for 循环问题"></a>经典的 for 循环问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arr = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++) &#123;</span><br><span class="line">    arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">arr[<span class="number">2</span>]() <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
 <p>首先我们知道 for 循环体内的 i 实际上会被定义在全局作用域中</p>
 <p>每次循环我们都将 function 推送到一个 arr 中，for 循环执行完毕后，arr 中张这样：</p>
 <p><img src="https://user-gold-cdn.xitu.io/2019/3/7/1695629acd9a63c3?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="20190307101411.png"></p>
@@ -612,12 +612,12 @@ $(function() {
 <p>那么有什么方法能够避免出现这种情况吗？</p>
 <p><strong>ES6 之前的解决方案：</strong></p>
 <p>了解了闭包我们就知道了闭包内的变量可以持续存在，所以修改代码将 arr 中的每一项改为指向一个闭包：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">arr = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++) &#123;</span><br><span class="line">	arr[i] = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 这是一个闭包</span></span><br><span class="line">		<span class="keyword">var</span> temp = i <span class="comment">// 闭包内部维护一个变量，这个变量可以持续存在</span></span><br><span class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(temp)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)()</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">arr = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++) &#123;</span><br><span class="line">	arr[i] = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 这是一个闭包</span></span><br><span class="line">		<span class="keyword">var</span> temp = i <span class="comment">// 闭包内部维护一个变量，这个变量可以持续存在</span></span><br><span class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(temp)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样程序就能按照我们的想法运行了</p>
 <p><img src="https://user-gold-cdn.xitu.io/2019/3/7/1695629ace41db0a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="20190307102109.png"></p>
 <p><strong>ES6 之后的解决方案：</strong></p>
 <p>ES6 之后我们就有了块级作用域因此代码可以改为这样：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arr = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++) &#123; <span class="comment">// 使用 let</span></span><br><span class="line">	arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">arr = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++) &#123; <span class="comment">// 使用 let</span></span><br><span class="line">	arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在使用 let 之后，我们每次定义 i 都是通过 <code>let i</code> 的方法定义的，这个时候 i 不再是被定义到全局作用域中了，而是被绑定在了 for 循环的块级作用域中</p>
 <p>因为是块级作用域所以对应 i 的 arr 每一项都变成了一个闭包，arr 每一项都在不同的块级作用域中因此不会相互影响</p>
 <p><img src="https://user-gold-cdn.xitu.io/2019/3/7/1695629acfb7e4ab?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="20190307102815.png"></p>
@@ -643,6 +643,8 @@ $(function() {
             <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
           
             <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/闭包/" rel="tag"><i class="fa fa-tag"></i> 闭包</a>
           
         </div>
       
@@ -744,7 +746,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">62</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -762,7 +764,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
