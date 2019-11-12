@@ -83,7 +83,7 @@
 <meta property="og:description" content="オレは海贼王になる男だ！ ​                                             ——路飞">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-30/lesson/11904651_p0.png">
-<meta property="og:updated_time" content="2019-11-08T08:47:43.158Z">
+<meta property="og:updated_time" content="2019-11-11T02:31:03.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些零散的笔记与目标">
 <meta name="twitter:description" content="オレは海贼王になる男だ！ ​                                             ——路飞">
@@ -511,7 +511,7 @@ $(function() {
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  3.8k
+                  4k
                 </span>
               
 
@@ -527,7 +527,7 @@ $(function() {
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  14
+                  15
                 </span>
               
             </div>
@@ -639,6 +639,9 @@ $(function() {
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Koa2.js</span></span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()  <span class="comment">//新版本要用到new关键字</span></span><br><span class="line"><span class="keyword">const</span> asyncIO = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> setTimeout(resolve,<span class="number">500</span>))</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> mid = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">async</span>(ctx,next) =&gt; &#123;</span><br><span class="line">    ctx.body = <span class="string">'mark'</span></span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">    ctx.body = ctx.body + <span class="string">'done'</span></span><br><span class="line">&#125;</span><br><span class="line">app.use(mid())</span><br><span class="line">app.use(<span class="keyword">async</span>(ctx,next)=&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> asyncIO()</span><br><span class="line">    ctx.body += <span class="string">'saved'</span></span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">&#125; )</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<blockquote>
+<p>express 提供了next模式，可以在中间件做异步操作，但是仅限于异步完成后通知下一个中间件。而该中间件本身是无法执行异步完成之后的逻辑，next仅仅是一个同步函数，，执行完就结束了。koa用到了async  await  ,所有中间件本身的异步逻辑完成之后还可以完成后该中间件的后置逻辑，一次请求会往返该中间件两次，很多逻辑就会只变得异常简单，代码易于维护。、  异常处理在express 中其实挺坑爹的，但是koa中异常处理非常简单。不管是同步还是异步，用promise包装之后都能被捕获。</p>
+</blockquote>
 <p>前两年的grant依然在很多公司内部使用，但是gulp出现了，然后webpack统一了四海江湖，成为前端工作标配</p>
 <p>webpack</p>
 <p>核心概念：一个是入口，一个是输出，一个是loader，一个是plugin，这几个在webpack里面扮演着重要的角色，不管是图片还是样式，都可以看做是前端的静态资源，都会一股脑子扔进webpack的肚子里面，在他肚子里面有各个器官，就像它有各个loader一样，这些的loader把吃到肚子的这些乱七八糟的东西，要啥分析啥，plugin就像植入的大脑芯片，本来就是外面的东西，用于加强webpack，最后以webpack的输出把所有的养分分配到应该去的地方，下面以小程序举例子</p>
@@ -666,6 +669,10 @@ $(function() {
 <p>在根目录里再新建一个文件mina-config.js,也是通过exports暴露出一个配置对象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">	<span class="string">'json'</span>: &#123;</span><br><span class="line">        <span class="comment">//app.json里面的内容</span></span><br><span class="line">        <span class="comment">//通过它来配置小程序里面的页面或者样式</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="string">'style'</span>: &#123;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在根目录下再新建一个vender.js，来对一些函数进行一些封装，包括暴露一些全局的变量，因为在webpack里面编译的时候需要在小程序拿到一些外部的变量。</p>
+<h3 id="Vue-Nodejs-MongoDB-–DAY-3"><a href="#Vue-Nodejs-MongoDB-–DAY-3" class="headerlink" title="Vue+Nodejs+MongoDB  –DAY 3"></a>Vue+Nodejs+MongoDB  –DAY 3</h3><ul>
+<li>购买阿里云，等待了解机制结构，以及域名，然后部署博客</li>
+<li></li>
+</ul>
 <h2 id="other"><a href="#other" class="headerlink" title="other"></a>other</h2><h3 id="狗屁不通文章生成器"><a href="#狗屁不通文章生成器" class="headerlink" title="狗屁不通文章生成器"></a>狗屁不通文章生成器</h3><p><a href="https://suulnnka.github.io/BullshitGenerator/index.html" target="_blank" rel="noopener">https://suulnnka.github.io/BullshitGenerator/index.html</a> </p>
 <hr>
       
@@ -782,7 +789,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -800,7 +807,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -901,7 +908,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webstorm"><span class="nav-number">1.</span> <span class="nav-text">webstorm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element"><span class="nav-number">2.</span> <span class="nav-text">element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">3.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuejs实战"><span class="nav-number">4.</span> <span class="nav-text">vuejs实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-1"><span class="nav-number">4.1.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.1.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-2"><span class="nav-number">4.2.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Koa-Express"><span class="nav-number">4.2.1.</span> <span class="nav-text">Koa Express</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">5.</span> <span class="nav-text">other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#狗屁不通文章生成器"><span class="nav-number">5.1.</span> <span class="nav-text">狗屁不通文章生成器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webstorm"><span class="nav-number">1.</span> <span class="nav-text">webstorm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element"><span class="nav-number">2.</span> <span class="nav-text">element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">3.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuejs实战"><span class="nav-number">4.</span> <span class="nav-text">vuejs实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-1"><span class="nav-number">4.1.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.1.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-2"><span class="nav-number">4.2.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Koa-Express"><span class="nav-number">4.2.1.</span> <span class="nav-text">Koa Express</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-3"><span class="nav-number">4.3.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">5.</span> <span class="nav-text">other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#狗屁不通文章生成器"><span class="nav-number">5.1.</span> <span class="nav-text">狗屁不通文章生成器</span></a></li></ol></li></ol></div>
             
 
           </div>

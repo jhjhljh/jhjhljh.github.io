@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jhjhljh.github.io/2019-11-11/express-koa.html</loc>
+    
+    <lastmod>2019-11-12T17:00:32.919Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jhjhljh.github.io/2019-11-10/difference01.html</loc>
+    
+    <lastmod>2019-11-12T16:21:20.436Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jhjhljh.github.io/2019-10-30/lesson.html</loc>
+    
+    <lastmod>2019-11-11T02:31:03.721Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jhjhljh.github.io/2019-11-09/this-apply-call-bind.html</loc>
     
     <lastmod>2019-11-10T06:22:40.307Z</lastmod>
@@ -61,13 +82,6 @@
     <loc>http://jhjhljh.github.io/2019-11-08/path-join-reduce.html</loc>
     
     <lastmod>2019-11-08T17:25:09.065Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jhjhljh.github.io/2019-10-30/lesson.html</loc>
-    
-    <lastmod>2019-11-08T08:47:43.158Z</lastmod>
     
   </url>
   
@@ -313,13 +327,6 @@
     <loc>http://jhjhljh.github.io/2019-05-26/E-class.html</loc>
     
     <lastmod>2019-10-25T08:19:59.947Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jhjhljh.github.io/2019-08-28/difference01.html</loc>
-    
-    <lastmod>2019-10-25T08:19:51.022Z</lastmod>
     
   </url>
   

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://jhjhljh.github.io/2019-11-11/express-koa.html</loc>
+    <lastmod>2019-11-12</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-11-10/difference01.html</loc>
+    <lastmod>2019-11-12</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-10-30/lesson.html</loc>
+    <lastmod>2019-11-11</lastmod>
+  </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-09/this-apply-call-bind.html</loc>
     <lastmod>2019-11-10</lastmod>
   </url>  <url>
@@ -26,9 +35,6 @@
     <lastmod>2019-11-09</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-08/path-join-reduce.html</loc>
-    <lastmod>2019-11-08</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-30/lesson.html</loc>
     <lastmod>2019-11-08</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-05/horse-thief.html</loc>
@@ -131,9 +137,6 @@
     <lastmod>2019-10-25</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-05-26/E-class.html</loc>
-    <lastmod>2019-10-25</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-08-28/difference01.html</loc>
     <lastmod>2019-10-25</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-09-14/cookie.html</loc>

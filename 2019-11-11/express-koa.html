@@ -1,0 +1,1377 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+<link href="https://fonts.loli.net/css?family=EB+Garamond:500,500i,700,700i|Noto+Serif+SC:400,500,700&display=swap" rel="stylesheet">
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="前端,nodejs,Express,Koa,异步,消息队列,事件循环,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://pzdbj8uw8.bkt.clouddn.com/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="最近在学习koa的使用， 由于koa是相当基础的web框架，所以一个完整的web应用所需要的东西大都以中间件的形式引入，比如koa-router, koa-view等">
+<meta name="keywords" content="前端,nodejs,Express,Koa,异步,消息队列,事件循环">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈异步以及 Nodejs 框架 Express VS Koa">
+<meta property="og:url" content="http://jhjhljh.github.io/2019-11-11/express-koa.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="最近在学习koa的使用， 由于koa是相当基础的web框架，所以一个完整的web应用所需要的东西大都以中间件的形式引入，比如koa-router, koa-view等">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-11/express-koa/20191110003241.jpg">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-11/express-koa/1.png">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-11/express-koa/2.png">
+<meta property="og:image" content="http://jhjhljh.github.io/2019-11-11/express-koa/11.gif">
+<meta property="og:updated_time" content="2019-11-12T17:00:32.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈异步以及 Nodejs 框架 Express VS Koa">
+<meta name="twitter:description" content="最近在学习koa的使用， 由于koa是相当基础的web框架，所以一个完整的web应用所需要的东西大都以中间件的形式引入，比如koa-router, koa-view等">
+<meta name="twitter:image" content="http://jhjhljh.github.io/2019-11-11/express-koa/20191110003241.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: "",
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jhjhljh.github.io/2019-11-11/express-koa.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 浅谈异步以及 Nodejs 框架 Express VS Koa | Abo </title>
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://jhjhljh.github.io/2019-11-11/express-koa.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅谈异步以及 Nodejs 框架 Express VS Koa
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-11T10:47:30+08:00">
+                2019-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                 <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019-11-11/express-koa.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019-11-11/express-koa.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2019-11-11/express-koa.html" class="leancloud_visitors" data-flag-title="浅谈异步以及 Nodejs 框架 Express VS Koa">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  22
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p></p><p class="description">最近在学习koa的使用， 由于koa是相当基础的web框架，所以一个完整的web应用所需要的东西大都以中间件的形式引入，比如koa-router, koa-view等</p><br><img src="/2019-11-11/express-koa/20191110003241.jpg" alt="20191110003241"><p></p>
+<a id="more"></a>
+<p><blockquote class="question">异步建议结合上一篇：任务队列一起看</blockquote><br>
+        <div id="aplayer-NZluEKFq" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-NZluEKFq"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "Something Just Like This",
+              author: "The Chainsmokers,Coldplay",
+              url: "http://pzdbj8uw8.bkt.clouddn.com/something%20just%20like%20this.mp3",
+              pic: "http://pzdbj8uw8.bkt.clouddn.com/something%20just%20like%20this.jpg",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script></p>
+<h2 id="往事回顾谈异步"><a href="#往事回顾谈异步" class="headerlink" title="往事回顾谈异步"></a>往事回顾谈异步</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>所谓”异步”，简单说就是一个任务不是连续完成的，可以理解成该任务被人为分成两段，先执行第一段，然后转而执行其他任务，等做好了准备，再回过头执行第二段。</p>
+<p>比如，有一个任务是读取文件进行处理，任务的第一段是向操作系统发出请求，要求读取文件。然后，程序执行其他任务，等到操作系统返回文件，再接着执行任务的第二段（处理文件）。这种不连续的执行，就叫做异步。</p>
+<p>相应地，连续的执行就叫做同步。由于是连续执行，不能插入其他任务，所以操作系统从硬盘读取文件的这段时间，程序只能干等着。可以理解成阻塞了，而如果我们通过异步就可以跳到下一个块去执行任务，等执行完返回阻塞块，好像更加迷糊了😅</p>
+<h4 id="进阶理解"><a href="#进阶理解" class="headerlink" title="进阶理解"></a>进阶理解</h4><p>如果在函数返回结果的时候，调用者能够拿到预期的结果(就是函数计算的结果)，那么这个函数就是同步的.</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span>('hello');<span class="comment">//执行后，获得了返回结果</span></span><br></pre></td></tr></table></figure>
+<p>如果函数是同步的，即使调用函数执行任务比较耗时，也会一致等待直到得到执行结果。如下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wait</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> time = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();<span class="comment">//获取当前的unix时间戳</span></span><br><span class="line">    <span class="keyword">while</span>((<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime() - time &lt; <span class="number">5000</span>)&#123;&#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'5秒过去了'</span>);</span><br><span class="line">&#125;</span><br><span class="line">wait();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'慢死了'</span>);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，函数wait是一个耗时程序，持续5秒，在它执行的这漫长的5秒中，下面的console.log()函数只能等待，这就是同步。</p>
+<p>如果在函数返回的时候，调用者还不能购得到预期结果，而是将来通过一定的手段得到（例如回调函数），这就是异步。例如ajax操作。<br>如果函数是<strong>异步</strong>的，发出调用之后，<strong>马上返回</strong>，但是不会马上返回预期结果。调用者不必主动等待，当被调用者得到结果之后会通过回调函数主动通知调用者。</p>
+<p><img src="/2019-11-11/express-koa/1.png" alt="1"></p>
+<p>下面以AJAX请求为例，来看一下同步和异步的区别：</p>
+<ul>
+<li>异步AJAX：</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>主线程：</strong>“你好，AJAX线程。请你帮我发个HTTP请求吧，我把请求地址和参数都给你了。”</li>
+<li><strong>AJAX线程：</strong>“好的，主线程。我马上去发，但可能要花点儿时间呢，你可以先去忙别的。”</li>
+<li><strong>主线程：</strong>：“谢谢，你拿到响应后告诉我一声啊。”</li>
+<li>(接着，主线程做其他事情去了。一顿饭的时间后，它收到了响应到达的通知。)</li>
+</ul>
+</blockquote>
+<ul>
+<li>同步AJAX：</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>主线程：</strong>“你好，AJAX线程。请你帮我发个HTTP请求吧，我把请求地址和参数都给你了。”</li>
+<li><strong>AJAX线程：</strong>“……”</li>
+<li><strong>主线程：</strong>：“喂，AJAX线程，你怎么不说话？”</li>
+<li><strong>AJAX线程：</strong>“……”</li>
+<li><strong>主线程：</strong>：“喂！喂喂喂！”</li>
+<li><strong>AJAX线程：</strong>“……”</li>
+<li>(一炷香的时间后)</li>
+<li><strong>主线程：</strong>：“喂！求你说句话吧！”</li>
+<li><strong>AJAX线程：</strong>“主线程，不好意思，我在工作的时候不能说话。你的请求已经发完了，拿到响应数据了，给你。”</li>
+</ul>
+</blockquote>
+<p>了解完同步和异步之后，我们再来看看我们的问题：单线程又怎么会有异步呢？<br>JavaScript其实就是一门语言，说是单线程还是多线程得结合具体运行环境。众所周知，js的运行环境就是浏览器，具体由js引擎取解析和执行。下面我们来了解下浏览器。</p>
+<h4 id="消息队列与事件循环"><a href="#消息队列与事件循环" class="headerlink" title="消息队列与事件循环"></a>消息队列与事件循环</h4><p>一个浏览器通常由以下几个常驻的线程：</p>
+<ul>
+<li>渲染引擎线程，负责页面的渲染</li>
+<li>js引擎线程，负责js的解析和执行</li>
+<li>定时触发器线程，处理setInterval和setTimeout</li>
+<li>事件触发线程,处理DOM事件</li>
+<li>异步http请求线程，处理http请求</li>
+</ul>
+<p>故浏览器中多个线程的合作完成了异步的操作，那么异步的回调函数又是怎样完成执行的呢？</p>
+<p><img src="/2019-11-11/express-koa/2.png" alt="2"></p>
+<p>如上图所示，左边的栈存储的是同步任务，就是那些能立即执行、不耗时的任务，如变量和函数的初始化、事件的绑定等等那些不需要回调函数的操作都可归为这一类。</p>
+<p>右边的堆用来存储声明的变量、对象。下面的队列就是消息队列，一旦某个异步任务有了响应就会被推入队列中。如用户的点击事件、浏览器收到服务的响应和setTimeout中待执行的事件，每个异步任务都和回调函数相关联。</p>
+<p>JS引擎线程用来执行栈中的同步任务，当所有同步任务执行完毕后，栈被清空，然后读取消息队列中的一个待处理任务，并把相关回调函数压入栈中，单线程开始执行新的同步任务。</p>
+<p>JS引擎线程从消息队列中读取任务是不断循环的，每次栈被清空后，都会在消息队列中读取新的任务，如果没有新的任务，就会等待，直到有新的任务，这就叫事件循环。</p>
+<p><img src="/2019-11-11/express-koa/11.gif" alt="11"></p>
+<h4 id="面试题实战"><a href="#面试题实战" class="headerlink" title="面试题实战"></a>面试题实战</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//执行下面这段代码，执行后，在 5s 内点击两下，过一段时间（&gt;5s）后，再点击两下，整个过程的输出结果是什么？</span></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i++)&#123;&#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timer a'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; <span class="number">5</span>; j++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(j);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timer b'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waitFiveSeconds</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> now = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();</span><br><span class="line">    <span class="keyword">while</span>(((<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime() - now) &lt; <span class="number">5000</span>)&#123;&#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'finished waiting'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'click'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'click begin'</span>);</span><br><span class="line">waitFiveSeconds();</span><br></pre></td></tr></table></figure>
+<p>要想了解上述代码的输出结果，首先介绍下定时器。</p>
+<blockquote>
+<p>setTimeout 的作用是在间隔一定的时间后，将回调函数插入消息队列中，等栈中的同步任务都执行完毕后，再执行。因为栈中的同步任务也会耗时， 所以间隔的时间一般会大于等于指定的时间 。</p>
+<p>setTimeout(fn, 0) 的意思是，将回调函数fn立刻插入消息队列，等待执行，而不是立即执行。看一个例子：</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">setTimeout</span><span class="params">(function()</span></span> &#123;</span><br><span class="line">    console.log(<span class="string">"a"</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">for</span><span class="params">(let i=<span class="number">0</span>; i&lt;<span class="number">10000</span>; i++)</span></span> &#123;&#125;</span><br><span class="line">console.log(<span class="string">"b"</span>)</span><br><span class="line"><span class="comment">//打印结果，说明回调函数没有立即执行，而是等待同步任务执行完成后才执行的</span></span><br><span class="line"><span class="selector-tag">b</span> a</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下面来解释一下面试题吧。</p>
+<p>先执行同步任务，for循环，然后是console.log(‘click begin’) 最后是waitFiveSeconds函数</p>
+<p>在同步任务执行的期间，‘timera’，‘timerb’对应的回调和click事件的回调先后入队列。</p>
+<p>同步任务结束后，js引擎线程空闲后会线查看是否有事件可执行，接着在处理其他异步任务，因此会有下面的输出：</p>
+</blockquote>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">click begin</span><br><span class="line">finished waiting</span><br><span class="line"><span class="number">2</span> click  <span class="comment">//5s中两次点击</span></span><br><span class="line"><span class="section">timer</span> a</span><br><span class="line"><span class="section">timer</span> b</span><br><span class="line"><span class="number">2</span> click  <span class="comment">//5s后两次点击</span></span><br></pre></td></tr></table></figure>
+<p>ES6 诞生以前，异步编程的方法，大概有下面四种。</p>
+<ul>
+<li>回调函数</li>
+<li>事件监听</li>
+<li>发布/订阅</li>
+<li>Promise 对象</li>
+</ul>
+<p>而ES6引入了generator跟async函数</p>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>JavaScript 语言对异步编程的实现，就是回调函数。所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，就直接调用这个函数。回调函数的英语名字<code>callback</code>，直译过来就是”重新调用”。</p>
+<p>读取文件进行处理，是这样写的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/etc/passwd'</span>, <span class="string">'utf-8'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，<code>readFile</code>函数的第三个参数，就是回调函数，也就是任务的第二段。等到操作系统返回了<code>/etc/passwd</code>这个文件以后，回调函数才会执行。</p>
+<p>一个有趣的问题是，为什么 Node 约定，回调函数的第一个参数，必须是错误对象<code>err</code>（如果没有错误，该参数就是<code>null</code>）？</p>
+<p>原因是执行分成两段，第一段执行完以后，任务所在的上下文环境就已经结束了。在这以后抛出的错误，原来的上下文环境已经无法捕捉，只能当作参数，传入第二段。</p>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><p>回调函数本身并没有问题，它的问题出现在多个回调函数嵌套。假定读取<code>A</code>文件之后，再读取<code>B</code>文件，代码如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(fileA, <span class="string">'utf-8'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  fs.readFile(fileB, <span class="string">'utf-8'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>不难想象，如果依次读取两个以上的文件，就会出现多重嵌套。代码不是纵向发展，而是横向发展，很快就会乱成一团，无法管理。因为多个异步操作形成了强耦合，只要有一个操作需要修改，它的上层回调函数和下层回调函数，可能都要跟着修改。这种情况就称为”回调函数地狱”（callback hell）。</p>
+<p>Promise 对象就是为了解决这个问题而提出的。它不是新的语法功能，而是一种新的写法，允许将回调函数的嵌套，改成链式调用。采用 Promise，连续读取多个文件，写法如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> readFile = <span class="built_in">require</span>(<span class="string">'fs-readfile-promise'</span>);</span><br><span class="line"></span><br><span class="line">readFile(fileA)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> readFile(fileB);</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，我使用了<code>fs-readfile-promise</code>模块，它的作用就是返回一个 Promise 版本的<code>readFile</code>函数。Promise 提供<code>then</code>方法加载回调函数，<code>catch</code>方法捕捉执行过程中抛出的错误。</p>
+<p>可以看到，Promise 的写法只是回调函数的改进，使用<code>then</code>方法以后，异步任务的两段执行看得更清楚了，除此以外，并无新意。</p>
+<p>Promise 的最大问题是代码冗余，原来的任务被 Promise 包装了一下，不管什么操作，<u>一眼看去都是一堆</u><code>then</code>，原来的语义变得很不清楚。</p>
+<p>那么，有没有更好的写法呢？</p>
+<h3 id="generator"><a href="#generator" class="headerlink" title="generator"></a>generator</h3><p>从原生到promise到generator，我们来看三段代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//回调地狱版</span></span><br><span class="line"><span class="keyword">let</span> url1 = <span class="string">'http://xxx.xxx.1'</span>;</span><br><span class="line"><span class="keyword">let</span> url2 = <span class="string">'http://xxx.xxx.2'</span>;</span><br><span class="line"><span class="keyword">let</span> url3 = <span class="string">'http://xxx.xxx.3'</span>;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:url1,</span><br><span class="line">    error:<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;&#125;,</span><br><span class="line">    success:<span class="function"><span class="keyword">function</span> (<span class="params">data1</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data1);</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:url2,</span><br><span class="line">            data:data1,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;&#125;,</span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">data2</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(data2);</span><br><span class="line">                $.ajax(&#123;</span><br><span class="line">                    url:url3,</span><br><span class="line">                    data,</span><br><span class="line">                    error:<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;&#125;,</span><br><span class="line">                    success:<span class="function"><span class="keyword">function</span> (<span class="params">data3</span>) </span>&#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(data3);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// promise美化版</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">url,data = &#123;&#125;</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url,</span><br><span class="line">            data,</span><br><span class="line">            success:<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                resolve(data);</span><br><span class="line">            &#125;,</span><br><span class="line">            error:<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">                reject(error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> url1 = <span class="string">'http://xxx.xxx.1'</span>;</span><br><span class="line"><span class="keyword">let</span> url2 = <span class="string">'http://xxx.xxx.2'</span>;</span><br><span class="line"><span class="keyword">let</span> url3 = <span class="string">'http://xxx.xxx.3'</span>;</span><br><span class="line">request(url1)</span><br><span class="line">    .then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data);</span><br><span class="line">        <span class="keyword">return</span> request(url2,data)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data);</span><br><span class="line">        <span class="keyword">return</span> request(url3,data)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>发现每次调用下一个块，比如申请完url1，申请url2都要return一层，略显麻烦（其实我并不怎么觉得）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//generator</span></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> readFile = <span class="function"><span class="keyword">function</span> (<span class="params">fileName</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">    fs.readFile(fileName, <span class="function"><span class="keyword">function</span>(<span class="params">error, data</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (error) <span class="keyword">return</span> reject(error);</span><br><span class="line">      resolve(data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> gen = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> f1 = <span class="keyword">yield</span> readFile(<span class="string">'/etc/fstab'</span>);</span><br><span class="line">  <span class="keyword">var</span> f2 = <span class="keyword">yield</span> readFile(<span class="string">'/etc/shells'</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(f1.toString());</span><br><span class="line">  <span class="built_in">console</span>.log(f2.toString());</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> g = gen();</span><br><span class="line"></span><br><span class="line">g.next().value.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  g.next(data).value.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    g.next(data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>通过yield把调用顺序定制好，接下来只需要靠next()来走流程即可</p>
+<p>传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做”协程”（coroutine），意思是多个线程互相协作，完成异步任务。</p>
+<p>协程有点像函数，又有点像线程。它的运行流程大致如下。</p>
+<ul>
+<li>第一步，协程<code>A</code>开始执行。</li>
+<li>第二步，协程<code>A</code>执行到一半，进入暂停，执行权转移到协程<code>B</code>。</li>
+<li>第三步，（一段时间后）协程<code>B</code>交还执行权。</li>
+<li>第四步，协程<code>A</code>恢复执行。</li>
+</ul>
+<blockquote>
+<p>这即是中间件的思路</p>
+</blockquote>
+<p>上面流程的协程<code>A</code>，就是异步任务，因为它分成两段（或多段）执行。</p>
+<p>举例来说，读取文件的协程写法如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">asyncJob</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...其他代码</span></span><br><span class="line">  <span class="keyword">var</span> f = <span class="keyword">yield</span> readFile(fileA);</span><br><span class="line">  <span class="comment">// ...其他代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码的函数<code>asyncJob</code>是一个协程，它的奥妙就在其中的<code>yield</code>命令。它表示执行到此处，执行权将交给其他协程。也就是说，<code>yield</code>命令是异步两个阶段的分界线。</p>
+<p>协程遇到<code>yield</code>命令就暂停，等到执行权返回，再从暂停的地方继续往后执行。它的最大优点，就是代码的写法非常像同步操作，如果去除<code>yield</code>命令，简直一模一样。</p>
+<h2 id="开门见山谈使用"><a href="#开门见山谈使用" class="headerlink" title="开门见山谈使用"></a>开门见山谈使用</h2><p>身边逐渐都在使用Koa而淘汰Express，express有很多中间件，所以使用express的人很多。</p>
+<h3 id="express基本使用"><a href="#express基本使用" class="headerlink" title="express基本使用"></a>express基本使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express.js</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"><span class="comment">// 外联形式</span></span><br><span class="line"><span class="keyword">var</span> mid = <span class="function"><span class="keyword">function</span>(<span class="params">req,res,next</span>)</span>&#123;</span><br><span class="line">  req.body=<span class="string">'mark'</span></span><br><span class="line">  next()</span><br><span class="line">  res.send(req.body + <span class="string">'done'</span>)</span><br><span class="line">&#125;</span><br><span class="line">app.use(mid)</span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req,res,next</span>)</span>&#123;</span><br><span class="line"><span class="comment">//申请中间件，req主要用来获取请求的信息，res返回处理的结果，把当前函数的控制权转交给下一个代码的单元来处理，如果next里面传递一个参数的话，这也是符合nodejs的约定，就是说，如果这个时候出错了，它的错误信息作为一个参数，在next里面传递下去，也可以在这个中间件里面做很多事情，比如对body追加内容，可以内联的形式，也可以外联，内联就是在这里：</span></span><br><span class="line">	req.body=<span class="string">'saved'</span></span><br><span class="line">	next();</span><br><span class="line">	<span class="comment">// 外联的话就是定义在use外面</span></span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<p>// 当一个http请求进来后，首先会进入到mid这个中间件来，然后对body设置一个初始的字符串，然后调用next()，就会进入到下一个代码的单元，也就是新的一个use，就是saved那里，再调用next()，这是没有其他代码单元，就会回到mid里面去，去执行send，所以等代码运行结束后，我们在浏览器收到的内容为：<code>mark saved done</code></p>
+<p>以上即是express中间件的一个形态</p>
+<h3 id="express基本使用-异步"><a href="#express基本使用-异步" class="headerlink" title="express基本使用-异步"></a>express基本使用-异步</h3><p>如若我需要在中间件内加入异步代码：比如查一段数据，对远端api的调用,我们这里设置一个延时的函数，只要它是一个异步的任务，我们利用callback的形式，来控制中间件的控制权。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express.js</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="keyword">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"><span class="keyword">var</span> asyncIO = <span class="function"><span class="keyword">function</span><span class="params">(cb)</span></span>&#123;</span><br><span class="line">	setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		cb()</span><br><span class="line">	&#125;,<span class="number">500</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> mid = <span class="function"><span class="keyword">function</span><span class="params">(req,res,next)</span></span>&#123;</span><br><span class="line">  req.body=<span class="string">'mark'</span></span><br><span class="line">  next()</span><br><span class="line">  res.send(req.body + <span class="string">'done'</span>)</span><br><span class="line">&#125;</span><br><span class="line">app.<span class="keyword">use</span>(mid)</span><br><span class="line">app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span><span class="params">(req,res,next)</span></span>&#123;</span><br><span class="line">	asyncIO(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		req.body=<span class="string">'saved'</span></span><br><span class="line">		next();</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<p>如果异步的代码多了，尤其是并发的异步，层层的回调会让测试跟维护代码很复杂，特别是异常处理，都交给了下一层不透明，所以express的异步回调机制有点靠不住，再加上js越来越强，所以koa就<strong>横空出世</strong>了,那么它的中间件怎么来实现呢？我们传进去的function不再是普通function，而是一个generator函数</p>
+<h3 id="koa基本使用"><a href="#koa基本使用" class="headerlink" title="koa基本使用"></a>koa基本使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//koa.js</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> app = koa();</span><br><span class="line"><span class="keyword">var</span> asyncIO = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			resolve()</span><br><span class="line">		&#125;,<span class="number">500</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> mid = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> *(<span class="params">next</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.body = <span class="string">'mark'</span></span><br><span class="line">		yeild next</span><br><span class="line">		<span class="keyword">this</span>.body += <span class="string">'done'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br><span class="line">app.use(mid) <span class="comment">//调用中间件</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> *(<span class="params">next</span>)</span>&#123;</span><br><span class="line">	yeild asyncIO()</span><br><span class="line">	<span class="keyword">this</span>.body += <span class="string">'saved'</span></span><br><span class="line">	<span class="keyword">yield</span> next <span class="comment">//通过yeild来调用next</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>结果跟express差不多，但是至少没有了回调的过程，扁平化了</p>
+<h3 id="koa2基本使用"><a href="#koa2基本使用" class="headerlink" title="koa2基本使用"></a>koa2基本使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Koa2.js</span></span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()  <span class="comment">//新版本要用到new关键字</span></span><br><span class="line"><span class="keyword">const</span> asyncIO = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> setTimeout(resolve,<span class="number">500</span>))</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> mid = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">async</span>(ctx,next) =&gt; &#123;</span><br><span class="line">    ctx.body = <span class="string">'mark'</span></span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">    ctx.body = ctx.body + <span class="string">'done'</span></span><br><span class="line">&#125;</span><br><span class="line">app.use(mid())</span><br><span class="line">app.use(<span class="keyword">async</span>(ctx,next)=&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> asyncIO()</span><br><span class="line">    ctx.body += <span class="string">'saved'</span></span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">&#125; )</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>express 提供了next模式，可以在中间件做异步操作，但是仅限于异步完成后通知下一个中间件。而该中间件本身是无法执行异步完成之后的逻辑，next仅仅是一个同步函数，，执行完就结束了。koa用到了async  await  ,所有中间件本身的异步逻辑完成之后还可以完成后该中间件的后置逻辑，一次请求会往返该中间件两次，很多逻辑就会只变得异常简单，代码易于维护。、  异常处理在express 中其实挺坑爹的，但是koa中异常处理非常简单。不管是同步还是异步，用promise包装之后都能被捕获。</p>
+</blockquote>
+<h2 id="回归正题谈区别"><a href="#回归正题谈区别" class="headerlink" title="回归正题谈区别"></a>回归正题谈区别</h2><h3 id="异步流程控制"><a href="#异步流程控制" class="headerlink" title="异步流程控制"></a>异步流程控制</h3><p>Express 采用 callback 来处理异步，Koa v1 采用 generator，Koa v2 采用 async/await。<br>下面分别对 js 当中 callback、promise、generator、async/await 这四种异步流程控制进行了对比，<br>generator 和 async/await 使用同步的写法来处理异步，明显好于 callback 和 promise，async/await 在语义化上又要比 generator 更强。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// callback</span></span><br><span class="line"><span class="keyword">var</span> api1 = <span class="string">'https://anapioficeandfire.com/api/characters/583'</span></span><br><span class="line"><span class="keyword">var</span> api2 = <span class="string">'https://anapioficeandfire.com/api/characters/584'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchData</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    type: <span class="string">'GET'</span>,</span><br><span class="line">    url: api1,</span><br><span class="line">    dataType: <span class="string">'json'</span>,</span><br><span class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data1</span>) </span>&#123;</span><br><span class="line">      $.ajax(&#123;</span><br><span class="line">        type: <span class="string">'GET'</span>,</span><br><span class="line">        url: api2,</span><br><span class="line">        dataType: <span class="string">'json'</span>,</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">data2</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;data1.name&#125;</span> and <span class="subst">$&#123;data2.name&#125;</span> are two characters in Game of Thrones`</span>)</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchData()</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Promise</span></span><br><span class="line"><span class="keyword">var</span> api1 = <span class="string">'https://anapioficeandfire.com/api/characters/583'</span></span><br><span class="line"><span class="keyword">var</span> api2 = <span class="string">'https://anapioficeandfire.com/api/characters/584'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchData</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  fetch(api1).then(<span class="function"><span class="params">res1</span> =&gt;</span> &#123;</span><br><span class="line">    res1.json().then(<span class="function"><span class="params">data1</span> =&gt;</span> &#123;</span><br><span class="line">      fetch(api2).then(<span class="function"><span class="params">res2</span> =&gt;</span> &#123;</span><br><span class="line">        res2.json().then(<span class="function"><span class="params">data2</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;data1.name&#125;</span> and <span class="subst">$&#123;data2.name&#125;</span> are two characters in Game of Thrones`</span>))</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchData()</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// generator</span></span><br><span class="line"><span class="keyword">var</span> api1 = <span class="string">'https://anapioficeandfire.com/api/characters/583'</span></span><br><span class="line"><span class="keyword">var</span> api2 = <span class="string">'https://anapioficeandfire.com/api/characters/584'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">fetchData</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name1 = <span class="keyword">yield</span> request(api1)</span><br><span class="line">  <span class="keyword">var</span> name2 = <span class="keyword">yield</span> request(api2)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name1&#125;</span> and <span class="subst">$&#123;name2&#125;</span> are two characters in Game of Thrones`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">  fetch(url).then(<span class="function"><span class="params">res</span> =&gt;</span> res.json()).then(<span class="function"><span class="params">data</span> =&gt;</span> it.next(data.name))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> it = fetchData()</span><br><span class="line">it.next()</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// async/await</span></span><br><span class="line"><span class="keyword">var</span> api1 = <span class="string">'https://anapioficeandfire.com/api/characters/583'</span></span><br><span class="line"><span class="keyword">var</span> api2 = <span class="string">'https://anapioficeandfire.com/api/characters/584'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fetchData</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name1 = <span class="keyword">await</span> request(api1)</span><br><span class="line">  <span class="keyword">var</span> name2 = <span class="keyword">await</span> request(api2)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;name1&#125;</span> and <span class="subst">$&#123;name2&#125;</span> are two characters in Game of Thrones`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> fetch(url).then(<span class="function"><span class="params">res</span> =&gt;</span> res.json()).then(<span class="function"><span class="params">data</span> =&gt;</span> data.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchData()</span><br></pre></td></tr></table></figure>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>Express 使用 callback 捕获异常，对于深层次的异常捕获不了，<br>Koa 使用 try catch，能更好地解决异常捕获。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Express callback</span></span><br><span class="line"><span class="keyword">app</span>.<span class="keyword">use</span>(function (<span class="keyword">err</span>, req, res, next) &#123;</span><br><span class="line">  console.<span class="keyword">error</span>(<span class="keyword">err</span>.<span class="keyword">stack</span>)</span><br><span class="line">  res.status(500).send('Something broke!')</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Koa generator</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> *(<span class="params">next</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">yield</span> next</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="keyword">this</span>.status = err.status || <span class="number">500</span></span><br><span class="line">    <span class="keyword">this</span>.body = &#123; <span class="attr">message</span>: err.message &#125;</span><br><span class="line">    <span class="keyword">this</span>.app.emit(<span class="string">'error'</span>, err, <span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Koa async/await</span></span><br><span class="line"><span class="keyword">app</span>.<span class="keyword">use</span>(async (ctx, next) =&gt; &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    await next()</span><br><span class="line">  &#125; catch (<span class="keyword">err</span>) &#123;</span><br><span class="line">    ctx.status = <span class="keyword">err</span>.status || 500</span><br><span class="line">    ctx.body = &#123; message: <span class="keyword">err</span>.message &#125;</span><br><span class="line">    ctx.<span class="keyword">app</span>.emit('<span class="keyword">error</span>', <span class="keyword">err</span>, this)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>两者创建一个基础的 Web 服务都非常简单，写法也基本相同，最大的区别是路由处理 Express 是自身集成的，而 Koa 需要引入中间件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.send(<span class="string">'Hello World!'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.body = <span class="string">'Hello World'</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h3><p>Express 自身集成了视图功能，提供了 consolidate.js 功能，支持几乎所有 JavaScript 模板引擎，并提供了视图设置的便利方法。<br>Koa 需要引入 co-views 中间件。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Express</span></span><br><span class="line"><span class="keyword">var</span> express = require(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">set</span>(<span class="string">'views'</span>, __dirname + <span class="string">'/views'</span>)</span><br><span class="line">app.<span class="keyword">set</span>(<span class="string">'view engine'</span>, <span class="string">'jade'</span>)</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> </span>(req, res) &#123;</span><br><span class="line">  res.render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="type"></span>'bilibili<span class="string">'</span></span><br><span class="line"><span class="string">  &#125;)</span></span><br><span class="line"><span class="string">&#125;)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Koa</span></span><br><span class="line"><span class="keyword">var</span> koa = <span class="keyword">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">var</span> route = <span class="keyword">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"><span class="keyword">var</span> views = <span class="keyword">require</span>(<span class="string">'co-views'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> render = views(__dirname + <span class="string">'/views'</span>, &#123;</span><br><span class="line">  <span class="keyword">default</span>: <span class="string">"jade"</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">use</span>(route.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> *<span class="params">()</span> </span>&#123;</span><br><span class="line">  this.body = <span class="keyword">yield</span> render(<span class="string">'index'</span>, &#123;</span><br><span class="line">    title: <span class="string">'bilibili'</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<h3 id="HTTP-Request"><a href="#HTTP-Request" class="headerlink" title="HTTP Request"></a>HTTP Request</h3><p>两个框架都封装了HTTP Request对象，有一点不同是 Koa v1 使用 this 取代 Express 的 req、res。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Express</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'express'</span>)()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(req.params)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取POST数据需要 body-parser 中间件</span></span><br><span class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>)</span><br><span class="line">app.use(bodyParser.json())</span><br><span class="line">app.post(<span class="string">'/sendgift'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(req.body)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Koa</span></span><br><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">'koa'</span>)()</span><br><span class="line"><span class="keyword">var</span> route = <span class="built_in">require</span>(<span class="string">'koa-route'</span>)</span><br><span class="line"></span><br><span class="line">app.use(route.get(<span class="string">'/room/:id'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.req.query)</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取POST数据需要 co-body 中间件</span></span><br><span class="line"><span class="keyword">var</span> parse = <span class="built_in">require</span>(<span class="string">'co-body'</span>)</span><br><span class="line">app.use(route.post(<span class="string">'/sendgift'</span>, <span class="function"><span class="keyword">function</span> *(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> post = <span class="keyword">yield</span> parse(<span class="keyword">this</span>.request)</span><br><span class="line">  <span class="built_in">console</span>.log(post)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h3><p>优点：线性逻辑，通过中间件形式把业务逻辑细分、简化，一个请求进来经过一系列中间件处理后再响应给用户，清晰明了。<br>缺点：基于 callback 组合业务逻辑，业务逻辑复杂时嵌套过多，异常捕获困难。</p>
+<h3 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h3><p>优点：首先，借助 co 和 generator，很好地解决了异步流程控制和异常捕获问题。其次，Koa 把 Express 中内置的 router、view 等功能都移除了，使得框架本身更轻量。<br>缺点：社区相对较小。</p>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/nodejs/" rel="tag"><i class="fa fa-tag"></i> nodejs</a>
+          
+            <a href="/tags/Express/" rel="tag"><i class="fa fa-tag"></i> Express</a>
+          
+            <a href="/tags/Koa/" rel="tag"><i class="fa fa-tag"></i> Koa</a>
+          
+            <a href="/tags/异步/" rel="tag"><i class="fa fa-tag"></i> 异步</a>
+          
+            <a href="/tags/消息队列/" rel="tag"><i class="fa fa-tag"></i> 消息队列</a>
+          
+            <a href="/tags/事件循环/" rel="tag"><i class="fa fa-tag"></i> 事件循环</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019-11-10/difference01.html" rel="next" title="宏观任务[MacroTask]和微观任务[MicroTask]的执行">
+                 宏观任务[MacroTask]和微观任务[MicroTask]的执行 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">欢迎来到Abo的博客，博客以分享前端web知识、数据结构与算法、计算机基础为主，希望能帮到您ㄟ(😀)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="😋Taylor Swift Official Website😋" target="_blank">😋Taylor Swift Official Website😋</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jhjhljh.github.io/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#往事回顾谈异步"><span class="nav-number">1.</span> <span class="nav-text">往事回顾谈异步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进阶理解"><span class="nav-number">1.1.1.</span> <span class="nav-text">进阶理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列与事件循环"><span class="nav-number">1.1.2.</span> <span class="nav-text">消息队列与事件循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面试题实战"><span class="nav-number">1.1.3.</span> <span class="nav-text">面试题实战</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回调函数"><span class="nav-number">1.2.</span> <span class="nav-text">回调函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise"><span class="nav-number">1.3.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator"><span class="nav-number">1.4.</span> <span class="nav-text">generator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开门见山谈使用"><span class="nav-number">2.</span> <span class="nav-text">开门见山谈使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#express基本使用"><span class="nav-number">2.1.</span> <span class="nav-text">express基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#express基本使用-异步"><span class="nav-number">2.2.</span> <span class="nav-text">express基本使用-异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#koa基本使用"><span class="nav-number">2.3.</span> <span class="nav-text">koa基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#koa2基本使用"><span class="nav-number">2.4.</span> <span class="nav-text">koa2基本使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归正题谈区别"><span class="nav-number">3.</span> <span class="nav-text">回归正题谈区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异步流程控制"><span class="nav-number">3.1.</span> <span class="nav-text">异步流程控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误处理"><span class="nav-number">3.2.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.3.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Views"><span class="nav-number">3.4.</span> <span class="nav-text">Views</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-Request"><span class="nav-number">3.5.</span> <span class="nav-text">HTTP Request</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Express"><span class="nav-number">4.1.</span> <span class="nav-text">Express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Koa"><span class="nav-number">4.2.</span> <span class="nav-text">Koa</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+$("body").backstretch("http://pzdbj8uw8.bkt.clouddn.com/6_29.jpg");
+</script>
+</body>
+</html>
