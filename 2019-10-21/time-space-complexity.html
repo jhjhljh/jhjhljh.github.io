@@ -84,7 +84,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-21/time-space-complexity/startup-3267505_1280.jpg">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-21/time-space-complexity/849589-20180402133438219-1946132192.png">
-<meta property="og:updated_time" content="2019-10-23T14:04:22.739Z">
+<meta property="og:updated_time" content="2019-11-14T11:31:03.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="「时间」与「空间」复杂度">
 <meta name="twitter:description" content="实现一个栈，要求实现Push、Pop、Min的时间复杂度为O（1）,能否使空间复杂度也为O(1)">
@@ -550,9 +550,7 @@ $(function() {
       
 
       
-        <p class="description">实现一个栈，要求实现Push、Pop、Min的时间复杂度为O（1）,能否使空间复杂度也为O(1)</p>
-
-<p><img src="/2019-10-21/time-space-complexity/startup-3267505_1280.jpg" alt="startup-3267505_1280"></p>
+        <p></p><p class="description">实现一个栈，要求实现Push、Pop、Min的时间复杂度为O（1）,能否使空间复杂度也为O(1)</p><br><img src="/2019-10-21/time-space-complexity/startup-3267505_1280.jpg" alt="startup-3267505_1280"><p></p>
 <a id="more"></a>
 <p><blockquote class="question">时光未央，岁月静好</blockquote></p>
 <p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1392441664&auto=0&height=66"></iframe></p>
@@ -593,7 +591,7 @@ $(function() {
 <li>。。。。。。<br>故可以得到公式：<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">n</span> - <span class="number">1</span>) + (<span class="built_in">n</span> - <span class="number">2</span>) + (<span class="built_in">n</span> - <span class="number">3</span>) + ... + <span class="number">0</span></span><br><span class="line">= (<span class="number">0</span> + <span class="built_in">n</span> - <span class="number">1</span>) * <span class="built_in">n</span> / <span class="number">2</span></span><br><span class="line">= O (<span class="built_in">n</span> ^<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>++并不是所有的双重循环都是O(n^2)++:</p>
+<p><u>并不是所有的双重循环都是O(n^2):</u></p>
 <p>比如下面这段输出 30n 次 Hello Abo：）的代码。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printInformation</span> <span class="params">(<span class="keyword">int</span> n )</span></span>&#123;</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= n ; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= <span class="number">30</span> ; j ++)</span><br><span class="line">           <span class="built_in">cout</span>&lt;&lt; <span class="string">"Hello,Abo：）"</span>&lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="O-logn"><a href="#O-logn" class="headerlink" title="O(logn)"></a>O(logn)</h4><p>在二分查找法的代码中，通过while循环，成 2 倍数的缩减搜索范围，也就是说需要经过 log2^n 次即可跳出循环。<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">( <span class="keyword">int</span> arr[], <span class="keyword">int</span> n , <span class="keyword">int</span> <span class="keyword">target</span>)</span></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">while</span> ( l &lt;= r) &#123;</span><br><span class="line">     <span class="keyword">int</span> mid = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">     <span class="keyword">if</span> (arr[mid] == <span class="keyword">target</span>) <span class="keyword">return</span> mid;</span><br><span class="line">     <span class="keyword">if</span> (arr[mid] &gt; <span class="keyword">target</span> ) r = mid - <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>同样的还有下面两段代码也是 O(logn) 级别的时间复杂度。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">// 整形转成字符串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">intToString</span> <span class="params">( <span class="keyword">int</span> num )</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line">    <span class="comment">// n 经过几次“除以10”的操作后，等于0</span></span><br><span class="line">    <span class="keyword">while</span> (num )&#123;</span><br><span class="line">     s += <span class="string">'0'</span> + num%<span class="number">10</span>;</span><br><span class="line">     num /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(s)</span><br><span class="line">   <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span> <span class="params">(<span class="keyword">int</span> n )</span> </span>&#123;</span><br><span class="line">   <span class="comment">// n 除以几次 2 到 1</span></span><br><span class="line">   <span class="keyword">for</span> ( <span class="keyword">int</span> sz = <span class="number">1</span>; sz &lt; n ; sz += sz) </span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt; <span class="string">"Hello,Abo：）"</span>&lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -757,7 +755,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -766,7 +764,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -775,7 +773,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

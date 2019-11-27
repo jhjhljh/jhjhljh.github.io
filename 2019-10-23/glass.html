@@ -83,7 +83,7 @@
 <meta property="og:description" content="杯具题：厉害了我的杯 🙄  阅读理解：一个杯子定区间，一个杯子定位置，关键在于区间怎么划分。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-23/glass/wallhaven-gjmwz7.jpg">
-<meta property="og:updated_time" content="2019-10-24T14:38:21.538Z">
+<meta property="og:updated_time" content="2019-11-14T12:57:32.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="腾讯面试题--厉害了我的杯">
 <meta name="twitter:description" content="杯具题：厉害了我的杯 🙄  阅读理解：一个杯子定区间，一个杯子定位置，关键在于区间怎么划分。">
@@ -589,7 +589,7 @@ $(function() {
 </ul>
 <p>那么经过 x 次的尝试可以确定最高的楼层为 x + (x - 1) + (x - 2) + … + 1 = x(x+1) / 2 。</p>
 <p>那反过来，当最高楼层是100层，最少需要多少次呢？即 x(x+1)/2 &gt;= 100, 得到 x &gt;= 14 ，最少要尝试 14 次。</p>
-<h3 id="方案四：动态规划-为什么是k-1？"><a href="#方案四：动态规划-为什么是k-1？" class="headerlink" title="方案四：动态规划(为什么是k-1？)"></a>方案四：动态规划(为什么是k-1？)</h3><p>先思考上面的 <strong>分段查找区间法</strong> ，如果杯子的质量没那么好，在第 19 层就碎了，那么需要扔 11 次，这样比 99 楼刚好碎的情况要少很多次。</p>
+<h3 id="方案四：动态规划"><a href="#方案四：动态规划" class="headerlink" title="方案四：动态规划"></a>方案四：动态规划</h3><p>先思考上面的 <strong>分段查找区间法</strong> ，如果杯子的质量没那么好，在第 19 层就碎了，那么需要扔 11 次，这样比 99 楼刚好碎的情况要少很多次。</p>
 <p>那么问题来了：能否无论杯子的质量如何，不管是很好还是很差，都可以快速地找到。</p>
 <p>能！</p>
 <p>上面的分析都是从杯子的角度出发的，这样想要得到最少的尝试次数，似乎比较难。我们可以换个角度，从每个高度的楼层来看：<strong>如果，某个楼层是可以安全落下的，那么最少需要多少次尝试呢？</strong></p>
@@ -604,7 +604,7 @@ $(function() {
 <p>解决这两个问题，可以分别得到一个尝试次数 p 与 q，我们取这两个次数中的较大者(假设是 p )，将 p 与第 1 次在 i 层执行测试的这一次相加，则 p+1 就是第一次将杯子扔在 i 层来解决 W(2，100) 所需的最少测试次数，将其表示为<code>ti</code>。</p>
 <p>对于这 100 层楼的问题，第一次，我们可以把杯子扔在 100 层中的任何一层，所以可以得到 100 中解决方案的测试次数 <code>T{t1,t2,t3,……,t100}</code> ，在这些结果中，我们选取最小的 <code>ti</code>，使得对于集合 T 中任意的值 <code>tj(1 &lt;= j &lt;= 100,j != i)</code>，都有<code>ti &lt;= tj</code>，则 ti 就是这个问题的答案。</p>
 <p>用公式来描述就是：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W(n, k) = <span class="number">1</span> + min&#123;max(W(n <span class="number">-1</span>, x <span class="number">-1</span>), W(n, k - x))&#125;, x</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W(n, k) = <span class="number">1</span> + min&#123;max(W(n <span class="number">-1</span>, x <span class="number">-1</span>), W(n, k - x))&#125;, x in &#123;<span class="number">2</span>, <span class="number">3</span>, ……，k&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>其中x是第一次的测试的楼层位置</p>
 <p>其中W(1,k) = k（相当于 1 个杯子测试 k 层楼问题），W(0,k) = 0，W(n, 0) = 0</p>
@@ -727,7 +727,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -736,7 +736,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -745,7 +745,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -846,7 +846,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再度思考"><span class="nav-number">3.</span> <span class="nav-text">再度思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整理方案"><span class="nav-number">4.</span> <span class="nav-text">整理方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方案一：二分法"><span class="nav-number">4.1.</span> <span class="nav-text">方案一：二分法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案二：分段查找区间法"><span class="nav-number">4.2.</span> <span class="nav-text">方案二：分段查找区间法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案三：基于数学方程的方法"><span class="nav-number">4.3.</span> <span class="nav-text">方案三：基于数学方程的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案四：动态规划-为什么是k-1？"><span class="nav-number">4.4.</span> <span class="nav-text">方案四：动态规划(为什么是k-1？)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再度思考"><span class="nav-number">3.</span> <span class="nav-text">再度思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整理方案"><span class="nav-number">4.</span> <span class="nav-text">整理方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方案一：二分法"><span class="nav-number">4.1.</span> <span class="nav-text">方案一：二分法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案二：分段查找区间法"><span class="nav-number">4.2.</span> <span class="nav-text">方案二：分段查找区间法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案三：基于数学方程的方法"><span class="nav-number">4.3.</span> <span class="nav-text">方案三：基于数学方程的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案四：动态规划"><span class="nav-number">4.4.</span> <span class="nav-text">方案四：动态规划</span></a></li></ol></li></ol></div>
             
 
           </div>

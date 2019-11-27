@@ -85,7 +85,7 @@
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-29/Binary-Search/wallhaven-nmy7o1.jpg">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-29/Binary-Search/20191022230241.png">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-29/Binary-Search/20191022230411.png">
-<meta property="og:updated_time" content="2019-11-04T14:34:52.251Z">
+<meta property="og:updated_time" content="2019-11-13T10:44:22.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二分查找解题模版与题型 🎈">
 <meta name="twitter:description" content="实现int sqrt(int x)：计算并返回 x 的平方根，其中 x 是非负整数，由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。 记住不完备的二分算法写法所导致的死循环跟跳过查找的特例 🙄">
@@ -558,7 +558,7 @@ $(function() {
 <p><blockquote class="question">愿岁月静好，安然若素</blockquote></p>
 <p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1356173453&auto=0&height=66"></iframe></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>二分查找</strong>(Binary Search)算是最为基本的一个算法，也比较容易掌握。但是有些时候，我们可能因为一些细节的点没有考虑而导致程序出错，虽然这个算法比较简单，但文章也会有比较高级的应用，比如<strong>按值二分</strong>:近似sqrt操作。</p>
-<h2 id="什么是二分查找？"><a href="#什么是二分查找？" class="headerlink" title="什么是二分查找？"></a>什么是二分查找？</h2><p>比二分查找更简单的算法，我能想到的只有 ++遍历枚举++，说的直白些，就是写 for 循环。</p>
+<h2 id="什么是二分查找？"><a href="#什么是二分查找？" class="headerlink" title="什么是二分查找？"></a>什么是二分查找？</h2><p>比二分查找更简单的算法，我能想到的只有<u>遍历枚举</u>，说的直白些，就是 for 循环遍历而已。</p>
 <p>我们通常需要在一个数组当中找一个数，这个时候我们可以写一个 for 循环去挨个查找，这么下来，时间复杂度就会是<strong>O(n)</strong>。</p>
 <p>如果我告诉你，这个<strong>数组是排序好的</strong>，这时我们就可以使用二分查找去找这个数。</p>
 <p>我们可以选择数组中间的元素，这个中间元素会把数组分成前后两个相等的区间，如果我们要找的元素比中间元素要大，证明这个元素只可能在后半部分区间，我们就只需要去到后半部分区间用类似的方法再次查找。</p>
@@ -874,7 +874,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -883,7 +883,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -892,7 +892,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

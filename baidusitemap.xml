@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://jhjhljh.github.io/2019-11-09/brackets-problem.html</loc>
+    <loc>http://jhjhljh.github.io/2019-11-25/dynamic-programming-02.html</loc>
+    <lastmod>2019-11-27</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-11-14/dynamic-programming.html</loc>
+    <lastmod>2019-11-25</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-10-26/music01.html</loc>
+    <lastmod>2019-11-20</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-11-20/cats-and-dogs.html</loc>
+    <lastmod>2019-11-20</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-10-30/lesson.html</loc>
+    <lastmod>2019-11-16</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-10-23/glass.html</loc>
+    <lastmod>2019-11-14</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-10-21/time-space-complexity.html</loc>
+    <lastmod>2019-11-14</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-11-13/webpack.html</loc>
     <lastmod>2019-11-13</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-05/horse-thief.html</loc>
     <lastmod>2019-11-13</lastmod>
   </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-26/music01.html</loc>
+    <loc>http://jhjhljh.github.io/2019-10-29/Binary-Search.html</loc>
+    <lastmod>2019-11-13</lastmod>
+  </url>  <url>
+    <loc>http://jhjhljh.github.io/2019-11-09/brackets-problem.html</loc>
     <lastmod>2019-11-13</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-06-05/music00.html</loc>
@@ -18,9 +42,6 @@
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-10/difference01.html</loc>
     <lastmod>2019-11-12</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-30/lesson.html</loc>
-    <lastmod>2019-11-11</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-09/this-apply-call-bind.html</loc>
     <lastmod>2019-11-10</lastmod>
@@ -48,9 +69,6 @@
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-11-04/man-in-the-middle-attack.html</loc>
     <lastmod>2019-11-06</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-29/Binary-Search.html</loc>
-    <lastmod>2019-11-04</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-10-29/water-problem.html</loc>
     <lastmod>2019-11-04</lastmod>
@@ -144,12 +162,6 @@
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-10-24/stones-problem.html</loc>
     <lastmod>2019-10-25</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-23/glass.html</loc>
-    <lastmod>2019-10-24</lastmod>
-  </url>  <url>
-    <loc>http://jhjhljh.github.io/2019-10-21/time-space-complexity.html</loc>
-    <lastmod>2019-10-23</lastmod>
   </url>  <url>
     <loc>http://jhjhljh.github.io/2019-05-20/wechatVote.html</loc>
     <lastmod>2019-06-09</lastmod>

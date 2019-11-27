@@ -83,7 +83,7 @@
 <meta property="og:description" content="オレは海贼王になる男だ！ ​                                             ——路飞">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-10-30/lesson/11904651_p0.png">
-<meta property="og:updated_time" content="2019-11-11T02:31:03.721Z">
+<meta property="og:updated_time" content="2019-11-16T08:47:41.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些零散的笔记与目标">
 <meta name="twitter:description" content="オレは海贼王になる男だ！ ​                                             ——路飞">
@@ -511,7 +511,7 @@ $(function() {
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  4k
+                  5.2k
                 </span>
               
 
@@ -527,7 +527,7 @@ $(function() {
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  15
+                  20
                 </span>
               
             </div>
@@ -671,8 +671,44 @@ $(function() {
 <p>在根目录下再新建一个vender.js，来对一些函数进行一些封装，包括暴露一些全局的变量，因为在webpack里面编译的时候需要在小程序拿到一些外部的变量。</p>
 <h3 id="Vue-Nodejs-MongoDB-–DAY-3"><a href="#Vue-Nodejs-MongoDB-–DAY-3" class="headerlink" title="Vue+Nodejs+MongoDB  –DAY 3"></a>Vue+Nodejs+MongoDB  –DAY 3</h3><ul>
 <li>购买阿里云，等待了解机制结构，以及域名，然后部署博客</li>
-<li></li>
 </ul>
+<h3 id="js中的reduce"><a href="#js中的reduce" class="headerlink" title="js中的reduce"></a>js中的reduce</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">arr</span><span class="selector-class">.reduce</span>(<span class="selector-tag">callback</span>(<span class="selector-tag">accumulator</span>, <span class="selector-tag">currentValue</span><span class="selector-attr">[, index[, array]</span>])<span class="selector-attr">[, initialValue]</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">accumulator, currentValue</span>) =&gt;</span> accumulator + currentValue;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1 + 2 + 3 + 4</span></span><br><span class="line"><span class="built_in">console</span>.log(array1.reduce(reducer));</span><br><span class="line"><span class="comment">// expected output: 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5 + 1 + 2 + 3 + 4</span></span><br><span class="line"><span class="built_in">console</span>.log(array1.reduce(reducer, <span class="number">5</span>));</span><br><span class="line"><span class="comment">// expected output: 15</span></span><br></pre></td></tr></table></figure>
+<h3 id="lodash中的reduce"><a href="#lodash中的reduce" class="headerlink" title="lodash中的reduce"></a>lodash中的reduce</h3><p><strong><em>.reduce(collection, [iteratee=</em>.identity], [accumulator])</strong></p>
+<p> iteratee 会传入4个参数：(accumulator, value, index|key, collection)。</p>
+<p>故一个是用数组调用，一个是拿_调用reduce，注意参数不一样</p>
+<p>（重构小程序失败，已弃坑）</p>
+<h3 id="Vue-js-SSR-实现思路"><a href="#Vue-js-SSR-实现思路" class="headerlink" title="Vue.js SSR 实现思路"></a>Vue.js SSR 实现思路</h3><p>SSR：server-side rendering 服务端渲染，直接对前端返回数据并且是渲染好的html页面，不是返回一个空的html页面，剩下的数据全部借助vue来发出一个个异步的请求获取到数据后填充到页面中，为什么要这么干？最直接的页面是为了SEO问题，无论是angularjs跟react都面临都面临seo优化的问题，当然这么干，首屏加载可以更快，用户体验更好。最重要的还是SEO，产品希望被百度谷歌收录进行排名，进一步被用户搜索到，进一步实现品牌的推广，这一切的先决条件就是爬虫爬得到，比如百度，那肯定带数据的完整的html页面才是它们的最爱，任何异步的东西都可能让爬虫望而却步，那在异步的基础上做的技术条件能否让爬虫有机会获取到呢？答案是可以的，但是要付出比较高的技术代价，成本不太乐观，那么在vue里面如何实现SSR呢？如何输出带数据的html页面呢？</p>
+<p>我们通过伪代码的形式来理解vue跟ssr</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//app.js</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;&#125;) <span class="comment">//实例</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;&#125;) <span class="comment">//数据模型</span></span><br><span class="line"><span class="comment">//视图组件</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router(&#123;</span><br><span class="line">	routes: [</span><br><span class="line">		&#123;<span class="attr">path</span>: <span class="string">'/p1'</span>,<span class="attr">component</span>:Page1&#125;</span><br><span class="line">		&#123;<span class="attr">path</span>: <span class="string">'/p2'</span>,<span class="attr">component</span>:Page2&#125;</span><br><span class="line">		&#123;<span class="attr">path</span>: <span class="string">'/p3'</span>,<span class="attr">component</span>:Page3&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// entry-server.js</span></span><br><span class="line"><span class="comment">//暴露一个能拿到上下文对象的函数</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> context &#123;</span><br><span class="line">	router.push(context.url)<span class="comment">//把当前htttp请求的url地址push到router里面</span></span><br><span class="line">	<span class="comment">//返回一个promise</span></span><br><span class="line">	<span class="comment">//通过context的url交给路由，然后通过getmatchedComponent拿到对应的组件，遍历组件，是否需要服务端数据，需要的话就请回来，搞完之后再渲染，所以是在服务端完成，而不是在浏览器</span></span><br><span class="line">	<span class="keyword">return</span> promise.all(router.getMatchedComponents().map(</span><br><span class="line">		component =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span>(component.fetchServerData) &#123;</span><br><span class="line">				<span class="keyword">return</span> component.fetchServerData(store)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	))</span><br><span class="line">	.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">		context.state = store.state</span><br><span class="line">		<span class="keyword">return</span> app</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">store.repalceState(<span class="built_in">window</span>.__initisl_state__)</span><br><span class="line">app.$mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Nuxt前后端同构SSR框架"><a href="#Nuxt前后端同构SSR框架" class="headerlink" title="Nuxt前后端同构SSR框架"></a>Nuxt前后端同构SSR框架</h3><p>如果只是极少数页面需要seo，可以借助webpack插件来做prerendering，也就是预渲染。</p>
+<p>react社区推出nuxtjs框架后，vue也开发了真正属于自己的前后端同步的框架就是nuxt.js，如果你想有个更高水平的SSR方案来提供更加好的公众体验，通过nuxt.js构建的项目能让你用同一套代码实现客户端页面的开发又能满足SEO</p>
+<p>在nuxt里面已经集成了webpack，也不用我们手动搭建ssr本身，省时省力，我们可以基于nuxt来开发了，但还没达到稳定的状态。</p>
+<p>先确保已经装了vue脚手架 -g</p>
+<p>vue init next/koa xxx</p>
+<p>assets资源目录，未编译的静态资源，比如sass之类的</p>
+<p>components用来组织组件</p>
+<p>layouts是布局，项目使用到前端页面的所使用的默认布局组件</p>
+<p>middleware放应用的中间件</p>
+<p>pages放视图/路由，根据文件路径生产 路由配置</p>
+<p>plugins放vuejs实例化之前需要运行的插件</p>
+<p>static放静态文件，这里的静态文件是不会被nuxt的webpack进行编译构建的</p>
+<p>server里面放nodejs后台的东西 mongodb之类的</p>
+<p>store里面放vuex状态树的 文件</p>
+<p>backpack.config.js webpack配置</p>
+<p>nuxt.config.js nuxt配置</p>
+<blockquote>
+<p>可以把assets放到static里面，middleware放到server里面</p>
+<p>然后更改nuxt.config.js配置</p>
+</blockquote>
+<h3 id="pug-jade后端模板引擎"><a href="#pug-jade后端模板引擎" class="headerlink" title="pug/jade后端模板引擎"></a>pug/jade后端模板引擎</h3><p>比如网页里面有图片文字，这些都可以看成网页中的数据，可以是写死的内容，可以是数据库的内容，如果是写死直接返回浏览器，如果是动态数据，还需要检索出来替换到html里面，替换的过程就需要某种技术来实现。比如替换到占位符里面，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- var text = &apos;abc&apos;</span><br><span class="line">p#desc</span><br><span class="line">  a.link(href=&apos;xxx&apos;) 链接 &lt;strong&gt;abc&lt;/strong&gt;</span><br><span class="line">  span #&#123;text&#125; //替换变量</span><br><span class="line">  </span><br><span class="line">if isText</span><br><span class="line">  p aaa //p标签，内容是aaa</span><br><span class="line">else</span><br><span class="line">  p bbb</span><br><span class="line">  </span><br><span class="line">- obj = &#123;a:1,b:2&#125;</span><br><span class="line">- for (var k in obj)</span><br><span class="line">  p = obj[k]</span><br><span class="line">  </span><br><span class="line">- each v,key in obj</span><br><span class="line">  p #&#123;key&#125;: #&#123;v&#125;</span><br><span class="line">  </span><br><span class="line">maxin sec(name)</span><br><span class="line">  p abc #&#123;name&#125;</span><br><span class="line">  </span><br><span class="line">+sec(1)</span><br><span class="line">+sec(2)</span><br></pre></td></tr></table></figure>
+<p>注意.link指的是class</p>
+<p>可以有原生标签</p>
+<h3 id="模型工具操作数据库"><a href="#模型工具操作数据库" class="headerlink" title="模型工具操作数据库"></a>模型工具操作数据库</h3><p>mongoose 连接nodejs mongodb的一个库</p>
+<p>核心三个概念</p>
+<p>schema -&gt; model -&gt;  entity    </p>
+<h3 id="为什么推荐GraphQL-而不是-Restful-API"><a href="#为什么推荐GraphQL-而不是-Restful-API" class="headerlink" title="为什么推荐GraphQL 而不是 Restful API"></a>为什么推荐GraphQL 而不是 Restful API</h3><h3 id="Vue-Nodejs-MongoDB-–DAY-4"><a href="#Vue-Nodejs-MongoDB-–DAY-4" class="headerlink" title="Vue+Nodejs+MongoDB  –DAY 4"></a>Vue+Nodejs+MongoDB  –DAY 4</h3><p>隧道：Ngrok魔法隧道</p>
 <h2 id="other"><a href="#other" class="headerlink" title="other"></a>other</h2><h3 id="狗屁不通文章生成器"><a href="#狗屁不通文章生成器" class="headerlink" title="狗屁不通文章生成器"></a>狗屁不通文章生成器</h3><p><a href="https://suulnnka.github.io/BullshitGenerator/index.html" target="_blank" rel="noopener">https://suulnnka.github.io/BullshitGenerator/index.html</a> </p>
 <hr>
       
@@ -789,7 +825,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -798,7 +834,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -807,7 +843,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -908,7 +944,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webstorm"><span class="nav-number">1.</span> <span class="nav-text">webstorm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element"><span class="nav-number">2.</span> <span class="nav-text">element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">3.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuejs实战"><span class="nav-number">4.</span> <span class="nav-text">vuejs实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-1"><span class="nav-number">4.1.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.1.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-2"><span class="nav-number">4.2.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Koa-Express"><span class="nav-number">4.2.1.</span> <span class="nav-text">Koa Express</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-3"><span class="nav-number">4.3.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">5.</span> <span class="nav-text">other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#狗屁不通文章生成器"><span class="nav-number">5.1.</span> <span class="nav-text">狗屁不通文章生成器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webstorm"><span class="nav-number">1.</span> <span class="nav-text">webstorm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element"><span class="nav-number">2.</span> <span class="nav-text">element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">3.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuejs实战"><span class="nav-number">4.</span> <span class="nav-text">vuejs实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-1"><span class="nav-number">4.1.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.1.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-2"><span class="nav-number">4.2.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Koa-Express"><span class="nav-number">4.2.1.</span> <span class="nav-text">Koa Express</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-3"><span class="nav-number">4.3.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js中的reduce"><span class="nav-number">4.4.</span> <span class="nav-text">js中的reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lodash中的reduce"><span class="nav-number">4.5.</span> <span class="nav-text">lodash中的reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-js-SSR-实现思路"><span class="nav-number">4.6.</span> <span class="nav-text">Vue.js SSR 实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nuxt前后端同构SSR框架"><span class="nav-number">4.7.</span> <span class="nav-text">Nuxt前后端同构SSR框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pug-jade后端模板引擎"><span class="nav-number">4.8.</span> <span class="nav-text">pug/jade后端模板引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型工具操作数据库"><span class="nav-number">4.9.</span> <span class="nav-text">模型工具操作数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么推荐GraphQL-而不是-Restful-API"><span class="nav-number">4.10.</span> <span class="nav-text">为什么推荐GraphQL 而不是 Restful API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Nodejs-MongoDB-–DAY-4"><span class="nav-number">4.11.</span> <span class="nav-text">Vue+Nodejs+MongoDB  –DAY 4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">5.</span> <span class="nav-text">other</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#狗屁不通文章生成器"><span class="nav-number">5.1.</span> <span class="nav-text">狗屁不通文章生成器</span></a></li></ol></li></ol></div>
             
 
           </div>
