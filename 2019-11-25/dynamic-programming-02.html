@@ -74,16 +74,19 @@
 
 
 
+<meta name="description" content="收录：序列化动态规划问题">
 <meta name="keywords" content="算法,动态规划">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态规划集锦其二（Dynamic programming，简称DP）">
 <meta property="og:url" content="http://jhjhljh.github.io/2019-11-25/dynamic-programming-02.html">
 <meta property="og:site_name" content="Abo">
+<meta property="og:description" content="收录：序列化动态规划问题">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jhjhljh.github.io/2019-11-25/dynamic-programming-02/SharedScreenshot.jpg">
-<meta property="og:updated_time" content="2019-11-27T03:27:59.173Z">
+<meta property="og:updated_time" content="2019-11-28T12:32:13.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划集锦其二（Dynamic programming，简称DP）">
+<meta name="twitter:description" content="收录：序列化动态规划问题">
 <meta name="twitter:image" content="http://jhjhljh.github.io/2019-11-25/dynamic-programming-02/SharedScreenshot.jpg">
 
 
@@ -510,7 +513,7 @@ $(function() {
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  49
+                  4.2k
                 </span>
               
 
@@ -526,7 +529,7 @@ $(function() {
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  1
+                  17
                 </span>
               
             </div>
@@ -548,32 +551,142 @@ $(function() {
       
 
       
-        <p></p><p class="description"></p><br><img src="/2019-11-25/dynamic-programming-02/SharedScreenshot.jpg" alt="SharedScreenshot"><p></p>
+        <p></p><p class="description">收录：序列化动态规划问题</p><br><img src="/2019-11-25/dynamic-programming-02/SharedScreenshot.jpg" alt="SharedScreenshot"><p></p>
 <a id="more"></a>
 <p><blockquote class="question">内容</blockquote><br>
-        <div id="aplayer-BDWZXtau" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-MalryufL" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-BDWZXtau"),
+            element: document.getElementById("aplayer-MalryufL"),
             narrow: false,
-            autoplay: true,
+            autoplay: false,
             showlrc: false,
             music: {
-              title: "Faded (Restrung)",
-              author: "Alan Walker",
-              url: "http://prc4nro7n.bkt.clouddn.com/faded.mp3",
-              pic: "http://prc4nro7n.bkt.clouddn.com/faded.jpg",
+              title: "lover(remix)",
+              author: "Taylor Swift /  Shawn Mendes",
+              url: "http://q0wdbq8u6.bkt.clouddn.com/lover%28remix%29.mp3",
+              pic: "http://q0wdbq8u6.bkt.clouddn.com/109951164485490984.jpg",
               lrc: ""
             }
           });
           window.aplayers || (window.aplayers = []);
           window.aplayers.push(ap);
         </script></p>
-<p>##</p>
-<p>##</p>
-<p>##</p>
+<h2 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a>最长上升子序列</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>LeetCode 第 300 号问题：最长上升子序列。给定一个无序的整数数组，找到其中最长上升子序列的长度。</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [<span class="number">10,9,2,5</span>,<span class="number">3,7,101,18</span>]</span><br><span class="line">输出: <span class="number">4</span> </span><br><span class="line">解释: 最长的上升子序列是 [<span class="number">2,3,7,101</span>]，它的长度是 <span class="number">4</span>。</span><br></pre></td></tr></table></figure>
+<p><strong>说明:</strong></p>
+<ul>
+<li>可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。</li>
+<li>你算法的时间复杂度应该为 O(n2) 。</li>
+</ul>
+<p><strong>进阶:</strong> 你能将算法的时间复杂度降低到 O(n log n) 吗?</p>
+<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>给定一个数组，求最长递增子序列。<strong>因为是子序列，这样对于每个位置的元素其实都存在两种可能，就是选和不选</strong>，如果我们用暴力的解法，枚举出所有的子序列，然后判断他们是不是递增的，选取最大的递增序列，这样做的话，时间复杂度是 O(2^n)，显然不高效。</p>
+<p>那这里我们就需要思考用动态规划进行优化，我们按之前的四个步骤来具体分析一下：</p>
+<ul>
+<li><p>问题拆解</p>
+<p>我们要求解的问题是 “数组中最长递增子序列”，一个子序列虽然不是连续的区间，但是它依然有起点和终点，比如：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">101</span>,<span class="number">18</span>]</span><br><span class="line">子序列 [<span class="number">2</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">18</span>] 的起始位置是 <span class="number">2</span>，终止位置是 <span class="number">18</span></span><br><span class="line">子序列 [<span class="number">5</span>,<span class="number">7</span>,<span class="number">101</span>] 的起始位置是 <span class="number">5</span>，终止位置是 <span class="number">101</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>状态定义</p>
+<p>问题拆解中我们提到 “第 i 个问题和前 i - 1 个问题有关”，也就是说 “如果我们要求解第 i 个问题的解，那么我们必须考虑前 i - 1 个问题的解”，我们定义 <strong>dp[i] 表示以位置 i 结尾的子序列的最大长度</strong>，也就是说 dp[i] 里面记录的答案保证了该答案表示的子序列以位置 i 结尾。</p>
+</li>
+<li><p>递推方程</p>
+<p>对于 i 这个位置，我们需要考虑前 i - 1 个位置，看看哪些位置可以拼在 i 位置之前，如果有多个位置可以拼在 i 之前，那么必须选最长的那个，这样一分析，递推方程就有了：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp<span class="string">[i]</span> = Math.max(dp<span class="string">[j]</span>,...,dp<span class="string">[k]</span>) + <span class="number">1</span>, </span><br><span class="line">其中inputArray<span class="string">[j]</span> &lt; inputArray<span class="string">[i]</span>, inputArray<span class="string">[k]</span> &lt; inputArray<span class="string">[i]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现</p>
+<p>在实现这里，我们需要考虑状态数组的初始化，因为对于每个位置，它本身其实就是一个序列，因此所有位置的状态都可以初始化为 1。</p>
+</li>
+</ul>
+<p>最后提一下，对于这道题来说，这种方法其实不是最优的，但是在这里的话就不展开讲了，理解序列类动态规划的解题思路是关键。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">int</span> lengthOfLIS(<span class="built_in">int</span>[] nums) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// dp[i] -&gt; the longest length sequence from 0 - i, and must include nums[i]</span></span><br><span class="line">    <span class="built_in">int</span>[] dp = <span class="keyword">new</span> <span class="built_in">int</span>[nums.length];</span><br><span class="line">    Arrays.<span class="built_in">fill</span>(dp, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">max</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; i; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; nums[j]) &#123;</span><br><span class="line">                dp[i] = Math.<span class="built_in">max</span>(dp[j] + <span class="number">1</span>, dp[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">max</span> = Math.<span class="built_in">max</span>(<span class="built_in">max</span>, dp[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="粉刷房子"><a href="#粉刷房子" class="headerlink" title="粉刷房子"></a>粉刷房子</h2><h3 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h3><p>LeetCode 第 256 号问题：粉刷房子。</p>
+<p>假如有一排房子，共 <em>n</em> 个，每个房子可以被粉刷成红色、蓝色或者绿色这三种颜色中的一种，你需要粉刷所有的房子并且使其相邻的两个房子颜色不能相同。</p>
+<p>当然，因为市场上不同颜色油漆的价格不同，所以房子粉刷成不同颜色的花费成本也是不同的。每个房子粉刷成不同颜色的花费是以一个 <em>n x 3</em> 的矩阵来表示的。</p>
+<p>例如，<code>costs[0][0]</code>表示第 0 号房子粉刷成红色的成本花费；<code>costs[1][2]</code>表示第 1 号房子粉刷成绿色的花费，以此类推。请你计算出粉刷完所有房子最少的花费成本。</p>
+<p><strong>注意：</strong></p>
+<p>所有花费均为正整数。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: <span class="string">[[17,2,17],[16,16,5],[14,3,19]]</span></span><br><span class="line">输出: <span class="number">10</span></span><br><span class="line">解释: 将 <span class="number">0</span> 号房子粉刷成蓝色，<span class="number">1</span> 号房子粉刷成绿色，<span class="number">2</span> 号房子粉刷成蓝色。</span><br><span class="line">     最少花费: <span class="number">2</span> + <span class="number">5</span> + <span class="number">3</span> = <span class="number">10</span>。</span><br></pre></td></tr></table></figure>
+<h3 id="思考-1"><a href="#思考-1" class="headerlink" title="思考"></a>思考</h3><p>给 n 个房子刷油漆，有三种颜色的油漆可以刷，必须保证相邻房子的颜色不能相同，输入是一个 n x 3 的数组，表示每个房子使用每种油漆所需要花费的价钱，求刷完所有房子的最小价值。</p>
+<p>还是按原来的思考方式走一遍：</p>
+<ul>
+<li><p>问题拆解</p>
+<p>对于每个房子来说，都可以使用三种油漆当中的一种，如果说不需要保证相邻的房子的颜色必须不同，那么整个题目会变得非常简单，每个房子直接用最便宜的油漆刷就好了，但是加上这个限制条件，你会发现刷第 i 个房子的花费其实是和前面 i - 1 个房子的花费以及选择相关，如果说我们需要知道第 i 个房子使用第 k 种油漆的最小花费，那么你其实可以思考第 i - 1 个房子如果不用该油漆的最小花费，这个最小花费是考虑从 0 到当前位置所有的房子的。</p>
+</li>
+<li><p>状态定义</p>
+<p>通过之前的问题拆解步骤，状态可以定义成 dp[i][k]，表示如果第 i 个房子选择第 k 个颜色，那么从 0 到 i 个房子的最小花费</p>
+</li>
+<li><p>递推方程</p>
+<p>基于之前的状态定义，以及相邻的房子不能使用相同的油漆，那么递推方程可以表示成：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="string">i</span>][<span class="symbol">k</span>] = Math.min(dp[<span class="string">i - 1</span>][<span class="symbol">l</span>], ..., dp[<span class="string">i - 1</span>][<span class="symbol">r</span>]) + costs[<span class="string">i</span>][<span class="symbol">k</span>]， l != k, r != k</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现</p>
+<p>因为我们要考虑 i - 1 的情况，但是第 0 个房子并不存在 i - 1 的情况，因此我们可以把第 0 个房子的最小花费存在状态数组中，当然你也可以多开一格 dp 状态，其实都是一样的。</p>
+</li>
+</ul>
+<p>对于这道题目，你可能会问这不是和矩阵类动态规划类似吗？</p>
+<p>如果单从房子来考虑的确是，但是对于颜色的话，我们必须考虑考虑相邻房子的所有颜色，这就有点序列的意思在里面了。</p>
+<p>另外对于题目的分类其实没有严格的限定，主要是为了把相类似的问题放在一起，这样有便于分析问题思路。</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public int minCost(int<span class="string">[]</span><span class="string">[]</span> costs) &#123;</span><br><span class="line">    if (costs == null || costs.length == <span class="number">0</span>) &#123;</span><br><span class="line">        return <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    int n = costs.length;</span><br><span class="line"></span><br><span class="line">    int<span class="string">[]</span><span class="string">[]</span> dp = new int<span class="string">[n]</span><span class="string">[3]</span>;</span><br><span class="line"></span><br><span class="line">    for (int i = <span class="number">0</span>; i &lt; costs<span class="string">[0]</span>.length; ++i) &#123;</span><br><span class="line">        dp<span class="string">[0]</span><span class="string">[i]</span> = costs<span class="string">[0]</span><span class="string">[i]</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (int i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        dp<span class="string">[i]</span><span class="string">[0]</span> = Math.min(dp<span class="string">[i - 1]</span><span class="string">[1]</span>, dp<span class="string">[i - 1]</span><span class="string">[2]</span>) + costs<span class="string">[i]</span><span class="string">[0]</span>;</span><br><span class="line">        dp<span class="string">[i]</span><span class="string">[1]</span> = Math.min(dp<span class="string">[i - 1]</span><span class="string">[0]</span>, dp<span class="string">[i - 1]</span><span class="string">[2]</span>) + costs<span class="string">[i]</span><span class="string">[1]</span>;</span><br><span class="line">        dp<span class="string">[i]</span><span class="string">[2]</span> = Math.min(dp<span class="string">[i - 1]</span><span class="string">[0]</span>, dp<span class="string">[i - 1]</span><span class="string">[1]</span>) + costs<span class="string">[i]</span><span class="string">[2]</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return Math.min(dp<span class="string">[n - 1]</span><span class="string">[0]</span>, Math.min(dp<span class="string">[n - 1]</span><span class="string">[1]</span>, dp<span class="string">[n - 1]</span><span class="string">[2]</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="粉刷房子II"><a href="#粉刷房子II" class="headerlink" title="粉刷房子II"></a>粉刷房子II</h2><h3 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h3><p>LeetCode 第 265 号问题：粉刷房子II。</p>
+<p>假如有一排房子，共 <em>n</em> 个，每个房子可以被粉刷成 <em>k</em> 种颜色中的一种，你需要粉刷所有的房子并且使其相邻的两个房子颜色不能相同。</p>
+<p>当然，因为市场上不同颜色油漆的价格不同，所以房子粉刷成不同颜色的花费成本也是不同的。每个房子粉刷成不同颜色的花费是以一个 <em>n x k</em> 的矩阵来表示的。</p>
+<p>例如，<code>costs[0][0]</code> 表示第 0 号房子粉刷成 0 号颜色的成本花费；<code>costs[1][2]</code> 表示第 1 号房子粉刷成 2 号颜色的成本花费，以此类推。请你计算出粉刷完所有房子最少的花费成本。</p>
+<p><strong>注意：</strong></p>
+<p>所有花费均为正整数。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,5,3],[2,9,4]]</span><br><span class="line">输出: 5</span><br><span class="line">解释: 将<span class="number"> 0 </span>号房子粉刷成<span class="number"> 0 </span>号颜色，1 号房子粉刷成<span class="number"> 2 </span>号颜色。最少花费:<span class="number"> 1 </span>+<span class="number"> 4 </span>= 5; </span><br><span class="line">     或者将<span class="number"> 0 </span>号房子粉刷成<span class="number"> 2 </span>号颜色，1 号房子粉刷成<span class="number"> 0 </span>号颜色。最少花费:<span class="number"> 3 </span>+<span class="number"> 2 </span>= 5.</span><br></pre></td></tr></table></figure>
+<p><strong>进阶：</strong><br>您能否在 <em>O(nk)</em> 的时间复杂度下解决此问题？</p>
+<h3 id="思考-2"><a href="#思考-2" class="headerlink" title="思考"></a>思考</h3><p>上面那道题目的 follow up，现在不是三种油漆，而是 k 种油漆。</p>
+<p>其实解题思路还是不变。</p>
+<p>对于第 i 个房子的每种颜色，我们对比看第 i - 1 个房子的 k 种油漆，找到不相重的最小值就好，但是这里的时间复杂度是 O(n*k^2)。</p>
+<p>其实这是可以优化的，我们只需要在第 i - 1 个位置的状态中找到最大值和次大值，在选择第 i 个房子的颜色的时候，我们看当前颜色是不是和最大值的颜色相重，不是的话直接加上最大值，如果相重的话，我们就加上次大值，这样一来，我们把两个嵌套的循环，拆开成两个平行的循环，时间复杂度降至 O(n*k)。</p>
+<h3 id="代码实现-优化前"><a href="#代码实现-优化前" class="headerlink" title="代码实现(优化前)"></a>代码实现(优化前)</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public int minCostII(int[][] costs) &#123;</span><br><span class="line">    <span class="keyword">if</span> (costs.<span class="built_in">length</span> == <span class="number">0</span> || costs[<span class="number">0</span>].<span class="built_in">length</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int n = costs.<span class="built_in">length</span>, k = costs[<span class="number">0</span>].<span class="built_in">length</span>;</span><br><span class="line">    int[][] dp = new int[n][k];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (int <span class="built_in">i</span> = <span class="number">1</span>; <span class="built_in">i</span> &lt; n; ++<span class="built_in">i</span>) &#123;</span><br><span class="line">        Arrays.fill(dp[<span class="built_in">i</span>], Integer.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (int <span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; k; ++<span class="built_in">i</span>) &#123;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="built_in">i</span>] = costs[<span class="number">0</span>][<span class="built_in">i</span>];</span><br><span class="line">    &#125;        </span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (int <span class="built_in">i</span> = <span class="number">1</span>; <span class="built_in">i</span> &lt; n; ++<span class="built_in">i</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (int <span class="built_in">j</span> = <span class="number">0</span>; <span class="built_in">j</span> &lt; k; ++<span class="built_in">j</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (int m = <span class="number">0</span>; m &lt; k; ++m) &#123;</span><br><span class="line">                <span class="keyword">if</span> (m != <span class="built_in">j</span>) &#123;</span><br><span class="line">                    dp[<span class="built_in">i</span>][m] = Math.<span class="built_in">min</span>(dp[<span class="built_in">i</span>][m], dp[<span class="built_in">i</span> - <span class="number">1</span>][<span class="built_in">j</span>] + costs[<span class="built_in">i</span>][m]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int result = Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (int <span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; k; ++<span class="built_in">i</span>) &#123;</span><br><span class="line">        result = Math.<span class="built_in">min</span>(result, dp[n - <span class="number">1</span>][<span class="built_in">i</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码实现-优化后"><a href="#代码实现-优化后" class="headerlink" title="代码实现(优化后)"></a>代码实现(优化后)</h3><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">int</span> minCostII(<span class="built_in">int</span>[][] costs) &#123;</span><br><span class="line">    <span class="keyword">if</span> (costs.length == <span class="number">0</span> || costs[<span class="number">0</span>].length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> n = costs.length, k = costs[<span class="number">0</span>].length;</span><br><span class="line">    <span class="built_in">int</span>[][] dp = new <span class="built_in">int</span>[n][k];</span><br><span class="line"></span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        Arrays.fill(dp[i], <span class="keyword">Integer</span>.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; k; ++i) &#123;</span><br><span class="line">        dp[<span class="number">0</span>][i] = costs[<span class="number">0</span>][i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        // <span class="built_in">min1</span> 表示的是最大值，min2 表示的是次大值</span><br><span class="line">        <span class="built_in">int</span> <span class="built_in">min1</span> = <span class="keyword">Integer</span>.MAX_VALUE, min2 = <span class="keyword">Integer</span>.MAX_VALUE;</span><br><span class="line">        <span class="built_in">int</span> minIndex = -<span class="number">1</span>;</span><br><span class="line">        for (<span class="built_in">int</span> l = <span class="number">0</span>; l &lt; k; ++l) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">min1</span> &gt; dp[i - <span class="number">1</span>][l]) &#123;</span><br><span class="line">                min2 = <span class="built_in">min1</span>;</span><br><span class="line">                <span class="built_in">min1</span> = dp[i - <span class="number">1</span>][l];</span><br><span class="line">                minIndex = l;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (min2 &gt; dp[i - <span class="number">1</span>][l]) &#123;</span><br><span class="line">                min2 = dp[i - <span class="number">1</span>][l];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; k; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (minIndex <span class="comment">!= j) &#123;</span></span><br><span class="line">                dp[i][j] = Math.<span class="built_in">min</span>(dp[i][j], <span class="built_in">min1</span> + costs[i][j]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = Math.<span class="built_in">min</span>(dp[i][j], min2 + costs[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> result = <span class="keyword">Integer</span>.MAX_VALUE;</span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; k; ++i) &#123;</span><br><span class="line">        result = Math.<span class="built_in">min</span>(result, dp[n - <span class="number">1</span>][i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="打家劫舍"><a href="#打家劫舍" class="headerlink" title="打家劫舍"></a>打家劫舍</h2><h3 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h3><p>LeetCode 第 198 号问题：打家劫舍。</p>
+<p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，<strong>如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警</strong>。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你在<strong>不触动警报装置的情况下</strong>，能够偷窃到的最高金额。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,1]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 偷窃<span class="number"> 1 </span>号房屋 (金额 = 1) ，然后偷窃<span class="number"> 3 </span>号房屋 (金额 = 3)。</span><br><span class="line">     偷窃到的最高金额 =<span class="number"> 1 </span>+<span class="number"> 3 </span>=<span class="number"> 4 </span>。</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,7,9,3,1]</span><br><span class="line">输出: 12</span><br><span class="line">解释: 偷窃<span class="number"> 1 </span>号房屋 (金额 = 2), 偷窃<span class="number"> 3 </span>号房屋 (金额 = 9)，接着偷窃<span class="number"> 5 </span>号房屋 (金额 = 1)。</span><br><span class="line">     偷窃到的最高金额 =<span class="number"> 2 </span>+<span class="number"> 9 </span>+<span class="number"> 1 </span>=<span class="number"> 12 </span>。</span><br></pre></td></tr></table></figure>
+<h3 id="思考-3"><a href="#思考-3" class="headerlink" title="思考"></a>思考</h3><p>还是房子，这次不是刷房子，而是抢房子。。。：）</p>
+<p>条件和前面类似，就是相邻的房子不能抢。老样子，四个步骤走一遍：</p>
+<ul>
+<li><p>问题拆解</p>
+<p>如果我们要求解抢完 n 个房子所获得的最大收入，因为题目的要求，我们可以思考第 i 个房子是否应该抢，如果要抢，那么第 i - 1 个房子就不能抢，我们只能考虑抢第 i - 2 个房子。如果不抢，那么就可以抢第 i - 1 个房子，这样一来，第 i 个房子就和第 i - 1 个房子，以及第 i - 2 个房子联系上了。</p>
+</li>
+<li><p>状态定义</p>
+<p>通过之前的问题拆解，我们知道，如果我们从左到右去抢房子，抢到当前房子可以获得的最大值其实是和抢到前两个房子可以获得的最大值有关，因此我们可以用 <strong>dp[i] 表示抢到第 i 个房子可以获得的最大值</strong></p>
+</li>
+<li><p>递推方程</p>
+<p>如果我们抢第 i 个房子，那么我们就只能去考虑第 i - 2 个房子，如果不抢，那么我们可以考虑第 i - 1 个房子，于是递推方程就有了：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="built_in">i</span>] = Math.<span class="built_in">max</span>(dp[<span class="built_in">i</span> - <span class="number">2</span>] + nums[<span class="built_in">i</span>], dp[<span class="built_in">i</span> - <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现</p>
+<p>因为第 i 个位置和前面的两个位置都有关，这个时候我们可以把状态多开一格，dp[0] 表示的是一个房子都不抢的状态，dp[1] 就是最左边的房子获得的最大价值，这个房子之前也没有其他的房子，直接抢即可。</p>
+</li>
+</ul>
+<h3 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n = nums.length;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">1</span>] = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        dp[i] = Math.max(dp[i - <span class="number">1</span>], dp[i - <span class="number">2</span>] + nums[i - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="打家劫舍II"><a href="#打家劫舍II" class="headerlink" title="打家劫舍II"></a>打家劫舍II</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>LeetCode 第 213 号问题：打家劫舍II。</p>
+<p>你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 <strong>围成一圈</strong>，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，<strong>如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警</strong>。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你在<strong>不触动警报装置的情况下</strong>，能够偷窃到的最高金额。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">输入: [2,3,2]</span></span><br><span class="line"><span class="section">输出: 3</span></span><br><span class="line"><span class="section">解释: 你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,1]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 你可以先偷窃<span class="number"> 1 </span>号房屋（金额 = 1），然后偷窃<span class="number"> 3 </span>号房屋（金额 = 3）。</span><br><span class="line">     偷窃到的最高金额 =<span class="number"> 1 </span>+<span class="number"> 3 </span>=<span class="number"> 4 </span>。</span><br></pre></td></tr></table></figure>
+<h3 id="思考-4"><a href="#思考-4" class="headerlink" title="思考"></a>思考</h3><p>前面那道题目的 follow up，问的是如果这些房子的排列方式是一个圆圈，其余要求不变，问该如何处理。</p>
+<p>房子排列方式是一个圆圈意味着之前的最后一个房子和第一个房子之间产生了联系，这里有一个小技巧就是我们线性考虑 [0, n - 2] 和 [1, n - 1]，然后求二者的最大值。</p>
+<p>其实这么做的目的很明显，把第一个房子和最后一个房子分开来考虑。实现上面我们可以直接使用之前的实现代码。</p>
+<p>这里有一个边界条件就是，当只有一个房子的时候，我们直接输出结果即可。</p>
+<h3 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n = nums.length;</span><br><span class="line">    <span class="keyword">return</span> Math.max(</span><br><span class="line">                    robI(Arrays.copyOfRange(nums, <span class="number">0</span>, n - <span class="number">1</span>)),</span><br><span class="line">                    robI(Arrays.copyOfRange(nums, <span class="number">1</span>, n))</span><br><span class="line">                   );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">int</span> <span class="title">robI</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n = nums.length;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">1</span>] = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        dp[i] = Math.max(dp[i - <span class="number">1</span>], dp[i - <span class="number">2</span>] + nums[i - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>序列类动态规划的系列问题还有很多，比如股票问题，这类问题通常会给你一个数组或者是字符串，在分析这些问题的时候，需要思考当前状态的选择是否要基于前面的状态，以及他们的关系是什么。</p>
+<p>当然这里还有挺多的优化，比如动态规划的状态数组的空间优化，这些会在后面统一介绍，这里只需要熟悉动态规划的思考方向和方法即可。</p>
 <hr>
       
     </div>
@@ -608,6 +721,10 @@ $(function() {
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019-11-28/brackets-problem.html" rel="prev" title="摘录一些括号操作相关的算法题">
+                <i class="fa fa-chevron-left"></i> 摘录一些括号操作相关的算法题
+              </a>
             
           </div>
 
@@ -664,8 +781,17 @@ $(function() {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
  <a href="/">
           <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="林加鸿">
@@ -787,6 +913,22 @@ $(function() {
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#最长上升子序列"><span class="nav-number">1.</span> <span class="nav-text">最长上升子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考"><span class="nav-number">1.2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#粉刷房子"><span class="nav-number">2.</span> <span class="nav-text">粉刷房子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考-1"><span class="nav-number">2.2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-1"><span class="nav-number">2.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#粉刷房子II"><span class="nav-number">3.</span> <span class="nav-text">粉刷房子II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考-2"><span class="nav-number">3.2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-优化前"><span class="nav-number">3.3.</span> <span class="nav-text">代码实现(优化前)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-优化后"><span class="nav-number">3.4.</span> <span class="nav-text">代码实现(优化后)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打家劫舍"><span class="nav-number">4.</span> <span class="nav-text">打家劫舍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考-3"><span class="nav-number">4.2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-2"><span class="nav-number">4.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打家劫舍II"><span class="nav-number">5.</span> <span class="nav-text">打家劫舍II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">5.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考-4"><span class="nav-number">5.2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-3"><span class="nav-number">5.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
