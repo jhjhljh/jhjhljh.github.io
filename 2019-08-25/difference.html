@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,18 +95,18 @@
 <meta name="keywords" content="前端,面试,js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于slice,split,splice的区别与用法">
-<meta property="og:url" content="http://linjiahong.top/2019-08-25/difference.html">
+<meta property="og:url" content="linjiahong.top/2019-08-25/difference.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="毫无疑问，slice,split,splice三大易混淆数组用法，笔试经常遇到">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://linjiahong.top/2019-08-25/difference/wallhaven-96g9yd.png">
+<meta property="og:image" content="/difference.htmldifference/wallhaven-96g9yd.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20170928174907100?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGFuZ3hpdWppYW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:image" content="https://img-blog.csdn.net/20170928220421361?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGFuZ3hpdWppYW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:updated_time" content="2019-11-29T15:09:42.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于slice,split,splice的区别与用法">
 <meta name="twitter:description" content="毫无疑问，slice,split,splice三大易混淆数组用法，笔试经常遇到">
-<meta name="twitter:image" content="http://linjiahong.top/2019-08-25/difference/wallhaven-96g9yd.png">
+<meta name="twitter:image" content="/difference.htmldifference/wallhaven-96g9yd.png">
 
 
 
@@ -117,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-08-25/difference.html">
+  <link rel="canonical" href="linjiahong.top/2019-08-25/difference.html">
 
 
 
@@ -141,7 +158,7 @@
 
 
   <title> 关于slice,split,splice的区别与用法 | Abo </title>
-<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+</%></%><link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
 <script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
 </head>
 
@@ -398,7 +415,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-08-25/difference.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-08-25/difference.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -543,15 +560,15 @@ $(function() {
       
 
       
-        <p></p><p class="description">毫无疑问，slice,split,splice三大易混淆数组用法，笔试经常遇到</p><br><img src="/2019-08-25/difference/wallhaven-96g9yd.png" alt="wallhaven-96g9yd"><p></p>
+        <p></p><p class="description">毫无疑问，slice,split,splice三大易混淆数组用法，笔试经常遇到</p><br><img src="/difference.htmldifference/wallhaven-96g9yd.png" alt="wallhaven-96g9yd"><p></p>
 <a id="more"></a>
 <p><blockquote class="question">内容</blockquote><br>
-        <div id="aplayer-LJxIHIVs" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-zYdMKKac" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-LJxIHIVs"),
+            element: document.getElementById("aplayer-zYdMKKac"),
             narrow: false,
             autoplay: true,
             showlrc: false,

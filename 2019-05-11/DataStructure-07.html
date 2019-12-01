@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,16 +95,16 @@
 <meta name="keywords" content="排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构-排序">
-<meta property="og:url" content="http://linjiahong.top/2019-05-11/DataStructure-07.html">
+<meta property="og:url" content="linjiahong.top/2019-05-11/DataStructure-07.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="提到排序，鸡皮疙瘩都起来了，排序思想固然是好玩的，但是代码的实现也是无比蛋疼，记忆起来噩梦级别，之后会在这里补充一些排序算法相关的练习题  排序习题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://linjiahong.top/2019-05-11/DataStructure-07/ipe-yellow.jpg">
+<meta property="og:image" content="/DataStructure-07.htmlDataStructure-07/ipe-yellow.jpg">
 <meta property="og:updated_time" content="2019-05-23T08:32:54.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-排序">
 <meta name="twitter:description" content="提到排序，鸡皮疙瘩都起来了，排序思想固然是好玩的，但是代码的实现也是无比蛋疼，记忆起来噩梦级别，之后会在这里补充一些排序算法相关的练习题  排序习题">
-<meta name="twitter:image" content="http://linjiahong.top/2019-05-11/DataStructure-07/ipe-yellow.jpg">
+<meta name="twitter:image" content="/DataStructure-07.htmlDataStructure-07/ipe-yellow.jpg">
 
 
 
@@ -115,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-05-11/DataStructure-07.html">
+  <link rel="canonical" href="linjiahong.top/2019-05-11/DataStructure-07.html">
 
 
 
@@ -139,7 +156,7 @@
 
 
   <title> 数据结构-排序 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -394,7 +411,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-05-11/DataStructure-07.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-05-11/DataStructure-07.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -543,7 +560,7 @@ $(function() {
 
 <blockquote class="question">排序习题</blockquote>
 
-<p><img src="/2019-05-11/DataStructure-07/ipe-yellow.jpg" alt="ipe-yellow"></p>
+<p><img src="/DataStructure-07.htmlDataStructure-07/ipe-yellow.jpg" alt="ipe-yellow"></p>
 <a id="more"></a>
 <blockquote class="question">听首歌先，缓解接下来乏味的过程，Lantern是我很喜欢的挪威剧中的配乐</blockquote>
 

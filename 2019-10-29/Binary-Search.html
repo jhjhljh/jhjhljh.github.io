@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,13 +95,13 @@
 <meta name="keywords" content="算法,习题,二分查找">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二分查找解题模版与题型 🎈">
-<meta property="og:url" content="http://linjiahong.top/2019-10-29/Binary-Search.html">
+<meta property="og:url" content="linjiahong.top/2019-10-29/Binary-Search.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="实现int sqrt(int x)：计算并返回 x 的平方根，其中 x 是非负整数，由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。 记住不完备的二分算法写法所导致的死循环跟跳过查找的特例 🙄">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/wallhaven-nmy7o1.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-29/Binary-Search/20191022230241.png">
-<meta property="og:image" content="http://linjiahong.top/2019-10-29/Binary-Search/20191022230411.png">
+<meta property="og:image" content="/Binary-Search.htmlBinary-Search/20191022230241.png">
+<meta property="og:image" content="/Binary-Search.htmlBinary-Search/20191022230411.png">
 <meta property="og:updated_time" content="2019-11-29T15:28:49.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二分查找解题模版与题型 🎈">
@@ -117,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-10-29/Binary-Search.html">
+  <link rel="canonical" href="linjiahong.top/2019-10-29/Binary-Search.html">
 
 
 
@@ -141,7 +158,7 @@
 
 
   <title> 二分查找解题模版与题型 🎈 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -396,7 +413,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-10-29/Binary-Search.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-10-29/Binary-Search.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -644,8 +661,8 @@ $(function() {
 <p>除了这种做法，还有一种 O(n) 的解法比较 tricky，</p>
 <p>首先，我们初始化一个指向矩阵右上角的 <strong>元素</strong> 。</p>
 <p>从这个元素开始查找，如果这个元素比 <code>target</code> 大，则说明需要找更小的，往左走；如果这个元素比 <code>target</code> 小，则说明应该找更大的，往下走。</p>
-<p><img src="/2019-10-29/Binary-Search/20191022230241.png" alt="20191022230241"></p>
-<p><img src="/2019-10-29/Binary-Search/20191022230411.png" alt="20191022230411"></p>
+<p><img src="/Binary-Search.htmlBinary-Search/20191022230241.png" alt="20191022230241"></p>
+<p><img src="/Binary-Search.htmlBinary-Search/20191022230411.png" alt="20191022230411"></p>
 <h2 id="登堂入室：Rotated-Array-系列"><a href="#登堂入室：Rotated-Array-系列" class="headerlink" title="登堂入室：Rotated Array 系列"></a>登堂入室：Rotated Array 系列</h2><h3 id="系列描述"><a href="#系列描述" class="headerlink" title="系列描述"></a>系列描述</h3><p>有一类题型是把一个数组向右或者向左移动了一下，比如数组 [1,2,3,4,5,6] 向右移动两格就会变成 [5,6,1,2,3,4]，这样这个数组就变成了一个<strong>非排序状态</strong>。但是仔细看的话你会发现<strong>，移动后的数组变成了两截，这两截内的元素是按序排列的</strong>，比如在上面的例子中，移动后的数组就会有 [5,6] 和 [1,2,3,4] 这两个区间，这两个区间内的元素都是按序排列的。</p>
 <p>仔细观察这两个区间，你会发现，<strong>其中一个区间内的所有元素都比另一个区间的任意元素小</strong>， 这个点就给我们二分查找创造了条件，我们可以根据<strong>尾元素</strong>作为区分值，但要清楚一点的是，没有移动过的数组也需要被你的程序考虑在内。</p>
 <p>我们结合实际的题目来看看。</p>

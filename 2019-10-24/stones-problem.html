@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,18 +95,18 @@
 <meta name="keywords" content="算法,动态规划">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从「石头游戏」到博弈类问题中的动态规划">
-<meta property="og:url" content="http://linjiahong.top/2019-10-24/stones-problem.html">
+<meta property="og:url" content="linjiahong.top/2019-10-24/stones-problem.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="所有石头被拿完后，谁拥有的石头多，谁获胜。 博奕问题 - - - 「假设两个人都足够聪明，最后谁会获胜」">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/wallhaven-nk67jd.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-24/stones-problem/20191024230852.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-24/stones-problem/20191024232430.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-24/stones-problem/20191024232437.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-24/stones-problem/11.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-24/stones-problem/22.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-24/stones-problem/33.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-24/stones-problem/44.jpg">
+<meta property="og:image" content="/stones-problem.htmlstones-problem/20191024230852.jpg">
+<meta property="og:image" content="/stones-problem.htmlstones-problem/20191024232430.jpg">
+<meta property="og:image" content="/stones-problem.htmlstones-problem/20191024232437.jpg">
+<meta property="og:image" content="/stones-problem.htmlstones-problem/11.jpg">
+<meta property="og:image" content="/stones-problem.htmlstones-problem/22.jpg">
+<meta property="og:image" content="/stones-problem.htmlstones-problem/33.jpg">
+<meta property="og:image" content="/stones-problem.htmlstones-problem/44.jpg">
 <meta property="og:updated_time" content="2019-11-29T15:52:47.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从「石头游戏」到博弈类问题中的动态规划">
@@ -122,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-10-24/stones-problem.html">
+  <link rel="canonical" href="linjiahong.top/2019-10-24/stones-problem.html">
 
 
 
@@ -146,7 +163,7 @@
 
 
   <title> 从「石头游戏」到博弈类问题中的动态规划 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -401,7 +418,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-10-24/stones-problem.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-10-24/stones-problem.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -577,25 +594,25 @@ $(function() {
 </blockquote>
 <h3 id="dp数组的定义"><a href="#dp数组的定义" class="headerlink" title="dp数组的定义"></a>dp数组的定义</h3><p>定义 dp 数组的含义是很有技术含量的，同一问题可能有多种定义方法，不同的定义会引出不同的状态转移方程，不过只要逻辑没有问题，最终都能得到相同的答案。</p>
 <p>二维 dp table 中存储的是元组，怎么编程表示呢？这个 dp table 有一半根本没用上，怎么优化？很简单，都不要管，先把解题的思路想明白了再谈也不迟。</p>
-<p><img src="/2019-10-24/stones-problem/20191024230852.jpg" alt="20191024230852"></p>
+<p><img src="/stones-problem.htmlstones-problem/20191024230852.jpg" alt="20191024230852"></p>
 <p>下文讲解时，认为元组是包含 first 和 second 属性的一个类，而且为了节省篇幅，将这两个属性简写为 fir 和 sec。比如按上图的数据，我们说</p>
 <p> <code>dp[1][3].fir = 10</code>，<code>dp[0][1].sec = 3</code>。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j].fir 表示，对于 piles[i...j]这部分石堆，先手能获得的最高分数</span><br><span class="line">dp[i][j].sec 表示，对于 piles[i...j]这部分石堆，后手能获得的最高分</span><br><span class="line">举例解释一下，假设piles=[<span class="number">3</span>,<span class="number">9</span>,<span class="number">1</span>,<span class="number">2</span>],索引从<span class="number">0</span>开始</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">1</span>].fir=<span class="number">9</span> 意味着：面对石头堆[<span class="number">3</span>,<span class="number">9</span>]，先手最终能获得<span class="number">9</span>分</span><br><span class="line">dp[<span class="number">1</span>][<span class="number">3</span>].sec=<span class="number">2</span> 意味着：面对石头堆[<span class="number">9</span>,<span class="number">1</span>,<span class="number">2</span>]，后手最终能获得<span class="number">2</span>分</span><br></pre></td></tr></table></figure>
 <p>我们想求的答案是先手和后手最终分数之差，按照这个定义也就是 dp[0][n−1].fir−dp[0][n−1].sec</p>
 <h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>上面的伪码是动态规划的一个大致的框架，股票系列问题中也有类似的伪码。这道题的难点在于，两人是交替进行选择的，也就是说先手的选择会对后手有影响，这怎么表达出来呢？</p>
 <p>根据我们对 dp 数组的定义，很容易解决这个难点，<strong>写出状态转移方程：</strong></p>
-<p><img src="/2019-10-24/stones-problem/20191024232430.jpg" alt="20191024232430"></p>
+<p><img src="/stones-problem.htmlstones-problem/20191024232430.jpg" alt="20191024232430"></p>
 <p>根据 dp 数组的定义，我们也可以找出 <strong>base case</strong>，也就是最简单的情况：</p>
-<p><img src="/2019-10-24/stones-problem/20191024232437.jpg" alt="20191024232437"></p>
-<p><img src="/2019-10-24/stones-problem/11.jpg" alt="11"></p>
+<p><img src="/stones-problem.htmlstones-problem/20191024232437.jpg" alt="20191024232437"></p>
+<p><img src="/stones-problem.htmlstones-problem/11.jpg" alt="11"></p>
 <p>这里需要注意一点，我们发现 base case 是斜着的，而且我们推算 dp[i][j] 时需要用到 dp[i+1][j] 和 dp[i][j-1]：</p>
-<p><img src="/2019-10-24/stones-problem/22.jpg" alt="22"></p>
+<p><img src="/stones-problem.htmlstones-problem/22.jpg" alt="22"></p>
 <p>所以说算法不能简单的一行一行遍历 dp 数组，<strong>而要斜着遍历数组：</strong></p>
-<p><img src="/2019-10-24/stones-problem/33.jpg" alt="33"></p>
+<p><img src="/stones-problem.htmlstones-problem/33.jpg" alt="33"></p>
 <h2 id="代码实现🙄"><a href="#代码实现🙄" class="headerlink" title="代码实现🙄"></a>代码实现🙄</h2><p>如何实现这个 fir 和 sec 元组呢，你可以用 python，自带元组类型；或者使用 C++ 的 pair 容器；或者用一个三维数组 <code>dp[n][n][2]</code>，最后一个维度就相当于元组；或者我们自己写一个 Pair 类：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pair</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fir, sec;</span><br><span class="line">    Pair(<span class="keyword">int</span> fir, <span class="keyword">int</span> sec) &#123;</span><br><span class="line">        <span class="keyword">this</span>.fir = fir;</span><br><span class="line">        <span class="keyword">this</span>.sec = sec;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后直接把我们的状态转移方程翻译成代码即可，可以注意一下斜着遍历数组的技巧：</p>
-<p><img src="/2019-10-24/stones-problem/44.jpg" alt="44"></p>
+<p><img src="/stones-problem.htmlstones-problem/44.jpg" alt="44"></p>
 <p>动态规划解法，如果没有状态转移方程指导，绝对是一头雾水，但是根据前面的详细解释，读者应该可以清晰理解这一大段代码的含义。</p>
 <p>而且，注意到计算 <code>dp[i][j]</code> 只依赖其左边和下边的元素，所以说肯定有优化空间，转换成一维 dp，想象一下把二维平面压扁，也就是投影到一维。但是，一维 dp 比较复杂，可解释性很差，大家就不必浪费这个时间去理解了。</p>
 <hr>

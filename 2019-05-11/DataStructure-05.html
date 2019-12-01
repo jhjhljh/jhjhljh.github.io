@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,16 +95,16 @@
 <meta name="keywords" content="图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构-图">
-<meta property="og:url" content="http://linjiahong.top/2019-05-11/DataStructure-05.html">
+<meta property="og:url" content="linjiahong.top/2019-05-11/DataStructure-05.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="图，让我想起被离散数学图论支配的恐惧，但是数据结构涉及到的属于图的抽象数据结构，简直比离散数学还要致命">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://linjiahong.top/2019-05-11/DataStructure-05/art.jpg">
+<meta property="og:image" content="/DataStructure-05.htmlDataStructure-05/art.jpg">
 <meta property="og:updated_time" content="2019-05-11T07:08:57.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-图">
 <meta name="twitter:description" content="图，让我想起被离散数学图论支配的恐惧，但是数据结构涉及到的属于图的抽象数据结构，简直比离散数学还要致命">
-<meta name="twitter:image" content="http://linjiahong.top/2019-05-11/DataStructure-05/art.jpg">
+<meta name="twitter:image" content="/DataStructure-05.htmlDataStructure-05/art.jpg">
 
 
 
@@ -115,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-05-11/DataStructure-05.html">
+  <link rel="canonical" href="linjiahong.top/2019-05-11/DataStructure-05.html">
 
 
 
@@ -139,7 +156,7 @@
 
 
   <title> 数据结构-图 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -394,7 +411,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-05-11/DataStructure-05.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-05-11/DataStructure-05.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -541,7 +558,7 @@ $(function() {
       
         <p class="description">图，让我想起被离散数学图论支配的恐惧，但是数据结构涉及到的属于图的抽象数据结构，简直比离散数学还要致命</p>
 
-<p><img src="/2019-05-11/DataStructure-05/art.jpg" alt="art"></p>
+<p><img src="/DataStructure-05.htmlDataStructure-05/art.jpg" alt="art"></p>
 <a id="more"></a>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
 <li>前言: 图(Graph)是由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为：G(V,E)，其中，G表示一个图，V是图G中顶点的集合，E是图G中边的集合</li>

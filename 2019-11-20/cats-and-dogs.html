@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,7 +95,7 @@
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cannot download node-sass">
-<meta property="og:url" content="http://linjiahong.top/2019-11-20/cats-and-dogs.html">
+<meta property="og:url" content="linjiahong.top/2019-11-20/cats-and-dogs.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="Vue的几个demo遇到的问题  由于网速原因，执行npm install命令过程中，node-sass无法下载，那么可以使用淘宝镜像下载，具体命令如下： 1npm i node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/">
 <meta property="og:locale" content="zh-Hans">
@@ -113,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-11-20/cats-and-dogs.html">
+  <link rel="canonical" href="linjiahong.top/2019-11-20/cats-and-dogs.html">
 
 
 
@@ -137,7 +154,7 @@
 
 
   <title> Cannot download node-sass | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -392,7 +409,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-11-20/cats-and-dogs.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-11-20/cats-and-dogs.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">

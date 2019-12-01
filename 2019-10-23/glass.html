@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,7 +95,7 @@
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="腾讯面试题--厉害了我的杯">
-<meta property="og:url" content="http://linjiahong.top/2019-10-23/glass.html">
+<meta property="og:url" content="linjiahong.top/2019-10-23/glass.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="杯具题：厉害了我的杯 🙄  阅读理解：一个杯子定区间，一个杯子定位置，关键在于区间怎么划分。">
 <meta property="og:locale" content="zh-Hans">
@@ -115,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-10-23/glass.html">
+  <link rel="canonical" href="linjiahong.top/2019-10-23/glass.html">
 
 
 
@@ -139,7 +156,7 @@
 
 
   <title> 腾讯面试题--厉害了我的杯 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -394,7 +411,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-10-23/glass.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-10-23/glass.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">

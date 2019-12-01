@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,19 +95,19 @@
 <meta name="keywords" content="前端,js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="什么是 JS 原型和原型链?">
-<meta property="og:url" content="http://linjiahong.top/2019-10-25/prototype.html">
+<meta property="og:url" content="linjiahong.top/2019-10-25/prototype.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="搞懂 JS 的继承机制思想（原型和原型链）。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/wallhaven-2e2x6g.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/20191025145314.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/11.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/22.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/33.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/44.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/55.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/66.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-25/prototype/77.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/20191025145314.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/11.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/22.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/33.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/44.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/55.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/66.jpg">
+<meta property="og:image" content="/prototype.htmlprototype/77.jpg">
 <meta property="og:updated_time" content="2019-11-29T15:51:56.792Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是 JS 原型和原型链?">
@@ -123,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-10-25/prototype.html">
+  <link rel="canonical" href="linjiahong.top/2019-10-25/prototype.html">
 
 
 
@@ -147,7 +164,7 @@
 
 
   <title> 什么是 JS 原型和原型链? | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -402,7 +419,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-10-25/prototype.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-10-25/prototype.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -557,7 +574,7 @@ $(function() {
 <p>JS 中的继承机制思想可以说是学习 JS 的一个核心思想，更可以说是 JS 中的一个命脉，往往这些复杂、抽象的继承关系，以及专业术语、代名词确成为了困扰初学者的绊脚石。当我真正理解它的设计思想时，其实并没有那么复杂，而且觉得非常简单。</p>
 <p>在写这篇 JS 的原型和原型链的文章之前，我在谷歌搜索检索了大量的高赞有关 JS 原型和原型链的文章，大部分都是围绕着“是什么”来讲的，导致部分初学者缺少对 JS 继承的设计与实现的前后关联性，还是很难准确的去理解。</p>
 <p>我们先要明白，学习这块内容知识要知道设计者“ 为什么这样做 ” 远比 “怎么做的” 重要的多这才是掌握这部分内容的关键。</p>
-<p><img src="/2019-10-25/prototype/20191025145314.jpg" alt="20191025145314"></p>
+<p><img src="/prototype.htmlprototype/20191025145314.jpg" alt="20191025145314"></p>
 <h2 id="js的发展史"><a href="#js的发展史" class="headerlink" title="js的发展史"></a>js的发展史</h2><p>要想贯彻 JS 的核心设计思想，我们要从 JS 的诞生说起。</p>
 <h3 id="为什么会诞生-JavaScript-？"><a href="#为什么会诞生-JavaScript-？" class="headerlink" title="为什么会诞生 JavaScript ？"></a>为什么会诞生 JavaScript ？</h3><p>相对比较成熟的浏览器是由网景公司发布的，早些年间，浏览器只能浏览网页内容，而不能进行用户交互。比如我们登录输入用户名和密码，在浏览器是不能进行判断用户是否真正输入了，而是通过服务器来判断，如果没有输入，返回错误提示用户，这种设计非常的浪费时间和服务器资源。</p>
 <p>为了解决这个问题，网景公司需要开发一种运行在浏览器中的脚本语言，用来简单的做用户输入校验等操作。</p>
@@ -578,11 +595,11 @@ $(function() {
 <p>JavaScript 中的函数拥有对象的所有能力，也因此可被称作为任意其他类型对象来对待。当我们说函数是第一类对象的时候，就是说函数也能够对象的一些功能，比如添加属性，函数当做参数传递等。</p>
 </blockquote>
 <p>所以说，实例对象一旦通过构造函数创建，就会自动给实例对象赋值上原型对象上共享的属性或方法。说清楚一点就是该对象属性都指向了原型对象的属性值。</p>
-<p><img src="/2019-10-25/prototype/11.jpg" alt="11"></p>
-<h2 id="对象和函数在原型链关系？"><a href="#对象和函数在原型链关系？" class="headerlink" title="对象和函数在原型链关系？"></a>对象和函数在原型链关系？</h2><p><img src="/2019-10-25/prototype/22.jpg" alt="22"></p>
+<p><img src="/prototype.htmlprototype/11.jpg" alt="11"></p>
+<h2 id="对象和函数在原型链关系？"><a href="#对象和函数在原型链关系？" class="headerlink" title="对象和函数在原型链关系？"></a>对象和函数在原型链关系？</h2><p><img src="/prototype.htmlprototype/22.jpg" alt="22"></p>
 <p>上述的图反映了对象以及函数在原型链中的关系，我们文章的开头也说了什么是原型对象，说白了就是构造函数的一个 <code>prototype</code>属性，这个属性就指向原型对象。</p>
 <p>其实我们其中一些连接属性没有讲到，只讲到了<code>prototype</code>属性，下面一张图来将剩下的属性补充完整，我们只要把这张图印到大脑中就可以了。</p>
-<p><img src="/2019-10-25/prototype/33.jpg" alt="33"></p>
+<p><img src="/prototype.htmlprototype/33.jpg" alt="33"></p>
 <blockquote>
 <p>构造函数有prototype属性，构造函数的prototype指向其原型对象，而由构造函数实例出来的对象比如豆豆跟贝贝，这些实例对象拥有<em>proto</em>属性，指向的也是原型对象，也就是他们的构造函数的原型对象</p>
 <blockquote>
@@ -601,12 +618,12 @@ $(function() {
 <p>没错，原型就是这么简单。但是你会发现，原型也是对象呀，你说只要是对象都会有一个<code>_proto_</code>属性指向自身构造函数的原型对象。</p>
 <p>没错，要想知道原型对象的<code>_proto_</code>属性指向谁，就要知道是哪个构造函数创建了原型对象？🙄</p>
 <p>我们知道，所有的 JS 对象的都是继承了一个叫做 Object 的对象。可以理解为Object 构造函数创造了这个万物，他们的关系如下，和上边是同样的道理，上边总结的那句话好好理解一下。</p>
-<p><img src="/2019-10-25/prototype/44.jpg" alt="44"></p>
+<p><img src="/prototype.htmlprototype/44.jpg" alt="44"></p>
 <p>但是上图中会有一个疑问，Object 构造函数原型对象的也是对象，它肯定也有一个<code>_proto_</code>属性，为什么会指向 null 呢？</p>
 <p>我们在拿上述总结的那句话，<code>_proto_</code>属性指向的是自身构造函数的原型对象，自身的构造函数是谁？是 Object 构造函数，那 Object构造函数的原型是谁？当然是本身（如图），所以把<code>_proto_</code>指向了<code>null</code>。</p>
 <h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>我们还有一个问题没有解决就是原型链？既然我么你知道什么是原型了，原型链是什么？顾名思义，肯定是一条链，既然每个对象都有一个<code>_proto_</code>属性指向原型对象，那么原型对象也有<code>_proto_</code>指向原型对象的原型对象，直到指向上图中的null，这才到达原型链的顶端。</p>
 <p>不要忘了，上边那种图我们还没有把它理解，我们把图自上而下理解</p>
-<p><img src="/2019-10-25/prototype/55.jpg" alt="55"></p>
+<p><img src="/prototype.htmlprototype/55.jpg" alt="55"></p>
 <blockquote>
 <p>f1，f2属于实例，他们的<em>proto</em>指向构造函数function Foo()的prototype，那就是Foo.prototype</p>
 <blockquote>
@@ -614,9 +631,9 @@ $(function() {
 </blockquote>
 </blockquote>
 <p>我们继续向下分割，看第二张图。</p>
-<p><img src="/2019-10-25/prototype/66.jpg" alt="66"></p>
+<p><img src="/prototype.htmlprototype/66.jpg" alt="66"></p>
 <p>第三张图，稍微绕个弯子</p>
-<p><img src="/2019-10-25/prototype/77.jpg" alt="77"></p>
+<p><img src="/prototype.htmlprototype/77.jpg" alt="77"></p>
 <p>看着还是眼熟，只不过把<code>function</code>换成了<code>Function</code>，f 变成了大写的 F，这里涉及到一个知识点就是，在 JS 中，所有的 function函数都是由<code>Function</code>继承来的，可以说是<code>Function</code>是所有 function的祖宗。</p>
 <p>那<code>Function</code>是由谁生产来的？我们看到图中的<code>Function</code>函数有<code>_proto_</code>属性了，而且属性指向自己的原型对象，那不就是自己繁衍自己吗？可以这么理解。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这里我们在纵观全图，总结几条定义你比对着图去找。</p>

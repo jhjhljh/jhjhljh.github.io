@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,12 +95,12 @@
 <meta name="keywords" content="前端,webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从零开始的 webpack 世界">
-<meta property="og:url" content="http://linjiahong.top/2019-11-13/webpack.html">
+<meta property="og:url" content="linjiahong.top/2019-11-13/webpack.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="webpack是一个静态模块打包器。当webpack用来处理应用程序时，会构建一个模块关系依赖图，其中包含应用程序所需的各个模块，然后将这些模块打包成一个或多个bundle">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/1.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-11-13/webpack/bundle.png">
+<meta property="og:image" content="/webpack.htmlwebpack/bundle.png">
 <meta property="og:updated_time" content="2019-11-29T15:34:22.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始的 webpack 世界">
@@ -116,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-11-13/webpack.html">
+  <link rel="canonical" href="linjiahong.top/2019-11-13/webpack.html">
 
 
 
@@ -140,7 +157,7 @@
 
 
   <title> 从零开始的 webpack 世界 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -395,7 +412,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-11-13/webpack.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-11-13/webpack.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -585,7 +602,7 @@ $(function() {
 <li><strong>hash</strong> Chunk 的唯一标识的 <em>Hash</em> 值</li>
 <li><strong>chunkhash</strong> Chunk 内容的 <em>Hash</em> 值</li>
 </ul>
-<h2 id="Bundle-js"><a href="#Bundle-js" class="headerlink" title="Bundle.js"></a>Bundle.js</h2><p><img src="/2019-11-13/webpack/bundle.png" alt="bundle"></p>
+<h2 id="Bundle-js"><a href="#Bundle-js" class="headerlink" title="Bundle.js"></a>Bundle.js</h2><p><img src="/webpack.htmlwebpack/bundle.png" alt="bundle"></p>
 <h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><p>了解 <strong>ES 6</strong> 的同学都应该知道，目前部分浏览器和 <em>Node.js</em> 已经支持 ES6，但由于它们对 <em>ES6</em> 所有的标准支持不全，这导致在开发中不敢全面地使用 <em>ES6</em>。  通常我们需要把采用 ES6 编写的代码转换成目前已经支持良好的 <em>ES5</em> 代码，这包含两件事：</p>
 <ol>
 <li>把新的 ES6 语法用 ES5 实现，例如 ES6 的 class 语法用 ES5 的 prototype 实现。</li>

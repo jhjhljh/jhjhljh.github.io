@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,7 +95,7 @@
 <meta name="keywords" content="IT，Abo，前端web，黑科技，算法">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Abo">
-<meta property="og:url" content="http://linjiahong.top/tags/表格/index.html">
+<meta property="og:url" content="linjiahong.top/tags/表格/index.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="欢迎来到Abo的博客，博客以分享前端web知识、数据结构与算法、计算机基础为主，希望能帮到您ㄟ(😀)ㄏ">
 <meta property="og:locale" content="zh-Hans">
@@ -112,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/tags/表格/">
+  <link rel="canonical" href="linjiahong.top/tags/表格/">
 
 
 
@@ -136,7 +153,7 @@
 
 
   <title> 标签: 表格 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>

@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,15 +95,15 @@
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TwoSum 相关问题思路总结">
-<meta property="og:url" content="http://linjiahong.top/2019-10-26/two-sum.html">
+<meta property="og:url" content="linjiahong.top/2019-10-26/two-sum.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="leetcode初见题，不能再熟悉，那K数之和呢？😐">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/wallhaven-g87m53.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-26/two-sum/1.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-26/two-sum/2.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-26/two-sum/3.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-10-26/two-sum/4.jpg">
+<meta property="og:image" content="/two-sum.htmltwo-sum/1.jpg">
+<meta property="og:image" content="/two-sum.htmltwo-sum/2.jpg">
+<meta property="og:image" content="/two-sum.htmltwo-sum/3.jpg">
+<meta property="og:image" content="/two-sum.htmltwo-sum/4.jpg">
 <meta property="og:updated_time" content="2019-11-29T15:46:36.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TwoSum 相关问题思路总结">
@@ -119,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-10-26/two-sum.html">
+  <link rel="canonical" href="linjiahong.top/2019-10-26/two-sum.html">
 
 
 
@@ -143,7 +160,7 @@
 
 
   <title> TwoSum 相关问题思路总结 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -398,7 +415,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-10-26/two-sum.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-10-26/two-sum.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -550,10 +567,10 @@ $(function() {
 <h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><p>这个问题的<strong>最基本形式</strong>是这样：给你一个数组和一个整数<code>target</code>，可以保证数组中<strong>存在</strong>两个数的和为<code>target</code>，请你返回这两个数的索引。</p>
 <p>比如输入<code>nums = [3,1,3,6],target = 6</code>，算法应该返回数组<code>[0,2]</code>，因为 3 + 3 = 6。</p>
 <p>这个问题如何解决呢？首先最简单粗暴的办法当然是穷举了：</p>
-<p><img src="/2019-10-26/two-sum/1.jpg" alt="1"></p>
+<p><img src="/two-sum.htmltwo-sum/1.jpg" alt="1"></p>
 <p>这个解法非常直接，时间复杂度 O(N^2)，空间复杂度 O(1)。</p>
 <p>更好一点的解法，可以通过一个哈希表减少时间复杂度：</p>
-<p><img src="/2019-10-26/two-sum/2.jpg" alt="2"></p>
+<p><img src="/two-sum.htmltwo-sum/2.jpg" alt="2"></p>
 <p>这样，由于哈希表的查询时间为 O(1)，算法的时间复杂度降低到 O(N)，但是需要 O(N) 的空间复杂度来存储哈希表。不过综合来看，是要比暴力解法高效的。</p>
 <p><strong>我觉得 Two Sum 系列问题就是想教我们如何使用哈希表处理问题</strong>。我们接着往后看。</p>
 <h2 id="两种思路"><a href="#两种思路" class="headerlink" title="两种思路"></a>两种思路</h2><p>对于 TwoSum 类问题，总的来说有两种大的方向，一种方向是借助 <strong>Hash 表</strong>，另外<strong>一种是借助排序，然后利用相向双指针</strong>来解决问题，我们分别来看看：</p>
@@ -614,11 +631,11 @@ $(function() {
 <p>首先是 Hash 表的方法，如果使用这个方法，我们不需要考虑太多的东西，元素来了直接扔进数组就行，也就是说 <strong>添加元素</strong> 操作只需要 O(1) 的时间复杂度就可以完成，但是<strong>TwoSum</strong> 的完成需要额外 O(n) 的空间；</p>
 <p>再来看看排序的方法，因为这里插入元素我们需要保证元素有序，因此 <strong>添加元素</strong> 需要 O(n) 的时间，但是这里 <strong>TwoSum</strong> 操作并不需要额外空间，综合来考虑，因为 <strong>添加元素</strong>和 <strong>TwoSum</strong> 操作都会比较频繁，因此 Hash 表的方法在时间上面更优。</p>
 <h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><p>①</p>
-<p><img src="/2019-10-26/two-sum/3.jpg" alt="3"></p>
+<p><img src="/two-sum.htmltwo-sum/3.jpg" alt="3"></p>
 <p>对于这个解法的时间复杂度呢，<code>add</code>方法是 O(1)，<code>find</code>方法是 O(N)，空间复杂度为 O(N)，和上一道题目比较类似。</p>
 <p><strong>但是对于 API 的设计，是需要考虑现实情况的**</strong>。**比如说，我们设计的这个类，使用<code>find</code>方法非常频繁，那么每次都要 O(N) 的时间，岂不是很浪费费时间吗？对于这种情况，我们是否可以做些优化呢？</p>
 <p>是的，对于频繁使用<code>find</code>方法的场景，我们可以进行优化。我们可以参考上一道题目的暴力解法，借助<strong>哈希集合</strong>来针对性优化<code>find</code>方法：</p>
-<p><img src="/2019-10-26/two-sum/4.jpg" alt="4"></p>
+<p><img src="/two-sum.htmltwo-sum/4.jpg" alt="4"></p>
 <p>这样<code>sum</code>中就储存了所有加入数字可能组成的和，每次<code>find</code>只要花费 O(1) 的时间在集合中判断一下是否存在就行了，显然非常适合频繁使用<code>find</code>的场景。</p>
 <p>②</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Map&lt;Integer, Integer&gt; elements;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> MAX_VALUE = Integer.MIN_VALUE;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> MIN_VALUE = Integer.MAX_VALUE;</span><br><span class="line"><span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TwoSum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    elements = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/** Add the number to an internal data structure.. */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">    elements.put(number, elements.getOrDefault(number, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    MAX_VALUE = Math.max(MAX_VALUE, number);</span><br><span class="line">    MIN_VALUE = Math.min(MIN_VALUE, number);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/** Find if there exists any pair of numbers which sum is equal to the value. */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (value &lt; <span class="number">2</span> * MIN_VALUE || value &gt; <span class="number">2</span> * MAX_VALUE) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i : elements.keySet()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i * <span class="number">2</span> == value &amp;&amp; elements.get(i) &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i * <span class="number">2</span> != value &amp;&amp; elements.containsKey(value - i)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

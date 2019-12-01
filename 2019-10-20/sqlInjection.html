@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,20 +95,20 @@
 <meta name="keywords" content="数据库,黑科技">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql注入 (sql Injection)">
-<meta property="og:url" content="http://linjiahong.top/2019-10-20/sqlInjection.html">
+<meta property="og:url" content="linjiahong.top/2019-10-20/sqlInjection.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="对有关SQL Injection的相关介绍，主要包括原理跟实操 内容来自数据库的一次小作业，那天人类终于回想起被sql注入的恐惧，某种意义上比专业课有趣">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://linjiahong.top/2019-10-20/sqlInjection/wallhaven-132lqw.png">
-<meta property="og:image" content="http://linjiahong.top/2019-10-20/sqlInjection/content_sql.injection.types.png">
-<meta property="og:image" content="http://linjiahong.top/2019-10-20/sqlInjection/20180330165737404.png">
-<meta property="og:image" content="http://linjiahong.top/2019-10-20/sqlInjection/微信截图_20191019195658.png">
-<meta property="og:image" content="http://linjiahong.top/2019-10-20/sqlInjection/微信截图_20191019195838.png">
+<meta property="og:image" content="/sqlInjection.htmlsqlInjection/wallhaven-132lqw.png">
+<meta property="og:image" content="/sqlInjection.htmlsqlInjection/content_sql.injection.types.png">
+<meta property="og:image" content="/sqlInjection.htmlsqlInjection/20180330165737404.png">
+<meta property="og:image" content="/sqlInjection.htmlsqlInjection/微信截图_20191019195658.png">
+<meta property="og:image" content="/sqlInjection.htmlsqlInjection/微信截图_20191019195838.png">
 <meta property="og:updated_time" content="2019-10-25T08:26:33.490Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql注入 (sql Injection)">
 <meta name="twitter:description" content="对有关SQL Injection的相关介绍，主要包括原理跟实操 内容来自数据库的一次小作业，那天人类终于回想起被sql注入的恐惧，某种意义上比专业课有趣">
-<meta name="twitter:image" content="http://linjiahong.top/2019-10-20/sqlInjection/wallhaven-132lqw.png">
+<meta name="twitter:image" content="/sqlInjection.htmlsqlInjection/wallhaven-132lqw.png">
 
 
 
@@ -119,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-10-20/sqlInjection.html">
+  <link rel="canonical" href="linjiahong.top/2019-10-20/sqlInjection.html">
 
 
 
@@ -143,7 +160,7 @@
 
 
   <title> sql注入 (sql Injection) | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -398,7 +415,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-10-20/sqlInjection.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-10-20/sqlInjection.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -544,7 +561,7 @@ $(function() {
 
       
         <p></p><p class="description">对有关SQL Injection的相关介绍，主要包括原理跟实操</p><p></p>
-<p><blockquote class="question">内容来自数据库的一次小作业，那天人类终于回想起被sql注入的恐惧，某种意义上比专业课有趣</blockquote><br><img src="/2019-10-20/sqlInjection/wallhaven-132lqw.png" alt="wallhaven-132lqw"></p>
+<p><blockquote class="question">内容来自数据库的一次小作业，那天人类终于回想起被sql注入的恐惧，某种意义上比专业课有趣</blockquote><br><img src="/sqlInjection.htmlsqlInjection/wallhaven-132lqw.png" alt="wallhaven-132lqw"></p>
 <a id="more"></a>
 <p><blockquote class="question"></blockquote></p>
 <p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=404182079&auto=0&height=66"></iframe></p>
@@ -560,7 +577,7 @@ $(function() {
 <li>sql注入<strong>防御方案</strong></li>
 </ol>
 <h2 id="sql注入原理"><a href="#sql注入原理" class="headerlink" title="sql注入原理"></a>sql注入原理</h2><p><blockquote class="question">(Structured Query Language Injection）是从正常的WWW端口访问，而且表面看出来跟一般的Web页面没什么区别，所以目前市面的防火墙都不会对SQL注入发出警报，如果管理员没查看IIS日志的习惯，可能被入侵很长时间都不会被发觉。</blockquote><br>SQL注入攻击是攻击者通过把SQL命令插入到Web表单递交或输入域名或页面请求的查询字符串，最终达到<strong>欺骗服务器</strong>执行<strong>恶意</strong>的SQL命令。</p>
-<h2 id="sql攻击类型"><a href="#sql攻击类型" class="headerlink" title="sql攻击类型"></a>sql攻击类型</h2><p><img src="/2019-10-20/sqlInjection/content_sql.injection.types.png" alt="content_sql.injection.types"></p>
+<h2 id="sql攻击类型"><a href="#sql攻击类型" class="headerlink" title="sql攻击类型"></a>sql攻击类型</h2><p><img src="/sqlInjection.htmlsqlInjection/content_sql.injection.types.png" alt="content_sql.injection.types"></p>
 <h3 id="按照注入点类型来分类"><a href="#按照注入点类型来分类" class="headerlink" title="按照注入点类型来分类"></a>按照注入点类型来分类</h3><h4 id="数字型注入点"><a href="#数字型注入点" class="headerlink" title="数字型注入点"></a>数字型注入点</h4><p>许多网页链接有类似的结构 <a href="http://xxx.com/users.php?id=1" target="_blank" rel="noopener">http://xxx.com/users.php?id=1</a> 基于此种形式的注入，一般被叫做数字型注入点，缘由是其注入点 id 类型为数字，在大多数的网页中，诸如 查看用户个人信息，查看文章等，大都会使用这种形式的结构传递id等信息，交给后端，查询出数据库中对应的信息，返回给前台。这一类的 SQL 语句原型大概为 <code>select * from 表名 where id=1</code> 若存在注入，我们可以构造出类似与如下的sql注入语句进行爆破：<code>select * from 表名 where id=1 and 1=1</code></p>
 <h4 id="字符型注入点"><a href="#字符型注入点" class="headerlink" title="字符型注入点"></a>字符型注入点</h4><p>网页链接有类似的结构 <a href="http://xxx.com/users.php?name=admin" target="_blank" rel="noopener">http://xxx.com/users.php?name=admin</a> 这种形式，其注入点 name 类型为字符类型，所以叫字符型注入点。这一类的 SQL 语句原型大概为 <code>select * from 表名 where name=&#39;admin&#39;</code> 值得注意的是这里相比于数字型注入类型的sql语句原型多了引号，可以是单引号或者是双引号。若存在注入，我们可以构造出类似与如下的sql注入语句进行爆破：<code>select * from 表名 where name=&#39;admin&#39; and 1=1 &#39;</code> 我们需要将这些烦人的引号给处理掉。</p>
 <h4 id="搜索型注入点"><a href="#搜索型注入点" class="headerlink" title="搜索型注入点"></a>搜索型注入点</h4><p>这是一类特殊的注入类型。这类注入主要是指在进行数据搜索时没过滤搜索参数，一般在链接地址中有 <code>&quot;keyword=关键字&quot;</code> 有的不显示在的链接地址里面，而是直接通过搜索框表单提交。此类注入点提交的 SQL 语句，其原形大致为：<code>select * from 表名 where 字段 like &#39;%关键字%&#39;</code> 若存在注入，我们可以构造出类似与如下的sql注入语句进行爆破：<code>select * from 表名 where 字段 like &#39;%测试%&#39; and &#39;%1%&#39;=&#39;%1%&#39;</code></p>
@@ -578,9 +595,9 @@ $(function() {
 </ol>
 <h4 id="联合查询注入"><a href="#联合查询注入" class="headerlink" title="联合查询注入"></a>联合查询注入</h4><p>可以使用union的情况下的注入。</p>
 <h4 id="堆查询注入"><a href="#堆查询注入" class="headerlink" title="堆查询注入"></a>堆查询注入</h4><p>可以同时执行多条语句的执行时的注入。</p>
-<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><h2 id="sql攻击过程"><a href="#sql攻击过程" class="headerlink" title="sql攻击过程"></a>sql攻击过程</h2><p><img src="/2019-10-20/sqlInjection/20180330165737404.png" alt="20180330165737404"></p>
-<p><img src="/2019-10-20/sqlInjection/微信截图_20191019195658.png" alt="微信截图_20191019195658"></p>
-<p><img src="/2019-10-20/sqlInjection/微信截图_20191019195838.png" alt="微信截图_20191019195838"></p>
+<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><h2 id="sql攻击过程"><a href="#sql攻击过程" class="headerlink" title="sql攻击过程"></a>sql攻击过程</h2><p><img src="/sqlInjection.htmlsqlInjection/20180330165737404.png" alt="20180330165737404"></p>
+<p><img src="/sqlInjection.htmlsqlInjection/微信截图_20191019195658.png" alt="微信截图_20191019195658"></p>
+<p><img src="/sqlInjection.htmlsqlInjection/微信截图_20191019195838.png" alt="微信截图_20191019195838"></p>
 <h2 id="sql危害"><a href="#sql危害" class="headerlink" title="sql危害"></a>sql危害</h2><ol>
 <li>数据库信息泄漏：数据库中存放的用户的隐私信息的泄露。</li>
 <li>网页篡改：通过操作数据库对特定网页进行篡改。</li>

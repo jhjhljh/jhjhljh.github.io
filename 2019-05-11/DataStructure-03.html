@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,16 +95,16 @@
 <meta name="keywords" content="串">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构-串">
-<meta property="og:url" content="http://linjiahong.top/2019-05-11/DataStructure-03.html">
+<meta property="og:url" content="linjiahong.top/2019-05-11/DataStructure-03.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://linjiahong.top/2019-05-11/DataStructure-03/startup.jpg">
+<meta property="og:image" content="/DataStructure-03.htmlDataStructure-03/startup.jpg">
 <meta property="og:updated_time" content="2019-05-12T16:10:27.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-串">
 <meta name="twitter:description" content="虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来">
-<meta name="twitter:image" content="http://linjiahong.top/2019-05-11/DataStructure-03/startup.jpg">
+<meta name="twitter:image" content="/DataStructure-03.htmlDataStructure-03/startup.jpg">
 
 
 
@@ -115,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-05-11/DataStructure-03.html">
+  <link rel="canonical" href="linjiahong.top/2019-05-11/DataStructure-03.html">
 
 
 
@@ -139,7 +156,7 @@
 
 
   <title> 数据结构-串 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -394,7 +411,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-05-11/DataStructure-03.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-05-11/DataStructure-03.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -541,7 +558,7 @@ $(function() {
       
         <p class="description">虽然课本已经不把串的抽象数据类型作为重点，但是毕竟有所提及，这里还是把串的相关笔记提交上来</p>
 
-<p><img src="/2019-05-11/DataStructure-03/startup.jpg" alt="startup"></p>
+<p><img src="/DataStructure-03.htmlDataStructure-03/startup.jpg" alt="startup"></p>
 <a id="more"></a>
 <blockquote class="question">“你将不再是道具，而是人如其名的人”</blockquote>
 

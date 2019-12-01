@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,11 +95,11 @@
 <meta name="keywords" content="前端,计网,ajax,socket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="有关socket通讯的相关小知识">
-<meta property="og:url" content="http://linjiahong.top/2019-06-05/websocket.html">
+<meta property="og:url" content="linjiahong.top/2019-06-05/websocket.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="由于课设的原因，查阅不少socket、轮询、ajax、comet、三次握手的相关资料">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://linjiahong.top/2019-06-05/websocket/wallhaven-5w5og8.jpg">
+<meta property="og:image" content="/websocket.htmlwebsocket/wallhaven-5w5og8.jpg">
 <meta property="og:image" content="https://blog.zengrong.net/uploads/2014/12/TCP-IP.gif">
 <meta property="og:image" content="https://img-blog.csdn.net/20160920172520899">
 <meta property="og:image" content="https://segmentfault.com/img/bVHiiu?w=725&h=286">
@@ -90,7 +107,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="有关socket通讯的相关小知识">
 <meta name="twitter:description" content="由于课设的原因，查阅不少socket、轮询、ajax、comet、三次握手的相关资料">
-<meta name="twitter:image" content="http://linjiahong.top/2019-06-05/websocket/wallhaven-5w5og8.jpg">
+<meta name="twitter:image" content="/websocket.htmlwebsocket/wallhaven-5w5og8.jpg">
 
 
 
@@ -118,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-06-05/websocket.html">
+  <link rel="canonical" href="linjiahong.top/2019-06-05/websocket.html">
 
 
 
@@ -142,7 +159,7 @@
 
 
   <title> 有关socket通讯的相关小知识 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -397,7 +414,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-06-05/websocket.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-06-05/websocket.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -542,7 +559,7 @@ $(function() {
       
 
       
-        <p></p><p class="description">由于课设的原因，查阅不少socket、轮询、ajax、comet、三次握手的相关资料</p><br><img src="/2019-06-05/websocket/wallhaven-5w5og8.jpg" alt="wallhaven-5w5og8"><p></p>
+        <p></p><p class="description">由于课设的原因，查阅不少socket、轮询、ajax、comet、三次握手的相关资料</p><br><img src="/websocket.htmlwebsocket/wallhaven-5w5og8.jpg" alt="wallhaven-5w5og8"><p></p>
 <a id="more"></a>
 <p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=480097183&auto=0&height=66"></iframe></p>
 <h2 id="关于TCP协议"><a href="#关于TCP协议" class="headerlink" title="关于TCP协议"></a>关于TCP协议</h2><p>提到TCP协议，那就离不开三次握手跟四次分手</p>

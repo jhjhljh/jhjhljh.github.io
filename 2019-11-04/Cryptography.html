@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -78,13 +95,13 @@
 <meta name="keywords" content="HTTPS,密码学,加密算法,TLS&#x2F;SSL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于密码学里面那些绕来绕去的概念">
-<meta property="og:url" content="http://linjiahong.top/2019-11-04/Cryptography.html">
+<meta property="og:url" content="linjiahong.top/2019-11-04/Cryptography.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="非对称（私钥）算法、对称（公钥）算法、RSA算法、数字签名、数字证书及https协议、TLS/SSL">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/52533640_p0.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-11-04/Cryptography/31704456_p0.jpg">
-<meta property="og:image" content="http://linjiahong.top/2019-11-04/Cryptography/20191104191547.png">
+<meta property="og:image" content="/Cryptography.htmlCryptography/31704456_p0.jpg">
+<meta property="og:image" content="/Cryptography.htmlCryptography/20191104191547.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080914.jpg">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080915.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080916.png">
@@ -92,8 +109,8 @@
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080918.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080919.jpg">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080920.png">
-<meta property="og:image" content="http://linjiahong.top/2019-11-04/Cryptography/2019.png">
-<meta property="og:image" content="http://linjiahong.top/2019-11-04/Cryptography/20191.png">
+<meta property="og:image" content="/Cryptography.htmlCryptography/2019.png">
+<meta property="og:image" content="/Cryptography.htmlCryptography/20191.png">
 <meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/201402/bg2014020502.png">
 <meta property="og:image" content="https://www.ruanyifeng.com/blogimg/asset/201402/bg2014020503.gif">
 <meta property="og:updated_time" content="2019-11-29T15:43:34.777Z">
@@ -128,7 +145,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/2019-11-04/Cryptography.html">
+  <link rel="canonical" href="linjiahong.top/2019-11-04/Cryptography.html">
 
 
 
@@ -152,7 +169,7 @@
 
 
   <title> 关于密码学里面那些绕来绕去的概念 | Abo </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
@@ -407,7 +424,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://linjiahong.top/2019-11-04/Cryptography.html">
+  <link itemprop="mainEntityOfPage" href="linjiahong.top/2019-11-04/Cryptography.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -573,7 +590,7 @@ $(function() {
 <li>如果可以用私钥解密，则必然是对应的公钥加的密</li>
 </ul>
 <p>公钥和私钥是相对的，<u>两者本身并没有规定哪一个必须是公钥或私钥</u>。</p>
-<p><img src="/2019-11-04/Cryptography/31704456_p0.jpg" alt="31704456_p0"></p>
+<p><img src="/Cryptography.htmlCryptography/31704456_p0.jpg" alt="31704456_p0"></p>
 <h2 id="实现数据的安全传输"><a href="#实现数据的安全传输" class="headerlink" title="实现数据的安全传输"></a>实现数据的安全传输</h2><p>要实现数据的安全传输，当然就要对数据进行加密了。</p>
 <p>如果使用对称加密算法，加解密使用同一个密钥，除了自己保存外，对方也要知道这个密钥，才能对数据进行解密。如果你把密钥也一起传过去，就存在密码泄漏的可能。所以我们使用<strong>非对称算法</strong>，过程如下：</p>
 <ol>
@@ -583,7 +600,7 @@ $(function() {
 <li>接收方收到数据后，使用自己的私钥解密。</li>
 </ol>
 <p>由于在非对称算法中，公钥加密的数据必须用对应的私钥才能解密，而私钥又只有接收方自己知道，这样就保证了数据传输的安全性。</p>
-<p><img src="/2019-11-04/Cryptography/20191104191547.png" alt="20191104191547"></p>
+<p><img src="/Cryptography.htmlCryptography/20191104191547.png" alt="20191104191547"></p>
 <p>划重点：上图即是RSA算法</p>
 <blockquote>
 <p>RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是1977年由罗纳德·李维斯特、阿迪·萨莫尔和伦纳德·阿德曼一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。</p>
@@ -648,14 +665,14 @@ $(function() {
 <p><img src="http://www.ruanyifeng.com/blogimg/asset/201108/bg2011080920.png" alt="img"></p>
 <p>如果数字证书是可靠的，客户端就可以使用证书中的服务器公钥，对信息进行加密，然后与服务器交换加密信息。</p>
 <p>我们就拿segmentfault为例。</p>
-<p><img src="/2019-11-04/Cryptography/2019.png" alt="2019"></p>
+<p><img src="/Cryptography.htmlCryptography/2019.png" alt="2019"></p>
 <p>我们可以看到这里显示sf安装了证书，并且显示是<code>valid</code>，证明：</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- <span class="built_in">sf</span>是<span class="built_in">sf</span>，我没有被劫持到其他站点</span><br><span class="line">- 我和<span class="built_in">sf</span>之前的通信是加密的，安全的，其他人窃取不到</span><br></pre></td></tr></table></figure>
 <p>那么浏览器是怎么验证的sf的证书的呢？还记得上面我提了一句“根证书”么？因为一般我们去申请证书都是通过CA机构，同时大家都信任CA机构比如digicert，verisign，那么我们就可以事先将这些CA机构的证明安装到我们的电脑上，也就是这些CA机构的”公钥”，我们也称它们为<code>“根证书”</code>。（CA把张三的“个人信息”以及“公钥信息”用他的私钥加密成“密文”，把这个密文当做“电子签名”签在了证书上，然后这个证书就被称为“电子证书”，最后再把自己的公钥送给了用户）这些根证书是预先安装在我们电脑上的，所以每当我们访问segmentfault的时候，如果segmentfault服务器上安装了证书，他想和我们建立安全通信，就好比上面例子中，张三直接把公钥发给李四一样，在这里：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">segmentfault说：“<span class="keyword">hi</span>，我们建立安全通信吧，这是我的公钥”</span><br><span class="line">你的浏览器：“你怎么证明你的公钥是你的呢？”</span><br><span class="line">segmentfault说：“这是我的证书，请查看”</span><br></pre></td></tr></table></figure>
 <p>然后segmentfault就把安装在服务器上的证书传给你的浏览器，因为你的浏览器已经有一些神器“根证书”的存在，所以这些根证书（CA机构的公钥）就可以来“解密”sf发过来的证书上的签名，然后对比一下解密后的信息和sf证书中所呈现的信息是否一致，如果一致，就ok拉！</p>
 <p>最后上一个截图：</p>
-<p><img src="/2019-11-04/Cryptography/20191.png" alt="2019"></p>
+<p><img src="/Cryptography.htmlCryptography/20191.png" alt="2019"></p>
 <p>大家注意，最上面“DigiCert Global Root CA”，说明我们使用digicert这个CA组织的根证书来进行认证sf的证书，然后digicert替我们证明了sf证书的合理性：“This certificate is valid”，同时给我列出来证书中的一些详细信息，比如：证书的持有者，证书的过期时间，证书中所携带的“公钥”信息（用来验证你得到的公钥确实是sf的）</p>
 <h2 id="TLS-SSL协议"><a href="#TLS-SSL协议" class="headerlink" title="TLS/SSL协议"></a>TLS/SSL协议</h2><p>不使用SSL/TLS的HTTP通信，就是不加密的通信。所有信息明文传播，带来了三大风险。</p>
 <blockquote>

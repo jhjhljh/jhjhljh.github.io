@@ -24,6 +24,23 @@
     })();
 </script>
 
+<% if (theme.baidu_push) { %>
+<script>
+(function(){
+var bp = document.createElement('script');
+var curProtocol = window.location.protocol.split(':')[0];
+if (curProtocol === 'https') {
+bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+}
+else {
+bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+}
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<% } %>
+
 
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -77,7 +94,7 @@
 <meta name="keywords" content="IT，Abo，前端web，黑科技，算法">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tags">
-<meta property="og:url" content="http://linjiahong.top/tags/index.html">
+<meta property="og:url" content="linjiahong.top/tags/index.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-05-08T19:13:38.510Z">
@@ -110,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://linjiahong.top/tags/">
+  <link rel="canonical" href="linjiahong.top/tags/">
 
 
 
@@ -140,7 +157,7 @@
     tags | Abo
   
 </title>
-</head>
+</%></%></head>
 
   	 <!-- custom analytics part create by xiamo -->
 <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
