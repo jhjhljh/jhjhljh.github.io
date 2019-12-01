@@ -99,8 +99,8 @@
 <meta property="og:description" content="动态规划一般可分为线性动规，区域动规，树形动规，背包动规四类。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/cover.jpg">
-<meta property="og:image" content="/dynamic-programming.htmldynamic-programming/1.png">
-<meta property="og:updated_time" content="2019-11-29T15:31:57.853Z">
+<meta property="og:image" content="http://images.linjiahong.top/1.png">
+<meta property="og:updated_time" content="2019-12-01T10:35:48.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划集锦（Dynamic programming，简称DP）">
 <meta name="twitter:description" content="动态规划一般可分为线性动规，区域动规，树形动规，背包动规四类。">
@@ -561,12 +561,12 @@ $(function() {
         <p></p><p class="description">动态规划一般可分为线性动规，区域动规，树形动规，背包动规四类。</p><br><img src="http://images.linjiahong.top/cover.jpg" alt="cover"><p></p>
 <a id="more"></a>
 <p><blockquote class="question">动态规划问题一直是算法面试当中的重点和难点，并且动态规划这种通过空间换取时间的算法思想在实际的工作中也会被频繁用到</blockquote><br>
-        <div id="aplayer-DdDvdkYc" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-qMTtvUKE" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-DdDvdkYc"),
+            element: document.getElementById("aplayer-qMTtvUKE"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -616,7 +616,7 @@ $(function() {
 <h3 id="不同路径"><a href="#不同路径" class="headerlink" title="不同路径"></a>不同路径</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
 <p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
 <p>问总共有多少条不同的路径？</p>
-<p><img src="/dynamic-programming.htmldynamic-programming/1.png" alt="1"></p>
+<p><img src="http://images.linjiahong.top/1.png" alt="1"></p>
 <h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (m &lt;= <span class="number">0</span> || n &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n]; <span class="comment">// </span></span><br><span class="line">      <span class="comment">// 初始化</span></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">      dp[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="comment">// 公式：dp[i] = dp[i-1] + dp[i]</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="comment">// 第 i 行第 0 列的初始值</span></span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            dp[j] = dp[j<span class="number">-1</span>] + dp[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="矩形最小路径和"><a href="#矩形最小路径和" class="headerlink" title="矩形最小路径和"></a>矩形最小路径和</h3><h4 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h4><p>给定一个包含非负整数的 <em>m</em> x <em>n</em> 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</p>
 <p><strong>说明：</strong>每次只能向下或者向右移动一步。</p>
@@ -826,7 +826,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -835,7 +835,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

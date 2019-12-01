@@ -99,16 +99,16 @@
 <meta property="og:description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/wallhaven-g89vrl.jpg">
-<meta property="og:image" content="/WeirdMathInJs.htmlWeirdMathInJs/11.jpg">
-<meta property="og:image" content="/WeirdMathInJs.htmlWeirdMathInJs/22.jpg">
-<meta property="og:image" content="/WeirdMathInJs.htmlWeirdMathInJs/20180814185755910.png">
+<meta property="og:image" content="http://images.linjiahong.top/WeirdMathInJs11.jpg">
+<meta property="og:image" content="http://images.linjiahong.top/22WeirdMathInJs.jpg">
+<meta property="og:image" content="http://images.linjiahong.top/20180814185755910.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/ieee754.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/IEEE754_1.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/float.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case1.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case2.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case3.png">
-<meta property="og:updated_time" content="2019-11-29T15:40:11.368Z">
+<meta property="og:updated_time" content="2019-12-01T11:28:17.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？">
 <meta name="twitter:description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
@@ -572,9 +572,9 @@ $(function() {
 <p>原始类型包括哪些？对象类型包括哪些？为什么要这样分类？他们的区别又是什么？</p>
 <p><strong>原始类型存储的都是值，而对象类型存储的都是地址</strong>。如下图：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">let</span> j = i;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br></pre></td></tr></table></figure>
-<p><img src="/WeirdMathInJs.htmlWeirdMathInJs/11.jpg" alt="11"></p>
+<p><img src="http://images.linjiahong.top/WeirdMathInJs11.jpg" alt="11"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">let</span> obj2 = obj1;</span><br></pre></td></tr></table></figure>
-<p><img src="/WeirdMathInJs.htmlWeirdMathInJs/22.jpg" alt="22"></p>
+<p><img src="http://images.linjiahong.top/22WeirdMathInJs.jpg" alt="22"></p>
 <p>如上图所示，我们清楚了原始类型和对象类型最根本的区别，那么问题又来了，当我们进行变量之间赋值的时候，原始类型直接赋值的是值，而对象类型赋值的是地址。</p>
 <p>所以，当我们将对象作为参数进行传递的时候，在函数内改变的是该地址指向的对象，而传递的参数是原始类型，则改变的是一个副本（复制的另一个值）。也就是说，如果是对象，则改变了原始的值，而不能改变原始类型原始的值。</p>
 <p><strong>原始类型</strong>共六种，分别为<code>String</code>、<code>Number</code>、<code>Boolean</code>、<code>null</code>、<code>undefined</code>、<code>symbol</code>。</p>
@@ -679,7 +679,7 @@ $(function() {
 <p>从上面可以看出，0.1的二进制格式是：0.0001100011….。这是一个<strong>二进制无限循环小数</strong>，但计算机内存有限，我们不能用储存所有的小数位数。那么在精度与内存间如何取舍呢？</p>
 <p>答案是：<strong>在某个精度点直接舍弃</strong>。当然，代价就是，0.1在计算机内部根本就不是精确的0.1，而是一个有舍入误差的0.1。当代码被编译或解释后，0.1已经被四舍五入成一个与之很接近的计算机内部数字，以至于计算还没开始，一个很小的舍入错误就已经产生了。这也就是 0.1 + 0.2 不等于0.3 的原因。</p>
 <p>有误差的两个数，其计算的结果，当然就<strong>很可能</strong>与我们期望的不一样了。注意前面的这句话中的“很可能”这三个字？为啥是很可能昵？</p>
-<p><img src="/WeirdMathInJs.htmlWeirdMathInJs/20180814185755910.png" alt="20180814185755910"></p>
+<p><img src="http://images.linjiahong.top/20180814185755910.png" alt="20180814185755910"></p>
 <h4 id="0-1-0-1-为什么等于0-2"><a href="#0-1-0-1-为什么等于0-2" class="headerlink" title="0.1 + 0.1 为什么等于0.2"></a>0.1 + 0.1 为什么等于0.2</h4><p>答案是：两个有舍入误差的值在求和时，相互抵消了，但这种“负负得正，相互抵消”不一定是可靠的，当这两个数字是用不同长度数位来表示的浮点数时，舍入误差可能不会相互抵消。</p>
 <p>又如，对于 0.1 + 0.3 ，结果其实并不是0.4，但0.4是最接近真实结果的数，比其它任何浮点数都更接近。许多语言也就直接显示结果为0.4了，而不展示一个浮点数的真实结果了。</p>
 <p>另外要注意，<strong>二进制能精确地表示位数有限且分母是2的倍数的小数</strong>，比如0.5，0.5在计算机内部就没有舍入误差。所以0.5 + 0.5 === 1</p>
@@ -871,7 +871,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -880,7 +880,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

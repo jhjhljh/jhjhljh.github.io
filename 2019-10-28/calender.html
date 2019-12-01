@@ -99,17 +99,17 @@
 <meta property="og:description" content="主要就是节气积日公式跟朔日的计算">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/6_29.jpg">
-<meta property="og:image" content="/calender.htmlcalender/20191028192822.png">
-<meta property="og:image" content="/calender.htmlcalender/1.png">
-<meta property="og:image" content="/calender.htmlcalender/2.png">
-<meta property="og:image" content="/calender.htmlcalender/3.png">
-<meta property="og:image" content="/calender.htmlcalender/4.png">
-<meta property="og:image" content="/calender.htmlcalender/6.png">
-<meta property="og:image" content="/calender.htmlcalender/7.png">
-<meta property="og:image" content="/calender.htmlcalender/8.png">
-<meta property="og:image" content="/calender.htmlcalender/8.5.png">
-<meta property="og:image" content="/calender.htmlcalender/9.png">
-<meta property="og:updated_time" content="2019-11-29T15:47:38.918Z">
+<meta property="og:image" content="http://images.linjiahong.top/calender.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender1.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender2.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender3.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender4.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender6.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender7.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender8.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender8.5.png">
+<meta property="og:image" content="http://images.linjiahong.top/calender9.png">
+<meta property="og:updated_time" content="2019-12-01T10:13:28.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="中国农历日期的算法（gregorian date）">
 <meta name="twitter:description" content="主要就是节气积日公式跟朔日的计算">
@@ -597,7 +597,7 @@ $(function() {
 </blockquote>
 </blockquote>
 <p>通过观测跟计算分配29天跟30天于各个月份，此为不均匀分配的</p>
-<h3 id="二十四节气"><a href="#二十四节气" class="headerlink" title="二十四节气"></a>二十四节气</h3><p><img src="/calender.htmlcalender/20191028192822.png" alt="20191028192822"></p>
+<h3 id="二十四节气"><a href="#二十四节气" class="headerlink" title="二十四节气"></a>二十四节气</h3><p><img src="http://images.linjiahong.top/calender.png" alt="20191028192822"></p>
 <p>360度/15度 = 24<br>因为是根据地球绕太阳来分的，所以二十四节气是一种<strong>阳历</strong>，所以说清明节是在每年的4.5，而不是在农历的4.5，</p>
 <p>24节气分为2类：一类叫节气，一类叫中气，隔着来排列</p>
 <blockquote>
@@ -620,32 +620,32 @@ $(function() {
 <p>…</p>
 <h2 id="朔日计算公式"><a href="#朔日计算公式" class="headerlink" title="朔日计算公式"></a>朔日计算公式</h2><p>计算第m个朔日的时间</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">M</span><span class="params">(m)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.6</span> + <span class="number">29.5306</span> * m + <span class="number">0.4</span> * math.sin(<span class="number">1</span> - <span class="number">0.45058</span> * m)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</span><br><span class="line">    days = int(M(i)) //求<span class="number">1900</span>年的前面四个朔日时间</span><br><span class="line">    y,m,d = days_to_gregorian_date(days)</span><br><span class="line">    print(<span class="string">"&#123;&#125;年&#123;&#125;月&#123;&#125;日"</span>,format(y,m,d))</span><br></pre></td></tr></table></figure>
-<h2 id="综合性算法"><a href="#综合性算法" class="headerlink" title="综合性算法"></a>综合性算法</h2><p><img src="/calender.htmlcalender/1.png" alt="1"></p>
-<p><img src="/calender.htmlcalender/2.png" alt="2"></p>
+<h2 id="综合性算法"><a href="#综合性算法" class="headerlink" title="综合性算法"></a>综合性算法</h2><p><img src="http://images.linjiahong.top/calender1.png" alt="1"></p>
+<p><img src="http://images.linjiahong.top/calender2.png" alt="2"></p>
 <blockquote>
 <p>求距1900-01-00过了多少天</p>
 </blockquote>
-<p><img src="/calender.htmlcalender/3.png" alt="3"></p>
+<p><img src="http://images.linjiahong.top/calender3.png" alt="3"></p>
 <blockquote>
 <p>求离当前时间最近的朔日</p>
 </blockquote>
 <p>例：比如我想求2019年3月12日对应的农历日期</p>
-<p><img src="/calender.htmlcalender/4.png" alt="4"></p>
+<p><img src="http://images.linjiahong.top/calender4.png" alt="4"></p>
 <ol>
 <li>首先利用gregorian_date_to_days 得到当前天数</li>
 <li>再利用get_nearest_shuo_day得到最近朔日点</li>
 </ol>
-<p><img src="/calender.htmlcalender/6.png" alt="6"></p>
+<p><img src="http://images.linjiahong.top/calender6.png" alt="6"></p>
 <blockquote>
 <p>计算出离当前时间最近的朔日点，然后days减去初一(朔日点)则可以得到农历时间几月几号</p>
 </blockquote>
 <ol start="3">
 <li>定月份（通过24节气来确定月份）</li>
 </ol>
-<p><img src="/calender.htmlcalender/7.png" alt="7"></p>
-<p><img src="/calender.htmlcalender/8.png" alt="8"></p>
-<p><img src="/calender.htmlcalender/8.5.png" alt="8.5"></p>
-<p><img src="/calender.htmlcalender/9.png" alt="9"></p>
+<p><img src="http://images.linjiahong.top/calender7.png" alt="7"></p>
+<p><img src="http://images.linjiahong.top/calender8.png" alt="8"></p>
+<p><img src="http://images.linjiahong.top/calender8.5.png" alt="8.5"></p>
+<p><img src="http://images.linjiahong.top/calender9.png" alt="9"></p>
 <blockquote>
 <p>通过识别月份包裹哪个二十四节气的day数字，由此来判断农历月份</p>
 </blockquote>
@@ -798,7 +798,7 @@ $(function() {
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -807,7 +807,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
