@@ -46,6 +46,8 @@
 
 
 
+  <meta name="google-site-verification" content="39EeAhjsZOkXpt8PcowvLUrmgQkkCB0cBcMU65Rhxbk">
+
 
 
 
@@ -100,7 +102,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://images.linjiahong.top/cover.jpg">
 <meta property="og:image" content="http://images.linjiahong.top/1.png">
-<meta property="og:updated_time" content="2019-12-01T10:35:48.473Z">
+<meta property="og:updated_time" content="2019-12-13T15:33:10.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划集锦（Dynamic programming，简称DP）">
 <meta name="twitter:description" content="动态规划一般可分为线性动规，区域动规，树形动规，背包动规四类。">
@@ -570,12 +572,12 @@ $(function() {
         <p></p><p class="description">动态规划一般可分为线性动规，区域动规，树形动规，背包动规四类。</p><br><img src="http://images.linjiahong.top/cover.jpg" alt="cover"><p></p>
 <a id="more"></a>
 <p><blockquote class="question">动态规划问题一直是算法面试当中的重点和难点，并且动态规划这种通过空间换取时间的算法思想在实际的工作中也会被频繁用到</blockquote><br>
-        <div id="aplayer-jURovHoD" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-DwRJGeWB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-jURovHoD"),
+            element: document.getElementById("aplayer-DwRJGeWB"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -709,7 +711,7 @@ $(function() {
 </ul>
 <h4 id="代码实现-4"><a href="#代码实现-4" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n = nums.length;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">    dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> result = dp[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        dp[i] = Math.max(dp[i - <span class="number">1</span>], <span class="number">0</span>) + nums[i];</span><br><span class="line">        result = Math.max(result, dp[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这几个简单的例子，相信你不难发现，解动态规划题目其实就是拆解问题，定义状态的过程，严格说来，动态规划并不是一个具体的算法，而是凌驾于算法之上的一种 <strong>思想</strong>。</p>
-<h4 id><a href="#" class="headerlink" title=" "></a> </h4><hr>
+<h4 id><a href="#" class="headerlink" title=" "></a> </h4><hr>    
       
     </div>
 
@@ -826,7 +828,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-count">71</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
