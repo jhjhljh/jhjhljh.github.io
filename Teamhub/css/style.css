@@ -403,23 +403,23 @@ li, ul {
   }
 
 #home .slider1{
-  background-image: url(../img/sliders/1.jpg); height:750px;
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／1.jpg); height:750px;
   }
 
 #home .slider2{
-  background-image: url(../img/sliders/2.jpg); height:750px;
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／2.jpg); height:750px;
   }
 
 #home .slider3{
-  background-image: url(../img/sliders/3.jpg); height:750px;
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／3.jpg); height:750px;
   }
 
 #home .slider4{
-  background-image: url(../img/sliders/4.jpg); height:750px;
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／4.jpg); height:750px;
   }
 
 #home .phone1{
-  background-image: url(../img/sliders/phone1.png);
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／phone1.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 350px;
@@ -427,7 +427,7 @@ li, ul {
   }
 
 #home .phone2{
-  background-image: url(../img/sliders/phone2.png);
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／phone2.png);
   background-repeat: no-repeat;
   background-position: top;
   height: 750px;
@@ -435,7 +435,7 @@ li, ul {
   }
 
 #home .phone3{
-  background-image: url(../img/sliders/phone3.png);
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／phone3.png);
   background-repeat: no-repeat;
   background-position: top;
   height: 750px;
@@ -443,7 +443,7 @@ li, ul {
   }
 
 #home .phone4{
-  background-image: url(../img/sliders/phone4.png);
+  background-image: url(http://images.linjiahong.top/Teamhub／sliders／phone4.png);
   background-repeat: no-repeat;
   background-position: top;
   height: 750px;
@@ -717,7 +717,7 @@ li, ul {
   position: relative;
   width: 100%;
   height: auto;
-  background: url(../img/bg/action.jpg);
+  background: url(http://images.linjiahong.top/Teamhub／bg／action.jpg);
   min-height: 320px;
   max-height: 1500px;
   background-size: cover;
@@ -1018,7 +1018,7 @@ li, ul {
   }
 
 #video .video-bg{
-  background: url(../img/bg/video.jpg) center no-repeat;
+  background: url(http://images.linjiahong.top/Teamhub／bg／video.jpg) center no-repeat;
   width: 100%;
   height: 250px;
   -webkit-filter: grayscale(100%);
@@ -1333,7 +1333,7 @@ li, ul {
 --------------------------*/
 
 #contact{
-  background: url(../img/bg/contact.jpg) center fixed;
+  background: url(http://images.linjiahong.top/Teamhub／bg／contact.jpg) center fixed;
   width: 100%;
   height: auto;
   min-height: 550px;

@@ -95,8 +95,8 @@
 <meta name="description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
 <meta name="keywords" content="前端,js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？">
-<meta property="og:url" content="https://linjiahong.top/2019-10-25/WeirdMathInJs.html">
+<meta property="og:title" content="0.1 + 0.2 != 0.3 ? 该如何正确回答？(8.22更新)">
+<meta property="og:url" content="https://linjiahong.top/2020-08-22/WeirdMathInJs.html">
 <meta property="og:site_name" content="Abo">
 <meta property="og:description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
 <meta property="og:locale" content="zh-Hans">
@@ -110,9 +110,9 @@
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case1.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case2.png">
 <meta property="og:image" content="https://img001-10042971.cos.ap-shanghai.myqcloud.com/blog/case3.png">
-<meta property="og:updated_time" content="2019-12-01T11:28:17.505Z">
+<meta property="og:updated_time" content="2020-08-23T05:01:24.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？">
+<meta name="twitter:title" content="0.1 + 0.2 != 0.3 ? 该如何正确回答？(8.22更新)">
 <meta name="twitter:description" content="关于JavaScript中0.1 + 0.2 != 0.3的结果深入人心，但是原理 🐴">
 <meta name="twitter:image" content="http://images.linjiahong.top/wallhaven-g89vrl.jpg">
 
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="https://linjiahong.top/2019-10-25/WeirdMathInJs.html">
+  <link rel="canonical" href="https://linjiahong.top/2020-08-22/WeirdMathInJs.html">
 
 
 
@@ -165,7 +165,7 @@
 </style>
 
 
-  <title> 0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？ | Abo </title>
+  <title> 0.1 + 0.2 != 0.3 ? 该如何正确回答？(8.22更新) | Abo </title>
 </head>
 
   	 <!-- custom analytics part create by xiamo -->
@@ -430,7 +430,7 @@ $(function() {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://linjiahong.top/2019-10-25/WeirdMathInJs.html">
+  <link itemprop="mainEntityOfPage" href="https://linjiahong.top/2020-08-22/WeirdMathInJs.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="林加鸿">
@@ -454,7 +454,7 @@ $(function() {
             
             
               
-                0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？
+                0.1 + 0.2 != 0.3 ? 该如何正确回答？(8.22更新)
               
             
           </h2>
@@ -469,8 +469,8 @@ $(function() {
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-25T15:55:03+08:00">
-                2019-10-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-22T15:55:03+08:00">
+                2020-08-22
               </time>
             
 
@@ -512,7 +512,7 @@ $(function() {
 			 
           
           
-             <span id="/2019-10-25/WeirdMathInJs.html" class="leancloud_visitors" data-flag-title="0.1 + 0.2 != 0.3 ? 为什么？该如何正确回答？">
+             <span id="/2020-08-22/WeirdMathInJs.html" class="leancloud_visitors" data-flag-title="0.1 + 0.2 != 0.3 ? 该如何正确回答？(8.22更新)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -537,7 +537,7 @@ $(function() {
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  4.8k
+                  4.9k
                 </span>
               
 
@@ -579,6 +579,7 @@ $(function() {
 <a id="more"></a>
 <p><blockquote class="question">像这种变态的问题，在 JS 中存在很多</blockquote></p>
 <p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=744960&auto=0&height=66"></iframe><br>在解决0.1+0.2的问题之前，我们先来聊一聊js中的基本类型</p>
+<h2 id="通俗易懂解释-8-22"><a href="#通俗易懂解释-8-22" class="headerlink" title="通俗易懂解释(8.22)"></a>通俗易懂解释(8.22)</h2><p>JavaScript 引擎会先将十进制数转换为二进制，然后进行加法运算，再将所得结果转换为十进制。在进制转换过程中如果小数位是无限的，就会出现误差。</p>
 <h2 id="基本类型的分类"><a href="#基本类型的分类" class="headerlink" title="基本类型的分类"></a>基本类型的分类</h2><p>JS 的基本类型分为两大类型，分别为<strong>原始类型</strong>和<strong>对象类型</strong>。</p>
 <p>原始类型包括哪些？对象类型包括哪些？为什么要这样分类？他们的区别又是什么？</p>
 <p><strong>原始类型存储的都是值，而对象类型存储的都是地址</strong>。如下图：</p>
@@ -791,18 +792,14 @@ $(function() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019-10-25/pronounciation.html" rel="prev" title="IT 圈里的这些词你读对了吗？">
-                <i class="fa fa-chevron-left"></i> IT 圈里的这些词你读对了吗？
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019-10-25/prototype.html" rel="next" title="什么是 JS 原型和原型链?">
-                 什么是 JS 原型和原型链? <i class="fa fa-chevron-right"></i>
+              <a href="/2020-08-22/dataType.html" rel="next" title="不为人知的数据类型">
+                 不为人知的数据类型 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -873,7 +870,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -891,7 +888,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -992,7 +989,7 @@ $(function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型的分类"><span class="nav-number">1.</span> <span class="nav-text">基本类型的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.1.</span> <span class="nav-text">null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug的原因"><span class="nav-number">1.2.</span> <span class="nav-text">bug的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null-出现的情况汇总"><span class="nav-number">1.2.1.</span> <span class="nav-text">null 出现的情况汇总</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#symbol"><span class="nav-number">1.3.</span> <span class="nav-text">symbol</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#symbol是什么"><span class="nav-number">1.3.1.</span> <span class="nav-text">symbol是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#symbol的使用"><span class="nav-number">1.3.2.</span> <span class="nav-text">symbol的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined出现的情况"><span class="nav-number">1.4.1.</span> <span class="nav-text">undefined出现的情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么有的编程规范要求用-void-0-代替-undefined"><span class="nav-number">1.4.2.</span> <span class="nav-text">为什么有的编程规范要求用 void 0 代替 undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#void"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">void</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么-0-1-0-2-0-3"><span class="nav-number">2.</span> <span class="nav-text">为什么 0.1 + 0.2 != 0.3 ?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是什么导致了这种情况？"><span class="nav-number">2.1.</span> <span class="nav-text">是什么导致了这种情况？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部的原理是什么？"><span class="nav-number">2.2.</span> <span class="nav-text">内部的原理是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入原理"><span class="nav-number">2.3.</span> <span class="nav-text">深入原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机内部如何表示数"><span class="nav-number">2.3.1.</span> <span class="nav-text">计算机内部如何表示数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-计算机内部如何表示整数"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">1. 计算机内部如何表示整数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-计算机内部如何表示小数"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">2. 计算机内部如何表示小数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-如何用二进制表示0-1"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">3. 如何用二进制表示0.1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1-0-1-为什么等于0-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">0.1 + 0.1 为什么等于0.2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前方高能"><span class="nav-number">3.</span> <span class="nav-text">前方高能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#情况1-格式化的值"><span class="nav-number">3.1.</span> <span class="nav-text">情况1:格式化的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况2-非格式化的值"><span class="nav-number">3.2.</span> <span class="nav-text">情况2:非格式化的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况3-特殊值"><span class="nav-number">3.3.</span> <span class="nav-text">情况3:特殊值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数转换为二进制"><span class="nav-number">3.4.</span> <span class="nav-text">浮点数转换为二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-0-2"><span class="nav-number">3.5.</span> <span class="nav-text">0.1+0.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1的二进制"><span class="nav-number">3.5.1.</span> <span class="nav-text">0.1的二进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-2的二进制"><span class="nav-number">3.5.2.</span> <span class="nav-text">0.2的二进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮点数运算"><span class="nav-number">3.5.3.</span> <span class="nav-text">浮点数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对阶"><span class="nav-number">3.5.3.1.</span> <span class="nav-text">对阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#尾数运算"><span class="nav-number">3.5.3.2.</span> <span class="nav-text">尾数运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结果规格化"><span class="nav-number">3.5.3.3.</span> <span class="nav-text">结果规格化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#舍入处理"><span class="nav-number">3.5.3.4.</span> <span class="nav-text">舍入处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#溢出判断"><span class="nav-number">3.5.3.5.</span> <span class="nav-text">溢出判断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算0-1-0-2"><span class="nav-number">3.6.</span> <span class="nav-text">计算0.1+0.2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number-EPSILON"><span class="nav-number">4.</span> <span class="nav-text">Number.EPSILON</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通俗易懂解释-8-22"><span class="nav-number">1.</span> <span class="nav-text">通俗易懂解释(8.22)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本类型的分类"><span class="nav-number">2.</span> <span class="nav-text">基本类型的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug的原因"><span class="nav-number">2.2.</span> <span class="nav-text">bug的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null-出现的情况汇总"><span class="nav-number">2.2.1.</span> <span class="nav-text">null 出现的情况汇总</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#symbol"><span class="nav-number">2.3.</span> <span class="nav-text">symbol</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#symbol是什么"><span class="nav-number">2.3.1.</span> <span class="nav-text">symbol是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#symbol的使用"><span class="nav-number">2.3.2.</span> <span class="nav-text">symbol的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined出现的情况"><span class="nav-number">2.4.1.</span> <span class="nav-text">undefined出现的情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么有的编程规范要求用-void-0-代替-undefined"><span class="nav-number">2.4.2.</span> <span class="nav-text">为什么有的编程规范要求用 void 0 代替 undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#void"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">void</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么-0-1-0-2-0-3"><span class="nav-number">3.</span> <span class="nav-text">为什么 0.1 + 0.2 != 0.3 ?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是什么导致了这种情况？"><span class="nav-number">3.1.</span> <span class="nav-text">是什么导致了这种情况？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部的原理是什么？"><span class="nav-number">3.2.</span> <span class="nav-text">内部的原理是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入原理"><span class="nav-number">3.3.</span> <span class="nav-text">深入原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机内部如何表示数"><span class="nav-number">3.3.1.</span> <span class="nav-text">计算机内部如何表示数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-计算机内部如何表示整数"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">1. 计算机内部如何表示整数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-计算机内部如何表示小数"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">2. 计算机内部如何表示小数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-如何用二进制表示0-1"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">3. 如何用二进制表示0.1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1-0-1-为什么等于0-2"><span class="nav-number">3.3.2.</span> <span class="nav-text">0.1 + 0.1 为什么等于0.2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前方高能"><span class="nav-number">4.</span> <span class="nav-text">前方高能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#情况1-格式化的值"><span class="nav-number">4.1.</span> <span class="nav-text">情况1:格式化的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况2-非格式化的值"><span class="nav-number">4.2.</span> <span class="nav-text">情况2:非格式化的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#情况3-特殊值"><span class="nav-number">4.3.</span> <span class="nav-text">情况3:特殊值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数转换为二进制"><span class="nav-number">4.4.</span> <span class="nav-text">浮点数转换为二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-0-2"><span class="nav-number">4.5.</span> <span class="nav-text">0.1+0.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1的二进制"><span class="nav-number">4.5.1.</span> <span class="nav-text">0.1的二进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-2的二进制"><span class="nav-number">4.5.2.</span> <span class="nav-text">0.2的二进制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮点数运算"><span class="nav-number">4.5.3.</span> <span class="nav-text">浮点数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对阶"><span class="nav-number">4.5.3.1.</span> <span class="nav-text">对阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#尾数运算"><span class="nav-number">4.5.3.2.</span> <span class="nav-text">尾数运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结果规格化"><span class="nav-number">4.5.3.3.</span> <span class="nav-text">结果规格化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#舍入处理"><span class="nav-number">4.5.3.4.</span> <span class="nav-text">舍入处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#溢出判断"><span class="nav-number">4.5.3.5.</span> <span class="nav-text">溢出判断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算0-1-0-2"><span class="nav-number">4.6.</span> <span class="nav-text">计算0.1+0.2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number-EPSILON"><span class="nav-number">5.</span> <span class="nav-text">Number.EPSILON</span></a></li></ol></div>
             
 
           </div>
@@ -1014,7 +1011,7 @@ $(function() {
 <div class="copyright">
   
   &copy;  2018 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="heart">
     <i class="fa fa-heart"></i>
   </span>

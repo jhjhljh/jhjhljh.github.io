@@ -103,12 +103,11 @@
 <meta property="og:image" content="http://images.linjiahong.top/wallhaven-ox2pm5.jpg">
 <meta property="og:image" content="https://linjiahong.top/difference01/1.png">
 <meta property="og:image" content="https://segmentfault.com/img/bVboeKr?w=1265&h=715">
-<meta property="og:image" content="https://linjiahong.top/difference01/6.png">
 <meta property="og:image" content="https://linjiahong.top/difference01/2.png">
 <meta property="og:image" content="https://linjiahong.top/difference01/3.png">
 <meta property="og:image" content="https://linjiahong.top/difference01/4.png">
 <meta property="og:image" content="https://linjiahong.top/difference01/5.png">
-<meta property="og:updated_time" content="2019-11-29T15:37:12.057Z">
+<meta property="og:updated_time" content="2020-09-01T05:00:44.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="宏观任务[MacroTask]和微观任务[MicroTask]的执行">
 <meta name="twitter:description" content="换个角度：setTimeout跟promise跟promise.then以及async跟await中代码的执行先后顺序为？ 说白了：就是promise还有generator跟async三者的用法">
@@ -595,6 +594,7 @@ $(function() {
 <li><code>console.log(&#39;There&#39;)</code>函数返回了，因此把他从栈顶弹出去(译者按：原文为console.log(‘Everybody’)，应为书写错误)。</li>
 </ol>
 <p>有趣的一点是：<code>setTimeout(function(...), 0)</code>的情况。<code>setTimeout</code>为0的时候这个过程看起来可能不明显，除非考虑到调用栈的执行环境和事件循环的情况。基本上都会推迟到调用栈为空才执行。</p>
+<p>宏任务和微任务执行完成后都会判断是否还有微任务，有的话执行微任务，没有就执行宏任务，如此循坏</p>
 <h2 id="面试题实战"><a href="#面试题实战" class="headerlink" title="面试题实战"></a>面试题实战</h2><h3 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    resolve(<span class="number">3</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">num</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(num)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <p>这道题的输出是123，为什么不是132呢？因为我一直理解Promise是没有异步功能，它只是帮忙解决异步回调的问题，实质上是和回调是一样的，所以如果按照这个想法，resolve之后应该会立刻then。但实际上并不是。难道用了setTimeout？</p>
 <p>如果在promise里面再加一个promise：</p>
@@ -620,7 +620,6 @@ $(function() {
 <p>script start<br>script end<br>promise1<br>promise2<br>setTimeout</p>
 </blockquote>
 <p><a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" target="_blank" rel="noopener">动画演示参考</a></p>
-<p><img src="/difference01/6.png" alt="6"></p>
 <p>再来一道涉及冒泡的题：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Let's get hold of those elements</span></span><br><span class="line"><span class="keyword">var</span> outer = <span class="built_in">document</span>.querySelector(<span class="string">'.outer'</span>);</span><br><span class="line"><span class="keyword">var</span> inner = <span class="built_in">document</span>.querySelector(<span class="string">'.inner'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Let's listen for attribute changes on the</span></span><br><span class="line"><span class="comment">// outer element</span></span><br><span class="line"><span class="keyword">new</span> MutationObserver(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'mutate'</span>);</span><br><span class="line">&#125;).observe(outer, &#123;</span><br><span class="line">  attributes: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Here's a click listener…</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'click'</span>);</span><br><span class="line"></span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timeout'</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  outer.setAttribute(<span class="string">'data-random'</span>, <span class="built_in">Math</span>.random());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// …which we'll attach to both elements</span></span><br><span class="line">inner.addEventListener(<span class="string">'click'</span>, onClick);</span><br><span class="line">outer.addEventListener(<span class="string">'click'</span>, onClick);</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -847,7 +846,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -865,7 +864,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -988,7 +987,7 @@ $(function() {
 <div class="copyright">
   
   &copy;  2018 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="heart">
     <i class="fa fa-heart"></i>
   </span>
