@@ -1,0 +1,1300 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="39EeAhjsZOkXpt8PcowvLUrmgQkkCB0cBcMU65Rhxbk">
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+<link href="https://fonts.loli.net/css?family=EB+Garamond:500,500i,700,700i|Noto+Serif+SC:400,500,700&display=swap" rel="stylesheet">
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="前端,NPM,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="经常会提到的package-lock跟package两者的区别与意义">
+<meta name="keywords" content="前端,NPM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 package-lock.json 存在的意义">
+<meta property="og:url" content="https://linjiahong.top/2020-11-17/package-lock.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="经常会提到的package-lock跟package两者的区别与意义">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.linjiahong.top/wallhaven-mdmkyy.jpg">
+<meta property="og:image" content="https://images.linjiahong.top/package-lock.png">
+<meta property="og:updated_time" content="2020-11-21T13:43:32.393Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于 package-lock.json 存在的意义">
+<meta name="twitter:description" content="经常会提到的package-lock跟package两者的区别与意义">
+<meta name="twitter:image" content="https://images.linjiahong.top/wallhaven-mdmkyy.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"display":"hide","offset":12,"b2t":false,"onmobile":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linjiahong.top/2020-11-17/package-lock.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 关于 package-lock.json 存在的意义 | Abo </title>
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-140429748-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://linjiahong.top/2020-11-17/package-lock.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="http://images.linjiahong.top/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于 package-lock.json 存在的意义
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-17T09:49:06+08:00">
+                2020-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2020-11-17/package-lock.html" class="leancloud_visitors" data-flag-title="关于 package-lock.json 存在的意义">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p class="description">经常会提到的package-lock跟package两者的区别与意义</p>
+
+<p><img src="https://images.linjiahong.top/wallhaven-mdmkyy.jpg" alt style="width:100%"></p>
+<a id="more"></a>
+<blockquote class="question">Great minds think alike</blockquote>
+
+
+        <div id="aplayer-wRNcUoKI" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-wRNcUoKI"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "Feel You",
+              author: "신용재",
+              url: "https://images.linjiahong.top/Feel%20You%20-%20%EC%8B%A0%EC%9A%A9%EC%9E%AC.mp3",
+              pic: "https://images.linjiahong.top/Feel%20You%20-%20%EC%8B%A0%EC%9A%A9%EC%9E%AC.jpg",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
+<h2 id="需求由来"><a href="#需求由来" class="headerlink" title="需求由来"></a>需求由来</h2><blockquote>
+<p>用一句话来概括很简单，就是锁定安装时的包的版本号，并且需要上传到git，以保证其他人在npm install时大家的依赖能保证一致</p>
+</blockquote>
+<p>根据<strong>官方文档</strong>，这个<code>package-lock.json</code> 是在 <code>npm install</code> 时候生成一份文件，用以记录当前状态下实际安装的各个<code>npm package</code>的具体来源和版本号。</p>
+<p>它有什么用呢？因为npm是一个用于管理package之间<strong>依赖关系的管理器</strong>，它允许开发者在pacakge.json中间标出自己项目对npm各库包的依赖。你可以选择以如下方式来标明自己所需要库包的版本</p>
+<p>这里举个例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// package.json</span><br><span class="line">"dependencies": &#123;</span><br><span class="line"> "@types/node": "^8.0.33",</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>这里面的 向上标号<strong>^</strong>是定义了<strong>向后（新）兼容依赖</strong>，指如果 types/node的版本是超过8.0.33，并在大版本号（8）上相同，就允许下载最新版本的 types/node库包，例如实际上可能运行npm install时候下载的具体版本是8.0.35。</p>
+<p>大多数情况这种向新兼容依赖下载最新库包的时候都没有问题，可是因为npm是开源世界，各库包的版本语义可能并不相同，有的库包开发者并不遵守严格这一原则：相同大版本号的同一个库包，其接口符合兼容要求。这时候用户就很头疼了：在完全相同的一个nodejs的代码库，在不同时间或者不同npm下载源之下，下到的各依赖库包版本可能有所不同，因此其依赖库包行为特征也不同有时候甚至完全不兼容。</p>
+<p>因此npm<strong>最新的版本</strong>就开始提供<strong>自动生成</strong><code>package-lock.json</code>功能，为的是让开发者知道只要你保存了源文件，到一个新的机器上、或者新的下载源，只要按照这个package-lock.json所标示的具体版本下载依赖库包，就能确保所有库包与你上次安装的完全一样。</p>
+<h2 id="实际场景"><a href="#实际场景" class="headerlink" title="实际场景"></a>实际场景</h2><p><strong>同一个</strong>项目第一次cnpm install的时候还可以启动，过一段时间，把node_modules删掉，重新cnpm install，发现项目启动报错了。奇怪，项目代码和之前一样，一点都没改动。查其原因，发现是<code>package.json</code>文件的依赖模块版本号没有固定，如 <code>&quot;roadhog&quot;: &quot;^2.5.0-beta.4&quot;</code>。这里有个^,安装的时候会安装2.x.x的最新版本，因为这期间该模块有更新，导致两次install的版本不一样，所以项目报错了</p>
+<p>第一个想到的是我把该模块写死不就行了 <code>&quot;roadhog&quot;: &quot;2.5.0-beta.4&quot;</code>。但是仔细一想，仍会有问题。npm最方便的地方，是它可以帮我们管理依赖，自动下载依赖。意思是假如我们依赖roadhog，roadhog又依赖模块A、B等，我们安装roadhog时，npm会自动帮我们安装好roadhog依赖的模块A、B等。</p>
+<p>我们把roadhog锁死了，但是其引用的A模块仍用的是^括号写法（即没有锁死版本），所以假如A模块更新了，仍可能会出现之前类似的问题。那么该怎么进行版本控制呢。<br> 所以我们要对整个依赖树做锁定，那前后编译出来的应用版本就不会存在两次安装版本不一的问题了。这就引出了我们的<code>package-lock.json文件</code>。它的产生就是来<strong>对整个依赖树进行版本固定的（锁死）</strong></p>
+<p><code>package-lock.json</code>它会在npm更改node_modules目录树或者<code>package.json</code>时自动生成的，它准确的描述了当前项目npm包的依赖树，并且在随后的安装中会根据<code>package-lock.json</code>来安装，保证是相同的一个依赖树，不考虑这个过程中是否有某个依赖有小版本的更新</p>
+<h2 id="语义版本控制"><a href="#语义版本控制" class="headerlink" title="语义版本控制"></a>语义版本控制</h2><p>版本由三部分组成：X，Y，Z，<strong>X</strong> 表示大版本（major）、<strong>Y</strong> 表示小版本（minor）、<strong>Z</strong> 表示补丁版本（patch）。</p>
+<p>例如：1.2.3，主要版本1，次要版本2，补丁3。</p>
+<p>补丁中的更改表示不会破坏任何内容的错误修复。 次要版本的更改表示不会破坏任何内容的新功能。 主要版本的更改代表了一个破坏兼容性的大变化。 如果用户不适应主要版本更改，则内容将无法正常工作。</p>
+<p><strong>关于*、~、^符号的意义</strong></p>
+<blockquote>
+<ol>
+<li>*意味着安装最新大版本的依赖包</li>
+<li>^ 指的是只要不修改 [major, minor, patch] 三元组中，最左侧的第一个非0位，都是可以的</li>
+</ol>
+<blockquote>
+<p>  ^1.2.3 匹配 &gt;=1.2.3 &lt; 2.0.0</p>
+<p>^0.2.3 匹配 &gt;=0.2.3 &lt;0.3.0</p>
+<p>^0.0.3 匹配 &gt;=0.0.3 &lt;0.0.4  </p>
+</blockquote>
+<ol start="3">
+<li>~ 简而言之就是允许修改最后一位被指定的版本号</li>
+</ol>
+<blockquote>
+<p>  ~1.2.3 匹配 &gt;=1.2.3 &lt;1.3.0</p>
+<p>~1.2 匹配 &gt;=1.2.0 &lt;1.3.0 (Same as 1.2.x)</p>
+<p>~1 匹配 &gt;=1.0.0 &lt; 2.0.0</p>
+<p>~0.2.3 匹配 &gt;=0.2.3 &lt;0.3.0</p>
+<p>~1.2 匹配 &gt;=1.2.0 &lt;1.3.0 (Same as 0.2.x)</p>
+<p>~0 匹配 &gt;=0.0.0 &lt; 1.0.0(Same as 0.x)  </p>
+</blockquote>
+</blockquote>
+<h2 id="package-lock-js的生成"><a href="#package-lock-js的生成" class="headerlink" title="package-lock.js的生成"></a>package-lock.js的生成</h2><p>原来package.json文件只能锁定<strong>大</strong>版本，也就是版本号的<strong>第一位</strong>，并不能锁定后面的小版本，你每次npm install都是拉取的该<strong>大版本下的最新的版本</strong>，为了稳定性考虑我们几乎是不敢随意升级依赖包的，这将导致多出来很多工作量，测试/适配等，所以package-lock.json文件出来了，当你每次安装一个依赖的时候就锁定在你安装的这个版本。</p>
+<p>那如果我们安装时的包有bug，<strong>后面需要更新怎么办</strong>？</p>
+<p><strong>在以前</strong>（在没有<code>package-lock.json</code>的时代），可能就是直接改<code>package.json</code>里面的版本，然后再<code>npm install</code>了，但是5版本后就不支持这样做了，因为版本已经锁定在<code>package-lock.json</code>里了，所以我们只能npm install <a href="mailto:xxx@x.x.x" target="_blank" rel="noopener">xxx@x.x.x</a>  这样去更新我们的依赖，然后package-lock.json也能<strong>随之更新</strong>。</p>
+<p>默认，当我们在一个项目中npm install时候（前提该项目有package.json文件），安装完成后，会自动生成一个package-lock.json文件（位置和之前的package.json文件同级）。该文件里面记录了package.json依赖的模块，以及依赖的依赖。并且给每个依赖标明了版本, 获取地址和哈希值, 使得每次安装都会出现相同的结果. 不管你在什么机器上面或什么时候安装。</p>
+<p>当我们下次再npm install时候，npm发现如果项目中有package-lock.json文件，会根据package-lock.json里的内容来处理和安装依赖而不再根据package.json.</p>
+<p>网上说npm版本是v5.0.0以上的版本，但是测试我的版本是5.几（具体忘了），安装的时候并没有生成package-lock.json,于是升级了最新版本(我当时升级的是6.9.0)，发现可以了。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm -v <span class="comment">//查看npm版本</span></span><br><span class="line">npm install -g npm <span class="comment">//升级npm到最新版本</span></span><br><span class="line">npm install -g <span class="symbol">npm@</span><span class="number">6.0</span>.1 <span class="comment">//升级npm到指定版本</span></span><br></pre></td></tr></table></figure>
+<p>如果package-lock.json已经生成，我再次更新package.json某个模块版本（包括手动更改package.json某个版本号，然后重新npm install或者类似npm install  <a href="mailto:antd@3.15.0" target="_blank" rel="noopener">antd@3.15.0</a>来更新某个模块），package-lock.json都会自动更新到之前设置的版本，所以不用担心package.json更新了，package-lock.json还是旧的问题。npm v5.1.0之前存在该问题，npm v5.1.0以后不存在该问题。此同步功能是作为npm v5.1.0的一部分发布的，该版本于2017年7月5日上线。</p>
+<p><img src="https://images.linjiahong.top/package-lock.png" style="width:100%;"></p>
+<h2 id="两者的优先级"><a href="#两者的优先级" class="headerlink" title="两者的优先级"></a>两者的优先级</h2><p><strong>npm(^5.x.x.x)后</strong>的做法，npm 使用<code>package-lock.json</code>，而不是使用 <code>package.json</code> 来解析和安装模块。因为 package-lock 为每个模块及其每个依赖项指定了版本，位置和完整性哈希，所以它每次创建的安装都是相同的。 无论你使用什么设备，或者将来安装它都无关紧要，每次都应该给你相同的结果，这非常有用。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>如果你使用的 npm 版本 为 ^5.x.x , package-lock.json 会默认自动生成</li>
+<li>你应该使用 package-lock 来确保一致的安装和兼容的依赖关系</li>
+<li>你应该将 package-lock 提交到源代码控制</li>
+<li><strong>补充</strong>：cnpm不支持package-lock</li>
+</ul>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/NPM/" rel="tag"><i class="fa fa-tag"></i> NPM</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020-11-23/promise.html" rel="prev" title="小抄：手把手带你写原生Promise">
+                <i class="fa fa-chevron-left"></i> 小抄：手把手带你写原生Promise
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020-11-10/WebSecurity.html" rel="next" title="前端安全哪些事儿">
+                 前端安全哪些事儿 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="http://images.linjiahong.top/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">欢迎来到Abo的博客，博客以分享前端web知识、数据结构与算法、计算机基础为主，希望能帮到您ㄟ(😀)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="😋Taylor Swift Official Website😋" target="_blank">😋Taylor Swift Official Website😋</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://linjiahong.top/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求由来"><span class="nav-number">1.</span> <span class="nav-text">需求由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际场景"><span class="nav-number">2.</span> <span class="nav-text">实际场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语义版本控制"><span class="nav-number">3.</span> <span class="nav-text">语义版本控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#package-lock-js的生成"><span class="nav-number">4.</span> <span class="nav-text">package-lock.js的生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两者的优先级"><span class="nav-number">5.</span> <span class="nav-text">两者的优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+ $("body").backstretch("http://images.linjiahong.top/6_29.jpg");
+</script>
+</body>
+</html>

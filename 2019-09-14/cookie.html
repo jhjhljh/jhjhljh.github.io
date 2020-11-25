@@ -92,23 +92,23 @@
 
 
 
-<meta name="description" content="Cookies现在经常被大家提到，那么到底什么是Cookies，它有什么作用呢？ 图解HTTP是一本好书(lll￢ω￢)~">
+<meta name="description" content="Cookies现在经常被大家提到，那么到底什么是Cookies，它有什么作用呢？ 图解http是一本好书(lll￢ω￢)~">
 <meta name="keywords" content="面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cookie是什么？">
 <meta property="og:url" content="https://linjiahong.top/2019-09-14/cookie.html">
 <meta property="og:site_name" content="Abo">
-<meta property="og:description" content="Cookies现在经常被大家提到，那么到底什么是Cookies，它有什么作用呢？ 图解HTTP是一本好书(lll￢ω￢)~">
+<meta property="og:description" content="Cookies现在经常被大家提到，那么到底什么是Cookies，它有什么作用呢？ 图解http是一本好书(lll￢ω￢)~">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://images.linjiahong.top/wallhaven-5wr3m7.jpg">
+<meta property="og:image" content="https://images.linjiahong.top/wallhaven-5wr3m7.jpg">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-dde997503ed9d450e2f39042d53d4307_hd.png">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-85622297a93f493c891ffb90b67fd5e0_hd.png">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-1f49734871c5e2da2d264d28ac310a65_hd.png">
-<meta property="og:updated_time" content="2019-12-01T10:19:44.058Z">
+<meta property="og:updated_time" content="2020-11-25T09:32:15.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cookie是什么？">
-<meta name="twitter:description" content="Cookies现在经常被大家提到，那么到底什么是Cookies，它有什么作用呢？ 图解HTTP是一本好书(lll￢ω￢)~">
-<meta name="twitter:image" content="http://images.linjiahong.top/wallhaven-5wr3m7.jpg">
+<meta name="twitter:description" content="Cookies现在经常被大家提到，那么到底什么是Cookies，它有什么作用呢？ 图解http是一本好书(lll￢ω￢)~">
+<meta name="twitter:image" content="https://images.linjiahong.top/wallhaven-5wr3m7.jpg">
 
 
 
@@ -570,7 +570,7 @@ $(function() {
 
       
         <p></p><p class="description">Cookies现在经常被大家提到，那么到底什么是Cookies，它有什么作用呢？</p><p></p>
-<p><blockquote class="question">图解HTTP是一本好书(lll￢ω￢)~</blockquote><br><img src="http://images.linjiahong.top/wallhaven-5wr3m7.jpg" alt="wallhaven-839vgo"></p>
+<p><blockquote class="question">图解http是一本好书(lll￢ω￢)~</blockquote><br><img src="https://images.linjiahong.top/wallhaven-5wr3m7.jpg" alt="wallhaven-839vgo"></p>
 <a id="more"></a>
 <p><blockquote class="question">东山大发好~</blockquote></p>
 <p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="298" height="52" src="//music.163.com/outchain/player?type=2&id=488388730&auto=0&height=32"></iframe></p>
@@ -602,7 +602,7 @@ $(function() {
 <p><strong>4.</strong> <strong>Boolean「secure」：</strong>「是否仅使用安全协议传输」，默认为false</p>
 <p><strong>5. String「path」：</strong>该Cookie的「使用路径」</p>
 <blockquote>
-<p>注：如果设置为“/shit/”，则只有“http:<a href="https://link.zhihu.com/?target=http%3A//xxx.xxx.xxx/shit" target="_blank" rel="noopener">http://xxx.xxx.xxx/shit</a>”的程序可以访问该Cookie。如果设置为“/”，则本域名下的程序都可以访问Cookie，注意最后一个字符必须为“/”。</p>
+<p>注：如果设置为“/shit/”，则只有“https:<a href="https://link.zhihu.com/?target=http%3A//xxx.xxx.xxx/shit" target="_blank" rel="noopener">http://xxx.xxx.xxx/shit</a>”的程序可以访问该Cookie。如果设置为“/”，则本域名下的程序都可以访问Cookie，注意最后一个字符必须为“/”。</p>
 </blockquote>
 <p><strong>6. String「domain」：</strong>「可以访问该Cookie的域名」。</p>
 <blockquote>
@@ -639,23 +639,23 @@ $(function() {
 <p>这样一来，当用户关闭网页，过三天再打开网页的时候，依然可以看到 A1、A2 躺在购物车里，因为浏览器并不会无缘无故地删除这个 Cookie。</p>
 <p>借此，就达到里记录用户操作历史的目的了。</p>
 <p>（上面的例子只是为了让大家了解 Cookie 的作用而构想出来的，实际的网站使用 Cookie 时会更谨慎一些。）</p>
-<h2 id="深入认识Cookie跟Session"><a href="#深入认识Cookie跟Session" class="headerlink" title="深入认识Cookie跟Session"></a>深入认识Cookie跟Session</h2><h3 id="使用Cookie来管理状态"><a href="#使用Cookie来管理状态" class="headerlink" title="使用Cookie来管理状态"></a>使用Cookie来管理状态</h3><p>HTTP是无状态协议，所以它不能以状态来区分和管理请求和响应。也就是说，无法根据之前的状态进行本次的请求处理。不可否认，无状态协议当然也有它的优点。由于不必保存状态，自然可减少服务器的CPU 及内存资源的消耗。从另一侧面来说，也正是因为HTTP 协议本身是非常简单的，所以才会被应用在各种场景里。</p>
+<h2 id="深入认识Cookie跟Session"><a href="#深入认识Cookie跟Session" class="headerlink" title="深入认识Cookie跟Session"></a>深入认识Cookie跟Session</h2><h3 id="使用Cookie来管理状态"><a href="#使用Cookie来管理状态" class="headerlink" title="使用Cookie来管理状态"></a>使用Cookie来管理状态</h3><p>https是无状态协议，所以它不能以状态来区分和管理请求和响应。也就是说，无法根据之前的状态进行本次的请求处理。不可否认，无状态协议当然也有它的优点。由于不必保存状态，自然可减少服务器的CPU 及内存资源的消耗。从另一侧面来说，也正是因为https 协议本身是非常简单的，所以才会被应用在各种场景里。</p>
 <p><img src="https://pic4.zhimg.com/80/v2-dde997503ed9d450e2f39042d53d4307_hd.png" alt="img"></p>
-<p>我们登录淘宝的时候首先要登录，我们看到了一个商品点进去，进行了页面跳转/刷新，按照HTTP的无状态协议岂不是又要登录一次？<br>所以为了解决这个问题，Cookie诞生了，在保留无状态协议这个特征的同时又要解决类似记录状态的矛盾问题。Cookie 技术通过在请求和响应报文中写入Cookie 信息来控制客户端的状态。<br>Cookie 会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie 值后发送出去。<br>服务器端发现客户端发送过来的Cookie 后，会去检查究竟是从哪一个客户端发来的连接请求，然后对比服务器上的记录，最后得到之前的状态信息。</p>
-<p>（以下图来自图解HTTP，值得入手实体版）</p>
+<p>我们登录淘宝的时候首先要登录，我们看到了一个商品点进去，进行了页面跳转/刷新，按照https的无状态协议岂不是又要登录一次？<br>所以为了解决这个问题，Cookie诞生了，在保留无状态协议这个特征的同时又要解决类似记录状态的矛盾问题。Cookie 技术通过在请求和响应报文中写入Cookie 信息来控制客户端的状态。<br>Cookie 会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie 值后发送出去。<br>服务器端发现客户端发送过来的Cookie 后，会去检查究竟是从哪一个客户端发来的连接请求，然后对比服务器上的记录，最后得到之前的状态信息。</p>
+<p>（以下图来自图解https，值得入手实体版）</p>
 <ul>
 <li><p>没有Cookie信息状态下的请求</p>
 <p><img src="https://pic1.zhimg.com/80/v2-85622297a93f493c891ffb90b67fd5e0_hd.png" alt="img"></p>
 </li>
 <li><p>第2次以后（存有Cookie信息状态）的请求</p>
 <p><img src="https://pic2.zhimg.com/80/v2-1f49734871c5e2da2d264d28ac310a65_hd.png" alt="img"></p>
-<p>HTTP 请求报文和响应报文的内容如下（数字和图中对应）。</p>
+<p>https 请求报文和响应报文的内容如下（数字和图中对应）。</p>
 <p>①请求报文（没有Cookie 信息的状态）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /reader/ HTTP/1.1</span><br><span class="line">Host: hackr.jp</span><br><span class="line">*首部字段内没有Cookie的相关信息</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /reader/ https/1.1</span><br><span class="line">Host: hackr.jp</span><br><span class="line">*首部字段内没有Cookie的相关信息</span><br></pre></td></tr></table></figure>
 <p>②响应报文（服务器端生成Cookie 信息）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Thu, 12 Jul 2012 07:12:20 GMT</span><br><span class="line">Server: Apache</span><br><span class="line">＜Set-Cookie: sid=1342077140226724; path=/; expires=Wed,10-Oct-12 07:12:20 GMT＞</span><br><span class="line">Content-Type: text/plain; charset=UTF-8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https/1.1 200 OK</span><br><span class="line">Date: Thu, 12 Jul 2012 07:12:20 GMT</span><br><span class="line">Server: Apache</span><br><span class="line">＜Set-Cookie: sid=1342077140226724; path=/; expires=Wed,10-Oct-12 07:12:20 GMT＞</span><br><span class="line">Content-Type: text/plain; charset=UTF-8</span><br></pre></td></tr></table></figure>
 <p>③请求报文（自动发送保存着的Cookie 信息）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /image/ HTTP/1.1</span><br><span class="line">Host: hackr.jp</span><br><span class="line">Cookie: sid=1342077140226724</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /image/ https/1.1</span><br><span class="line">Host: hackr.jp</span><br><span class="line">Cookie: sid=1342077140226724</span><br></pre></td></tr></table></figure>
 <h3 id="关于Cookie的首部字段"><a href="#关于Cookie的首部字段" class="headerlink" title="关于Cookie的首部字段"></a>关于Cookie的首部字段</h3></li>
 </ul>
 <hr>
@@ -773,7 +773,7 @@ $(function() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-count">78</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -791,7 +791,7 @@ $(function() {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
