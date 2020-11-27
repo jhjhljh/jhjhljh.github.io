@@ -1,0 +1,1454 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="39EeAhjsZOkXpt8PcowvLUrmgQkkCB0cBcMU65Rhxbk">
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+<link href="https://fonts.loli.net/css?family=EB+Garamond:500,500i,700,700i|Noto+Serif+SC:400,500,700&display=swap" rel="stylesheet">
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="前端,js,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="温故知新，判断数据类型的四种方法">
+<meta name="keywords" content="前端,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不为人知的数据类型">
+<meta property="og:url" content="https://linjiahong.top/2020-08-25/dataType.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="温故知新，判断数据类型的四种方法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.linjiahong.top/startup-3267505_1280.jpg">
+<meta property="og:image" content="c:/Users/fchxh/AppData/Roaming/Typora/typora-user-images/1598522001565.png">
+<meta property="og:image" content="c:/Users/fchxh/AppData/Roaming/Typora/typora-user-images/1598833484342.png">
+<meta property="og:image" content="c:/Users/fchxh/AppData/Roaming/Typora/typora-user-images/1598833868068.png">
+<meta property="og:image" content="https://segmentfault.com/img/bVRMhw?w=616&h=456">
+<meta property="og:updated_time" content="2020-11-25T10:45:44.413Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不为人知的数据类型">
+<meta name="twitter:description" content="温故知新，判断数据类型的四种方法">
+<meta name="twitter:image" content="https://images.linjiahong.top/startup-3267505_1280.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"display":"hide","offset":12,"b2t":false,"onmobile":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linjiahong.top/2020-08-25/dataType.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 不为人知的数据类型 | Abo </title>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-140429748-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://linjiahong.top/2020-08-25/dataType.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="http://images.linjiahong.top/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                不为人知的数据类型
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-25T15:48:54+08:00">
+                2020-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2020-08-25/dataType.html" class="leancloud_visitors" data-flag-title="不为人知的数据类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  28
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p></p><p class="description">温故知新，判断数据类型的四种方法</p><br><img src="https://images.linjiahong.top/startup-3267505_1280.jpg" alt="startup-3267505_1280"><p></p>
+<a id="more"></a>
+<p><blockquote class="question">共勉</blockquote></p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=480097183&auto=0&height=66"></iframe></p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><blockquote>
+<p>JavaScript原始类型:Undefined、Null、Boolean、Number、String、Symbol</p>
+</blockquote>
+<blockquote>
+<p>JavaScript引用类型:Object</p>
+</blockquote>
+<h3 id="关于原始类型与引用类型"><a href="#关于原始类型与引用类型" class="headerlink" title="关于原始类型与引用类型"></a>关于原始类型与引用类型</h3><p>在 ECMAScript 规范中，共定义了 7 种数据类型，分为 基本类型 和 引用类型 两大类，如下所示：</p>
+<blockquote>
+<p><strong>基本类型</strong>：String、Number、Boolean、Symbol、Undefined、Null </p>
+<p><strong>引用类型</strong>：Object</p>
+</blockquote>
+<p>基本类型也称为简单类型，由于其占据空间固定，是简单的数据段，为了便于提升变量查询速度，将其存储在栈中，即按值访问。</p>
+<p>引用类型也称为复杂类型，由于其值的大小会改变，所以不能将其存放在栈中，否则会降低变量查询速度，因此，其值存储在堆(heap)中，而存储在变量处的值，是一个指针，指向存储对象的内存处，即按址访问。引用类型除 Object 外，还包括 Function 、Array、RegExp、Date 等等。</p>
+<h4 id="原始类型"><a href="#原始类型" class="headerlink" title="原始类型"></a>原始类型</h4><p><strong>原始类型</strong>又被称为<strong>基本类型</strong>，原始类型保存的变量和值直接保存在<strong>栈内存</strong>(Stack)中,且空间相互独立,通过值来访问,说到这里肯定一同懵逼,不过我们可以通过一个例子来解释.</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="string">'Messi'</span>;</span><br><span class="line"><span class="keyword">var</span> person1 = person;</span><br></pre></td></tr></table></figure>
+<p>上述代码在栈内存的示意图是这样的,可以看到,虽然<code>person</code>赋值给了<code>person1</code>.但是两个变量并没有指向同一个值,而是<code>person1</code>自己单独建立一个内存空间,虽然两个变量的值相等,但却是相互独立的.</p>
+<p>值得一提的是,虽然原始类型的值是储存在相对独立空间,但是它们之间的比较是<strong>按值</strong>比较的.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="string">'Messi'</span>;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="string">'Messi'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person === person1); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h4 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h4><p>剩下的就是引用类型了,即Object 类型,再往下细分，还可以分为：Object 类型、Array 类型、Date 类型、Function 类型 等。</p>
+<p>与原始类型不同的是,引用类型的内容是保存在<strong>堆内存</strong>中,而<strong>栈内存</strong>(Heap)中会有一个<strong>堆内存地址</strong>,通过这个地址变量被指向堆内存中<code>Object</code>真正的值,因此引用类型是按照引用访问的.</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;<span class="built_in">name</span>:<span class="string">"percy"</span>&#125;;</span><br><span class="line">var b;</span><br><span class="line">b = a;</span><br><span class="line">a.<span class="built_in">name</span> = <span class="string">"zyj"</span>;</span><br><span class="line">console.<span class="built_in">log</span>(b.<span class="built_in">name</span>);    <span class="comment">// zyj</span></span><br><span class="line">b.age = <span class="number">22</span>;</span><br><span class="line">console.<span class="built_in">log</span>(a.age);     <span class="comment">// 22</span></span><br><span class="line">var c = &#123;</span><br><span class="line">  <span class="built_in">name</span>: <span class="string">"zyj"</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;;</span><br><span class="line">console.<span class="built_in">log</span>(a === c); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>我们可以逐行分析: 1. <code>b = a</code>,如果是原始类型的话,<code>b</code>会在栈内自己独自创建一个内存空间保存值,但是引用类型只是<code>b</code>的产生一个对内存地址,指向堆内存中的<code>Object</code>. 2.<code>a.name = &quot;zyj&quot;</code>,这个操作属于改变了变量的值,在原始类型中会重新建立新的内存空间，而引用类型只需要自己在堆内存中更新自己的属性即可. 3.最后创建了一个新的对象<code>c</code>,看似跟<code>b</code> <code>a</code>一样,但是在堆内存中确实两个相互独立的<code>Object</code>,引用类型是按照<strong>引用比较</strong>,由于<code>a</code> <code>c</code>引用的是不同的<code>Object</code>所以得到的结果是<code>false</code>.</p>
+<h3 id="判断Js数据类型的四种方法"><a href="#判断Js数据类型的四种方法" class="headerlink" title="判断Js数据类型的四种方法"></a>判断Js数据类型的四种方法</h3><h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a><strong>typeof</strong></h4><p>typeof 是一个操作符，其右侧跟一个一元表达式，并返回这个表达式的数据类型。返回的结果用该类型的字符串(全小写字母)形式表示，包括以下 7 种：number、boolean、symbol、string、object、undefined、function 等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="string">''</span>; <span class="comment">// string 有效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">1</span>; <span class="comment">// number 有效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="built_in">Symbol</span>(); <span class="comment">// symbol 有效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span>; <span class="comment">//boolean 有效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span>; <span class="comment">//undefined 有效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span>; <span class="comment">//object 无效</span></span><br><span class="line"><span class="keyword">typeof</span> [] ; <span class="comment">//object 无效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Function</span>(); <span class="comment">// function 有效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Date</span>(); <span class="comment">//object 无效</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">RegExp</span>(); <span class="comment">//object 无效</span></span><br></pre></td></tr></table></figure>
+<p>有些时候，typeof 操作符会返回一些令人迷惑但技术上却正确的值：</p>
+<ul>
+<li>对于基本类型，除 null 以外，均可以返回正确的结果。</li>
+<li>对于引用类型，除 function 以外，一律返回 object 类型。</li>
+<li>对于 null ，返回 object 类型。</li>
+<li>对于 function 返回  function 类型。</li>
+</ul>
+<p>其中，null 有属于自己的数据类型 Null ， 引用类型中的 数组、日期、正则 也都有属于自己的具体类型，而 typeof 对于这些类型的处理，只返回了处于其原型链最顶端的 Object 类型，没有错，但不是我们想要的结果。</p>
+<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a><strong>instanceof</strong></h4><p>instanceof 是用来判断 A 是否为 B 的实例，表达式为：A instanceof B，如果 A 是 B 的实例，则返回 true,否则返回 false。 在这里需要特别注意的是：<strong>instanceof 检测的是原型</strong>，我们用一段伪代码来模拟其内部执行过程：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">instanceof (A,B) = &#123;</span><br><span class="line">    <span class="keyword">var</span> L = A.__proto__;</span><br><span class="line">    <span class="keyword">var</span> R = B.prototype;</span><br><span class="line">    <span class="keyword">if</span>(L === R) &#123;</span><br><span class="line">        <span class="comment">// A的内部属性 __proto__ 指向 B 的原型对象</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="关于-proto-和prototype的区别"><a href="#关于-proto-和prototype的区别" class="headerlink" title="关于__proto__和prototype的区别"></a>关于<code>__proto__</code>和prototype的区别</h5><p><code>__proto__</code>属性（前后各两个下划线），<strong>用来读取或设置当前对象的prototype对象</strong>，他本质是一个<strong>内部属性</strong>，不是一个正式对外的api，由于浏览器的广泛支持，才加入了es6，<code>__proto__</code>调用的是Object.prototype.<strong>proto</strong></p>
+<p>当我们new Person()的时候到底发生了什么？<br>new一个构造函数，相当于实例化一个对象，这期间其实进行了这三个步骤：</p>
+<p>创建对象，设为o，即： var o = {};<br>上文提到了，每个对象都有<code>__proto__</code>属性，该属性指向一个对象，这里，将o对象的<code>__Proto__</code>指向构造函数Person的原型对象（Person.prototype;<br>将o作为this去调用构造函数Person，从而设置o的属性和方法并初始化。<br>当这3步完成，这个o对象就与构造函数Person再无联系，这个时候即使构造函数Person再加任何成员，都不再影响已经实例化的o对象了。<br>此时，o对象具有了name和age属性，同时具有了构造函数Person的原型对象的所有成员，当然，此时该原型对象是没有成员的。</p>
+<p>现在大家都明白了吧，简单的总结下就是：<br>js在创建对象的时候，都有一个叫做<code>__proto__</code>的内置属性，用于指向创建它的函数对象的原型对象prototype<br>那么一个对象的<code>__proto__</code>属性究竟怎么决定呢？答案显而易见了：是由构造该对象的方法决定的。</p>
+<p>下面讲解三种常见的创建对象方法。</p>
+<h6 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h6><p>比如：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> Person = &#123;</span><br><span class="line">    name: <span class="string">'jessica'</span>,</span><br><span class="line">    age: <span class="number">27</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种形式就是对象字面量，通过对象字面量构造出的对象，其<code>__proto__</code>指向Object.prototype。<br>所以，其实Object是一个函数也不难理解了。Object、Function都是是js自带的函数对象。<br>可以跑下面的代码看看：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span>(typeof Object);  <span class="function"><span class="keyword">function</span></span></span><br><span class="line">console.<span class="built_in">log</span>(typeof <span class="function"><span class="keyword">Function</span></span>); <span class="function"><span class="keyword">function</span></span></span><br></pre></td></tr></table></figure>
+<h6 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h6><p>就如我前面讲的，形如：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
+<p>这种形式创建对象的方式就是通过构造函数创建对象，这里的构造函数是Person函数。上面也讲过了，通过构造函数创建的对象，其<code>__proto__</code>指向的是构造函数的prototype属性指向的对象。</p>
+<h6 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h6><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person1 = &#123;</span><br><span class="line">    name: <span class="string">'jessica'</span>,</span><br><span class="line">    age: <span class="number">27</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="built_in">Object</span>.create(person1);</span><br></pre></td></tr></table></figure>
+<p>这种情况下，person2的<code>__proto__</code>指向person1。在没有Object.create函数的时候，人们大多是这样做的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params">p</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">    f.prototype = p;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> f();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先来说说<code>prototype</code>属性，不像每个对象都有<code>__proto__</code>属性来标识自己所继承的原型，只有函数才有<code>prototype</code>属性。当你创建函数时，JS会为这个函数自动添加<code>prototype</code>属性，<del>值是空对象</del> <strong>值是一个有 constructor 属性的对象，不是空对象</strong>。而一旦你把这个函数当作构造函数（<code>constructor</code>）调用（即通过<code>new</code>关键字调用），那么JS就会帮你创建该构造函数的实例，实例继承构造函数<code>prototype</code>的所有属性和方法（实例通过设置自己的<code>__proto__</code>指向承构造函数的<code>prototype</code>来实现这种继承）。</p>
+<p><strong><code>__proto__</code>是es6加入的内部属性，不是正式对外的api</strong></p>
+<p><img src="C:\Users\fchxh\AppData\Roaming\Typora\typora-user-images\1598522001565.png" alt="1598522001565"></p>
+<p>JS正是通过<code>__proto__</code>和<code>prototype</code>的合作实现了原型链，以及对象的继承。</p>
+<p>构造函数，通过<code>prototype</code>来存储要共享的属性和方法，也可以设置<code>prototype</code>指向现存的对象来继承该对象。</p>
+<p>对象的<code>__proto__</code>指向自己构造函数的<code>prototype</code>。<code>obj.__proto__.__proto__...</code>的原型链由此产生，包括我们的操作符<code>instanceof</code>正是通过探测<code>obj.__proto__.__proto__... === Constructor.prototype</code>来验证<code>obj</code>是否是<code>Constructor</code>的实例。</p>
+<p><code>two = new Object()</code>中<code>Object</code>是构造函数，所以<code>two.__proto__</code>就是<code>Object.prototype</code>。至于<code>one</code>，ES规范定义对象字面量的原型就是<code>Object.prototype</code>。</p>
+<p>从上述过程可以看出，当 A 的 <code>__proto__</code> 指向 B 的 prototype 时，就认为 A 就是 B 的实例，我们再来看几个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">// true</span></span><br><span class="line">&#123;&#125; <span class="keyword">instanceof</span> <span class="built_in">Object</span>;<span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>() <span class="keyword">instanceof</span> <span class="built_in">Date</span>;<span class="comment">// true</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">new</span> Person() <span class="keyword">instanceof</span> Person;</span><br><span class="line"> </span><br><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>() <span class="keyword">instanceof</span> <span class="built_in">Object</span>;<span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> Person <span class="keyword">instanceof</span> <span class="built_in">Object</span>;<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>我们发现，虽然 instanceof 能够判断出 [ ] 是Array的实例，但它认为 [ ] 也是Object的实例，为什么呢？</p>
+<p>我们来分析一下 [ ]、Array、Object 三者之间的关系：</p>
+<p>从 instanceof 能够判断出 [ ].<code>__proto__</code>  指向 Array.prototype，而 Array.prototype.<code>__proto__</code> 又指向了Object.prototype，最终 Object.prototype.<code>__proto__</code> 指向了null，标志着原型链的结束。因此，[]、Array、Object 就在内部形成了一条原型链</p>
+<p>从原型链可以看出，[] 的 <code>__proto__</code>  直接指向Array.prototype，间接指向 Object.prototype，所以按照 instanceof 的判断规则，[] 就是Object的实例。依次类推，类似的 new Date()、new Person() 也会形成一条对应的原型链 。因此，<strong>instanceof 只能用来判断两个对象是否属于实例关系</strong>， 而不能判断一个对象实例具体属于哪种类型。</p>
+<h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><p>当一个函数 F被定义时，JS引擎会为F添加 prototype 原型，然后再在 prototype上添加一个 constructor 属性，并让其指向 F 的引用。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''</span><span class="selector-class">.constructor</span> == String</span><br><span class="line">new Number(<span class="number">1</span>)<span class="selector-class">.constructor</span> == Number</span><br><span class="line">true<span class="selector-class">.constructor</span> == Boolean</span><br><span class="line">New Function()<span class="selector-class">.constructor</span> == Date</span><br><span class="line">new Error()<span class="selector-class">.constructor</span> == Error</span><br><span class="line">[]<span class="selector-class">.constructor</span> == Array</span><br><span class="line">document<span class="selector-class">.constructor</span> == HTMLDocument</span><br><span class="line">window<span class="selector-class">.constructor</span> == Window</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上全员均为true</p>
+<ol>
+<li><p>null 和 undefined 是无效的对象，因此是不会有 constructor 存在的，这两种类型的数据需要通过其他方式来判断。</p>
+</li>
+<li><p>函数的 constructor 是不稳定的，这个主要体现在自定义对象上，当开发者重写 prototype 后，原有的 constructor 引用会丢失，constructor 会默认为 Object</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function F() &#123;&#125;</span><br><span class="line">F<span class="selector-class">.prototype</span> = &#123;<span class="selector-tag">a</span>:<span class="string">'xxxx'</span>&#125;</span><br><span class="line"><span class="selector-tag">var</span> f = new F()</span><br><span class="line">f<span class="selector-class">.constructor</span> == F  <span class="comment">//false</span></span><br><span class="line">&gt; f.constructor</span><br><span class="line">&lt; function Object() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>因为 prototype 被重新赋值的是一个 { }， { } 是 new Object() 的字面量，因此 new Object() 会将 Object 原型上的 constructor 传递给 { }，也就是 Object 本身。</p>
+<p>因此，为了规范开发，在重写对象原型时一般都需要重新给 constructor 赋值，以保证对象实例的类型不被篡改。</p>
+<h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a><strong>toString</strong></h4><p>toString() 是 Object 的原型方法，调用该方法，默认返回当前对象的 [[Class]] 。这是一个内部属性，其格式为 [object Xxx] ，其中 Xxx 就是对象的类型。</p>
+<p>对于 Object 对象，直接调用 toString()  就能返回 [object Object] 。而对于其他对象，则需要通过 call / apply 来调用才能返回正确的类型信息。</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call('') ;   // [object <span class="type">String</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(1) ;    // [object <span class="type">Number</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(true) ; // [object <span class="type">Boolean</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(<span class="type">Symbol</span>()); //[object <span class="type">Symbol</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(undefined) ; // [object <span class="type">Undefined</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(null) ; // [object <span class="type">Null</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(new <span class="type">Function</span>()) ; // [object <span class="type">Function</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(new <span class="type">Date</span>()) ; // [object <span class="type">Date</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call([]) ; // [object <span class="type">Array</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(new <span class="type">RegExp</span>()) ; // [object <span class="type">RegExp</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(new <span class="type">Error</span>()) ; // [object <span class="type">Error</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(document) ; // [object <span class="type">HTMLDocument</span>]</span><br><span class="line"><span class="type">Object</span>.proto<span class="keyword">type</span>.toString.call(window) ; //[object global] window 是全局对象 global 的引用</span><br></pre></td></tr></table></figure>
+<h3 id="数组中的坑"><a href="#数组中的坑" class="headerlink" title="数组中的坑"></a>数组中的坑</h3><p><strong>稀疏数组</strong>:指的是含有空白或空缺单元的数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.length); <span class="comment">//0</span></span><br><span class="line"></span><br><span class="line">a[<span class="number">4</span>] = a[<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.length); <span class="comment">//5</span></span><br><span class="line"></span><br><span class="line">a.forEach(<span class="function"><span class="params">elem</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(elem); <span class="comment">//undefined</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//[,,,,undefined]</span></span><br></pre></td></tr></table></figure>
+<p>这里有几个坑需要注意:</p>
+<ol>
+<li>一开始建立的空数组<code>a</code>的长度为0,这可以理解,但是在<code>a[4] = a[5]</code>之后出现了问题,<code>a</code>的长度居然变成了5,此时<code>a</code>数组是<code>[,,,,undefined]</code>这种形态.</li>
+<li>我们通过遍历,只得到了<code>undefined</code>这一个值,这个<code>undefind</code>是由于<code>a[4] = a[5]</code>赋值,由于<code>a[5]</code>没有定义值为<code>undefined</code>被赋给了<code>a[4]</code>,可以等价为<code>a[4] = undefined</code></li>
+</ol>
+<p><strong>字符串索引</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [];</span><br><span class="line">a[<span class="number">0</span>] = <span class="string">'Bale'</span>;</span><br><span class="line">a[<span class="string">'age'</span>] = <span class="number">28</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.length); <span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(a[<span class="string">'age'</span>]); <span class="comment">//28</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//[ 'Bale', age: 28 ]</span></span><br></pre></td></tr></table></figure>
+<p>数组不仅可以通过数字索引,也可以通过字符串索引,但值得注意的是,字符串索引的键值对<strong>并不算在数组的长度里.</strong></p>
+<h3 id="数字中的坑-：二进制浮点数"><a href="#数字中的坑-：二进制浮点数" class="headerlink" title="数字中的坑 ：二进制浮点数"></a>数字中的坑 ：<strong>二进制浮点数</strong></h3><p>JavaScript 中的数字类型是基于“二进制浮点数”实现的,使用的是“双精度”格式,这就带来了一些反常的问题,我们那一道经典面试提来讲解下.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">0.1</span> + <span class="number">0.2</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">0.3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a === b); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>这是个出人意料的结果,实际上a的值约为<code>0.30000000000000004</code>这并不是一个整数值,这就是<code>二进制浮点数</code>带来的副作用.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">0.1</span> + <span class="number">0.2</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">0.3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a === b); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isInteger(a*<span class="number">10</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isInteger(b*<span class="number">10</span>)); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//0.30000000000000004</span></span><br></pre></td></tr></table></figure>
+<p><strong>NaN</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>/<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> a); <span class="comment">//Number</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(a)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p><code>NaN</code>属于特殊的<code>Number</code>类型,我们可以把它理解为<code>坏数值</code>,因为它属于数值计算中的错误,<strong>更加特殊</strong>的是它自己都不等价于自己<code>NaN === NaN //false</code>,我们只能用<code>isNaN()</code>来检测一个数字是否为<code>NaN</code>.</p>
+<h3 id="类型转换原理"><a href="#类型转换原理" class="headerlink" title="类型转换原理"></a>类型转换原理</h3><p><strong>类型转换</strong>指的是将一种类型转换为另一种类型,例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> a = <span class="built_in">String</span>(b);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> a); <span class="comment">//string</span></span><br></pre></td></tr></table></figure>
+<p>奇葩题：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125;+<span class="selector-attr">[]</span> <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+<p>是什么原因造成了上述结果呢?那么我们得从ECMA-262中提到的转换规则和抽象操作说起,有兴趣的童鞋可以仔细阅读下这浩如烟海的<a href="http://ecma-international.org/ecma-262/5.1/" target="_blank" rel="noopener">语言规范</a>,如果没这个耐心还是往下看.</p>
+<p>这是JavaScript种类型转换可以从<strong>原始类型</strong>转为<strong>引用类型</strong>,同样可以将<strong>引用类型</strong>转为<strong>原始类型</strong>,转为原始类型的抽象操作为<code>ToPrimitive</code>,而后续更加细分的操作为:<code>ToNumber ToString ToBoolean</code></p>
+<p>如果想应付面试,我觉得这张表就差不多了,但是为了更深入的探究JavaScript引擎是如何处理代码中类型转换问题的,就需要看 ECMA-262详细的规范,从而探究其内部原理,我们从这段内部原理示意代码开始</p>
+<p>类型转换主要分为两大类：<code>ToPrimitive</code>和<code>ToObject</code>。其中<code>ToPrimitive</code>又分为了：<code>ToNumber</code>、<code>ToString</code>和<code>ToBoolean</code></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ECMA-262, section 9.1, page 30. Use null/undefined for no hint,</span></span><br><span class="line"><span class="comment">// (1) for number hint, and (2) for string hint.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ToPrimitive</span><span class="params">(x, hint)</span> </span>&#123;  </span><br><span class="line">  <span class="comment">// Fast case check.</span></span><br><span class="line">  <span class="keyword">if</span> (IS_STRING(x)) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="comment">// Normal behavior.</span></span><br><span class="line">  <span class="keyword">if</span> (!IS_SPEC_OBJECT(x)) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="keyword">if</span> (IS_SYMBOL_WRAPPER(x)) <span class="keyword">throw</span> MakeTypeError(kSymbolToPrimitive);</span><br><span class="line">  <span class="keyword">if</span> (hint == NO_HINT) hint = (IS_DATE(x)) ? STRING_HINT : NUMBER_HINT;</span><br><span class="line">  <span class="keyword">return</span> (hint == NUMBER_HINT) ? DefaultNumber(x) : DefaultString(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ECMA-262, section 8.6.2.6, page 28.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DefaultNumber</span><span class="params">(x)</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">if</span> (!IS_SYMBOL_WRAPPER(x)) &#123;</span><br><span class="line">    <span class="keyword">var</span> valueOf = x.valueOf;   <span class="comment">//注意这里是valueOf，而不是valueOf()，所以这里是传递函数内容，并不是执行函数</span></span><br><span class="line">    <span class="comment">//// 如果传入参数是一个函数的话</span></span><br><span class="line">    <span class="keyword">if</span> (IS_SPEC_FUNCTION(valueOf)) &#123;</span><br><span class="line">      <span class="keyword">var</span> v = %_CallFunction(x, valueOf);</span><br><span class="line">      <span class="keyword">if</span> (IsPrimitive(v)) <span class="keyword">return</span> v;  <span class="comment">//不是ToPrimitive方法噢</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toString = x.toString;</span><br><span class="line">    <span class="keyword">if</span> (IS_SPEC_FUNCTION(toString)) &#123;</span><br><span class="line">      <span class="keyword">var</span> s = %_CallFunction(x, toString);</span><br><span class="line">      <span class="keyword">if</span> (IsPrimitive(s)) <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> MakeTypeError(kCannotConvertToPrimitive);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ECMA-262, section 8.6.2.6, page 28.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DefaultString</span><span class="params">(x)</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">if</span> (!IS_SYMBOL_WRAPPER(x)) &#123;</span><br><span class="line">    <span class="keyword">var</span> toString = x.toString;</span><br><span class="line">    <span class="keyword">if</span> (IS_SPEC_FUNCTION(toString)) &#123;</span><br><span class="line">      <span class="keyword">var</span> s = %_CallFunction(x, toString);</span><br><span class="line">      <span class="keyword">if</span> (IsPrimitive(s)) <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> valueOf = x.valueOf;</span><br><span class="line">    <span class="keyword">if</span> (IS_SPEC_FUNCTION(valueOf)) &#123;</span><br><span class="line">      <span class="keyword">var</span> v = %_CallFunction(x, valueOf);</span><br><span class="line">      <span class="keyword">if</span> (IsPrimitive(v)) <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> MakeTypeError(kCannotConvertToPrimitive);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面有一个<code>hint</code>的参数，当没有传入<code>hint</code>参数时，且<code>x</code>不是<code>Date</code>对象时会通过<code>%DefaultNumber(x)</code>来转换，否则通过<code>%DefaultString(x)</code>。这里也可以看到日期类型的对象转换为原始类型时的不同。</p>
+</blockquote>
+<p>上面代码的逻辑是这样的：</p>
+<ol>
+<li>如果变量为字符串，直接返回.</li>
+<li>如果<code>!IS_SPEC_OBJECT(x)</code>，直接返回.</li>
+<li>如果<code>IS_SYMBOL_WRAPPER(x)</code>，则抛出异常.</li>
+<li>否则会根据传入的<code>hint</code>来调用<code>DefaultNumber</code>和<code>DefaultString</code>，比如如果为<code>Date</code>对象，会调用<code>DefaultString</code>.</li>
+<li><code>DefaultNumber</code>：首<code>先x.valueOf</code>，如果为<code>primitive</code>，则返回<code>valueOf</code>后的值，否则继续调用<code>x.toString</code>，如果为<code>primitive</code>，则返回<code>toString</code>后的值，否则抛出异常</li>
+<li><code>DefaultString</code>：和<code>DefaultNumber</code>正好相反，先调用<code>toString</code>，如果不是<code>primitive</code>再调用<code>valueOf</code>.</li>
+</ol>
+<p>那讲了实现原理，这个<code>ToPrimitive</code>有什么用呢？实际很多操作会调用<code>ToPrimitive</code>，比如加、相等或比较操。在<strong>进行加操作时</strong>会将左右操作数转换为<code>primitive</code>，然后进行相加。</p>
+<p>下面来个实例，({}) + 1（将{}放在括号中是为了内核将其认为一个代码块）会输出啥？可能日常写代码并不会这样写，不过网上出过类似的面试题。</p>
+<p>加操作只有左右运算符同时为<code>String或Number</code>时会执行对应的<code>%_StringAdd或%NumberAdd</code>，</p>
+<p>下面看下<code>({}) + 1</code>内部会经过哪些步骤：</p>
+<p><code>{}</code>和<code>1</code>首先会调用ToPrimitive <code>{}</code>会走到<code>DefaultNumber</code>，首先会调用<code>valueOf</code>，返回的是<code>Object</code> <code>{}</code>，不是primitive类型，从而继续走到<code>toString</code>，返回<code>[object Object]</code>，是<code>String</code>类型 最后加操作，结果为<code>[object Object]1</code> 再比如有人问你<code>[] + 1</code>输出啥时，你可能知道应该怎么去计算了，先对<code>[]</code>调用<code>ToPrimitive</code>，返回空字符串，最后结果为”1”。</p>
+<blockquote>
+<p>({}).valueOf()  //  {}</p>
+<p>({}).toString() //    “[object Object]”</p>
+<p>[].toString()    //  “”</p>
+</blockquote>
+<p>附上<strong>ADD源码</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ECMA-262, section 11.6.1, page 50.</span></span><br><span class="line">function ADD(x) &#123;</span><br><span class="line">  <span class="comment">// Fast case: Check for number operands and do the addition.</span></span><br><span class="line">  <span class="comment">// 如果都为number或string，则直接调用NumberAdd或_StringAdd</span></span><br><span class="line">  <span class="keyword">if</span> (IS_NUMBER(<span class="keyword">this</span>) &amp;&amp; IS_NUMBER(x)) <span class="keyword">return</span> %NumberAdd(<span class="keyword">this</span>, x);</span><br><span class="line">  <span class="keyword">if</span> (IS_STRING(<span class="keyword">this</span>) &amp;&amp; IS_STRING(x)) <span class="keyword">return</span> %_StringAdd(<span class="keyword">this</span>, x);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Default implementation.</span></span><br><span class="line">  <span class="comment">// 否则将两边操作数分别转换为原始类型</span></span><br><span class="line">  <span class="keyword">var</span> a = %ToPrimitive(<span class="keyword">this</span>, NO_HINT);</span><br><span class="line">  <span class="keyword">var</span> b = %ToPrimitive(x, NO_HINT);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (IS_STRING(a)) &#123;</span><br><span class="line">    <span class="keyword">return</span> %_StringAdd(a, %ToString(b));</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (IS_STRING(b)) &#123;</span><br><span class="line">    <span class="keyword">return</span> %_StringAdd(%NonStringToString(a), b);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> %NumberAdd(%ToNumber(a), %ToNumber(b));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到在操作数有一个不为number或string时，<code>ADD</code>操作就会将相应的操作数转换为原始类型，然后再进行相应的加法操作，可以看到上面的<code>{} + 1</code>，<code>{}</code>不为原始类型，所以就会调用<code>ToPrimitive({})</code>和<code>ToPrimitive(1)</code>，<code>ToPrimitive({})</code>调用的结果为<code>[object Object]</code>，所以最后会进行<code>_StringAdd</code>操作，最后的结果是：<code>[object Object]1</code>。</p>
+<p><strong>ToNumber：</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ECMA-262, section 9.3, page 31.</span></span><br><span class="line">function ToNumber(x) &#123;</span><br><span class="line">  <span class="comment">// 如果为number直接返回</span></span><br><span class="line">  <span class="keyword">if</span> (IS_NUMBER(x)) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="comment">// 如果为字符串，则调用StringToNumber转换</span></span><br><span class="line">  <span class="keyword">if</span> (IS_STRING(x)) &#123;</span><br><span class="line">    <span class="keyword">return</span> %_HasCachedArrayIndex(x) ? %_GetCachedArrayIndex(x)</span><br><span class="line">                                    : %StringToNumber(x);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (IS_BOOLEAN(x)) <span class="keyword">return</span> x ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 如果为undefined，则返回NAN</span></span><br><span class="line">  <span class="keyword">if</span> (IS_UNDEFINED(x)) <span class="keyword">return</span> NAN;</span><br><span class="line">  <span class="comment">// 如果为symbol，则抛出异常</span></span><br><span class="line">  <span class="keyword">if</span> (IS_SYMBOL(x)) <span class="keyword">throw</span> MakeTypeError(<span class="string">'symbol_to_number'</span>, []);</span><br><span class="line">  <span class="comment">// 如果为null或</span></span><br><span class="line">  <span class="keyword">return</span> (IS_NULL(x)) ? <span class="number">0</span> : ToNumber(%DefaultNumber(x));</span><br></pre></td></tr></table></figure>
+<p><strong>ToString：</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ECMA-262, section 9.8, page 35.</span></span><br><span class="line">function ToString(x) &#123;</span><br><span class="line">  <span class="comment">// 如果为string，则直接返回</span></span><br><span class="line">  <span class="keyword">if</span> (IS_STRING(x)) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="comment">// 如果为number，则调用_NumberToString</span></span><br><span class="line">  <span class="keyword">if</span> (IS_NUMBER(x)) <span class="keyword">return</span> %_NumberToString(x);</span><br><span class="line">  <span class="comment">// 如果为boolean</span></span><br><span class="line">  <span class="keyword">if</span> (IS_BOOLEAN(x)) <span class="keyword">return</span> x ? <span class="string">'true'</span> : <span class="string">'false'</span>;</span><br><span class="line">  <span class="comment">// 如果为undefined，则返回undefined字符串</span></span><br><span class="line">  <span class="keyword">if</span> (IS_UNDEFINED(x)) <span class="keyword">return</span> <span class="string">'undefined'</span>;</span><br><span class="line">  <span class="comment">// 如果为symbol，则抛出异常</span></span><br><span class="line">  <span class="keyword">if</span> (IS_SYMBOL(x)) <span class="keyword">throw</span> %MakeTypeError(<span class="string">'symbol_to_string'</span>, []);</span><br><span class="line">  <span class="comment">// 如果为null，或者对象</span></span><br><span class="line">  <span class="keyword">return</span> (IS_NULL(x)) ? <span class="string">'null'</span> : %ToString(%DefaultString(x));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="toString-与valueOf"><a href="#toString-与valueOf" class="headerlink" title="toString()与valueOf()"></a>toString()与valueOf()</h3><blockquote>
+<p>8.31日补充：Number()以及String()方法不同于ValueOf、ToString, </p>
+<p>前者为数据转换，当调用Add方法(+a)的时候，此时涉及到的转换数据格式，而不是ToPrimitive，所以在+a的时候，当a为数字字符串，则会转成数字，当 a为空对象的时候，则为 NaN， 当 a 为空数组的时候，则为 0</p>
+</blockquote>
+<p>​       toString( ):返回对象的字符串表示。</p>
+<p>​        valueOf( ):返回对象的字符串、数值或布尔值表示。</p>
+<p>   好了，写几个例子就明白返回结果了（undefined  和 null  的值就不举例了，因为它们都没有这两个方法，所以肯定会报错的）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先看看toString()方法的结果</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'3'</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> d = &#123;<span class="attr">test</span>:<span class="string">'123'</span>,<span class="attr">example</span>:<span class="number">123</span>&#125;</span><br><span class="line"><span class="keyword">var</span> e = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">'example'</span>);&#125;</span><br><span class="line"><span class="keyword">var</span> f = [<span class="string">'test'</span>,<span class="string">'example'</span>];</span><br><span class="line"></span><br><span class="line">a.toString();<span class="comment">// "3"</span></span><br><span class="line">b.toString();<span class="comment">// "3"</span></span><br><span class="line">c.toString();<span class="comment">// "true"</span></span><br><span class="line">d.toString();<span class="comment">// "[object Object]"</span></span><br><span class="line">e.toString();<span class="comment">// "function ()&#123;console.log('example');&#125;"</span></span><br><span class="line">f.toString();<span class="comment">// "test,example"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//再看看valueOf()方法的结果</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'3'</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> d = &#123;<span class="attr">test</span>:<span class="string">'123'</span>,<span class="attr">example</span>:<span class="number">123</span>&#125;</span><br><span class="line"><span class="keyword">var</span> e = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">'example'</span>);&#125;</span><br><span class="line"><span class="keyword">var</span> f = [<span class="string">'test'</span>,<span class="string">'example'</span>];</span><br><span class="line"></span><br><span class="line">a.valueOf();<span class="comment">// 3</span></span><br><span class="line">b.valueOf();<span class="comment">// "3"</span></span><br><span class="line">c.valueOf();<span class="comment">// true</span></span><br><span class="line">d.valueOf();<span class="comment">// &#123;test:'123',example:123&#125;</span></span><br><span class="line">e.valueOf();<span class="comment">// function()&#123;console.log('example');&#125;</span></span><br><span class="line">f.valueOf();<span class="comment">// ['test','example']</span></span><br></pre></td></tr></table></figure>
+<p>​    很清楚了，toString( )就是将其他东西用字符串表示，比较特殊的地方就是，表示对象的时候，变成”[object Object]”,<strong>表示数组的时候，就变成数组内容以逗号连接的字符串</strong>，相当于Array.join(‘,’)。 而valueOf( )就返回它自身了。</p>
+<p>​        至于迷惑的地方，就在于它们在什么时候被调用，举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'3'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(+a);<span class="comment">// 3  //如果是+某值的形式则理解成ToNumber</span></span><br><span class="line"><span class="built_in">console</span>.log(+b); <span class="comment">// b is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(+[]) <span class="comment">//0</span></span><br><span class="line"><span class="built_in">console</span>.log(+&#123;&#125;) <span class="comment">//NaN</span></span><br><span class="line"><span class="built_in">Number</span>([]) <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Number</span>(&#123;&#125;) <span class="comment">//NaN</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>+a)  <span class="comment">//23</span></span><br><span class="line"><span class="built_in">console</span>.log(a+<span class="number">2</span>)  <span class="comment">//32</span></span><br><span class="line"><span class="built_in">console</span>.log(-a)  <span class="comment">//-3</span></span><br><span class="line"><span class="built_in">console</span>.log(*a)  <span class="comment">// Uncaught SyntaxError: Unexpected token '*'</span></span><br></pre></td></tr></table></figure>
+<p>当然了，+a打印结果是数字3（不是字符串‘3’），因为<strong>一元加操作符接在字符串前面就将其转换为数字了</strong>（字符串转化为数字的一种方式，相当于Number( )方法），但是如果它应用在对象上，过程是怎样的呢，再举例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例子一</span></span><br><span class="line"><span class="keyword">var</span> example = &#123;<span class="attr">test</span>:<span class="string">'123'</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+example);<span class="comment">// NaN  //理解成toNumber</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>+example)<span class="comment">// "1[object Object]"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">''</span>+exmple)<span class="comment">// [object Object]</span></span><br><span class="line"><span class="comment">//例子二 同时改写 toString 和 valueOf 方法</span></span><br><span class="line"><span class="keyword">var</span> example = &#123;</span><br><span class="line">    toString:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'23'</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    valueOf:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'32'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+example);<span class="comment">// 32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//例子三 只改写 toString 方法</span></span><br><span class="line"><span class="keyword">var</span> example = &#123;</span><br><span class="line">    toString:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'23'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(+example);<span class="comment">// 23</span></span><br></pre></td></tr></table></figure>
+<p>​       通过例子一和例子二的比较，我们可以知道，一元加操作符在操作对象的时候，会先调用对象的valueOf方法来转换，最后再用Number( )方法转换，而通过例子二和例子三的比较，我们可以知道，如果只改写了toString方法，对象则会调用toString方法，证明valueOf的优先级比toString高。</p>
+<p>​        好了，如果是alert呢？</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例子一</span></span><br><span class="line"><span class="keyword">var</span> example = &#123;test:<span class="string">'123'</span>&#125;;</span><br><span class="line">alert(example);<span class="comment">// "[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//例子二 同时改写 toString 和 valueOf 方法</span></span><br><span class="line"><span class="keyword">var</span> example = &#123;</span><br><span class="line">    toString:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'23'</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    valueOf:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'32'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(example);<span class="comment">// "23"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//例子三 只改写 valueOf 方法</span></span><br><span class="line"><span class="keyword">var</span> example = &#123;</span><br><span class="line">    valueOf:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'32'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">alert(example);<span class="comment">// "[object Object]"</span></span><br></pre></td></tr></table></figure>
+<p>虽然上面结果我用双引号了，但是你知道弹窗不会将字符串的双引号表示出来的。通过上面几个例子，我们就知道了，alert它对待对象，就和字符串和对象相加一样，就是调用它的toString( )方法，<strong>和 valueOf方法无关</strong></p>
+<p> 好了，总结一下，一般用操作符单独对对象进行转换的时候，如果对象存在valueOf或toString改写的话，就先调用改写的方法，valueOf更高级，如果没有被改写，则直接调用对象原型的valueOf方法。如果是弹窗的话，直接调用toString方法。至于其他情况，待续……</p>
+<p>我们尝试把第一步返回的值改成一个对象 <code>{}</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;</span><br><span class="line">    toString:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'调用了 a.toString'</span>);</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    valueOf:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'调用了 a.valueOf'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'111'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用了 a.toString</span></span><br><span class="line"><span class="comment">// 调用了 a.valueOf</span></span><br></pre></td></tr></table></figure>
+<p>从结果可以看到，当toString不可用的时候，系统会再尝试valueOf方法，我们继续修改valueOf方法，把valueOf方法也改成返回对象 <code>{}</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;</span><br><span class="line">    toString:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'调用了 a.toString'</span>);</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    valueOf:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'调用了 a.valueOf'</span>);</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用了 a.toString</span></span><br><span class="line"><span class="comment">// 调用了 a.valueOf</span></span><br><span class="line"><span class="comment">//  Uncaught TypeError: Cannot convert object to primitive value</span></span><br></pre></td></tr></table></figure>
+<p>可以发现，如果toString和valueOf方法均不可用的情况下，系统会直接返回一个错误。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=&#123;</span><br><span class="line">    toString:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'调用了 a.toString'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">12</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    valueOf:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'调用了 a.valueOf'</span>);</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a+<span class="number">1</span></span><br><span class="line"><span class="comment">//调用了 a.valueOf</span></span><br><span class="line"><span class="comment">//调用了 a.toString</span></span><br><span class="line"><span class="comment">//13</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，这里我们改写了valueOf和toString方法，系统在调用valueOf方法之后发现返回的不是“原始类型”数据，于是又尝试调用了toString方法，并返回了该方法返回的值12，最后+1变成了13。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; 的 <span class="selector-tag">valueOf</span> 结果为 &#123;&#125; ，<span class="selector-tag">toString</span> 的结果为 "<span class="selector-attr">[object Object]</span>"</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[]</span> 的 <span class="selector-tag">valueOf</span> 结果为 <span class="selector-attr">[]</span> ，<span class="selector-tag">toString</span> 的结果为 ""</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>); <span class="comment">// "[object Null]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>); <span class="comment">// "[object Undefined]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(“abc”);<span class="comment">// "[object String]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">123</span>);<span class="comment">// "[object Number]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>);<span class="comment">// "[object Boolean]"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj=&#123;<span class="built_in">name</span>:<span class="string">'Mofei'</span>&#125;</span><br><span class="line">var <span class="built_in">str</span> = <span class="string">' '</span> + obj</span><br><span class="line">console.<span class="built_in">log</span>(<span class="built_in">str</span>);  <span class="comment">//   [object Object]</span></span><br></pre></td></tr></table></figure>
+<h2 id="大吃一惊"><a href="#大吃一惊" class="headerlink" title="大吃一惊"></a>大吃一惊</h2><p><img src="C:\Users\fchxh\AppData\Roaming\Typora\typora-user-images\1598833484342.png" alt="1598833484342"></p>
+<blockquote>
+<p>“0” 转换成 Boolean为 true</p>
+<p>NaN转换成 Boolean为 false</p>
+<p>{} 转换成 Boolean 为 true</p>
+<p>[] 转换成 Boolean 为 true, 数组本身就是Object</p>
+</blockquote>
+<p><img src="C:\Users\fchxh\AppData\Roaming\Typora\typora-user-images\1598833868068.png" alt="，  "></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">parseInt</span><span class="params">(<span class="number">0.0000004</span>)</span></span>  <span class="comment">// 4</span></span><br><span class="line">![]==[] <span class="comment">//true</span></span><br><span class="line">[<span class="string">'x'</span>,<span class="string">'y'</span>] == <span class="string">'x,y'</span> <span class="comment">//true</span></span><br><span class="line"><span class="function"><span class="title">alert</span><span class="params">(&#123;name:<span class="string">'mofei'</span>&#125;)</span></span>  <span class="comment">//"[object Object]"</span></span><br></pre></td></tr></table></figure>
+<h2 id="关于Boolean"><a href="#关于Boolean" class="headerlink" title="关于Boolean"></a>关于Boolean</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ECMA-262, section 9.2, page 30</span></span><br><span class="line">function ToBoolean(x) &#123;</span><br><span class="line">  <span class="comment">// 如果为boolean，则直接返回</span></span><br><span class="line">  <span class="keyword">if</span> (IS_BOOLEAN(x)) <span class="keyword">return</span> x;</span><br><span class="line">  <span class="comment">// 如果为string，则当字符串长度不为0时返回true</span></span><br><span class="line">  <span class="keyword">if</span> (IS_STRING(x)) <span class="keyword">return</span> x.length != <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 如果为null，返回false</span></span><br><span class="line">  <span class="keyword">if</span> (x == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">// 如果为number，当number不为0，且不为NAN时返回true</span></span><br><span class="line">  <span class="keyword">if</span> (IS_NUMBER(x)) <span class="keyword">return</span> !((x == <span class="number">0</span>) || NUMBER_IS_NAN(x));</span><br><span class="line">  <span class="comment">// 否则返回true</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Boolean转换"><a href="#Boolean转换" class="headerlink" title="Boolean转换"></a>Boolean转换</h2><p>在进行布尔比较的时候，比如 if(obj) , while(obj)等等，会进行布尔转换，布尔转换遵循如下规则：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">值</th>
+<th style="text-align:center">布尔值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">true/false</td>
+<td style="text-align:center">true/false</td>
+</tr>
+<tr>
+<td style="text-align:center">undefined,null</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">Number</td>
+<td style="text-align:center">0,NaN 对应 false, 其他的对应 true</td>
+</tr>
+<tr>
+<td style="text-align:center">String</td>
+<td style="text-align:center">“”对应false,其他对应true（’0’对应的是true）</td>
+</tr>
+<tr>
+<td style="text-align:center">Object</td>
+<td style="text-align:center">true</td>
+</tr>
+</tbody>
+</table>
+<p>注意：我们知道，初始化后，即使数组arr中没有元素，也是一个object。既然是object，用于判断条件时就会被转化为true</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(arr)console.log(<span class="string">"it's true"</span>);</span><br><span class="line">// it<span class="symbol">'s</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>但是，如果将arr与布尔值比较：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">arr</span> <span class="string">==</span> <span class="literal">false</span><span class="string">;</span></span><br><span class="line"><span class="string">//</span> <span class="literal">true</span></span><br><span class="line"><span class="string">arr</span> <span class="string">==</span> <span class="literal">true</span><span class="string">;</span></span><br><span class="line"><span class="string">//</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>可是，如果把arr转化为Boolean，的确是true：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Boolean(arr);</span><br><span class="line">/<span class="regexp">/ true</span></span><br></pre></td></tr></table></figure>
+<p>那arr与布尔值比较时，到底发生了什么？</p>
+<p>这是因为，任意值与布尔值比较，都会将两边的值转化为Number。</p>
+<p>如arr与false比较，false转化为0，而arr为空数组，也转化为0：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">Number</span><span class="params">(false)</span></span></span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="function"><span class="title">Number</span><span class="params">(arr)</span></span></span><br><span class="line"><span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>所以，当空数组作为判断条件时，相当于true。当空数组与布尔值直接比较时，相当于false。</p>
+<p>举个比较典型的例子</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[] == ![]  <span class="string">//true</span></span><br><span class="line"></span><br><span class="line"><span class="string">//</span> 首先第一步右边的是逻辑判断![]，所以先转成boolean</span><br><span class="line"><span class="string">//</span> [] == !<span class="literal">true</span></span><br><span class="line"><span class="string">//</span> [] == <span class="literal">false</span></span><br><span class="line"><span class="string">//</span> 左边不是原始类型，尝试把左边转成原始类型，变成</span><br><span class="line"><span class="string">//</span> '' == <span class="literal">false</span></span><br><span class="line"><span class="string">//</span> 转成Number</span><br><span class="line"><span class="string">//</span> 0 == 0</span><br></pre></td></tr></table></figure>
+<p><img src="https://segmentfault.com/img/bVRMhw?w=616&amp;h=456" alt="图片描述"></p>
+<p>发现对象确实不可valueOf</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> <span class="built_in">num</span> = <span class="number">123</span>;  //通过对象字面量声明console.<span class="built_in">log</span>(typeof <span class="built_in">num</span>);  //输出：'number'</span><br><span class="line"><span class="built_in">var</span> <span class="built_in">num</span> = <span class="built_in">new</span> Number(<span class="number">123</span>);  //通过构造方法声明console.<span class="built_in">log</span>(typeof <span class="built_in">num</span>);  //输出：'object'</span><br></pre></td></tr></table></figure>
+<p>注意：比如parseInt(“0057”) 结果为57 ，而parseInt（”0058”）结果为5，parseInt(“007”)结果为7，而parseInt(“008”)结果为0</p>
+<p>parseInt()函数的完整形式是：<strong>parseInt(string, radix)</strong>的作用是将string转换为整数，第二个参数是设置string的格式，常用的有2、8、10、16，表示string是多少进制的数。 不要把这里的Int理解成十进制数</p>
+<p>radix 可取值的范围是2~36，如果不在这个范围内，将返回NaN<br>如果设置radix的值是0或者不设置时，会自动识别string的格式：</p>
+<p>以 “0x” 开头，parseInt() 会把 string 除0x外的其余部分当作十六进制数，<br>以 “0” 开头，parseInt() 会把 string 除0外的字符当作八进制或十六进制数，<br>以 1 ~ 9 的数字开头，parseInt() 将把它当作十进制数。</p>
+<p>所以产生上述原因是因为我们没有设置第二个类型参数，以致以”0”开头的字符串数据被当做了八进制。</p>
+<p>所以以后在使用parseInt（String,radix）函数时，把第二个进制参数加上，以防出错。</p>
+<p>parseInt（”0058”,10）结果为58，就是我们想要的了</p>
+<p>这表示把”0058”以十进制表示</p>
+<p>parseInt（）：不认识小数点，是从左到右一个一个解析，看到数字就通过，非数字就停止解析。</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = <span class="string">'100px123456'</span>;</span><br><span class="line">alert<span class="comment">(parseInt(a)</span>);<span class="comment">//100</span></span><br></pre></td></tr></table></figure>
+<p>parseInt认识加号、减号、空格等，遇到加号减号等会认为是数字的一部分，越过这些符号继续解析</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = <span class="string">'+100px'</span>;</span><br><span class="line">alert<span class="comment">(parseInt(a)</span>);<span class="comment">//100</span></span><br></pre></td></tr></table></figure>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020-09-15/2020Notes01.html" rel="prev" title="面试官系列-框架相关篇">
+                <i class="fa fa-chevron-left"></i> 面试官系列-框架相关篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020-08-22/WeirdMathInJs.html" rel="next" title="0.1 + 0.2 != 0.3 ? 该如何正确回答？(8.22更新)">
+                 0.1 + 0.2 != 0.3 ? 该如何正确回答？(8.22更新) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="http://images.linjiahong.top/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">欢迎来到Abo的博客，博客以分享前端web知识、数据结构与算法、计算机基础为主，希望能帮到您ㄟ(😀)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="😋Taylor Swift Official Website😋" target="_blank">😋Taylor Swift Official Website😋</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://linjiahong.top/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于原始类型与引用类型"><span class="nav-number">1.1.</span> <span class="nav-text">关于原始类型与引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原始类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">原始类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用类型"><span class="nav-number">1.1.2.</span> <span class="nav-text">引用类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断Js数据类型的四种方法"><span class="nav-number">1.2.</span> <span class="nav-text">判断Js数据类型的四种方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#typeof"><span class="nav-number">1.2.1.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#instanceof"><span class="nav-number">1.2.2.</span> <span class="nav-text">instanceof</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于-proto-和prototype的区别"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">关于__proto__和prototype的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#对象字面量"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">对象字面量</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#构造函数"><span class="nav-number">1.2.2.1.2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Object-create"><span class="nav-number">1.2.2.1.3.</span> <span class="nav-text">Object.create</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">1.2.3.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toString-NaN"><span class="nav-number">1.2.4.</span> <span class="nav-text">toString</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组中的坑"><span class="nav-number">1.3.</span> <span class="nav-text">数组中的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字中的坑-：二进制浮点数"><span class="nav-number">1.4.</span> <span class="nav-text">数字中的坑 ：二进制浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换原理"><span class="nav-number">1.5.</span> <span class="nav-text">类型转换原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toString-与valueOf"><span class="nav-number">1.6.</span> <span class="nav-text">toString()与valueOf()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大吃一惊"><span class="nav-number">2.</span> <span class="nav-text">大吃一惊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Boolean"><span class="nav-number">3.</span> <span class="nav-text">关于Boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boolean转换"><span class="nav-number">4.</span> <span class="nav-text">Boolean转换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+ $("body").backstretch("http://images.linjiahong.top/6_29.jpg");
+</script>
+</body>
+</html>

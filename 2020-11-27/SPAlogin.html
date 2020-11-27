@@ -1,0 +1,1298 @@
+<!doctype html>
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://jhjhljh.github.io"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="39EeAhjsZOkXpt8PcowvLUrmgQkkCB0cBcMU65Rhxbk">
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+<link href="https://fonts.loli.net/css?family=EB+Garamond:500,500i,700,700i|Noto+Serif+SC:400,500,700&display=swap" rel="stylesheet">
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Vue,面试,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Abo" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+<meta name="description" content="论如何用Vue写一个SPA登录页面的过程">
+<meta name="keywords" content="Vue,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小抄：手把手带你写SPA的登录页">
+<meta property="og:url" content="https://linjiahong.top/2020-11-27/SPAlogin.html">
+<meta property="og:site_name" content="Abo">
+<meta property="og:description" content="论如何用Vue写一个SPA登录页面的过程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.linjiahong.top/umbrella.png">
+<meta property="og:updated_time" content="2020-11-27T05:45:53.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小抄：手把手带你写SPA的登录页">
+<meta name="twitter:description" content="论如何用Vue写一个SPA登录页面的过程">
+<meta name="twitter:image" content="https://images.linjiahong.top/umbrella.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"display":"hide","offset":12,"b2t":false,"onmobile":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://linjiahong.top/2020-11-27/SPAlogin.html">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 小抄：手把手带你写SPA的登录页 | Abo </title>
+<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+  
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-140429748-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4f040a6ebf9ae0c7337c462df961942c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+  
+  <div class="container one-collumn  page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Abo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">林加鸿</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            排行
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://linjiahong.top/2020-11-27/SPAlogin.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="林加鸿">
+    <meta itemprop="description" content>
+    <meta itemprop="image" content="http://images.linjiahong.top/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Abo">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Abo" src>
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                小抄：手把手带你写SPA的登录页
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-27T12:16:56+08:00">
+                2020-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+             <span id="/2020-11-27/SPAlogin.html" class="leancloud_visitors" data-flag-title="小抄：手把手带你写SPA的登录页">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+		   
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p></p><p class="description">论如何用Vue写一个SPA登录页面的过程</p><br><img src="https://images.linjiahong.top/umbrella.png" alt style="width:100%"><p></p>
+<a id="more"></a>
+<p><blockquote class="question">SPA登录属于Vue项目实战的基础内容，整理一波开发心路历程</blockquote><br>
+        <div id="aplayer-PxYEVtbI" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-PxYEVtbI"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "7 Years",
+              author: "Lukas Graham",
+              url: "https://images.linjiahong.top/7%20Years%20-%20Lukas%20Graham.mp3",
+              pic: "https://images.linjiahong.top/7%20Years%20-%20Lukas%20Graham.jpg",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script></p>
+<h2 id="前言：技术栈"><a href="#前言：技术栈" class="headerlink" title="前言：技术栈"></a>前言：技术栈</h2><ul>
+<li><a href="https://vuejs.org/v2/guide/" target="_blank" rel="noopener">vue.js</a> 主框架</li>
+<li><a href="https://vuex.vuejs.org/" target="_blank" rel="noopener">vuex</a> 状态管理</li>
+<li><a href="https://router.vuejs.org/" target="_blank" rel="noopener">vue-router</a> 路由管理</li>
+</ul>
+<blockquote>
+<p>Vue + Vuex + Vue-router全家桶老生常谈了，这里不做多赘述</p>
+</blockquote>
+<h2 id="一般过程"><a href="#一般过程" class="headerlink" title="一般过程"></a>一般过程</h2><p>在<strong>一般的登录过程</strong>中，一种前端方案是：</p>
+<ol>
+<li>检查状态：<strong>进入页面时</strong>或者<strong>路由变化时</strong>检查是否有登录状态(保存在<code>cookie</code>或者<code>本地存储</code>的值)；</li>
+<li>如果有<strong>登录态</strong>则<strong>查询登录信息</strong>(uid，头像等…)并保存起来；如果<strong>没有则跳转</strong>到登录页；</li>
+<li>在登录页面（或者登录框），校检用户输入信息是否合法；</li>
+<li>校检通过后发送登录请求；校检不成功则反馈给用户；</li>
+<li>登录成功则从后端数据中取出<code>session</code>信息保存登录状态(可能需要跳转);登录不成功则提示用户不成功；</li>
+<li>用户做出注销操作时删除登录状态。</li>
+</ol>
+<p>在此之前假设登录页面路由为<code>/login</code>，登录后的路由为<code>/user_info</code>。这样只需要在<code>App.vue</code>放好<code>router-view</code>用于存放和渲染这两个路由。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// component/App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class=&quot;container&quot; id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;transition name=&quot;fade&quot;&gt;</span><br><span class="line">    &lt;keep-alive&gt;</span><br><span class="line">      &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">    &lt;/keep-alive&gt;</span><br><span class="line">  &lt;/transition&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+<p>并做好<code>vue-router</code>配置:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// js/app.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> Login <span class="keyword">from</span> <span class="string">'../component/Login.vue'</span></span><br><span class="line"><span class="keyword">import</span> UserInfo <span class="keyword">from</span> <span class="string">'../component/UserInfo.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [&#123;</span><br><span class="line">    path: <span class="string">'/login'</span>,</span><br><span class="line">    component: Login</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    path: <span class="string">'/user_info'</span>,</span><br><span class="line">    component: UserInfo</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="检查状态与跳转"><a href="#检查状态与跳转" class="headerlink" title="检查状态与跳转"></a>检查状态与跳转</h2><p>在两个时候我们需要检查状态：</p>
+<ol>
+<li><p>用户打开页面时</p>
+</li>
+<li><p>路由发生变化时</p>
+</li>
+</ol>
+<p>首先需要写好一个检查登录态的方法<code>checkLogin</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// js/app.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App),</span><br><span class="line">  router,</span><br><span class="line">  store,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    checkLogin()&#123;</span><br><span class="line">      <span class="comment">//检查是否存在session</span></span><br><span class="line">      <span class="comment">//cookie操作方法在源码里有或者参考网上的即可</span></span><br><span class="line">      <span class="keyword">if</span>(!<span class="keyword">this</span>.getCookie(<span class="string">'session'</span>))&#123;</span><br><span class="line">        <span class="comment">//如果没有登录状态则跳转到登录页</span></span><br><span class="line">        <span class="keyword">this</span>.$router.push(<span class="string">'/login'</span>);</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//否则跳转到登录后的页面</span></span><br><span class="line">        <span class="keyword">this</span>.$router.push(<span class="string">'/user_info'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于 render与 template 的主要区别，会在之后的内容继续阐述</p>
+</blockquote>
+<p>为了提升用户体验，当用户<strong>打开页面</strong>时前端需要检查他是否已经登录，不需要用户再次登录。这个实现很简单,我们在<code>vue实例</code>的<code>created</code>钩子里写好：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// js/app.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  ...</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">this</span>.checkLogin();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    checkLogin()&#123;</span><br><span class="line">      <span class="comment">//检查是否存在session</span></span><br><span class="line">      <span class="comment">//cookie操作方法在源码里有或者参考网上的即可</span></span><br><span class="line">      <span class="keyword">if</span>(!<span class="keyword">this</span>.getCookie(<span class="string">'session'</span>))&#123;</span><br><span class="line">        <span class="comment">//如果没有登录状态则跳转到登录页</span></span><br><span class="line">        <span class="keyword">this</span>.$router.push(<span class="string">'/login'</span>);</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//否则跳转到登录后的页面</span></span><br><span class="line">        <span class="keyword">this</span>.$router.push(<span class="string">'/user_info'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>另外，<code>路由</code>发生变化时也需要检查登录，以下情景(路由变化)如果我们不检查登录态可能会发生错误：</p>
+<ul>
+<li>用户在进入页面时存在登录状态，但在做操作时正好登录过期了；</li>
+<li>用户手动删除了<code>cookie</code>/<code>本地storage</code>并做操作；</li>
+<li>用户在未登录的情况下手动输入(或者从收藏夹进入)某个需要登录的路由</li>
+<li>用户在已登录的情况下进入登录页路由</li>
+</ul>
+<p>这些足够成为我们监听路由的理由，实现的话可以利用<code>vue</code>的<code>watch</code>功能：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// js/app.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">//监听路由检查登录</span></span><br><span class="line">  watch:&#123;</span><br><span class="line">    <span class="string">"$route"</span> : <span class="string">'checkLogin'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">//进入页面时</span></span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="keyword">this</span>.checkLogin();</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  methods:&#123;</span><br><span class="line">    checkLogin()&#123;</span><br><span class="line">      <span class="comment">//检查是否存在session</span></span><br><span class="line">      <span class="comment">//cookie操作方法在源码里有或者参考网上的即可</span></span><br><span class="line">      <span class="keyword">if</span>(!<span class="keyword">this</span>.getCookie(<span class="string">'session'</span>))&#123;</span><br><span class="line">        <span class="comment">//如果没有登录状态则跳转到登录页</span></span><br><span class="line">        <span class="keyword">this</span>.$router.push(<span class="string">'/login'</span>);</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//否则跳转到登录后的页面</span></span><br><span class="line">        <span class="keyword">this</span>.$router.push(<span class="string">'/user_info'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们分别针对上面四种情况来进行分析：</p>
+<p>操作过程中过期的情况，由于我们对checkLogin进行了watch操作，那么对于里面涉及到的数据发生了变化，就会重新进行checkLogin，所以就会执行push(‘/login’)这一操作，而对于其他三种情况原理都一样，都是通过watch来进行监听，随时进行检查，稍有不对劲就可以进行相对应的push操作。</p>
+</blockquote>
+<p>至此，我们就完成了<code>一般过程</code>中的第1步。接下来实现如何获取用户个人信息。</p>
+<h2 id="获取用户信息"><a href="#获取用户信息" class="headerlink" title="获取用户信息"></a>获取用户信息</h2><p>在成功登录后，我们一般需要从后端显示用户的一些信息，比如昵称，头像，等级等等…获取的话很简单，发一个http请求从后端拉取；但是一般这些信息会<strong>在多的路由中被用到</strong>（比如uid一般都需要在各个后端接口中作为参数带上），所以需要保存到<strong>全局状态</strong>中(<code>vuex</code>)：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component/App.vue</span></span><br><span class="line">...</span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="comment">//组件开始挂载时获取用户信息</span></span><br><span class="line">    <span class="keyword">this</span>.getUserInfo();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">//请求用户的一些信息</span></span><br><span class="line">    getUserInfo()&#123;</span><br><span class="line">        <span class="comment">//下面这个userInfo是用来举例的静态数据</span></span><br><span class="line">        <span class="comment">//实际上我们是通过账号密码登录后获取到的用户详细信息，再将用户的信息提取关键信息存储到vuex当中，下面是提取后的结果了</span></span><br><span class="line">      <span class="keyword">this</span>.userInfo = &#123;</span><br><span class="line">        nick: <span class="string">'Doterlin'</span>,</span><br><span class="line">        ulevel: <span class="number">20</span>,</span><br><span class="line">        uid: <span class="string">'10000'</span>,</span><br><span class="line">        portrait: <span class="string">'images/profile.png'</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//获取信息请求（这里是vue-resource）</span></span><br><span class="line">      ts.$http.get(url, &#123;</span><br><span class="line">        <span class="comment">//参数</span></span><br><span class="line">        <span class="string">"params"</span>: <span class="keyword">this</span>.userInfo</span><br><span class="line">      &#125;).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//Success</span></span><br><span class="line">        <span class="keyword">if</span>(response.data.code == <span class="number">0</span>)&#123;</span><br><span class="line">          <span class="keyword">this</span>.$store.commit(<span class="string">'updateUserInfo'</span>, <span class="keyword">this</span>.userInfo); </span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, (response) =&gt; &#123;</span><br><span class="line">        <span class="comment">//Error</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">...</span></span><br></pre></td></tr></table></figure>
+<p>当然我们需要在之前配置好，比如在写在<code>app.js</code>或者单独写成<code>store.js</code>并在<code>app.js</code>引入（推荐）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// js/app.js</span></span><br><span class="line"><span class="comment">// Vuex配置</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    domain:<span class="string">'http://test.example.com'</span>, <span class="comment">//保存后台请求的地址，修改时方便（比方说从测试服改成正式服域名）</span></span><br><span class="line">    userInfo: &#123; <span class="comment">//保存用户信息</span></span><br><span class="line">      nick: <span class="literal">null</span>,</span><br><span class="line">      ulevel: <span class="literal">null</span>,</span><br><span class="line">      uid: <span class="literal">null</span>,</span><br><span class="line">      portrait: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    <span class="comment">//更新用户信息</span></span><br><span class="line">    updateUserInfo(state, newUserInfo) &#123;</span><br><span class="line">      state.userInfo = newUserInfo;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="输入校验和发送登录请求"><a href="#输入校验和发送登录请求" class="headerlink" title="输入校验和发送登录请求"></a>输入校验和发送登录请求</h2><p>为了防止一些不符合预期的字符和过于频繁的请求传到后台，前端要对用户的输入进行校验和防止重复请求。当然不同网站的合法字符不一样，这里只做<code>为空</code>时不合法的校验：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//component/Login.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class=&quot;login&quot; id=&quot;login&quot;&gt;</span><br><span class="line">   ...</span><br><span class="line">    &lt;div class=&quot;log-email&quot;&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; placeholder=&quot;Email&quot; :class=&quot;&apos;log-input&apos; + (account==&apos;&apos;?&apos; log-input-empty&apos;:&apos;&apos;)&quot; v-model=&quot;account&quot;&gt;&lt;input type=&quot;password&quot; placeholder=&quot;Password&quot; :class=&quot;&apos;log-input&apos; + (password==&apos;&apos;?&apos; log-input-empty&apos;:&apos;&apos;)&quot;  v-model=&quot;password&quot;&gt;</span><br><span class="line">        &lt;a href=&quot;javascript:;&quot; class=&quot;log-btn&quot; @click=&quot;login&quot;&gt;Login&lt;/a&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Loading from &apos;./Loading.vue&apos;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;Login&apos;,</span><br><span class="line">  data()&#123;</span><br><span class="line">  	return &#123;</span><br><span class="line">        isLoging: false,</span><br><span class="line">  		account: &apos;&apos;,</span><br><span class="line">  		password: &apos;&apos;</span><br><span class="line">  	&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">    Loading</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line"></span><br><span class="line">  	//登录逻辑</span><br><span class="line">  	login()&#123;</span><br><span class="line">  		if(this.account!=&apos;&apos; &amp;&amp; this.password!=&apos;&apos;)&#123;</span><br><span class="line">  			this.toLogin();</span><br><span class="line">  		&#125;</span><br><span class="line">  	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这里的<code>this.toLogin</code>就是登录请求的方法，在<code>post</code>密码到后端时不是直接发送，一般会按照后端定的规则加密后在发送，比如<code>哈希算法</code>，例子进行了的双重哈希加密，引用了<code>js/sha1.min.js</code>，大致实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">      <span class="comment">//登录请求</span></span><br><span class="line">  	toLogin()&#123;</span><br><span class="line"></span><br><span class="line">  		<span class="comment">//一般要跟后端了解密码的加密规则</span></span><br><span class="line">  		<span class="comment">//这里例子用的哈希算法来自./js/sha1.min.js</span></span><br><span class="line">  		<span class="keyword">let</span> password_sha = hex_sha1(hex_sha1( <span class="keyword">this</span>.password ));</span><br><span class="line"></span><br><span class="line">  		<span class="comment">//需要想后端发送的登录参数</span></span><br><span class="line">  		<span class="keyword">let</span> loginParam = &#123;</span><br><span class="line">  			account: <span class="keyword">this</span>.account,</span><br><span class="line">  			password_sha</span><br><span class="line">  		&#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">//设置在登录状态</span></span><br><span class="line">          <span class="keyword">this</span>.isLoging = <span class="literal">true</span>;</span><br><span class="line">      </span><br><span class="line">  		<span class="comment">//请求后端</span></span><br><span class="line">  		<span class="keyword">this</span>.$http.post( <span class="string">'example.com/login.php'</span>, &#123;</span><br><span class="line">  		param: loginParam).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(response.data.code == <span class="number">1</span>)&#123;</span><br><span class="line">              <span class="comment">//如果登录成功则保存登录状态并设置有效期</span></span><br><span class="line">              <span class="keyword">let</span> expireDays = <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">15</span>;</span><br><span class="line">              <span class="keyword">this</span>.setCookie(<span class="string">'session'</span>, response.data.session, expireDays);</span><br><span class="line">              <span class="comment">//跳转</span></span><br><span class="line">              <span class="keyword">this</span>.$router.push(<span class="string">'/user_info'</span>); </span><br><span class="line">            &#125;</span><br><span class="line">	      &#125;, (response) =&gt; &#123;</span><br><span class="line">	        <span class="comment">//Error</span></span><br><span class="line">	      &#125;);</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这样就完成了第3,4,5个步骤了。最后一步就是注销。</p>
+<h2 id="注销"><a href="#注销" class="headerlink" title="注销"></a>注销</h2><p>注销时有的需要请求后端有的不需要，关键的事要删除保存的登录状态：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component/UserInfo.vue</span></span><br><span class="line">...</span><br><span class="line">   logout()&#123;</span><br><span class="line">      <span class="comment">//删除cookie并跳到登录页</span></span><br><span class="line">      <span class="keyword">this</span>.isLogouting = <span class="literal">true</span>;</span><br><span class="line">      <span class="comment">//请求后端，比如logout.php</span></span><br><span class="line">      <span class="comment">// this.$http.post('eaxmple.com/logout.php')...</span></span><br><span class="line">      <span class="comment">//成功后删除cookie</span></span><br><span class="line">      <span class="keyword">this</span>.delCookie(<span class="string">'session'</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//重置loding状态</span></span><br><span class="line">      <span class="keyword">this</span>.isLogouting = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//跳转到登录页</span></span><br><span class="line">      <span class="keyword">this</span>.$router.push(<span class="string">'/login/'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这种登录方式是通过 cookie，除此之外还有session跟token两种主流方式，下次再言</p>
+</blockquote>
+<hr>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020-11-26/whyVuex.html" rel="next" title="localStorage的读取性能">
+                 localStorage的读取性能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+ <a href="/">
+          <img class="site-author-image" itemprop="image" src="http://images.linjiahong.top/avatar.jpg" alt="林加鸿">
+</a>
+          <p class="site-author-name" itemprop="name">林加鸿</p>
+          <p class="site-description motion-element" itemprop="description">欢迎来到Abo的博客，博客以分享前端web知识、数据结构与算法、计算机基础为主，希望能帮到您ㄟ(😀)ㄏ</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jhjhljh" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/jhjhljh" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/jhjhljh" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              神奇的链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://music.163.com/#/user/home?id=84597901" title="😆 网易云音乐 😆" target="_blank">😆 网易云音乐 😆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.taylorswift.com/" title="😋Taylor Swift Official Website😋" target="_blank">😋Taylor Swift Official Website😋</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tophub.today/" title="今日热榜(各大网站)" target="_blank">今日热榜(各大网站)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bilibili.com/video/av46959835/" title="独狼(Lone Wolf)——献给那些独自行走的人" target="_blank">独狼(Lone Wolf)——献给那些独自行走的人</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://linjiahong.top/about/" title="关于此博客" target="_blank">关于此博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言：技术栈"><span class="nav-number">1.</span> <span class="nav-text">前言：技术栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般过程"><span class="nav-number">2.</span> <span class="nav-text">一般过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查状态与跳转"><span class="nav-number">3.</span> <span class="nav-text">检查状态与跳转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取用户信息"><span class="nav-number">4.</span> <span class="nav-text">获取用户信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入校验和发送登录请求"><span class="nav-number">5.</span> <span class="nav-text">输入校验和发送登录请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注销"><span class="nav-number">6.</span> <span class="nav-text">注销</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy;  2018 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林加鸿</span>
+</div>
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user-circle-o"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><span class="busuanzi-value" id="busuanzi_value_site_pv"></span><i class="fa fa-eye"></i></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("W0twhOKHT901IOCEADaiuynP-gzGzoHsz", "zQfRdGCiWzVvsSpXKOJsbvHe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script>
+ $("body").backstretch("http://images.linjiahong.top/6_29.jpg");
+</script>
+</body>
+</html>
